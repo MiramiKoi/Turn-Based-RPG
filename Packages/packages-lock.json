@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "a4f0bb05cc3a4e6ed3eb6c35534e63073dac63a7"
     },
+    "com.minusrep.json-extensions": {
+      "version": "https://github.com/minusrep/JSON-Extensions.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5ad9bcea0dabf151444b8d9d4944874d57fc31c3"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.4",
       "depth": 0,
