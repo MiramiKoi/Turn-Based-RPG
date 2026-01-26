@@ -23,12 +23,9 @@ namespace Runtime.Landscape.Grid
         
         public CellModel GetCell(Vector2Int position) => Cells[position.x, position.y];
 
-        public IUnit GetUnit(Vector2Int position) =>Cells[position.x, position.y].Unit;
-
         public bool CanPlace(Vector2Int position)
         {
             var cell = Cells[position.x, position.y];
-
             return !cell.IsOccupied;
         }
 
@@ -36,19 +33,18 @@ namespace Runtime.Landscape.Grid
         {
             var cell = Cells[position.x, position.y];
             
-            if (CanPlace(position))
+            if (!CanPlace(position))
             {
-                cell.Occupied(unit);
-                return true;
+                return false;
             }
             
-            return false;
+            cell.Occupied(unit);
+            return true;
         }
 
         public void ReleaseCell(Vector2Int position)
         {
             var cell = Cells[position.x, position.y];
-            
             cell.Release();
         }
     }

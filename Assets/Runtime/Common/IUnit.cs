@@ -2,7 +2,7 @@ namespace Runtime.Common
 {
     public interface IUnit
     {
-        string ID { get; }
+        string Id { get; }
         int Health { get; }
     }
 }

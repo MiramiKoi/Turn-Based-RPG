@@ -581,7 +581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe822f6c49ce47298ce65614bfbed352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.Common.EntryPoint
-  _gridView: {fileID: 1171237501}
+  _tilemap: {fileID: 148099370}
+  _worldViewDescriptions: {fileID: 401959634}
 --- !u!4 &228816972
 Transform:
   m_ObjectHideFlags: 0
@@ -592,6 +593,51 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.46197, y: -1.20898, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &401959633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401959635}
+  - component: {fileID: 401959634}
+  m_Layer: 0
+  m_Name: WorldViewDescription
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &401959634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401959633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe437dd2e1fc488dbcc3eba51b6e82cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.WorldViewDescriptions
+  SurfaceViewDescriptions: {fileID: 11400000, guid: af4d873d03226fc47a5bbacac9a34e2c, type: 2}
+--- !u!4 &401959635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401959633}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.19271, y: 3.23818, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -744,7 +790,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1171237500}
   - component: {fileID: 1171237499}
-  - component: {fileID: 1171237501}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -780,20 +825,6 @@ Transform:
   - {fileID: 148099368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1171237501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171237498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6cedaf814543d388d47911310839ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.Landscape.Grid.GridView
-  Tilemap: {fileID: 148099370}
-  CellSprite: {fileID: 11400000, guid: 726e848b520a52b42816a6c43d244551, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -801,3 +832,4 @@ SceneRoots:
   - {fileID: 513871263}
   - {fileID: 1171237500}
   - {fileID: 228816972}
+  - {fileID: 401959635}

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f2e350ac9a490cb50df392c9429839, type: 3}
   m_Name: SurfaceViewDescriptionCollection
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Surface.SurfaceViewDescriptionCollection
-  Descriptions:
+  _descriptions:
   - {fileID: 11400000, guid: 10a8c2d3c5db3e140a576ff522dfb48c, type: 2}
