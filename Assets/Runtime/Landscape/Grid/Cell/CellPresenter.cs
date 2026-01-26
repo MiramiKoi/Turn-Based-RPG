@@ -1,5 +1,6 @@
 using Runtime.Common;
 using Runtime.ViewDescriptions;
+using UnityEngine;
 
 namespace Runtime.Landscape.Grid.Cell
 {
@@ -19,13 +20,16 @@ namespace Runtime.Landscape.Grid.Cell
         public void Enable()
         {
             var tile = _worldViewDescriptions.SurfaceViewDescriptions.Get("ground");
+            var tilePosition = new Vector3Int(_model.Position.x, _model.Position.y, 0);
             
-            _view.Tilemap.SetTile(_model.Position, tile.TileAsset.editorAsset);
+            _view.Tilemap.SetTile(tilePosition, tile.TileAsset.editorAsset);
         }
 
         public void Disable()
         {
-            _view.Tilemap.SetTile(_model.Position, null);
+            var tilePosition = new Vector3Int(_model.Position.x, _model.Position.y, 0);
+            
+            _view.Tilemap.SetTile(tilePosition, null);
         }
     }
 }
