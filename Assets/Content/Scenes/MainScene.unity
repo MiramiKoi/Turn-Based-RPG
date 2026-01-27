@@ -629,6 +629,7 @@ MonoBehaviour:
   _mainTilemap: {fileID: 148099370}
   _indicationTilemap: {fileID: 1252086883}
   _worldViewDescriptions: {fileID: 401959634}
+  _unitPrefab: {fileID: 4398691540928313302, guid: 1f177ce22deec9344872bac20cbb902c, type: 3}
 --- !u!4 &228816972
 Transform:
   m_ObjectHideFlags: 0

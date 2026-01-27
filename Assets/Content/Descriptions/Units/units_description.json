@@ -1,0 +1,8 @@
+{
+  "warrior": {
+    "stats": {
+      "health": 100
+    },
+    "view_id": "Warrior"
+  }
+}
