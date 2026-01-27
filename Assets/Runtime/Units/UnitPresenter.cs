@@ -34,6 +34,7 @@ namespace Runtime.Units
         private void OnPositionChanged(Vector2Int position)
         {
             _view.Transform.position = new Vector3(position.x, -position.y, 0);
+            _view.Transform.position = new Vector3(position.x, position.y, 0);
         }
     }
 }
