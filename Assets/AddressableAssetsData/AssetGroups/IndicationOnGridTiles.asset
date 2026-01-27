@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: GridInteract
+  m_Name: IndicationOnGridTiles
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: GridInteract
+  m_GroupName: IndicationOnGridTiles
   m_GUID: fc1f525d2e888dc4ab2d1a5ed1c665b6
   m_SerializeEntries:
-  - m_GUID: e92ab0467762e66449ebf7f873734f2e
-    m_Address: GridInteractViewDescription
+  - m_GUID: c65c116c07ccd25409811148560a18d0
+    m_Address: cell-indicator
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -7,6 +7,6 @@ namespace Runtime.ViewDescriptions
     public class WorldViewDescriptions : MonoBehaviour
     {
         public SurfaceViewDescriptionCollection SurfaceViewDescriptions;
-        public GridInteractViewDescription GridInteractViewDescription;
+        public GridIndicationViewDescription _gridIndicationViewDescription;
     }
 }

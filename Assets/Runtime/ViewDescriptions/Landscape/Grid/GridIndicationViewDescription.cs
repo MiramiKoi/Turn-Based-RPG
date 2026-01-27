@@ -4,8 +4,8 @@ using UnityEngine.Tilemaps;
 
 namespace Runtime.ViewDescriptions.Landscape.Grid
 {
-    [CreateAssetMenu(fileName = "GridInteractViewDescription", menuName = "ViewDescription/GridInteractViewDescription")]
-    public class GridInteractViewDescription : ScriptableObject
+    [CreateAssetMenu(fileName = "GridIndicationViewDescription", menuName = "ViewDescription/GridIndicationViewDescription")]
+    public class GridIndicationViewDescription : ScriptableObject
     {
         public AssetReferenceT<Tile> TileAsset;
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ground
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Surface.SurfaceViewDescription
   TileAsset:
-    m_AssetGUID: 726e848b520a52b42816a6c43d244551
+    m_AssetGUID: bc78ca53f5bb30b46aa4ae0a2e8ad090
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
