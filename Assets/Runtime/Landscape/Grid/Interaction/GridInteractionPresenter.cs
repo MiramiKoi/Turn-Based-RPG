@@ -21,6 +21,12 @@ namespace Runtime.Landscape.Grid.Interaction
         {
             _world.PlayerControls.Player.PointerMove.performed += OnPointerMove;
         }
+        
+        public void Disable()
+        {
+            _world.PlayerControls.Player.PointerMove.performed -= OnPointerMove;
+            Clear();
+        }
 
         private void OnPointerMove(InputAction.CallbackContext context)
         {
@@ -43,11 +49,6 @@ namespace Runtime.Landscape.Grid.Interaction
         private void Clear()
         {
             _model.SetCell(null);
-        }
-
-        public void Disable()
-        {
-            _world.PlayerControls.Player.PointerMove.performed -= OnPointerMove;
         }
     }
 }

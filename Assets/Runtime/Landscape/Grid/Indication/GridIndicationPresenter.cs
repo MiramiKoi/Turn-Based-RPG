@@ -1,7 +1,6 @@
 using Runtime.Common;
 using Runtime.Landscape.Grid.Cell;
 using Runtime.ViewDescriptions;
-using UnityEngine;
 
 namespace Runtime.Landscape.Grid.Indication
 {
@@ -52,7 +51,7 @@ namespace Runtime.Landscape.Grid.Indication
             }
 
             var tile = _worldViewDescriptions._gridIndicationViewDescription.TileAsset.editorAsset;
-            _view.Tilemap.SetTile(ToCellPos(_currentCell), tile);
+            _view.Tilemap.SetTile(GridHelper.ToCellPos(_currentCell), tile);
         }
 
         private void Clear()
@@ -62,12 +61,7 @@ namespace Runtime.Landscape.Grid.Indication
                 return;
             }
             
-            _view.Tilemap.SetTile(ToCellPos(_currentCell), null);
-        }
-        
-        private Vector3Int ToCellPos(CellModel cell)
-        {
-            return new Vector3Int(cell.Position.x, cell.Position.y, 0);
+            _view.Tilemap.SetTile( GridHelper.ToCellPos(_currentCell), null);
         }
     }
 }
