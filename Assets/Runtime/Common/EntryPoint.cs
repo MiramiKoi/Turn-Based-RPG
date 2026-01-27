@@ -8,8 +8,8 @@ namespace Runtime.Common
 {
     public class EntryPoint : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap;
-        [SerializeField] private Tilemap _gridInteractionTilemap;
+        [SerializeField] private Tilemap _mainTilemap;
+        [SerializeField] private Tilemap _indicationTilemap;
         [SerializeField] private WorldViewDescriptions _worldViewDescriptions;
         
         private readonly World _world = new();
@@ -22,12 +22,11 @@ namespace Runtime.Common
             
             _world.SetData(_playerControls);
             
-            var gridView = new GridView(_tilemap);
+            var gridView = new GridView(_mainTilemap);
             var gridPresenter = new GridPresenter(_world.GridModel, gridView, _worldViewDescriptions);
             gridPresenter.Enable();
-
-            var gridInteractionView = new GridInteractionView(_tilemap);
-            var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, gridInteractionView, _world);
+            
+            var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, gridView, _world);
             gridInteractionPresenter.Enable();
         }
     }

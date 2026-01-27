@@ -6,11 +6,11 @@ namespace Runtime.Landscape.Grid.Interaction
 {
     public class GridInteractionPresenter : IPresenter
     {
-        private readonly GridInteractionView _view;
+        private readonly GridView _view;
         private readonly GridInteractionModel _model;
         private readonly World _world;
 
-        public GridInteractionPresenter(GridInteractionModel model, GridInteractionView view, World world)
+        public GridInteractionPresenter(GridInteractionModel model, GridView view, World world)
         {
             _model = model;
             _view = view;
