@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: GridInteract
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Default Local Group
-  m_GUID: 3733df6f3331c8e46ae115bebcc7c0c0
+  m_GroupName: GridInteract
+  m_GUID: fc1f525d2e888dc4ab2d1a5ed1c665b6
   m_SerializeEntries:
-  - m_GUID: 8ed72886c780456458d85ae4ad43e642
-    m_Address: Assets/Content/Imports/cell-interact-icon.asset
+  - m_GUID: e92ab0467762e66449ebf7f873734f2e
+    m_Address: GridInteractViewDescription
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -24,5 +24,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d7cc53133faff0640805ecd77a61ceaa, type: 2}
-    - {fileID: 11400000, guid: 20257bf1d8a978f4f8bf6397cd89ca66, type: 2}
+    - {fileID: 11400000, guid: 5c4cf7afff9bcf9408b92132b2ade4a4, type: 2}
+    - {fileID: 11400000, guid: 405712106011e464995d3e46efc726ad, type: 2}
