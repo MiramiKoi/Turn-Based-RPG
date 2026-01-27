@@ -1,4 +1,5 @@
 using Runtime.Landscape.Grid;
+using Runtime.Landscape.Grid.Indication;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -28,6 +29,10 @@ namespace Runtime.Common
             
             var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, gridView, _world);
             gridInteractionPresenter.Enable();
+
+            var gridIndicationView = new GridIndicationView(_indicationTilemap);
+            var gridIndicationPresenter = new GridIndicationPresenter(gridIndicationView, _world,  _worldViewDescriptions);
+            gridIndicationPresenter.Enable();
         }
     }
 }

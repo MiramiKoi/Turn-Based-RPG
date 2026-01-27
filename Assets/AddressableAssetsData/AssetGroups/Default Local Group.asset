@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 3733df6f3331c8e46ae115bebcc7c0c0
   m_SerializeEntries:
-  - m_GUID: 8ed72886c780456458d85ae4ad43e642
-    m_Address: Assets/Content/Imports/cell-interact-icon.asset
+  - m_GUID: 674428b540fce734996356cbf1e124f8
+    m_Address: GridIndicationViewDescription
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

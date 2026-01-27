@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1859cb2ce4c44888b8e248ff1102ec7, type: 3}
-  m_Name: GridInteractViewDescription
-  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Grid.GridInteractViewDescription
+  m_Name: GridIndicationViewDescription
+  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Grid.GridIndicationViewDescription
   TileAsset:
-    m_AssetGUID: 8ed72886c780456458d85ae4ad43e642
+    m_AssetGUID: c65c116c07ccd25409811148560a18d0
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
