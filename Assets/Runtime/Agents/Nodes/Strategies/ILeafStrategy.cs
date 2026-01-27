@@ -2,11 +2,8 @@ namespace Runtime.Agents.Nodes
 {
     public interface ILeafStrategy
     {
-        NodeStatus Process();
-
-        void Reset()
-        {
-            
-        }
+        string Type { get; }
+        
+        NodeStatus Process(IWorldContext context, IUnit unit);
     }
 }

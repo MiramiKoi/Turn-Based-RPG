@@ -2,11 +2,13 @@ namespace Runtime.Agents.Nodes
 {
     public class Selector : Node
     {
-        public override NodeStatus Process()
+        protected override string Type => "selector";
+
+        public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
             if (CurrentChildIndex < Children.Count)
             {
-                switch (Children[CurrentChildIndex].Process())
+                switch (Children[CurrentChildIndex].Process(context, unit))
                 {
                     case NodeStatus.Running:
                         return NodeStatus.Running;

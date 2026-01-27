@@ -2,11 +2,13 @@ namespace Runtime.Agents.Nodes
 {
     public class Sequence : Node
     {
-        public override NodeStatus Process()
+        protected override string Type => "sequence";
+
+        public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
             if (CurrentChildIndex < Children.Count)
             {
-                var currentStatus = Children[CurrentChildIndex].Process();
+                var currentStatus = Children[CurrentChildIndex].Process(context, unit);
 
                 switch (currentStatus)
                 {

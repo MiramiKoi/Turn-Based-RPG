@@ -2,16 +2,13 @@ namespace Runtime.Agents.Nodes
 {
     public class BehaviorTree : Node
     {
-        public BehaviorTree()
-        {
-            
-        }
-        
-        public override NodeStatus Process()
+        protected override string Type => "root";
+
+        public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
             while(CurrentChildIndex < Children.Count)
             {
-                var status = Children[CurrentChildIndex].Process();
+                var status = Children[CurrentChildIndex].Process(context, unit);
 
                 if (status != NodeStatus.Success)
                 {

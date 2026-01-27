@@ -1,22 +1,32 @@
+using System.Collections.Generic;
+
 namespace Runtime.Agents.Nodes
 {
     public class Leaf : Node
     {
-        private readonly ILeafStrategy _strategy;
+        private const string StrategyKey = "strategy";
+        
+        protected override string Type => "leaf";
 
-        public Leaf(ILeafStrategy strategy)
+        protected ILeafStrategy _strategy; 
+        
+        public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
-            _strategy = strategy;
+            return _strategy.Process(context, unit);   
         }
 
-        public override NodeStatus Process()
+        public override Dictionary<string, object> Serialize()
         {
-            return _strategy.Process();
+            var dictionary = base.Serialize();
+            
+            dictionary[StrategyKey] = _strategy.Type;
+            
+            return dictionary;
         }
 
-        public override void Reset()
+        public override void Deserialize(Dictionary<string, object> data)
         {
-            _strategy.Reset();
+            base.Deserialize(data);
         }
     }
 }
