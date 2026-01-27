@@ -22,6 +22,7 @@ namespace Runtime.Units
         public void Enable()
         {
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
+            OnPositionChanged(_unit.Position.Value);
         }
 
         public void Disable()
