@@ -7,6 +7,7 @@ using Runtime.Landscape.Grid;
 using Runtime.Units;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Landscape.Grid.Interaction;
+using Runtime.Player;
 using Runtime.ViewDescriptions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -54,7 +55,7 @@ namespace Runtime.Common
             (
                 "unit_0", 
                 new UnitDescription("warrior",unitDescription.GetNode("warrior")), 
-                new Vector2Int(0, 0)
+                new Vector2Int(50, 49)
             );
             
             var unitView = Instantiate(_unitPrefab, Vector3.zero, Quaternion.identity);
@@ -62,11 +63,8 @@ namespace Runtime.Common
             var unitPresenter = new UnitPresenter(unitModel, unitView);
             unitPresenter.Enable();
             
-            var position = new Vector2Int(50, 50);
-            if (_world.GridModel.TryPlace(unitModel, position))
-            {
-                unitModel.MoveTo(position);
-            }
+            var playerPresenter = new PlayerPresenter(unitModel, _world);
+            playerPresenter.Enable();
         }
     }
 }
