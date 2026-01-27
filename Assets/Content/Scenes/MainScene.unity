@@ -191,7 +191,7 @@ Transform:
   m_GameObject: {fileID: 148099367}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -629,6 +629,7 @@ MonoBehaviour:
   _mainTilemap: {fileID: 148099370}
   _indicationTilemap: {fileID: 1252086883}
   _worldViewDescriptions: {fileID: 401959634}
+  _unitPrefab: {fileID: 4398691540928313302, guid: 1f177ce22deec9344872bac20cbb902c, type: 3}
 --- !u!4 &228816972
 Transform:
   m_ObjectHideFlags: 0
@@ -777,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 513871260}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 50, z: -10}
+  m_LocalPosition: {x: 50, y: -50, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -899,7 +900,7 @@ Transform:
   m_GameObject: {fileID: 1252086880}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
