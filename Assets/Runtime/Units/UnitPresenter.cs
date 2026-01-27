@@ -22,7 +22,7 @@ namespace Runtime.Units
         public void Enable()
         {
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
-            OnPositionChanged(_unit.Position.Value);
+            _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
         }
 
         public void Disable()
@@ -33,8 +33,12 @@ namespace Runtime.Units
         
         private void OnPositionChanged(Vector2Int position)
         {
-            _view.Transform.position = new Vector3(position.x, -position.y, 0);
             _view.Transform.position = new Vector3(position.x, position.y, 0);
+        }
+
+        private void OnRotationChanged(UnitDirection direction)
+        {
+            _view.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
     }
 }

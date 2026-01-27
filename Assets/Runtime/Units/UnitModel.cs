@@ -12,7 +12,10 @@ namespace Runtime.Units
         
         private readonly ReactiveProperty<Vector2Int> _position = new ();
         public IReadOnlyReactiveProperty<Vector2Int> Position => _position;
-
+        
+        private readonly ReactiveProperty<UnitDirection> _direction = new ();
+        public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
+        
         public StatModelCollection Stats { get; private set; }
         
         public string Id { get; }
@@ -30,6 +33,11 @@ namespace Runtime.Units
         public void MoveTo(Vector2Int position)
         {
             _position.Value =  position;
+        }
+
+        public void Rotate(UnitDirection direction)
+        {
+            _direction.Value = direction;
         }
     }
 }
