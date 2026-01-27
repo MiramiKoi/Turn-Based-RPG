@@ -3,7 +3,7 @@ using Runtime.Extensions;
 
 namespace Runtime.ModelCollections
 {
-    public abstract class SerializeModelCollection<T> : ModelCollectionBase<string, T> where T : ISerializeModel
+    public abstract class SerializeModelCollection<T> : ModelCollectionBase<string, T> where T : ISerializable
     {
         protected int Index { get; private set; }
 

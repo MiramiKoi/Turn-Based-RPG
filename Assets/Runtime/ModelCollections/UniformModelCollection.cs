@@ -1,6 +1,6 @@
 ﻿namespace Runtime.ModelCollections
 {
-    public abstract class UniformModelCollection<T> : SerializeModelCollection<T> where T : ISerializeModel
+    public abstract class UniformModelCollection<T> : SerializeModelCollection<T> where T : ISerializable
     {
         protected UniformModelCollection(string descriptionKey)
         {

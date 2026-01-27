@@ -1,7 +1,7 @@
 ﻿namespace Runtime.ModelCollections
 {
     public abstract class DescribedModelCollection<T> : SerializeModelCollection<T>
-        where T : ISerializeModel
+        where T : ISerializable
     {
         public void Create(string descriptionKey)
         {

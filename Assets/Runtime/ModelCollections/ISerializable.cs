@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Runtime.ModelCollections
 {
-    public interface ISerializeModel
+    public interface ISerializable
     {
         Dictionary<string, object> Serialize();
     }
