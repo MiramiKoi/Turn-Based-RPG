@@ -1,6 +1,6 @@
 namespace Runtime.Agents.Nodes
 {
-    public class Sequence : Node
+    public class AgentSequence : AgentNode
     {
         protected override string Type => "sequence";
 

@@ -1,3 +1,4 @@
+using fastJSON;
 using UnityEngine;
 
 namespace Runtime.Agents.Nodes
@@ -6,19 +7,19 @@ namespace Runtime.Agents.Nodes
     {
         private void Start()
         {
-            var behaviorTree = new BehaviorTree();
+            var behaviorTree = new AgentBehaviorTree();
             
-            behaviorTree.AddChild(new Selector());
-            behaviorTree.AddChild(new Selector());
+            behaviorTree.AddChild(new AgentSelector());
+            behaviorTree.AddChild(new AgentSelector());
             
-            var sequence = new Sequence();
+            var sequence = new AgentSequence();
             
-            sequence.AddChild(new Sequence());
-            sequence.AddChild(new Sequence());
+            sequence.AddChild(new AgentSequence());
+            sequence.AddChild(new AgentSequence());
             
             behaviorTree.AddChild(sequence);
             
-            var json = JsonUtility.ToJson(behaviorTree);
+            var json = JSON.ToNiceJSON(behaviorTree.Serialize());
             
             Debug.Log(json);
         }

@@ -1,6 +1,6 @@
 namespace Runtime.Agents.Nodes
 {
-    public class BehaviorTree : Node
+    public class AgentBehaviorTree : AgentNode
     {
         protected override string Type => "root";
 

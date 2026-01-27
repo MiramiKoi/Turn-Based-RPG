@@ -1,6 +1,6 @@
 namespace Runtime.Agents.Nodes
 {
-    public class Selector : Node
+    public class AgentSelector : AgentNode
     {
         protected override string Type => "selector";
 

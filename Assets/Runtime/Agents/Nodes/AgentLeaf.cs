@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Runtime.Agents.Nodes
 {
-    public class Leaf : Node
+    public class AgentLeaf : AgentNode
     {
         private const string StrategyKey = "strategy";
         

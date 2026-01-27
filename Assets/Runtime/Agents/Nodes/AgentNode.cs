@@ -5,7 +5,7 @@ using Runtime.ModelCollections;
 
 namespace Runtime.Agents.Nodes
 {
-    public abstract class Node : ISerializable, IDeserializable
+    public abstract class AgentNode : ISerializable, IDeserializable
     {
         private const string TypeKey = "type";
         
@@ -13,11 +13,11 @@ namespace Runtime.Agents.Nodes
         
         protected abstract string Type { get; }
         
-        protected List<Node> Children { get; set; } = new List<Node>();
+        protected List<AgentNode> Children { get; set; } = new List<AgentNode>();
 
         protected int CurrentChildIndex { get; set; } = 0;
         
-        public void AddChild(Node child)
+        public void AddChild(AgentNode child)
         {
             Children.Add(child);
         }
@@ -55,7 +55,7 @@ namespace Runtime.Agents.Nodes
 
         public virtual void Deserialize(Dictionary<string, object> data)
         {
-            Node node = CreateNodeFromData(data);
+            AgentNode agentNode = CreateNodeFromData(data);
 
             if (data.TryGetValue(ChildrenKey, out var childrenObj) && childrenObj is List<object> childrenList)
             {
@@ -63,25 +63,25 @@ namespace Runtime.Agents.Nodes
                 {
                     if (childObj is Dictionary<string, object> childDict)
                     {
-                        Node childNode = CreateNodeFromData(childDict);
-                        childNode.Deserialize(childDict);
-                        node.AddChild(childNode);
+                        AgentNode childAgentNode = CreateNodeFromData(childDict);
+                        childAgentNode.Deserialize(childDict);
+                        agentNode.AddChild(childAgentNode);
                     }
                 }
             }
 
-            Children = node.Children;
+            Children = agentNode.Children;
         }
 
-        private static Node CreateNodeFromData(Dictionary<string, object> data)
+        private static AgentNode CreateNodeFromData(Dictionary<string, object> data)
         {
             var typeString = data.GetString(TypeKey).ToLowerInvariant();
 
             return typeString switch
             {
-                "selector" => new Selector(),
-                "sequence" => new Sequence(),
-                "leaf" => new Leaf(),
+                "selector" => new AgentSelector(),
+                "sequence" => new AgentSequence(),
+                "leaf" => new AgentLeaf(),
                 _ => throw new Exception()
             };
         }
