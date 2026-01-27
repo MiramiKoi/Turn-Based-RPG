@@ -16,7 +16,7 @@ namespace Runtime.Landscape.Grid.Interaction
             _view = view;
             _world = world;
         }
-        
+
         public void Enable()
         {
             _world.PlayerControls.Player.PointerMove.performed += OnPointerMove;
@@ -25,15 +25,26 @@ namespace Runtime.Landscape.Grid.Interaction
         private void OnPointerMove(InputAction.CallbackContext context)
         {
             var mousePosition = context.ReadValue<Vector2>();
-            
+
             var worldPosition = _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
             var cellPosition = _view.Tilemap.WorldToCell(worldPosition);
 
-            var cell = _world.GridModel.GetCell(new Vector2Int(cellPosition.x, cellPosition.y));
-
-            _model.SetCell(cell);
+            if (cellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
+            {
+                var cell = _world.GridModel.GetCell(new Vector2Int(cellPosition.x, cellPosition.y));
+                _model.SetCell(cell);
+            }
+            else
+            {
+                Clear();
+            }
         }
-        
+
+        private void Clear()
+        {
+            _model.SetCell(null);
+        }
+
         public void Disable()
         {
             _world.PlayerControls.Player.PointerMove.performed -= OnPointerMove;
