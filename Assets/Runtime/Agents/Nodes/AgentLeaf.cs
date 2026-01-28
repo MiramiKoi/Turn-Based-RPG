@@ -12,26 +12,20 @@ namespace Runtime.Agents.Nodes
         
         public string Command { get; set; }
         
-        protected ILeafStrategy _strategy; 
-        
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
-            return _strategy.Process(context, unit);   
+            var command = unit.TryGetCommand(CommandKey);
+            
+            return command.Execute(context, unit);
         }
 
         public override Dictionary<string, object> Serialize()
         {
             var dictionary = base.Serialize();
             
-            dictionary[StrategyKey] = _strategy.Type;
             dictionary[CommandKey] = Command;
             
             return dictionary;
-        }
-
-        public override void Deserialize(Dictionary<string, object> data)
-        {
-            base.Deserialize(data);
         }
     }
 }
