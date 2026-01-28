@@ -8,6 +8,10 @@ namespace Runtime.Agents.Nodes
 
         public override string Type => "leaf";
 
+        public string CommandKey => "command";
+        
+        public string Command { get; set; }
+        
         protected ILeafStrategy _strategy; 
         
         public override NodeStatus Process(IWorldContext context, IUnit unit)
@@ -20,6 +24,7 @@ namespace Runtime.Agents.Nodes
             var dictionary = base.Serialize();
             
             dictionary[StrategyKey] = _strategy.Type;
+            dictionary[CommandKey] = Command;
             
             return dictionary;
         }
