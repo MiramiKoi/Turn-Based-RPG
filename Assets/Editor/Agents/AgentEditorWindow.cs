@@ -138,7 +138,6 @@ namespace Editor.Agents
                     var outputNodeView = edge.output.node as AgentNodeView;
                     var inputNodeView = edge.input.node as AgentNodeView;
 
-                    // Добавляем input node в Children output node
                     if (!outputNodeView.Data.Children.Contains(inputNodeView.Data))
                     {
                         outputNodeView.Data.AddChild(inputNodeView.Data);
