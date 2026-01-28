@@ -14,9 +14,7 @@ namespace Runtime.Agents.Nodes
         
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
-            var command = unit.TryGetCommand(CommandKey);
-            
-            return command.Execute(context, unit);
+            return unit.AvailableCommands[CommandKey].Execute(context, unit);
         }
 
         public override Dictionary<string, object> Serialize()

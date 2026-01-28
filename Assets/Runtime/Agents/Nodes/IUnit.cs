@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace Runtime.Agents.Nodes
 {
     public interface IUnit
     {
-        public IUnitCommand TryGetCommand(string key);
+        IReadOnlyDictionary<string, IUnitCommand> AvailableCommands { get; }
     }
 }
