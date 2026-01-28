@@ -2,7 +2,7 @@ namespace Runtime.Agents.Nodes
 {
     public class AgentSelector : AgentNode
     {
-        protected override string Type => "selector";
+        public override string Type => "selector";
 
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {

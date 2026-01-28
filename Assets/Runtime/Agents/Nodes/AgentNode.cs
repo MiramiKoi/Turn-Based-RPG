@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
+using UnityEngine;
 
 namespace Runtime.Agents.Nodes
 {
@@ -9,11 +10,15 @@ namespace Runtime.Agents.Nodes
     {
         private const string TypeKey = "type";
         
+        private const string PositionKey = "position";
+        
         private const string ChildrenKey = "children";
         
-        protected abstract string Type { get; }
+        public abstract string Type { get; }
         
-        protected List<AgentNode> Children { get; set; } = new List<AgentNode>();
+        public Vector2 Position { get; set; }
+        
+        public List<AgentNode> Children { get; private set; } = new List<AgentNode>();
 
         protected int CurrentChildIndex { get; set; } = 0;
         
@@ -49,7 +54,8 @@ namespace Runtime.Agents.Nodes
             return new Dictionary<string, object>()
             {
                 {TypeKey, Type},
-                {ChildrenKey, children}
+                {ChildrenKey, children},
+                {PositionKey, Position.ToList()},
             };
         }
 
@@ -70,6 +76,8 @@ namespace Runtime.Agents.Nodes
                 }
             }
 
+            Position = data.GetVector2(PositionKey);;
+            
             Children = agentNode.Children;
         }
 
@@ -77,13 +85,16 @@ namespace Runtime.Agents.Nodes
         {
             var typeString = data.GetString(TypeKey).ToLowerInvariant();
 
-            return typeString switch
+            AgentNode node = typeString switch
             {
                 "selector" => new AgentSelector(),
                 "sequence" => new AgentSequence(),
                 "leaf" => new AgentLeaf(),
+                "root" => new AgentBehaviorTree(),
                 _ => throw new Exception()
             };
+            
+            return node;
         }
     }
 }

@@ -2,7 +2,7 @@ namespace Runtime.Agents.Nodes
 {
     public class AgentSequence : AgentNode
     {
-        protected override string Type => "sequence";
+        public override string Type => "sequence";
 
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {

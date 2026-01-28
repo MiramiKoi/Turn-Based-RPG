@@ -26,8 +26,9 @@ namespace Editor.Agents
 
         public void ClearGraph()
         {
+            graphElements.ForEach(RemoveElement);
         }
-
+        
         private void SetupManipulators()
         {
             this.AddManipulator(new ContentDragger());

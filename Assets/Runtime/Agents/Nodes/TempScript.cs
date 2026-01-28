@@ -1,3 +1,5 @@
+using System.IO;
+using System.Net;
 using fastJSON;
 using UnityEngine;
 
@@ -20,6 +22,8 @@ namespace Runtime.Agents.Nodes
             behaviorTree.AddChild(sequence);
             
             var json = JSON.ToNiceJSON(behaviorTree.Serialize());
+            
+            File.WriteAllText("C:\\Users\\Artem\\RiderProjects\\Turn-Based-RPG\\Assets\\Content\\Descriptions\\behavior-tree-description.json", json);
             
             Debug.Log(json);
         }

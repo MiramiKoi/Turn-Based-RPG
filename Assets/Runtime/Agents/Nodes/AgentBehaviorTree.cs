@@ -2,11 +2,11 @@ namespace Runtime.Agents.Nodes
 {
     public class AgentBehaviorTree : AgentNode
     {
-        protected override string Type => "root";
+        public override string Type => "root";
 
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
-            while(CurrentChildIndex < Children.Count)
+            while (CurrentChildIndex < Children.Count)
             {
                 var status = Children[CurrentChildIndex].Process(context, unit);
 
@@ -17,7 +17,7 @@ namespace Runtime.Agents.Nodes
 
                 CurrentChildIndex++;
             }
-            
+
             return NodeStatus.Success;
         }
     }
