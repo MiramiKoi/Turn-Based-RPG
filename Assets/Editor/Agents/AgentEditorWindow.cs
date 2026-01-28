@@ -45,7 +45,6 @@ namespace Editor.Agents
             var window = GetWindow<AgentEditorWindow>();
 
             window.titleContent = new GUIContent(Title);
-            
         }
 
         private void AddStyles()
@@ -57,7 +56,10 @@ namespace Editor.Agents
         {
             var toolbar = new Toolbar();
 
-            toolbar.Add(CreateToolbarButton("Create node", () => _graphView.AddDialogueNode()));
+            toolbar.Add(CreateToolbarButton("Selector", _graphView.AddAgentNode<AgentSelector>));
+            toolbar.Add(CreateToolbarButton("Sequence", _graphView.AddAgentNode<AgentSequence>));
+            toolbar.Add(CreateToolbarButton("Leaf", _graphView.AddAgentNode<AgentLeaf>));
+            toolbar.Add(CreateToolbarButton("Root", _graphView.AddAgentNode<AgentBehaviorTree>));
 
             toolbar.Add(CreateToolbarButton("Save", Save));
 
@@ -93,9 +95,9 @@ namespace Editor.Agents
                 return;
             }
 
-            var nodes = _graphView.nodes.OfType<AgentNodeView>().ToList(); 
+            var nodes = _graphView.nodes.OfType<AgentBaseNodeView>().ToList(); 
             
-            nodes.ToList().ForEach(nv => nv.SavePosition());
+            nodes.ToList().ForEach(nv => nv.SaveData());
             
             var rootNodeView = nodes.FirstOrDefault(nv => nv.Data is AgentBehaviorTree);
 
@@ -135,8 +137,8 @@ namespace Editor.Agents
             {
                 foreach (var edge in graphViewChange.edgesToCreate)
                 {
-                    var outputNodeView = edge.output.node as AgentNodeView;
-                    var inputNodeView = edge.input.node as AgentNodeView;
+                    var outputNodeView = edge.output.node as AgentBaseNodeView;
+                    var inputNodeView = edge.input.node as AgentBaseNodeView;
 
                     if (!outputNodeView.Data.Children.Contains(inputNodeView.Data))
                     {
@@ -150,8 +152,8 @@ namespace Editor.Agents
             {
                 foreach (var edge in graphViewChange.elementsToRemove.OfType<Edge>())
                 {
-                    var outputNodeView = edge.output.node as AgentNodeView;
-                    var inputNodeView = edge.input.node as AgentNodeView;
+                    var outputNodeView = edge.output.node as AgentBaseNodeView;
+                    var inputNodeView = edge.input.node as AgentBaseNodeView;
 
                     if (outputNodeView.Data.Children.Contains(inputNodeView.Data))
                     {
@@ -166,7 +168,7 @@ namespace Editor.Agents
 
         private void BuildGraphRecursive(AgentNode node)
         {
-            var nodeView = new AgentNodeView(node);
+            var nodeView = new AgentBaseNodeView(node);
             
             _graphView.AddElement(nodeView);
 
@@ -175,7 +177,7 @@ namespace Editor.Agents
                 BuildGraphRecursive(child);
                 
                 var childView = _graphView.nodes.ToList()
-                    .OfType<AgentNodeView>()
+                    .OfType<AgentBaseNodeView>()
                     .First(nv => nv.Data ==  child);
                 
                 var edge = nodeView.OutputPort.ConnectTo(childView.InputPort);

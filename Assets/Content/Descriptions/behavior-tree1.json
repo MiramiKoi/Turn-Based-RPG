@@ -2,47 +2,37 @@
    "type" : "root",
    "children" : [
       {
-         "type" : "selector",
-         "children" : [
-            
-         ],
-         "position" : [
-            -27.2,
-            -272
-         ]
-      },
-      {
-         "type" : "selector",
-         "children" : [
-            
-         ],
-         "position" : [
-            144,
-            -262.4
-         ]
-      },
-      {
          "type" : "sequence",
          "children" : [
             {
-               "type" : "sequence",
+               "type" : "selector",
                "children" : [
                   
                ],
                "position" : [
-                  474.4,
-                  -100.8
+                  -132,
+                  370.4
+               ]
+            },
+            {
+               "type" : "selector",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  242.4,
+                  395.2
                ]
             }
          ],
          "position" : [
-            307.2,
-            -248
+            21.6,
+            181.6
          ]
       }
    ],
    "position" : [
-      133.6,
-      -479.2
+      0,
+      0
    ]
 }

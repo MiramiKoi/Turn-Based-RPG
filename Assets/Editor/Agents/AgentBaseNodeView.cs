@@ -4,21 +4,28 @@ using UnityEngine;
 
 namespace Editor.Agents
 {
-    public class AgentNodeView : Node
+    public class AgentBaseNodeView : Node 
     {
+        public AgentNode Data { get; private set; }
+
         public Port InputPort { get; set; }
 
         public Port OutputPort { get; set; }
-        
-        public AgentNode Data { get; set; }
 
-        public AgentNodeView(AgentNode data)
+        public string Title
         {
-            title = data.Type;
+            get => base.title;
+            set => base.title = value;
+        }
+
+        public AgentBaseNodeView(AgentNode data)
+        {
             Data = data;
             
+            Title = data.Type;
+            
             InputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(float));
-            outputContainer.Add(InputPort);
+            inputContainer.Add(InputPort);
 
             OutputPort = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Multi, typeof(float));
             outputContainer.Add(OutputPort);
@@ -28,10 +35,8 @@ namespace Editor.Agents
             SetPosition(new Rect(data.Position, new Vector2(100, 100)));
         }
 
-        public void SavePosition()
+        public virtual void SaveData()
         {
-            Debug.Log($"Position: {GetPosition().position}");
-            
             Data.Position = GetPosition().position;
         }
     }
