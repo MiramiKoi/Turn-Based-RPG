@@ -47,5 +47,10 @@ namespace Runtime.Landscape.Grid
             var cell = Cells[position.x, position.y];
             cell.Release();
         }
+        
+        public bool IsInsideGrid(Vector2Int pos)
+        {
+            return pos is { x: >= 0 and < GridConstants.Width, y: >= 0 and < GridConstants.Height };
+        }
     }
 }
