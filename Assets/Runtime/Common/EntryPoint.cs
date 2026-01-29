@@ -3,6 +3,7 @@ using System.IO;
 using fastJSON;
 using Runtime.Descriptions.Units;
 using Runtime.Extensions;
+using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Units;
 using Runtime.Landscape.Grid.Indication;

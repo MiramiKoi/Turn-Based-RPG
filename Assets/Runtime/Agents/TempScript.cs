@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using fastJSON;
 using Runtime.Agents.Nodes;
+using Runtime.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
