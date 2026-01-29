@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: IndicationOnGridTiles
   m_GUID: fc1f525d2e888dc4ab2d1a5ed1c665b6
   m_SerializeEntries:
+  - m_GUID: 6a5a1a2600d518b4c84a0c12084bccf8
+    m_Address: route-point
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c65c116c07ccd25409811148560a18d0
     m_Address: cell-indicator
     m_ReadOnly: 0
