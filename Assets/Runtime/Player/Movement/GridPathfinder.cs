@@ -12,7 +12,11 @@ namespace Runtime.Player.Movement
             Vector2Int.up,
             Vector2Int.down,
             Vector2Int.left,
-            Vector2Int.right
+            Vector2Int.right,
+            new(1, 1),
+            new(-1, 1),
+            new(1, -1),
+            new(-1, -1)
         };
 
         public List<Vector2Int> FindPath(
