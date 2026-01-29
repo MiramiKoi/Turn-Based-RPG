@@ -1,3 +1,4 @@
+using System.Linq;
 using Runtime.Common;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Player.Movement;
@@ -8,14 +9,14 @@ namespace Runtime.Player
 {
     public class PlayerPresenter : IPresenter
     {
-        private readonly UnitModel _character;
+        private readonly UnitModel _model;
         private readonly World _world;
         private readonly GridPathfinder _pathfinder;
         private readonly MovementQueue _movementQueue;
 
-        public PlayerPresenter(UnitModel character, World world)
+        public PlayerPresenter(UnitModel model, World world)
         {
-            _character = character;
+            _model = model;
             _world = world;
             _pathfinder = new GridPathfinder();
             _movementQueue = new MovementQueue();
@@ -24,7 +25,7 @@ namespace Runtime.Player
         public void Enable()
         {
             _world.GridInteractionModel.OnCurrentCellChanged += HandlePointerMove;
-        }
+        } 
 
         public void Disable()
         {
@@ -36,7 +37,7 @@ namespace Runtime.Player
             if (_world.GridInteractionModel.CurrentCell == null)
                 return;
 
-            var start = _character.Position.Value;
+            var start = _model.Position.Value;
             var target = _world.GridInteractionModel.CurrentCell.Position;
 
             if (_movementQueue.HasSteps)
@@ -51,7 +52,8 @@ namespace Runtime.Player
                 target);
 
             _movementQueue.SetPath(path);
-            foreach (var position in path)
+            
+            foreach (var position in path.Where(position => _model.Position.Value != position))
                 _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
         }
 
@@ -70,18 +72,18 @@ namespace Runtime.Player
 
             RotateCharacter(nextCell);
 
-            _world.GridModel.ReleaseCell(_character.Position.Value);
-            _world.GridModel.TryPlace(_character, nextCell);
-            _character.MoveTo(nextCell);
+            _world.GridModel.ReleaseCell(_model.Position.Value);
+            _world.GridModel.TryPlace(_model, nextCell);
+            _model.MoveTo(nextCell);
         }
         
         private void RotateCharacter(Vector2Int next)
         {
-            var current = _character.Position.Value;
+            var current = _model.Position.Value;
             if (next.x == current.x)
                 return;
 
-            _character.Rotate(
+            _model.Rotate(
                 next.x < current.x
                     ? UnitDirection.Left
                     : UnitDirection.Right);
