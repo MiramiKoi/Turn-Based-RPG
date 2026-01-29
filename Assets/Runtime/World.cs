@@ -1,3 +1,4 @@
+using Runtime.GameSystems;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
@@ -13,6 +14,7 @@ namespace Runtime
         public GridModel GridModel { get; private set; }
         public GridInteractionModel GridInteractionModel { get; private set; }
         public Camera MainCamera { get; private set; }
+        public GameSystemCollection GameSystems { get; private set; }
 
         public void SetData(PlayerControls playerControls)
         {
@@ -23,6 +25,7 @@ namespace Runtime
             GridInteractionModel = new GridInteractionModel();
 
             MainCamera = Camera.main;
+            GameSystems = new GameSystemCollection();
         }
     }
 }

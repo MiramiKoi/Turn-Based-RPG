@@ -5,10 +5,10 @@ using Runtime.Descriptions.Units;
 using Runtime.Extensions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
-using Runtime.Units;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.Player;
+using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -45,6 +45,11 @@ namespace Runtime.Common
             gridIndicationPresenter.Enable();
             
             CreateUnit();
+        }
+        
+        private void Update()
+        {
+            _world.GameSystems.Update(Time.deltaTime);
         }
 
         private void CreateUnit()
