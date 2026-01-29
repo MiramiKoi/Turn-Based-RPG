@@ -1,6 +1,6 @@
 using System;
 
-namespace Runtime.Turn
+namespace Runtime.Agents.Turn
 {
     public class TurnModel
     {
