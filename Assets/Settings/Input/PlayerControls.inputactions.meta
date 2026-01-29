@@ -11,4 +11,4 @@ ScriptedImporter:
   generateWrapperCode: 1
   wrapperCodePath: Assets/Runtime/Input/PlayerControls.cs
   wrapperClassName: 
-  wrapperCodeNamespace: 
+  wrapperCodeNamespace: Runtime.Input
