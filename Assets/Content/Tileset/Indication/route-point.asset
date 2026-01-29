@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: route-point
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
   m_Sprite: {fileID: 21300000, guid: 982be0e3dbdd4844cb3bf8242de21405, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 0.5019608}
   m_Transform:
     e00: 1
     e01: 0
