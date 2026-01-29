@@ -1,4 +1,5 @@
 using Runtime.Common;
+using Runtime.Landscape.Grid.Indication;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,21 +34,20 @@ namespace Runtime.Landscape.Grid.Interaction
             var mousePosition = context.ReadValue<Vector2>();
 
             var worldPosition = _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
-            var cellPosition = _view.Tilemap.WorldToCell(worldPosition);
-
-            if (cellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
+            var nextCellPosition = _view.Tilemap.WorldToCell(worldPosition);
+            Clear();
+            if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
             {
-                var cell = _world.GridModel.GetCell(new Vector2Int(cellPosition.x, cellPosition.y));
+                var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
                 _model.SetCell(cell);
-            }
-            else
-            {
-                Clear();
+                _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y].SetIndication(IndicationType.Cursor);
             }
         }
 
         private void Clear()
         {
+            if (_model.CurrentCell != null)
+                _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y].SetIndication(IndicationType.Null);
             _model.SetCell(null);
         }
     }
