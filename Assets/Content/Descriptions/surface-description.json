@@ -1,10 +1,10 @@
 {
-  "surfaces": {
-    "water": {
-      "id": 0
-    },
-    "ground": {
-      "id": 1
-    }
+  "0": {
+    "view_id": "water",
+    "is_walkable": false
+  },
+  "1": {
+    "view_id": "ground",
+    "is_walkable": true
   }
 }

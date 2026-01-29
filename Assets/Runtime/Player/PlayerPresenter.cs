@@ -137,7 +137,9 @@ namespace Runtime.Player
                     _movementQueueModel.SetPath(path);
 
                     foreach (var position in path.Where(position => _model.Position.Value != position))
+                    {
                         _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
+                    }
                 }
             }
         }

@@ -56,7 +56,7 @@ namespace Runtime.Common.Movement
                 }
             }
 
-            return null;
+            return new List<Vector2Int>();
         }
 
         private static int Heuristic(Vector2Int a, Vector2Int b)

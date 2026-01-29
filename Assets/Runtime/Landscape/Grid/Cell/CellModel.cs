@@ -1,5 +1,6 @@
 using System;
 using Runtime.Common;
+using Runtime.Descriptions;
 using Runtime.Landscape.Grid.Indication;
 using UnityEngine;
 
@@ -11,11 +12,14 @@ namespace Runtime.Landscape.Grid.Cell
         public Vector2Int Position { get; }
         public IUnit Unit { get; private set; }
         public bool IsOccupied { get; private set; }
+        public SurfaceDescription SurfaceDescription { get; }
         public IndicationType IndicationType { get; private set; }
 
-        public CellModel(int x, int y)
+        public CellModel(int x, int y, SurfaceDescription description)
         {
             Position = new Vector2Int(x, y);
+            SurfaceDescription = description;
+            IsOccupied = !description.IsWalkable;
         }
         
         public void Occupied(IUnit unit)

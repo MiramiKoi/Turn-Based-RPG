@@ -9,13 +9,16 @@ namespace Runtime.Landscape.Grid
     {
         private readonly GridModel _model;
         private readonly GridView _view;
+        private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
         private readonly List<CellPresenter> _cells = new();
 
-        public GridPresenter(GridModel model, GridView view, WorldViewDescriptions worldViewDescriptions)
+
+        public GridPresenter(GridModel model, GridView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _model = model;
             _view = view;
+            _world = world;
             _worldViewDescriptions = worldViewDescriptions;
         }
 
@@ -25,7 +28,7 @@ namespace Runtime.Landscape.Grid
             {
                 var cellView = new CellView(_view.Tilemap);
 
-                var cellPresenter = new CellPresenter(cellModel, cellView, _worldViewDescriptions);
+                var cellPresenter = new CellPresenter(cellModel, cellView, _world, _worldViewDescriptions);
                 cellPresenter.Enable();
 
                 _cells.Add(cellPresenter);

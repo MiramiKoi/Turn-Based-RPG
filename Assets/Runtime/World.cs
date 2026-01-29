@@ -1,3 +1,5 @@
+using Runtime.Descriptions;
+using Runtime.Descriptions.Surface;
 using Runtime.GameSystems;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
@@ -14,14 +16,19 @@ namespace Runtime
         public GridModel GridModel { get; private set; }
         public GridInteractionModel GridInteractionModel { get; private set; }
         public Camera MainCamera { get; private set; }
+        public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
 
-        public void SetData(PlayerControls playerControls)
+        public void SetData(PlayerControls playerControls, WorldDescription worldDescription)
         {
+            WorldDescription = worldDescription;
+            var _surfaceGenerationDescription = new SurfaceGenerationDescription();
+            var surface = _surfaceGenerationDescription.Generate();
+
             TurnBaseModel = new TurnBaseModel();
             PlayerControls = playerControls;
             
-            GridModel = new GridModel();
+            GridModel = new GridModel(surface, worldDescription.SurfaceCollection);
             GridInteractionModel = new GridInteractionModel();
 
             MainCamera = Camera.main;

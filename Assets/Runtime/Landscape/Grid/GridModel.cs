@@ -1,4 +1,5 @@
 using Runtime.Common;
+using Runtime.Descriptions;
 using Runtime.Landscape.Grid.Cell;
 using UnityEngine;
 
@@ -7,16 +8,20 @@ namespace Runtime.Landscape.Grid
     public class GridModel
     {
         public CellModel[,] Cells { get; }
+        private SurfaceDescriptionCollection _surfaceDescriptions;
 
-        public GridModel()
+        public GridModel(int[,] surface, SurfaceDescriptionCollection surfaceDescriptionCollection)
         {
+            _surfaceDescriptions = surfaceDescriptionCollection;
+
             Cells = new CellModel[GridConstants.Width, GridConstants.Height];
         
             for (var y = 0; y < GridConstants.Height; y++)
             {
                 for (var x = 0; x < GridConstants.Width; x++)
                 {
-                    Cells[x, y] = new CellModel(x, y);
+                    _surfaceDescriptions.Surfaces.TryGetValue(surface[x, y].ToString(), out var description);
+                    Cells[x, y] = new CellModel(x, y, description);
                 }
             }
         }
