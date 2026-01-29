@@ -13,6 +13,8 @@ namespace Runtime.Agents.Nodes
         private const string PositionKey = "position";
         
         private const string ChildrenKey = "children";
+
+        public event Action OnAddChild;
         
         public abstract string Type { get; }
         
@@ -23,6 +25,8 @@ namespace Runtime.Agents.Nodes
         public void AddChild(AgentNode child)
         {
             Children.Add(child);
+            
+            OnAddChild?.Invoke();
         }
 
         public abstract NodeStatus Process(IWorldContext context, IUnit unit);

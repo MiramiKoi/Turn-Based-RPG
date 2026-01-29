@@ -6,12 +6,21 @@ namespace Editor.Agents
     {
         public AgentSequenceView(AgentSequence data) : base(data)
         {
-            
         }
 
-        private void AddPort()
+        public void SortPortsByPositionX()
         {
+            var sequence = Data as AgentSequence;
             
+            sequence?.Children.Sort((a, b) 
+                => a.Position.x.CompareTo(b.Position.x));
+        }
+
+        public override void SaveData()
+        {
+            base.SaveData();
+            
+            SortPortsByPositionX();
         }
     }
 }

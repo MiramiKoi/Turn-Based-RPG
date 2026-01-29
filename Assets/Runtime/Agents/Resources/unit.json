@@ -10,10 +10,10 @@
                   
                ],
                "position" : [
-                  -324.8,
-                  276.8
+                  -384.8,
+                  262.4
                ],
-               "command" : "has_player"
+               "command" : "attack"
             },
             {
                "type" : "leaf",
@@ -22,9 +22,9 @@
                ],
                "position" : [
                   -102.4,
-                  276.8
+                  262.4
                ],
-               "command" : "attack"
+               "command" : "has_player"
             }
          ],
          "position" : [
