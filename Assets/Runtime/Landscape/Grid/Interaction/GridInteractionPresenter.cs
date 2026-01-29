@@ -35,12 +35,15 @@ namespace Runtime.Landscape.Grid.Interaction
 
             var worldPosition = _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
             var nextCellPosition = _view.Tilemap.WorldToCell(worldPosition);
-            Clear();
             if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
             {
                 var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
-                _model.SetCell(cell);
-                _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y].SetIndication(IndicationType.Cursor);
+                
+                if (cell != _model.CurrentCell)
+                {
+                    _model.SetCell(cell);
+                    _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y].SetIndication(IndicationType.Cursor);
+                }
             }
         }
 
