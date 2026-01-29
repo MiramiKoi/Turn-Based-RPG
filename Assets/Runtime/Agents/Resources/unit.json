@@ -31,6 +31,26 @@
             -269.6,
             75.2
          ]
+      },
+      {
+         "type" : "selector",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  403.2,
+                  276.8
+               ],
+               "command" : "move"
+            }
+         ],
+         "position" : [
+            132,
+            75.2
+         ]
       }
    ],
    "position" : [

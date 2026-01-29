@@ -59,7 +59,7 @@ namespace Editor.Agents
             toolbar.Add(CreateToolbarButton("Selector", _graphView.AddAgentNode<AgentSelector>));
             toolbar.Add(CreateToolbarButton("Sequence", _graphView.AddAgentNode<AgentSequence>));
             toolbar.Add(CreateToolbarButton("Leaf", _graphView.AddAgentNode<AgentLeaf>));
-            toolbar.Add(CreateToolbarButton("Root", _graphView.AddAgentNode<AgentBehaviorTree>));
+            toolbar.Add(CreateToolbarButton("Root", _graphView.AddAgentNode<AgentDecisionRoot>));
 
             toolbar.Add(CreateToolbarButton("Save", Save));
 
@@ -99,7 +99,7 @@ namespace Editor.Agents
             
             nodes.ToList().ForEach(nv => nv.SaveData());
             
-            var rootNodeView = nodes.FirstOrDefault(nv => nv.Data is AgentBehaviorTree);
+            var rootNodeView = nodes.FirstOrDefault(nv => nv.Data is AgentDecisionRoot);
 
             if (rootNodeView == null)
             {
@@ -124,7 +124,7 @@ namespace Editor.Agents
             
             var json = File.ReadAllText(path);
 
-            var agentBehaviorTree = new AgentBehaviorTree();
+            var agentBehaviorTree = new AgentDecisionRoot();
             
             agentBehaviorTree.Deserialize(JSON.ToObject<Dictionary<string, object>>(json));
             

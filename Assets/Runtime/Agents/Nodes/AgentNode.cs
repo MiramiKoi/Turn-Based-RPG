@@ -20,27 +20,12 @@ namespace Runtime.Agents.Nodes
         
         public List<AgentNode> Children { get; private set; } = new List<AgentNode>();
 
-        protected int CurrentChildIndex { get; set; } = 0;
-        
         public void AddChild(AgentNode child)
         {
             Children.Add(child);
         }
 
-        public virtual NodeStatus Process(IWorldContext context, IUnit unit)
-        {
-            return Children[CurrentChildIndex].Process(context, unit);
-        }
-
-        public virtual void Reset()
-        {
-            CurrentChildIndex = 0;
-            
-            foreach (var child in Children)
-            {
-                child.Reset();
-            }
-        }
+        public abstract NodeStatus Process(IWorldContext context, IUnit unit);
 
         public virtual Dictionary<string, object> Serialize()
         {
@@ -90,7 +75,7 @@ namespace Runtime.Agents.Nodes
                 "selector" => new AgentSelector(),
                 "sequence" => new AgentSequence(),
                 "leaf" => new AgentLeaf(),
-                "root" => new AgentBehaviorTree(),
+                "root" => new AgentDecisionRoot(),
                 _ => throw new Exception()
             };
             

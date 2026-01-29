@@ -10,7 +10,7 @@ namespace Runtime.Agents
     {
         [SerializeField] private Unit _unit;
         
-        private AgentBehaviorTree _behaviorTree;
+        private AgentDecisionRoot _decisionRoot;
         private TempWorld _tempWorld;
         private PlayerControls _playerControls;
 
@@ -37,9 +37,9 @@ namespace Runtime.Agents
             
             var jsonDictionary = JSON.ToObject<Dictionary<string, object>>(json.text);
 
-            _behaviorTree = new AgentBehaviorTree();
+            _decisionRoot = new AgentDecisionRoot();
             
-            _behaviorTree.Deserialize(jsonDictionary);
+            _decisionRoot.Deserialize(jsonDictionary);
 
             _tempWorld = new TempWorld();
         }
@@ -53,7 +53,7 @@ namespace Runtime.Agents
         {
             Debug.Log("Click");
             
-            _behaviorTree.Process(_tempWorld, _unit);
+            _decisionRoot.Process(_tempWorld, _unit);
         }
     }
 

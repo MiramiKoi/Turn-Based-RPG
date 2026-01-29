@@ -6,25 +6,12 @@ namespace Runtime.Agents.Nodes
 
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
-            if (CurrentChildIndex < Children.Count)
+            foreach (var child in Children)
             {
-                var currentStatus = Children[CurrentChildIndex].Process(context, unit);
-
-                switch (currentStatus)
-                {
-                    case NodeStatus.Running:
-                        return NodeStatus.Running;
-                    case NodeStatus.Failure:
-                        Reset();
-                        return NodeStatus.Failure;
-                    default:
-                        CurrentChildIndex++;
-                        var isLastChild = CurrentChildIndex == Children.Count;
-                        return isLastChild ? NodeStatus.Success : NodeStatus.Running;
-                }
+                if (child.Process(context, unit) != NodeStatus.Success)
+                    return NodeStatus.Failure;
             }
-            
-            Reset();
+
             return NodeStatus.Success;
         }
     }
