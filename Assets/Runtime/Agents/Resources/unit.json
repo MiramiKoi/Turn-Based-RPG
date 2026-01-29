@@ -1,0 +1,40 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -324.8,
+                  276.8
+               ],
+               "command" : "has_player"
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -102.4,
+                  276.8
+               ],
+               "command" : "attack"
+            }
+         ],
+         "position" : [
+            -269.6,
+            75.2
+         ]
+      }
+   ],
+   "position" : [
+      -4.8,
+      -48.8
+   ]
+}

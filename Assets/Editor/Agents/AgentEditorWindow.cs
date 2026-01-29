@@ -168,9 +168,7 @@ namespace Editor.Agents
 
         private void BuildGraphRecursive(AgentNode node)
         {
-            var nodeView = new AgentBaseNodeView(node);
-            
-            _graphView.AddElement(nodeView);
+            var nodeView = _graphView.AddAgentNode(node);
 
             foreach (var child in node.Children)
             {

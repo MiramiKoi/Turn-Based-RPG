@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.Extensions;
 
 namespace Runtime.Agents.Nodes
 {
@@ -14,7 +15,7 @@ namespace Runtime.Agents.Nodes
         
         public override NodeStatus Process(IWorldContext context, IUnit unit)
         {
-            return unit.AvailableCommands[CommandKey].Execute(context, unit);
+            return unit.AvailableCommands[Command].Execute(context, unit);
         }
 
         public override Dictionary<string, object> Serialize()
@@ -24,6 +25,12 @@ namespace Runtime.Agents.Nodes
             dictionary[CommandKey] = Command;
             
             return dictionary;
+        }
+
+        public override void Deserialize(Dictionary<string, object> dictionary)
+        {
+            base.Deserialize(dictionary);
+            Command = dictionary.GetString(CommandKey);
         }
     }
 }

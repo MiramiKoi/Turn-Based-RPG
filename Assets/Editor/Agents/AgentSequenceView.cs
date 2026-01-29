@@ -6,6 +6,12 @@ namespace Editor.Agents
     {
         public AgentSequenceView(AgentSequence data) : base(data)
         {
+            
+        }
+
+        private void AddPort()
+        {
+            
         }
     }
 }

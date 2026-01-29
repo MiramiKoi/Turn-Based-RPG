@@ -29,10 +29,8 @@ namespace Editor.Agents
             return ports.ToList();
         }
 
-        public void AddAgentNode<TData>() where TData : AgentNode, new()
+        public AgentBaseNodeView AddAgentNode(AgentNode data)
         {
-            var data = new TData();
-
             AgentBaseNodeView agentNodeView = data switch
             {
                 AgentSequence agentSequence => new AgentSequenceView(agentSequence),
@@ -43,6 +41,15 @@ namespace Editor.Agents
             };
             
             AddElement(agentNodeView);
+
+            return agentNodeView;
+        }
+        
+        public void AddAgentNode<TData>() where TData : AgentNode, new()
+        {
+            var data = new TData();
+
+            AddAgentNode(data);
         }
         
         public void ClearGraph()
@@ -60,8 +67,6 @@ namespace Editor.Agents
             
             this.AddManipulator(new FreehandSelector());
 
-            var edgeConnectorListener = new EdgeConnectorListener(this);
-            this.AddManipulator(new EdgeConnector<Edge>(edgeConnectorListener));
         }
 
         private void SetupGridBackground()
@@ -78,25 +83,6 @@ namespace Editor.Agents
         private void AddStyles()
         {
             styleSheets.Add(Resources.Load<StyleSheet>("GraphViewStyles"));
-        }
-    }
-
-    public class EdgeConnectorListener : IEdgeConnectorListener
-    {
-        private readonly GraphView _graphView;
-        
-        public EdgeConnectorListener(GraphView graphView)
-        {
-            _graphView = graphView;
-        }
-
-        public void OnDropOutsidePort(Edge edge, Vector2 position)
-        {
-        }
-
-        public void OnDrop(GraphView graphView, Edge edge)
-        {
-            _graphView.AddElement(edge);
         }
     }
 }

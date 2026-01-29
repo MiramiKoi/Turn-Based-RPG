@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Runtime.Agents.Nodes
 {
     public class AgentBehaviorTree : AgentNode
@@ -12,11 +14,15 @@ namespace Runtime.Agents.Nodes
 
                 if (status != NodeStatus.Success)
                 {
+                    Debug.Log(status);
                     return status;
+                    
                 }
 
                 CurrentChildIndex++;
             }
+            
+            Debug.Log("Succses");
 
             return NodeStatus.Success;
         }
