@@ -35,7 +35,7 @@ namespace Editor.Agents
             {
                 AgentSequence agentSequence => new AgentSequenceView(agentSequence),
                 AgentSelector agentSelector => new AgentSelectorView(agentSelector),
-                AgentDecisionRoot agentBehaviorTree => new AgentBehaviorTreeNodeView(agentBehaviorTree),
+                AgentDecisionRoot agentBehaviorTree => new AgentDecisionNodeView(agentBehaviorTree),
                 AgentLeaf agentLeaf => new AgentLeafView(agentLeaf),
                 _ => throw new SystemException()
             };
