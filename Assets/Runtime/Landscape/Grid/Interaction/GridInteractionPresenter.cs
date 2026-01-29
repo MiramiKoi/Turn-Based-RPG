@@ -19,14 +19,12 @@ namespace Runtime.Landscape.Grid.Interaction
 
         public void Enable()
         {
-            _world.PlayerControls.Player.PointerMove.performed += OnPointerMove;
-            _world.PlayerControls.Player.Attack.performed += OnPointerClick;
+            _world.PlayerControls.Gameplay.PointerMove.performed += OnPointerMove;
         }
 
         public void Disable()
         {
-            _world.PlayerControls.Player.PointerMove.performed -= OnPointerMove;
-            _world.PlayerControls.Player.Attack.performed -= OnPointerClick;
+            _world.PlayerControls.Gameplay.PointerMove.performed -= OnPointerMove;
             Clear();
         }
 
@@ -46,11 +44,6 @@ namespace Runtime.Landscape.Grid.Interaction
             {
                 Clear();
             }
-        }
-        
-        private void OnPointerClick(InputAction.CallbackContext context)
-        {
-            _model.SelectCell();
         }
 
         private void Clear()
