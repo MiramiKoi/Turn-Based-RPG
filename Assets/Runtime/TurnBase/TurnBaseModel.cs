@@ -1,18 +1,19 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Runtime.TurnBase
 {
     public class TurnBaseModel
     {
-        public event Action OnInvoke;
+        public event Action OnStepFinished;
 
         public int CurrentTurn { get; private set; }
 
-        public void Step()
+        public async void Step()
         {
             CurrentTurn++;
-
-            OnInvoke?.Invoke();
+            await Task.Delay(100);
+            OnStepFinished?.Invoke();
         }
     }
 }
