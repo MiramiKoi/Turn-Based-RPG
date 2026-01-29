@@ -70,7 +70,7 @@ namespace Runtime.Common
         
         private void Update()
         {
-            _world.GameSystems.Update(Time.deltaTime);
+            _world.GameSystems?.Update(Time.deltaTime);
         }
 
         private void CreateUnit()
