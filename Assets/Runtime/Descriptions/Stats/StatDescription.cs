@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Runtime.Extensions;
-
 namespace Runtime.Descriptions.Stats
 {
     public class StatDescription : Description
