@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Runtime.Player.Movement
+namespace Runtime.Common.Movement
 {
-    public class MovementQueue
+    public class MovementQueueModel
     {
         public bool HasSteps => _steps.Count > 0;
         public IReadOnlyCollection<Vector2Int> Steps => _steps;

@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Runtime.Common;
 using Runtime.Landscape.Grid;
 using UnityEngine;
 
-namespace Runtime.Player.Movement
+namespace Runtime.Common.Movement
 {
-    public class GridPathfinder
+    public static class GridPathfinder
     {
         private static readonly Vector2Int[] Directions =
         {
@@ -19,7 +18,7 @@ namespace Runtime.Player.Movement
             new(-1, -1)
         };
 
-        public List<Vector2Int> FindPath(
+        public static List<Vector2Int> FindPath(
             GridModel grid,
             Vector2Int start,
             Vector2Int target)
@@ -39,20 +38,20 @@ namespace Runtime.Player.Movement
                 if (current == target)
                     return Reconstruct(cameFrom, current);
 
-                foreach (var dir in Directions)
+                foreach (var direction in Directions)
                 {
-                    var next = current + dir;
+                    var next = current + direction;
 
-                    if (!grid.IsInsideGrid(next) || grid.GetCell(next).IsOccupied)
-                        continue;
-
-                    var tentative = gScore[current] + 1;
-
-                    if (!gScore.TryGetValue(next, out var cost) || tentative < cost)
+                    if (grid.IsInsideGrid(next) && !grid.GetCell(next).IsOccupied)
                     {
-                        cameFrom[next] = current;
-                        gScore[next] = tentative;
-                        open.Enqueue(next, tentative + Heuristic(next, target));
+                        var tentative = gScore[current] + 1;
+
+                        if (!gScore.TryGetValue(next, out var cost) || tentative < cost)
+                        {
+                            cameFrom[next] = current;
+                            gScore[next] = tentative;
+                            open.Enqueue(next, tentative + Heuristic(next, target));
+                        }
                     }
                 }
             }
@@ -60,10 +59,12 @@ namespace Runtime.Player.Movement
             return null;
         }
 
-        private int Heuristic(Vector2Int a, Vector2Int b)
-            => Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+        private static int Heuristic(Vector2Int a, Vector2Int b)
+        {
+            return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+        }
 
-        private List<Vector2Int> Reconstruct(
+        private static List<Vector2Int> Reconstruct(
             Dictionary<Vector2Int, Vector2Int> cameFrom,
             Vector2Int current)
         {

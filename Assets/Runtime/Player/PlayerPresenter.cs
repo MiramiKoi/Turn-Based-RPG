@@ -1,7 +1,7 @@
 using System.Linq;
 using Runtime.Common;
+using Runtime.Common.Movement;
 using Runtime.Landscape.Grid.Indication;
-using Runtime.Player.Movement;
 using Runtime.Units;
 using UnityEngine;
 
@@ -11,15 +11,13 @@ namespace Runtime.Player
     {
         private readonly UnitModel _model;
         private readonly World _world;
-        private readonly GridPathfinder _pathfinder;
-        private readonly MovementQueue _movementQueue;
+        private readonly MovementQueueModel _movementQueueModel;
 
         public PlayerPresenter(UnitModel model, World world)
         {
             _model = model;
             _world = world;
-            _pathfinder = new GridPathfinder();
-            _movementQueue = new MovementQueue();
+            _movementQueueModel = new MovementQueueModel();
         }
 
         public void Enable()
@@ -40,18 +38,18 @@ namespace Runtime.Player
             var start = _model.Position.Value;
             var target = _world.GridInteractionModel.CurrentCell.Position;
 
-            if (_movementQueue.HasSteps)
+            if (_movementQueueModel.HasSteps)
             {
-                foreach (var position in _movementQueue.Steps)
+                foreach (var position in _movementQueueModel.Steps)
                     _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.Null);
             }
 
-            var path = _pathfinder.FindPath(
+            var path = GridPathfinder.FindPath(
                 _world.GridModel,
                 start,
                 target);
 
-            _movementQueue.SetPath(path);
+            _movementQueueModel.SetPath(path);
             
             foreach (var position in path.Where(position => _model.Position.Value != position))
                 _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
@@ -59,14 +57,14 @@ namespace Runtime.Player
 
         private void MoveCharacter()
         {
-            if (!_movementQueue.HasSteps)
+            if (!_movementQueueModel.HasSteps)
                 return;
 
-            var nextCell = _movementQueue.Dequeue();
+            var nextCell = _movementQueueModel.Dequeue();
 
             if (!_world.GridModel.CanPlace(nextCell))
             {
-                _movementQueue.Clear();
+                _movementQueueModel.Clear();
                 return;
             }
 

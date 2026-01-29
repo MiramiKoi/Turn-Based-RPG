@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Runtime.Common
+namespace Runtime.Common.Movement
 {
     public class SimplePriorityQueue<T>
     {
