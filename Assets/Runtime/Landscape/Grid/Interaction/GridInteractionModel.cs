@@ -8,7 +8,7 @@ namespace Runtime.Landscape.Grid.Interaction
         public event Action OnCurrentCellChanged;
         
         public CellModel CurrentCell { get; private set; }
-        public bool isActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         public void SetCell(CellModel cell)
         {

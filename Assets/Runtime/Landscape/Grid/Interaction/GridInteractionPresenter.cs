@@ -31,7 +31,7 @@ namespace Runtime.Landscape.Grid.Interaction
 
         private void OnPointerMove(InputAction.CallbackContext context)
         {
-            if (_model.isActive)
+            if (_model.IsActive)
             {
                 var mousePosition = context.ReadValue<Vector2>();
 
