@@ -11,5 +11,9 @@ namespace Runtime.Units
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        
+        [SerializeField]
+        private Animator _animator;
+        public Animator Animator => _animator;
     }
 }

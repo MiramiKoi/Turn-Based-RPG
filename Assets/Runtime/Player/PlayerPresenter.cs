@@ -9,6 +9,8 @@ namespace Runtime.Player
 {
     public class PlayerPresenter : UnitPresenter
     {
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        
         private readonly UnitModel _model;
         private readonly UnitView _view;
         private readonly World _world;
@@ -19,6 +21,7 @@ namespace Runtime.Player
         public PlayerPresenter(UnitModel model, UnitView unitView, World world) : base(model, unitView)
         {
             _model = model;
+            _view = unitView;
             _world = world;
             _movementQueueModel = new MovementQueueModel();
         }
@@ -55,8 +58,10 @@ namespace Runtime.Player
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
                         _world.GridInteractionModel.IsActive = false;
-
+                        
+                        _view.Animator.SetBool(IsMoving, true);
                         await AnimateMoveChanged(nextCell);
+                        _view.Animator.SetBool(IsMoving, false);
                         _world.TurnBaseModel.Step();
                     }
                     else
