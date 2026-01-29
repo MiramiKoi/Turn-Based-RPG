@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.Agents.Nodes
 {
     public class AgentDecisionRoot : AgentNode

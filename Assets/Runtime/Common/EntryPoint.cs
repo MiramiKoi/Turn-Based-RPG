@@ -3,11 +3,12 @@ using System.IO;
 using fastJSON;
 using Runtime.Descriptions.Units;
 using Runtime.Extensions;
+using Runtime.Input;
 using Runtime.Landscape.Grid;
-using Runtime.Units;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.Player;
+using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -45,6 +46,11 @@ namespace Runtime.Common
             
             CreateUnit();
         }
+        
+        private void Update()
+        {
+            _world.GameSystems.Update(Time.deltaTime);
+        }
 
         private void CreateUnit()
         {
@@ -60,10 +66,7 @@ namespace Runtime.Common
             
             var unitView = Instantiate(_unitPrefab, Vector3.zero, Quaternion.identity);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView);
-            unitPresenter.Enable();
-            
-            var playerPresenter = new PlayerPresenter(unitModel, _world);
+            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
             playerPresenter.Enable();
         }
     }

@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Runtime.Common;
-using Runtime.Landscape.Grid.Cell;
 using Runtime.ViewDescriptions;
+using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Runtime.Landscape.Grid.Indication
 {
@@ -9,7 +11,8 @@ namespace Runtime.Landscape.Grid.Indication
         private readonly GridIndicationView _view;
         private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
-        private CellModel _currentCell;
+        
+        private readonly Dictionary<IndicationType, Tile> _indicationTiles = new();
         
         public GridIndicationPresenter(GridIndicationView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
@@ -18,50 +21,36 @@ namespace Runtime.Landscape.Grid.Indication
             _worldViewDescriptions = worldViewDescriptions;
         }
         
-        public void Enable()
+        public async void Enable()
         {
-            _world.GridInteractionModel.OnCellChanged += Update;
+            var cellCursorTile = await _worldViewDescriptions.GridIndicationViewDescription.CellCursorAsset.LoadAssetAsync().Task;
+            var routePointTile = await _worldViewDescriptions.GridIndicationViewDescription.RoutePointAsset.LoadAssetAsync().Task;
+            _indicationTiles.Add(IndicationType.Null, null);
+            _indicationTiles.Add(IndicationType.Cursor, cellCursorTile);
+            _indicationTiles.Add(IndicationType.RoutePoint, routePointTile);
+            
+            _worldViewDescriptions.GridIndicationViewDescription.CellCursorAsset.ReleaseAsset();
+            _worldViewDescriptions.GridIndicationViewDescription.RoutePointAsset.ReleaseAsset();
+            
+            foreach (var cell in _world.GridModel.Cells)
+                cell.OnIndicationTypeChanged += HandleCellIndicationTypeChange;
         }
-        
+
         public void Disable()
         {
-            _world.GridInteractionModel.OnCellChanged -= Update;
-            Clear();
+            foreach (var cell in _world.GridModel.Cells)
+                cell.OnIndicationTypeChanged -= HandleCellIndicationTypeChange;
         }
 
-        private void Update(CellModel cell)
+        private void Draw(Vector2Int position)
         {
-            if (_currentCell == cell)
-            {
-                return;
-            }
-            
-            Clear();
-            
-            _currentCell = cell;
-            
-            Draw();
+            var indicationType = _world.GridModel.Cells[position.x, position.y].IndicationType;
+            _view.Tilemap.SetTile(new Vector3Int(position.x, position.y, 0), _indicationTiles[indicationType]);
         }
-
-        private void Draw()
+        
+        private void HandleCellIndicationTypeChange(Vector2Int position)
         {
-            if (_currentCell == null)
-            {
-                return;
-            }
-
-            var tile = _worldViewDescriptions._gridIndicationViewDescription.TileAsset.editorAsset;
-            _view.Tilemap.SetTile(GridHelper.ToCellPos(_currentCell), tile);
-        }
-
-        private void Clear()
-        {
-            if (_currentCell == null)
-            {
-                return;
-            }
-            
-            _view.Tilemap.SetTile( GridHelper.ToCellPos(_currentCell), null);
+            Draw(position);
         }
     }
 }

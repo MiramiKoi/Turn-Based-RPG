@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using fastJSON;
 using Runtime.Agents.Nodes;
+using Runtime.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +21,7 @@ namespace Runtime.Agents
             
             _playerControls.Enable();
 
-            _playerControls.Player.Attack.performed += OnAttack;
+            _playerControls.Gameplay.Attack.performed += OnAttack;
             
             var hasPlayerCommand = new HasFlagCommand("has_player");
             var hasHouseCommand = new HasFlagCommand("has_house");
