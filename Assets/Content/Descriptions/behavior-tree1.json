@@ -1,0 +1,71 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -157.6,
+                  340.8
+               ],
+               "command" : "attack"
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -368.8,
+                  340.8
+               ],
+               "command" : "has_attackable"
+            }
+         ],
+         "position" : [
+            -197.6,
+            161.6
+         ]
+      },
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  92.8,
+                  340.8
+               ],
+               "command" : "has_house"
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  332.8,
+                  340.8
+               ],
+               "command" : "move"
+            }
+         ],
+         "position" : [
+            92.8,
+            161.6
+         ]
+      }
+   ],
+   "position" : [
+      0,
+      0
+   ]
+}

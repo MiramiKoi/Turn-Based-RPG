@@ -1,0 +1,60 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -384.8,
+                  262.4
+               ],
+               "command" : "attack"
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -102.4,
+                  262.4
+               ],
+               "command" : "has_player"
+            }
+         ],
+         "position" : [
+            -269.6,
+            75.2
+         ]
+      },
+      {
+         "type" : "selector",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  403.2,
+                  276.8
+               ],
+               "command" : "move"
+            }
+         ],
+         "position" : [
+            132,
+            75.2
+         ]
+      }
+   ],
+   "position" : [
+      -4.8,
+      -48.8
+   ]
+}

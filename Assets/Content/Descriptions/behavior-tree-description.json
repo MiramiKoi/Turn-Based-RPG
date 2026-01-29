@@ -1,0 +1,39 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "selector",
+         "children" : [
+            
+         ],
+         "position" : [
+            -27.2,
+            -272
+         ]
+      },
+      {
+         "type" : "selector",
+         "children" : [
+            
+         ],
+         "position" : [
+            133.6,
+            -147.2
+         ]
+      },
+      {
+         "type" : "sequence",
+         "children" : [
+            
+         ],
+         "position" : [
+            307.2,
+            -248
+         ]
+      }
+   ],
+   "position" : [
+      133.6,
+      -479.2
+   ]
+}
