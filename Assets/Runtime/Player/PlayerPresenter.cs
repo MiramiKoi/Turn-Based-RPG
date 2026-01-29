@@ -22,15 +22,15 @@ namespace Runtime.Player
 
         public void Enable()
         {
-            _world.GridInteractionModel.OnCurrentCellChanged += HandlePointerMove;
+            _world.GridInteractionModel.OnCurrentCellChanged += HandleInteractionCellChanged;
         } 
 
         public void Disable()
         {
-            _world.GridInteractionModel.OnCurrentCellChanged -= HandlePointerMove;
+            _world.GridInteractionModel.OnCurrentCellChanged -= HandleInteractionCellChanged;
         }
 
-        private void HandlePointerMove()
+        private void HandleInteractionCellChanged()
         {
             if (_world.GridInteractionModel.CurrentCell == null)
                 return;
