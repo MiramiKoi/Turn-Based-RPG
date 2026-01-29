@@ -7,20 +7,27 @@ namespace Runtime.Landscape.Grid.Cell
     {
         private readonly CellModel _model;
         private readonly CellView _view;
+        private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
 
-        public CellPresenter(CellModel model, CellView view, WorldViewDescriptions worldViewDescriptions)
+        public CellPresenter(CellModel model, CellView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _model = model;
             _view = view;
+            _world = world;
             _worldViewDescriptions = worldViewDescriptions;
         }
-        
+
         public void Enable()
         {
-            var tile = _worldViewDescriptions.SurfaceViewDescriptions.Get("ground");
-            
-            _view.Tilemap.SetTile(GridHelper.ToCellPos(_model.Position), tile.TileAsset.editorAsset);
+
+            var tileView = _worldViewDescriptions.SurfaceViewDescriptions.Get(_model.SurfaceDescription.ViewId);
+            if (tileView == null)
+            {
+                return;
+            }
+
+            _view.Tilemap.SetTile(GridHelper.ToCellPos(_model.Position), tileView.TileAsset.editorAsset);
         }
 
         public void Disable()
