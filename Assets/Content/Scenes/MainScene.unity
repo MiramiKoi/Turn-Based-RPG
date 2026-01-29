@@ -630,7 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.WorldViewDescriptions
   SurfaceViewDescriptions: {fileID: 11400000, guid: af4d873d03226fc47a5bbacac9a34e2c, type: 2}
-  _gridIndicationViewDescription: {fileID: 11400000, guid: 674428b540fce734996356cbf1e124f8, type: 2}
+  GridIndicationViewDescription: {fileID: 11400000, guid: 674428b540fce734996356cbf1e124f8, type: 2}
 --- !u!4 &401959635
 Transform:
   m_ObjectHideFlags: 0
