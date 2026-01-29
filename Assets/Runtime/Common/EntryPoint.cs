@@ -66,10 +66,7 @@ namespace Runtime.Common
             
             var unitView = Instantiate(_unitPrefab, Vector3.zero, Quaternion.identity);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView);
-            unitPresenter.Enable();
-            
-            var playerPresenter = new PlayerPresenter(unitModel, _world);
+            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
             playerPresenter.Enable();
         }
     }

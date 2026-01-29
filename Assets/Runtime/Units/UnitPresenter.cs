@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using DG.Tweening;
 using Runtime.Common;
 using UniRx;
 using UnityEngine;
@@ -19,21 +21,22 @@ namespace Runtime.Units
             _view = view;
         }
         
-        public void Enable()
+        public virtual void Enable()
         {
-            _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
+            
+            _view.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
         }
 
-        public void Disable()
+        public virtual void Disable()
         {
             _disposables.ForEach(x => x.Dispose());
             _disposables.Clear();
         }
         
-        private void OnPositionChanged(Vector2Int position)
+        protected async Task AnimateMoveChanged(Vector2Int position)
         {
-            _view.Transform.position = new Vector3(position.x, position.y, 0);
+            await _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
 
         private void OnRotationChanged(UnitDirection direction)

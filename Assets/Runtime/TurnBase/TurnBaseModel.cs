@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 
 namespace Runtime.TurnBase
 {
@@ -9,10 +8,9 @@ namespace Runtime.TurnBase
 
         public int CurrentTurn { get; private set; }
 
-        public async void Step()
+        public void Step()
         {
             CurrentTurn++;
-            await Task.Delay(100);
             OnStepFinished?.Invoke();
         }
     }

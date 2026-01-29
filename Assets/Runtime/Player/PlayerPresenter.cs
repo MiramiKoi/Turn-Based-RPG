@@ -1,5 +1,4 @@
 using System.Linq;
-using Runtime.Common;
 using Runtime.Common.Movement;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
@@ -8,36 +7,39 @@ using UnityEngine.InputSystem;
 
 namespace Runtime.Player
 {
-    public class PlayerPresenter : IPresenter
+    public class PlayerPresenter : UnitPresenter
     {
         private readonly UnitModel _model;
+        private readonly UnitView _view;
         private readonly World _world;
         private readonly MovementQueueModel _movementQueueModel;
 
         private bool _isExecutingRoute;
 
-        public PlayerPresenter(UnitModel model, World world)
+        public PlayerPresenter(UnitModel model, UnitView unitView, World world) : base(model, unitView)
         {
             _model = model;
             _world = world;
             _movementQueueModel = new MovementQueueModel();
         }
 
-        public void Enable()
+        public override void Enable()
         {
+            base.Enable();
             _world.GridInteractionModel.OnCurrentCellChanged += HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
             _world.TurnBaseModel.OnStepFinished += HandleTurnFinished;
         }
 
-        public void Disable()
+        public override void Disable()
         {
+            base.Disable();
             _world.GridInteractionModel.OnCurrentCellChanged -= HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed -= HandleAttackPerformed;
             _world.TurnBaseModel.OnStepFinished -= HandleTurnFinished;
         }
 
-        private void ExecuteNextStep()
+        private async void ExecuteNextStep()
         {
             if (_isExecutingRoute)
             {
@@ -52,8 +54,9 @@ namespace Runtime.Player
                         _world.GridModel.ReleaseCell(_model.Position.Value);
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
-                        
                         _world.GridInteractionModel.isActive = false;
+
+                        await AnimateMoveChanged(nextCell);
                         _world.TurnBaseModel.Step();
                     }
                     else
