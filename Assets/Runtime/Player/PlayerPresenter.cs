@@ -1,8 +1,8 @@
 using Runtime.Common;
+using Runtime.Landscape.Grid.Indication;
 using Runtime.Player.Movement;
 using Runtime.Units;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Runtime.Player
 {
@@ -23,15 +23,15 @@ namespace Runtime.Player
 
         public void Enable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed += HandleAttack;
+            _world.GridInteractionModel.OnCurrentCellChanged += HandlePointerMove;
         }
 
         public void Disable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed -= HandleAttack;
+            _world.GridInteractionModel.OnCurrentCellChanged -= HandlePointerMove;
         }
 
-        private void HandleAttack(InputAction.CallbackContext obj)
+        private void HandlePointerMove()
         {
             if (_world.GridInteractionModel.CurrentCell == null)
                 return;
@@ -39,13 +39,24 @@ namespace Runtime.Player
             var start = _character.Position.Value;
             var target = _world.GridInteractionModel.CurrentCell.Position;
 
+            if (_movementQueue.HasSteps)
+            {
+                foreach (var position in _movementQueue.Steps)
+                    _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.Null);
+            }
+
             var path = _pathfinder.FindPath(
                 _world.GridModel,
                 start,
                 target);
 
             _movementQueue.SetPath(path);
-            
+            foreach (var position in path)
+                _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
+        }
+
+        private void MoveCharacter()
+        {
             if (!_movementQueue.HasSteps)
                 return;
 
