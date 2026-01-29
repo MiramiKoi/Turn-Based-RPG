@@ -52,7 +52,8 @@ namespace Runtime.Player
                         _world.GridModel.ReleaseCell(_model.Position.Value);
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
-
+                        
+                        _world.GridInteractionModel.isActive = false;
                         _world.TurnBaseModel.Step();
                     }
                     else
@@ -76,6 +77,7 @@ namespace Runtime.Player
 
         private void StopRoute()
         {
+            _world.GridInteractionModel.isActive = true;
             _isExecutingRoute = false;
             _movementQueueModel.Clear();
             ClearRouteIndication();

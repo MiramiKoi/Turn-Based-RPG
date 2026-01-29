@@ -31,18 +31,30 @@ namespace Runtime.Landscape.Grid.Interaction
 
         private void OnPointerMove(InputAction.CallbackContext context)
         {
-            var mousePosition = context.ReadValue<Vector2>();
-
-            var worldPosition = _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
-            var nextCellPosition = _view.Tilemap.WorldToCell(worldPosition);
-            if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
+            if (_model.isActive)
             {
-                var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
-                
-                if (cell != _model.CurrentCell)
+                var mousePosition = context.ReadValue<Vector2>();
+
+                var worldPosition =
+                    _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
+                var nextCellPosition = _view.Tilemap.WorldToCell(worldPosition);
+                if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and
+                    { x: >= 0, y: >= 0 })
                 {
-                    _model.SetCell(cell);
-                    _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y].SetIndication(IndicationType.Cursor);
+                    var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
+
+                    if (cell != _model.CurrentCell)
+                    {
+                        if (_model.CurrentCell != null)
+                        {
+                            _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y]
+                                .SetIndication(IndicationType.Null);
+                        }
+
+                        _model.SetCell(cell);
+                        _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y]
+                            .SetIndication(IndicationType.Cursor);
+                    }
                 }
             }
         }
