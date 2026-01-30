@@ -101,7 +101,7 @@ namespace Runtime.Player
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (_movementQueueModel.HasSteps)
+            if (_movementQueueModel.HasSteps && !_isExecutingRoute)
             {
                 _isExecutingRoute = true;
                 ExecuteNextStep();
