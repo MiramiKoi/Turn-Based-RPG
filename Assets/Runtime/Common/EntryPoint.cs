@@ -14,6 +14,7 @@ using Runtime.Units;
 using Runtime.ViewDescriptions;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -75,13 +76,12 @@ namespace Runtime.Common
 
         private void CreateUnit()
         {
-            var unitDescriptionRaw = File.ReadAllText("Assets/Content/Descriptions/Units/units_description.json");
-            var unitDescription = JSON.ToObject<Dictionary<string, object>>(unitDescriptionRaw);
+            var unitDescription = _worldDescription.UnitCollection.First();
             
             var unitModel = new UnitModel
             (
                 "unit_0", 
-                new UnitDescription("warrior",unitDescription.GetNode("warrior")), 
+                unitDescription, 
                 new Vector2Int(50, 49)
             );
             
