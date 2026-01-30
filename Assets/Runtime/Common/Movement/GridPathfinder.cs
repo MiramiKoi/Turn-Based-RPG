@@ -61,7 +61,10 @@ namespace Runtime.Common.Movement
 
         private static int Heuristic(Vector2Int a, Vector2Int b)
         {
-            return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+            var dx = Mathf.Abs(a.x - b.x);
+            var dy = Mathf.Abs(a.y - b.y);
+
+            return 14 * Mathf.Min(dx, dy) + 10 * Mathf.Abs(dx - dy);
         }
 
         private static List<Vector2Int> Reconstruct(
