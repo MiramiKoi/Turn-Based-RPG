@@ -1,14 +1,11 @@
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Runtime.Landscape.Grid
 {
-    public class GridView
+    public class GridView : MonoBehaviour
     {
-        public Tilemap Tilemap { get; }
-        
-        public GridView(Tilemap tilemap)
-        {
-            Tilemap = tilemap;
-        }
+        public Tilemap SurfacesTilemap;
+        public Tilemap IndicationTilemap;
     }
 }

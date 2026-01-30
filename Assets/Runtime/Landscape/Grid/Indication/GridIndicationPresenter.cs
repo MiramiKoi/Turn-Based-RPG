@@ -8,13 +8,13 @@ namespace Runtime.Landscape.Grid.Indication
 {
     public class GridIndicationPresenter : IPresenter
     {
-        private readonly GridIndicationView _view;
+        private readonly GridView _view;
         private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
         
         private readonly Dictionary<IndicationType, Tile> _indicationTiles = new();
         
-        public GridIndicationPresenter(GridIndicationView view, World world, WorldViewDescriptions worldViewDescriptions)
+        public GridIndicationPresenter(GridView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _view = view;
             _world = world;
@@ -45,7 +45,7 @@ namespace Runtime.Landscape.Grid.Indication
         private void Draw(Vector2Int position)
         {
             var indicationType = _world.GridModel.Cells[position.x, position.y].IndicationType;
-            _view.Tilemap.SetTile(new Vector3Int(position.x, position.y, 0), _indicationTiles[indicationType]);
+            _view.IndicationTilemap.SetTile(GridHelper.ToCellPos(position), _indicationTiles[indicationType]);
         }
         
         private void HandleCellIndicationTypeChange(Vector2Int position)
