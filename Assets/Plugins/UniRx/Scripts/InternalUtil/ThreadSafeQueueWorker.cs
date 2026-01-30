@@ -7,7 +7,7 @@ namespace UniRx.InternalUtil
         const int MaxArrayLength = 0X7FEFFFFF;
         const int InitialSize = 16;
 
-        object gate = new object();
+        readonly object gate = new object();
         bool dequing = false;
 
         int actionListCount = 0;
@@ -72,7 +72,7 @@ namespace UniRx.InternalUtil
                 dequing = true;
             }
 
-            for (int i = 0; i < actionListCount; i++)
+            for (var i = 0; i < actionListCount; i++)
             {
                 var action = actionList[i];
                 var state = actionStates[i];

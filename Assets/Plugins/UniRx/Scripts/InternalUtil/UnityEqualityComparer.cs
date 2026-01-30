@@ -71,22 +71,22 @@ namespace UniRx.InternalUtil
         {
             var t = type.TypeHandle;
 
-            if (t.Equals(vector2Type)) return (object)UnityEqualityComparer.Vector2;
-            if (t.Equals(vector3Type)) return (object)UnityEqualityComparer.Vector3;
-            if (t.Equals(vector4Type)) return (object)UnityEqualityComparer.Vector4;
-            if (t.Equals(colorType)) return (object)UnityEqualityComparer.Color;
-            if (t.Equals(color32Type)) return (object)UnityEqualityComparer.Color32;
-            if (t.Equals(rectType)) return (object)UnityEqualityComparer.Rect;
-            if (t.Equals(boundsType)) return (object)UnityEqualityComparer.Bounds;
-            if (t.Equals(quaternionType)) return (object)UnityEqualityComparer.Quaternion;
+            if (t.Equals(vector2Type)) return UnityEqualityComparer.Vector2;
+            if (t.Equals(vector3Type)) return UnityEqualityComparer.Vector3;
+            if (t.Equals(vector4Type)) return UnityEqualityComparer.Vector4;
+            if (t.Equals(colorType)) return UnityEqualityComparer.Color;
+            if (t.Equals(color32Type)) return UnityEqualityComparer.Color32;
+            if (t.Equals(rectType)) return UnityEqualityComparer.Rect;
+            if (t.Equals(boundsType)) return UnityEqualityComparer.Bounds;
+            if (t.Equals(quaternionType)) return UnityEqualityComparer.Quaternion;
 
 #if UNITY_2017_2_OR_NEWER
 
-            if (t.Equals(vector2IntType)) return (object)UnityEqualityComparer.Vector2Int;
-            if (t.Equals(vector3IntType)) return (object)UnityEqualityComparer.Vector3Int;
-            if (t.Equals(rangeIntType)) return (object)UnityEqualityComparer.RangeInt;
-            if (t.Equals(rectIntType)) return (object)UnityEqualityComparer.RectInt;
-            if (t.Equals(boundsIntType)) return (object)UnityEqualityComparer.BoundsInt;
+            if (t.Equals(vector2IntType)) return UnityEqualityComparer.Vector2Int;
+            if (t.Equals(vector3IntType)) return UnityEqualityComparer.Vector3Int;
+            if (t.Equals(rangeIntType)) return UnityEqualityComparer.RangeInt;
+            if (t.Equals(rectIntType)) return UnityEqualityComparer.RectInt;
+            if (t.Equals(boundsIntType)) return UnityEqualityComparer.BoundsInt;
 #endif
 
             return null;

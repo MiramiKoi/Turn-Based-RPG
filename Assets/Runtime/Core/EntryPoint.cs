@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Runtime.AsyncLoad;
+using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
@@ -8,12 +12,9 @@ using Runtime.LoadSteps;
 using Runtime.Player;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Runtime.Common
+namespace Runtime.Core
 {
     public class EntryPoint : MonoBehaviour
     {

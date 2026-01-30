@@ -158,8 +158,8 @@ namespace UniRx
         public static IObservable<bool> Return(bool value)
         {
             return (value == true)
-                ? (IObservable<bool>)ImmutableReturnTrueObservable.Instance
-                : (IObservable<bool>)ImmutableReturnFalseObservable.Instance;
+                ? ImmutableReturnTrueObservable.Instance
+                : ImmutableReturnFalseObservable.Instance;
         }
 
         /// <summary>

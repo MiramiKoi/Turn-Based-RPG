@@ -226,7 +226,7 @@ namespace UniRx.Operators
                 isCompleted = new bool[length];
 
                 var disposables = new IDisposable[length];
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     var source = parent.sources[i];
                     disposables[i] = source.Subscribe(new ZipLatestObserver(this, i));
@@ -242,7 +242,7 @@ namespace UniRx.Operators
 
                 var hasOnCompleted = false;
                 var allValueStarted = true;
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     if (!isStarted[i])
                     {
@@ -270,7 +270,7 @@ namespace UniRx.Operators
                 }
                 else
                 {
-                    for (int i = 0; i < length; i++)
+                    for (var i = 0; i < length; i++)
                     {
                         if (i == index) continue;
                         if (isCompleted[i] && !isStarted[i])
@@ -335,7 +335,7 @@ namespace UniRx.Operators
                         parent.isCompleted[index] = true;
 
                         var allTrue = true;
-                        for (int i = 0; i < parent.length; i++)
+                        for (var i = 0; i < parent.length; i++)
                         {
                             if (!parent.isCompleted[i])
                             {
@@ -359,10 +359,10 @@ namespace UniRx.Operators
 
     internal class ZipLatestObservable<T1, T2, T3, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        ZipLatestFunc<T1, T2, T3, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly ZipLatestFunc<T1, T2, T3, TR> resultSelector;
 
         public ZipLatestObservable(
             IObservable<T1> source1,
@@ -440,11 +440,11 @@ namespace UniRx.Operators
 
     internal class ZipLatestObservable<T1, T2, T3, T4, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        ZipLatestFunc<T1, T2, T3, T4, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly ZipLatestFunc<T1, T2, T3, T4, TR> resultSelector;
 
         public ZipLatestObservable(
             IObservable<T1> source1,
@@ -528,12 +528,12 @@ namespace UniRx.Operators
 
     internal class ZipLatestObservable<T1, T2, T3, T4, T5, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        IObservable<T5> source5;
-        ZipLatestFunc<T1, T2, T3, T4, T5, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly IObservable<T5> source5;
+        readonly ZipLatestFunc<T1, T2, T3, T4, T5, TR> resultSelector;
 
         public ZipLatestObservable(
             IObservable<T1> source1,
@@ -623,13 +623,13 @@ namespace UniRx.Operators
 
     internal class ZipLatestObservable<T1, T2, T3, T4, T5, T6, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        IObservable<T5> source5;
-        IObservable<T6> source6;
-        ZipLatestFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly IObservable<T5> source5;
+        readonly IObservable<T6> source6;
+        readonly ZipLatestFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
 
         public ZipLatestObservable(
             IObservable<T1> source1,
@@ -725,14 +725,14 @@ namespace UniRx.Operators
 
     internal class ZipLatestObservable<T1, T2, T3, T4, T5, T6, T7, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        IObservable<T5> source5;
-        IObservable<T6> source6;
-        IObservable<T7> source7;
-        ZipLatestFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly IObservable<T5> source5;
+        readonly IObservable<T6> source6;
+        readonly IObservable<T7> source7;
+        readonly ZipLatestFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
 
         public ZipLatestObservable(
             IObservable<T1> source1,
@@ -864,7 +864,7 @@ namespace UniRx.Operators
 
             var hasOnCompleted = false;
             var allValueStarted = true;
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (!isStarted[i])
                 {
@@ -904,7 +904,7 @@ namespace UniRx.Operators
             }
             else
             {
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     if (i == index) continue;
                     if (isCompleted[i] && !isStarted[i])
@@ -922,7 +922,7 @@ namespace UniRx.Operators
             isCompleted[index] = true;
 
             var allTrue = true;
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (!isCompleted[i])
                 {

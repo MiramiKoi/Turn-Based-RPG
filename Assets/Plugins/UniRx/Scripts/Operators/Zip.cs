@@ -224,13 +224,13 @@ namespace UniRx.Operators
                 queues = new Queue<T>[length];
                 isDone = new bool[length];
 
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     queues[i] = new Queue<T>();
                 }
 
                 var disposables = new IDisposable[length + 1];
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     var source = parent.sources[i];
                     disposables[i] = source.Subscribe(new ZipObserver(this, i));
@@ -240,7 +240,7 @@ namespace UniRx.Operators
                 {
                     lock (gate)
                     {
-                        for (int i = 0; i < length; i++)
+                        for (var i = 0; i < length; i++)
                         {
                             var q = queues[i];
                             q.Clear();
@@ -255,7 +255,7 @@ namespace UniRx.Operators
             void Dequeue(int index)
             {
                 var allQueueHasValue = true;
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     if (queues[i].Count == 0)
                     {
@@ -267,7 +267,7 @@ namespace UniRx.Operators
                 if (!allQueueHasValue)
                 {
                     var allCompletedWithoutSelf = true;
-                    for (int i = 0; i < length; i++)
+                    for (var i = 0; i < length; i++)
                     {
                         if (i == index) continue;
                         if (!isDone[i])
@@ -290,7 +290,7 @@ namespace UniRx.Operators
                 }
 
                 var array = new T[length];
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     array[i] = queues[i].Dequeue();
                 }
@@ -349,7 +349,7 @@ namespace UniRx.Operators
                     {
                         parent.isDone[index] = true;
                         var allTrue = true;
-                        for (int i = 0; i < parent.length; i++)
+                        for (var i = 0; i < parent.length; i++)
                         {
                             if (!parent.isDone[i])
                             {
@@ -373,10 +373,10 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        ZipFunc<T1, T2, T3, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly ZipFunc<T1, T2, T3, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -457,11 +457,11 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        ZipFunc<T1, T2, T3, T4, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly ZipFunc<T1, T2, T3, T4, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -547,12 +547,12 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, T5, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        IObservable<T5> source5;
-        ZipFunc<T1, T2, T3, T4, T5, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly IObservable<T5> source5;
+        readonly ZipFunc<T1, T2, T3, T4, T5, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -643,13 +643,13 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, T5, T6, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        IObservable<T5> source5;
-        IObservable<T6> source6;
-        ZipFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly IObservable<T5> source5;
+        readonly IObservable<T6> source6;
+        readonly ZipFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -745,14 +745,14 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> : OperatorObservableBase<TR>
     {
-        IObservable<T1> source1;
-        IObservable<T2> source2;
-        IObservable<T3> source3;
-        IObservable<T4> source4;
-        IObservable<T5> source5;
-        IObservable<T6> source6;
-        IObservable<T7> source7;
-        ZipFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
+        readonly IObservable<T1> source1;
+        readonly IObservable<T2> source2;
+        readonly IObservable<T3> source3;
+        readonly IObservable<T4> source4;
+        readonly IObservable<T5> source5;
+        readonly IObservable<T6> source6;
+        readonly IObservable<T7> source7;
+        readonly ZipFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -884,7 +884,7 @@ namespace UniRx.Operators
         public void Dequeue(int index)
         {
             var allQueueHasValue = true;
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (queues[i].Count == 0)
                 {
@@ -896,7 +896,7 @@ namespace UniRx.Operators
             if (!allQueueHasValue)
             {
                 var allCompletedWithoutSelf = true;
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < length; i++)
                 {
                     if (i == index) continue;
                     if (!isDone[i])
@@ -936,7 +936,7 @@ namespace UniRx.Operators
         {
             isDone[index] = true;
             var allTrue = true;
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (!isDone[i])
                 {

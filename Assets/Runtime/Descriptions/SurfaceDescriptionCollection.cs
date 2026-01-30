@@ -1,11 +1,10 @@
-﻿using Runtime.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Runtime.Descriptions
 {
     public class SurfaceDescriptionCollection
     {
-        public Dictionary<string, SurfaceDescription> Surfaces;
+        public readonly Dictionary<string, SurfaceDescription> Surfaces;
 
         public SurfaceDescriptionCollection(Dictionary<string, object> data)
         {
