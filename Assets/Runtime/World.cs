@@ -22,13 +22,11 @@ namespace Runtime
         public void SetData(PlayerControls playerControls, WorldDescription worldDescription)
         {
             WorldDescription = worldDescription;
-            var _surfaceGenerationDescription = new SurfaceGenerationDescription();
-            var surface = _surfaceGenerationDescription.Generate();
 
             TurnBaseModel = new TurnBaseModel();
             PlayerControls = playerControls;
             
-            GridModel = new GridModel(surface, worldDescription.SurfaceCollection);
+            GridModel = new GridModel(WorldDescription.SurfaceGenerationDescription.Generate(), worldDescription.SurfaceCollection);
             GridInteractionModel = new GridInteractionModel();
 
             MainCamera = Camera.main;
