@@ -1,3 +1,4 @@
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
@@ -21,6 +22,8 @@ namespace Runtime.Units
         public string Id { get; }
         public int Health => Stats["health"];
         
+        public CustomAwaiter Awaiter { get; private set; }
+        
         public UnitModel(string id, UnitDescription description, Vector2Int position)
         {
             Description = description;
@@ -33,6 +36,7 @@ namespace Runtime.Units
         public void MoveTo(Vector2Int position)
         {
             _position.Value =  position;
+            Awaiter = new CustomAwaiter();
         }
 
         public void Rotate(UnitDirection direction)

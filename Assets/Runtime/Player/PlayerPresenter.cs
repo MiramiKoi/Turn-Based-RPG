@@ -59,10 +59,8 @@ namespace Runtime.Player
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
                         _world.GridInteractionModel.IsActive = false;
-                        
-                        _view.Animator.SetBool(IsMoving, true);
-                        await AnimateMoveChanged(nextCell);
-                        _view.Animator.SetBool(IsMoving, false);
+
+                        await _model.Awaiter;
                         _world.TurnBaseModel.Step();
                     }
                     else

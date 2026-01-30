@@ -10,6 +10,7 @@ namespace Runtime.Units
 {
     public class UnitPresenter : IPresenter
     {
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private readonly List<IDisposable> _disposables = new();
         
         private readonly UnitModel _unit;
@@ -24,6 +25,7 @@ namespace Runtime.Units
         public virtual void Enable()
         {
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
+            _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
             
             _view.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
         }
@@ -42,6 +44,15 @@ namespace Runtime.Units
         private void OnRotationChanged(UnitDirection direction)
         {
             _view.SpriteRenderer.flipX = direction == UnitDirection.Left;
+        }
+
+        private async void OnPositionChanged(Vector2Int position)
+        {
+            _view.Animator.SetBool(IsMoving, true);
+            await AnimateMoveChanged(position);
+            _view.Animator.SetBool(IsMoving, false);
+            
+            _unit.Awaiter.Complete();
         }
     }
 }
