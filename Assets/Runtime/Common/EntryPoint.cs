@@ -24,13 +24,14 @@ namespace Runtime.Common
     {
         [SerializeField] private Tilemap _mainTilemap;
         [SerializeField] private Tilemap _indicationTilemap;
-        [SerializeField] private WorldViewDescriptions _worldViewDescriptions;
 
         [SerializeField] private UnitView _unitPrefab;
 
         
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
+        private readonly WorldViewDescriptions _worldViewDescriptions = new WorldViewDescriptions();
+        
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
@@ -42,7 +43,7 @@ namespace Runtime.Common
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
-                //new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
             };
 
             foreach (var step in persistentLoadStep)

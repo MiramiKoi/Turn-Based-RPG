@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Runtime.ViewDescriptions
 {
-    public class WorldViewDescriptions : MonoBehaviour
+    public class WorldViewDescriptions
     {
-        public SurfaceViewDescriptionCollection SurfaceViewDescriptions;
-        public GridIndicationViewDescription GridIndicationViewDescription;
+        public SurfaceViewDescriptionCollection SurfaceViewDescriptions { get; set; }
+        public GridIndicationViewDescription GridIndicationViewDescription { get; set; }
     }
 }
