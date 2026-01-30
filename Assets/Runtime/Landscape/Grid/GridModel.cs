@@ -10,17 +10,19 @@ namespace Runtime.Landscape.Grid
         public CellModel[,] Cells { get; }
         private readonly SurfaceDescriptionCollection _surfaceDescriptions;
 
-        public GridModel(int[,] surface, SurfaceDescriptionCollection surfaceDescriptionCollection)
+        public GridModel(int[,] matrix, SurfaceDescriptionCollection surfaceDescriptionCollection)
         {
             _surfaceDescriptions = surfaceDescriptionCollection;
-
+            
             Cells = new CellModel[GridConstants.Width, GridConstants.Height];
         
             for (var y = 0; y < GridConstants.Height; y++)
             {
                 for (var x = 0; x < GridConstants.Width; x++)
                 {
-                    _surfaceDescriptions.Surfaces.TryGetValue(surface[x, y].ToString(), out var description);
+                    var surface = matrix[x, y].ToString();
+                    
+                    _surfaceDescriptions.Surfaces.TryGetValue(surface, out var description);
                     Cells[x, y] = new CellModel(x, y, description);
                 }
             }

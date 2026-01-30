@@ -7,33 +7,31 @@ namespace Runtime.Landscape.Grid.Cell
     public class CellPresenter : IPresenter
     {
         private readonly CellModel _model;
-        private readonly CellView _view;
-        private readonly World _world;
+        private readonly GridView _view;
         private readonly WorldViewDescriptions _worldViewDescriptions;
 
-        public CellPresenter(CellModel model, CellView view, World world, WorldViewDescriptions worldViewDescriptions)
+        public CellPresenter(CellModel model, GridView view, WorldViewDescriptions worldViewDescriptions)
         {
             _model = model;
             _view = view;
-            _world = world;
             _worldViewDescriptions = worldViewDescriptions;
         }
 
         public void Enable()
         {
-
-            var tileView = _worldViewDescriptions.SurfaceViewDescriptions.Get(_model.SurfaceDescription.ViewId);
-            if (tileView == null)
+            var surfaceView = _worldViewDescriptions.SurfaceViewDescriptions.Get(_model.SurfaceDescription.ViewId);
+            
+            if (surfaceView == null)
             {
                 return;
             }
 
-            _view.Tilemap.SetTile(GridHelper.ToCellPos(_model.Position), tileView.TileAsset.editorAsset);
+            _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), surfaceView.TileAsset.editorAsset);
         }
 
         public void Disable()
         {
-            _view.Tilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);
+            _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);
         }
     }
 }

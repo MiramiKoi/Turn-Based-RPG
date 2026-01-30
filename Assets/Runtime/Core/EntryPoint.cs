@@ -13,14 +13,12 @@ using Runtime.Player;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Runtime.Core
 {
     public class EntryPoint : MonoBehaviour
     {
-        [SerializeField] private Tilemap _mainTilemap;
-        [SerializeField] private Tilemap _indicationTilemap;
+        [SerializeField] private GridView _gridView;
         
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
@@ -50,15 +48,13 @@ namespace Runtime.Core
             
             _world.SetData(_playerControls, _worldDescription);
             
-            var gridView = new GridView(_mainTilemap);
-            var gridPresenter = new GridPresenter(_world.GridModel, gridView, _world, _worldViewDescriptions);
+            var gridPresenter = new GridPresenter(_world.GridModel, _gridView, _worldViewDescriptions);
             gridPresenter.Enable();
             
-            var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, gridView, _world);
+            var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, _gridView, _world);
             gridInteractionPresenter.Enable();
-
-            var gridIndicationView = new GridIndicationView(_indicationTilemap);
-            var gridIndicationPresenter = new GridIndicationPresenter(gridIndicationView, _world,  _worldViewDescriptions);
+            
+            var gridIndicationPresenter = new GridIndicationPresenter(_gridView, _world,  _worldViewDescriptions);
             gridIndicationPresenter.Enable();
             
             await CreateUnit();
