@@ -92,7 +92,7 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnUnitObservable : IObservable<Unit>, IOptimizedObservable<Unit>
     {
-        internal static ImmutableReturnUnitObservable Instance = new ImmutableReturnUnitObservable();
+        internal static readonly ImmutableReturnUnitObservable Instance = new ImmutableReturnUnitObservable();
 
         ImmutableReturnUnitObservable()
         {
@@ -114,7 +114,7 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnTrueObservable : IObservable<bool>, IOptimizedObservable<bool>
     {
-        internal static ImmutableReturnTrueObservable Instance = new ImmutableReturnTrueObservable();
+        internal static readonly ImmutableReturnTrueObservable Instance = new ImmutableReturnTrueObservable();
 
         ImmutableReturnTrueObservable()
         {
@@ -136,7 +136,7 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnFalseObservable : IObservable<bool>, IOptimizedObservable<bool>
     {
-        internal static ImmutableReturnFalseObservable Instance = new ImmutableReturnFalseObservable();
+        internal static readonly ImmutableReturnFalseObservable Instance = new ImmutableReturnFalseObservable();
 
         ImmutableReturnFalseObservable()
         {

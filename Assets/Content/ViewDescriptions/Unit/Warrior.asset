@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Unit.UnitViewDescription
   Prefab:
-    m_AssetGUID: 
+    m_AssetGUID: 1f177ce22deec9344872bac20cbb902c
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
