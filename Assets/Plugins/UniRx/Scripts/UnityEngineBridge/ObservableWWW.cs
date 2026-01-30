@@ -22,7 +22,6 @@ namespace UniRx
     // WWW: deprecated 'WWW(string url, byte[] postData, Hashtable headers)', 
     // use 'public WWW(string url, byte[] postData, Dictionary<string, string> headers)' instead.
     using Hash = System.Collections.Generic.Dictionary<string, string>;
-    using HashEntry = System.Collections.Generic.KeyValuePair<string, string>;
 #endif
 
 #if UNITY_2018_3_OR_NEWER
