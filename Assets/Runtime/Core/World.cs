@@ -1,5 +1,4 @@
 using Runtime.Descriptions;
-using Runtime.Descriptions.Surface;
 using Runtime.GameSystems;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
@@ -7,7 +6,7 @@ using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
 using UnityEngine;
 
-namespace Runtime
+namespace Runtime.Core
 {
     public class World
     {
