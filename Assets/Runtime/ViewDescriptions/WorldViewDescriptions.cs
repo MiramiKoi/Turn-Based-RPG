@@ -1,6 +1,6 @@
 using Runtime.ViewDescriptions.Landscape.Grid;
 using Runtime.ViewDescriptions.Landscape.Surface;
-using UnityEngine;
+using Runtime.ViewDescriptions.Unit;
 
 namespace Runtime.ViewDescriptions
 {
@@ -8,5 +8,6 @@ namespace Runtime.ViewDescriptions
     {
         public SurfaceViewDescriptionCollection SurfaceViewDescriptions { get; set; }
         public GridIndicationViewDescription GridIndicationViewDescription { get; set; }
+        public UnitViewDescriptionCollection UnitViewDescriptions { get; set; }
     }
 }

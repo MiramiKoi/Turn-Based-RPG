@@ -1,9 +1,5 @@
-using fastJSON;
 using Runtime.AsyncLoad;
 using Runtime.Descriptions;
-using Runtime.Descriptions.Surface;
-using Runtime.Descriptions.Units;
-using Runtime.Extensions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Indication;
@@ -13,8 +9,8 @@ using Runtime.Player;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,13 +20,10 @@ namespace Runtime.Common
     {
         [SerializeField] private Tilemap _mainTilemap;
         [SerializeField] private Tilemap _indicationTilemap;
-
-        [SerializeField] private UnitView _unitPrefab;
-
         
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
-        private readonly WorldViewDescriptions _worldViewDescriptions = new WorldViewDescriptions();
+        private readonly WorldViewDescriptions _worldViewDescriptions = new();
         
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
@@ -67,7 +60,7 @@ namespace Runtime.Common
             var gridIndicationPresenter = new GridIndicationPresenter(gridIndicationView, _world,  _worldViewDescriptions);
             gridIndicationPresenter.Enable();
             
-            CreateUnit();
+            await CreateUnit();
         }
         
         private void Update()
@@ -75,7 +68,7 @@ namespace Runtime.Common
             _world.GameSystems?.Update(Time.deltaTime);
         }
 
-        private void CreateUnit()
+        private async Task CreateUnit()
         {
             var unitDescription = _worldDescription.UnitCollection.First();
             
@@ -86,7 +79,10 @@ namespace Runtime.Common
                 new Vector2Int(50, 49)
             );
             
-            var unitView = Instantiate(_unitPrefab, Vector3.zero, Quaternion.identity);
+            var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
+            var unitPrefab = await unitViewDescription.Prefab.LoadAssetAsync().Task;
+            var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
+            unitViewDescription.Prefab.ReleaseAsset();
             
             var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
             playerPresenter.Enable();

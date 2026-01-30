@@ -6,6 +6,7 @@ using Runtime.AsyncLoad;
 using Runtime.ViewDescriptions;
 using Runtime.ViewDescriptions.Landscape.Grid;
 using Runtime.ViewDescriptions.Landscape.Surface;
+using Runtime.ViewDescriptions.Unit;
 
 namespace Runtime.LoadSteps
 {
@@ -27,6 +28,10 @@ namespace Runtime.LoadSteps
                 {
                     "SurfaceViewDescriptionCollection",
                     obj => worldViewDescriptions.SurfaceViewDescriptions = obj as SurfaceViewDescriptionCollection
+                },
+                {
+                    "UnitViewDescriptionCollection",
+                    obj => worldViewDescriptions.UnitViewDescriptions = obj as UnitViewDescriptionCollection
                 }
             };
         }
