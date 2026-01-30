@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63752f1e522046d58e51d9ea1aed0e23
+    m_Address: surface-generation-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd617ed6732347818d638c34dcb32b75
     m_Address: unit-description
     m_ReadOnly: 0

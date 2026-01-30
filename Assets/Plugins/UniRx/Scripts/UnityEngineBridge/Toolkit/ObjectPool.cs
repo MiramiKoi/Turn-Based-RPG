@@ -189,7 +189,7 @@ namespace UniRx.Toolkit
 
                 var createCount = Math.Min(requireCount, threshold);
 
-                for (int i = 0; i < createCount; i++)
+                for (var i = 0; i < createCount; i++)
                 {
                     try
                     {
@@ -420,7 +420,7 @@ namespace UniRx.Toolkit
                 var createCount = Math.Min(requireCount, threshold);
 
                 var loaders = new IObservable<Unit>[createCount];
-                for (int i = 0; i < createCount; i++)
+                for (var i = 0; i < createCount; i++)
                 {
                     var instanceFuture = CreateInstanceAsync();
                     loaders[i] = instanceFuture.ForEachAsync(x => Return(x));

@@ -14,7 +14,7 @@ namespace UniRx.InternalUtil
         public void OnCompleted()
         {
             var targetObservers = _observers.Data;
-            for (int i = 0; i < targetObservers.Length; i++)
+            for (var i = 0; i < targetObservers.Length; i++)
             {
                 targetObservers[i].OnCompleted();
             }
@@ -23,7 +23,7 @@ namespace UniRx.InternalUtil
         public void OnError(Exception error)
         {
             var targetObservers = _observers.Data;
-            for (int i = 0; i < targetObservers.Length; i++)
+            for (var i = 0; i < targetObservers.Length; i++)
             {
                 targetObservers[i].OnError(error);
             }
@@ -32,7 +32,7 @@ namespace UniRx.InternalUtil
         public void OnNext(T value)
         {
             var targetObservers = _observers.Data;
-            for (int i = 0; i < targetObservers.Length; i++)
+            for (var i = 0; i < targetObservers.Length; i++)
             {
                 targetObservers[i].OnNext(value);
             }

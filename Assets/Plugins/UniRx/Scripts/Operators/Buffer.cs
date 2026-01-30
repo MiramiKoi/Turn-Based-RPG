@@ -145,7 +145,7 @@ namespace UniRx.Operators
                 }
 
                 var len = q.Count;
-                for (int i = 0; i < len; i++)
+                for (var i = 0; i < len; i++)
                 {
                     var list = q.Dequeue();
                     list.Add(value);
@@ -228,7 +228,7 @@ namespace UniRx.Operators
 
             class Buffer : IObserver<long>
             {
-                BufferT parent;
+                readonly BufferT parent;
 
                 public Buffer(BufferT parent)
                 {
@@ -252,7 +252,7 @@ namespace UniRx.Operators
                         }
                     }
 
-                    parent.observer.OnNext((isZero) ? (IList<T>)EmptyArray : currentList);
+                    parent.observer.OnNext((isZero) ? EmptyArray : currentList);
                 }
 
                 public void OnError(Exception error)
@@ -441,7 +441,7 @@ namespace UniRx.Operators
                     }
                 }
 
-                observer.OnNext((isZero) ? (IList<T>)EmptyArray : currentList);
+                observer.OnNext((isZero) ? EmptyArray : currentList);
             }
 
             void OnNextRecursive(long currentTimerId, Action<TimeSpan> self)
@@ -463,7 +463,7 @@ namespace UniRx.Operators
                     }
                 }
 
-                observer.OnNext((isZero) ? (IList<T>)EmptyArray : currentList);
+                observer.OnNext((isZero) ? EmptyArray : currentList);
                 self(parent.timeSpan);
             }
 
@@ -528,7 +528,7 @@ namespace UniRx.Operators
             static readonly TSource[] EmptyArray = new TSource[0]; // cache
 
             readonly BufferObservable<TSource, TWindowBoundary> parent;
-            object gate = new object();
+            readonly object gate = new object();
             List<TSource> list;
 
             public Buffer(BufferObservable<TSource, TWindowBoundary> parent, IObserver<IList<TSource>> observer, IDisposable cancel) : base(observer, cancel)

@@ -73,7 +73,7 @@ namespace UniRx
                 private Action _action;
                 private System.Threading.Timer _timer;
 
-                private bool _hasAdded;
+                private readonly bool _hasAdded;
                 private bool _hasRemoved;
 
                 public Timer(TimeSpan dueTime, Action action)

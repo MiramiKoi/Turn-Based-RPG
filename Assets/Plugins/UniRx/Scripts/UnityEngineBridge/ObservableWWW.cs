@@ -151,7 +151,7 @@ namespace UniRx
 #else
         static Hash MergeHash(Hash wwwFormHeaders, Hash externalHeaders)
         {
-            foreach (HashEntry item in externalHeaders)
+            foreach (var item in externalHeaders)
             {
                 wwwFormHeaders[item.Key] = item.Value;
             }

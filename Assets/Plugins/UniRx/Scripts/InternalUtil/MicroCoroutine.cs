@@ -18,7 +18,7 @@ namespace UniRx.InternalUtil
         int tail = 0;
         bool running = false;
         IEnumerator[] coroutines = new IEnumerator[InitialSize];
-        Queue<IEnumerator> waitQueue = new Queue<IEnumerator>();
+        readonly Queue<IEnumerator> waitQueue = new Queue<IEnumerator>();
 
         public MicroCoroutine(Action<Exception> unhandledExceptionCallback)
         {
@@ -60,7 +60,7 @@ namespace UniRx.InternalUtil
                 var j = tail - 1;
 
                 // eliminate array-bound check for i
-                for (int i = 0; i < coroutines.Length; i++)
+                for (var i = 0; i < coroutines.Length; i++)
                 {
                     var coroutine = coroutines[i];
                     if (coroutine != null)

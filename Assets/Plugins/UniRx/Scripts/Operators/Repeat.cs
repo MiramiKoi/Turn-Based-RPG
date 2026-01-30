@@ -33,7 +33,7 @@ namespace UniRx.Operators
                 if (scheduler == Scheduler.Immediate)
                 {
                     var count = this.repeatCount.Value;
-                    for (int i = 0; i < count; i++)
+                    for (var i = 0; i < count; i++)
                     {
                         observer.OnNext(value);
                     }

@@ -50,7 +50,7 @@ namespace Runtime.Agents.Nodes
 
         public virtual void Deserialize(Dictionary<string, object> data)
         {
-            AgentNode agentNode = CreateNodeFromData(data);
+            var agentNode = CreateNodeFromData(data);
 
             if (data.TryGetValue(ChildrenKey, out var childrenObj) && childrenObj is List<object> childrenList)
             {
@@ -58,7 +58,7 @@ namespace Runtime.Agents.Nodes
                 {
                     if (childObj is Dictionary<string, object> childDict)
                     {
-                        AgentNode childAgentNode = CreateNodeFromData(childDict);
+                        var childAgentNode = CreateNodeFromData(childDict);
                         childAgentNode.Deserialize(childDict);
                         agentNode.AddChild(childAgentNode);
                     }

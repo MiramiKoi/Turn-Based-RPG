@@ -58,7 +58,7 @@ namespace UniRx
         readonly Subject<T> trigger = new Subject<T>();
         readonly IDisposable canExecuteSubscription;
 
-        ReactiveProperty<bool> canExecute;
+        readonly ReactiveProperty<bool> canExecute;
         public IReadOnlyReactiveProperty<bool> CanExecute
         {
             get
@@ -241,7 +241,7 @@ namespace UniRx
                     var xs = new IObservable<Unit>[a.Length];
                     try
                     {
-                        for (int i = 0; i < a.Length; i++)
+                        for (var i = 0; i < a.Length; i++)
                         {
                             xs[i] = a[i].Invoke(parameter) ?? Observable.ReturnUnit();
                         }

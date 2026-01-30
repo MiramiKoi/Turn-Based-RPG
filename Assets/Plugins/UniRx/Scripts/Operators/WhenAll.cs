@@ -67,7 +67,7 @@ namespace UniRx.Operators
                 values = new T[length];
 
                 var subscriptions = new IDisposable[length];
-                for (int index = 0; index < length; index++)
+                for (var index = 0; index < length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this, index);
@@ -175,7 +175,7 @@ namespace UniRx.Operators
                 values = new T[length];
 
                 var subscriptions = new IDisposable[length];
-                for (int index = 0; index < length; index++)
+                for (var index = 0; index < length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this, index);
@@ -316,7 +316,7 @@ namespace UniRx.Operators
                 completedCount = 0;
 
                 var subscriptions = new IDisposable[length];
-                for (int index = 0; index < sources.Length; index++)
+                for (var index = 0; index < sources.Length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this);
@@ -413,7 +413,7 @@ namespace UniRx.Operators
                 completedCount = 0;
 
                 var subscriptions = new IDisposable[length];
-                for (int index = 0; index < length; index++)
+                for (var index = 0; index < length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this);

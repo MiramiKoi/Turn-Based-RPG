@@ -224,7 +224,7 @@ namespace UniRx
                 var multilineAttr = GetMultilineAttribute();
                 if (multilineAttr != null)
                 {
-                    return ((!EditorGUIUtility.wideMode) ? 16f : 0f) + 16f + (float)((multilineAttr.Lines - 1) * 13);
+                    return ((!EditorGUIUtility.wideMode) ? 16f : 0f) + 16f + (multilineAttr.Lines - 1) * 13;
                 };
             }
 
@@ -274,7 +274,7 @@ namespace UniRx
                 position = (Rect)method.Invoke(null, new object[] { position, 0, label, 1 });
 
                 EditorGUI.BeginChangeCheck();
-                int indentLevel = EditorGUI.indentLevel;
+                var indentLevel = EditorGUI.indentLevel;
                 EditorGUI.indentLevel = 0;
                 var stringValue = EditorGUI.TextArea(position, property.stringValue);
                 EditorGUI.indentLevel = indentLevel;

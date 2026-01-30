@@ -8,7 +8,7 @@ namespace Runtime.Landscape.Grid
     public class GridModel
     {
         public CellModel[,] Cells { get; }
-        private SurfaceDescriptionCollection _surfaceDescriptions;
+        private readonly SurfaceDescriptionCollection _surfaceDescriptions;
 
         public GridModel(int[,] surface, SurfaceDescriptionCollection surfaceDescriptionCollection)
         {
