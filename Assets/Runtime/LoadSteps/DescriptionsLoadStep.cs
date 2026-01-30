@@ -15,7 +15,8 @@ namespace Runtime.LoadSteps
 
         private readonly Dictionary<string, string> _keys = new()
         {
-            { "surfaces", "surface-description" }
+            { "surfaces", "surface-description" },
+            { "units", "unit-description" }
         };
 
         public DescriptionsLoadStep(WorldDescription worldDescription, AddressableModel addressableModel)

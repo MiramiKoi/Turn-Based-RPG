@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Descriptions
+  m_Name: UnitPrefabs
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Descriptions
-  m_GUID: f0d8db5137e9ce54b912820dbb5ad36b
+  m_GroupName: UnitPrefabs
+  m_GUID: e561042459c278849a669801c84e80cd
   m_SerializeEntries:
-  - m_GUID: 44c63747aeaf43108d0e60ae403a3f1e
-    m_Address: surface-description
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd617ed6732347818d638c34dcb32b75
-    m_Address: unit-description
+  - m_GUID: 1f177ce22deec9344872bac20cbb902c
+    m_Address: Warrior
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -29,5 +24,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 33737a4ea05457f41ba080a5d0e3fef0, type: 2}
-    - {fileID: 11400000, guid: 1b1693dc41935bc44b282f2550b413c6, type: 2}
+    - {fileID: 11400000, guid: c619b36885142f6458cd8b2eea7a047c, type: 2}
+    - {fileID: 11400000, guid: 45c6c80d6c7f5dd40a2d70f0eea39d62, type: 2}

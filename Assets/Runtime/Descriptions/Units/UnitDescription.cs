@@ -8,9 +8,12 @@ namespace Runtime.Descriptions.Units
     {
         public StatDescriptionCollection Stats { get; }
         
+        public string ViewId { get; }
+        
         public UnitDescription(string id, Dictionary<string, object> data) : base(id)
         {
             Stats = new StatDescriptionCollection(data.GetNode("stats"));
+            ViewId = data.GetString("view_id");
         }
     }
 }

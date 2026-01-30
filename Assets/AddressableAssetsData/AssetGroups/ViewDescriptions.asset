@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: ViewDescriptions
   m_GUID: 3733df6f3331c8e46ae115bebcc7c0c0
   m_SerializeEntries:
+  - m_GUID: 0d9288408407c714c96eca251584b972
+    m_Address: UnitViewDescriptionCollection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 674428b540fce734996356cbf1e124f8
     m_Address: GridIndicationViewDescription
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af4d873d03226fc47a5bbacac9a34e2c
+    m_Address: SurfaceViewDescriptionCollection
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
