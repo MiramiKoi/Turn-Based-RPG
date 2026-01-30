@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Descriptions
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Descriptions
-  m_GUID: 0f761d2d996f46a4fbcc8b504202b2bf
+  m_GUID: f0d8db5137e9ce54b912820dbb5ad36b
   m_SerializeEntries:
   - m_GUID: 44c63747aeaf43108d0e60ae403a3f1e
     m_Address: surface-description
@@ -24,5 +24,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 445bb3b8ea6f54b41ab26fa5a3ada653, type: 2}
-    - {fileID: 11400000, guid: 3ad78123ad55ee74fb3fd7bc14891e13, type: 2}
+    - {fileID: 11400000, guid: 33737a4ea05457f41ba080a5d0e3fef0, type: 2}
+    - {fileID: 11400000, guid: 1b1693dc41935bc44b282f2550b413c6, type: 2}
