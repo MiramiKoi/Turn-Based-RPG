@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using fastJSON;
+using Runtime.Agents;
+using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Descriptions;
@@ -57,6 +60,7 @@ namespace Runtime.Core
             var gridIndicationPresenter = new GridIndicationPresenter(_gridView, _world,  _worldViewDescriptions);
             gridIndicationPresenter.Enable();
             
+            await CreateControllableUnit();
             await CreateUnit();
         }
         
@@ -65,7 +69,7 @@ namespace Runtime.Core
             _world.GameSystems?.Update(Time.deltaTime);
         }
 
-        private async Task CreateUnit()
+        private async Task CreateControllableUnit()
         {
             var unitDescription = _worldDescription.UnitCollection.First();
             
@@ -73,7 +77,7 @@ namespace Runtime.Core
             (
                 "unit_0", 
                 unitDescription, 
-                new Vector2Int(50, 49)
+                new Vector2Int(5, 4)
             );
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
@@ -82,6 +86,44 @@ namespace Runtime.Core
             unitViewDescription.Prefab.ReleaseAsset();
             
             var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
+            playerPresenter.Enable();
+        }
+        
+        
+        private async Task CreateUnit()
+        {
+            var unitDescription = _worldDescription.UnitCollection.Last();
+            
+            var unitModel = new UnitModel
+            (
+                "bear", 
+                unitDescription, 
+                new Vector2Int(5, 5)
+            );
+            
+            var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
+            var unitPrefab = await unitViewDescription.Prefab.LoadAssetAsync().Task;
+            var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
+            unitViewDescription.Prefab.ReleaseAsset();
+            
+            var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
+
+            var decisionRoot = new AgentDecisionRoot();
+            
+            decisionRoot.Deserialize(dictionary);
+            
+            var playerPresenter = new AgentPresenter(unitModel, decisionRoot, _world);
+
+            var unitPresenter = new UnitPresenter(unitModel, unitView);
+            
+            unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
+            unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));
+            unitModel.RegisterCommand("set_false_flag", new SetFlagCommand(false, "flag"));
+            unitModel.RegisterCommand("set_true_flag", new SetFlagCommand(true, "flag"));
+            unitModel.RegisterCommand("has_flag", new HasFlagCommand("flag"));
+            
+            
+            unitPresenter.Enable();
             playerPresenter.Enable();
         }
     }

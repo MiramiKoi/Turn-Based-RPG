@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Descriptions.Units;
@@ -7,7 +9,7 @@ using UnityEngine;
 
 namespace Runtime.Units
 {
-    public class UnitModel : IUnit
+    public class UnitModel : IUnit, IControllable
     {
         public UnitDescription Description { get; }
         
@@ -18,12 +20,21 @@ namespace Runtime.Units
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
         
         public StatModelCollection Stats { get; private set; }
-        
+
+        public IReadOnlyDictionary<string, IUnitCommand> Commands => _commands;
+        public IReadOnlyDictionary<string, bool> Flags => _flags;
+
         public string Id { get; }
+
         public int Health => Stats["health"];
-        
+
         public CustomAwaiter Awaiter { get; private set; }
-        
+
+        private Dictionary<string, IUnitCommand> _commands = new();
+
+        private Dictionary<string, bool> _flags = new();
+
+
         public UnitModel(string id, UnitDescription description, Vector2Int position)
         {
             Description = description;
@@ -33,10 +44,26 @@ namespace Runtime.Units
             MoveTo(position);
         }
 
+        public void RegisterCommand(string key, IUnitCommand command)
+        {
+            _commands[key] = command;
+        }
+
         public void MoveTo(Vector2Int position)
         {
+            var current = Position.Value;
+         
+            if (position.x != current.x)
+                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+            
             _position.Value =  position;
+
             Awaiter = new CustomAwaiter();
+        }
+
+        public void SetFlag(string key, bool value)
+        {
+            _flags[key] = value;
         }
 
         public void Rotate(UnitDirection direction)

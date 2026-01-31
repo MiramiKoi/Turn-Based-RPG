@@ -4,11 +4,11 @@ namespace Runtime.Agents.Nodes
     {
         public override string Type => "root";
 
-        public override NodeStatus Process(IWorldContext context, IUnit unit)
+        public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
             foreach (var child in Children)
             {
-                var status = child.Process(context, unit);
+                var status = child.Process(context, controllable);
 
                 if (status == NodeStatus.Success)
                 {

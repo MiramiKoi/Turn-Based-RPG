@@ -12,11 +12,10 @@ namespace Runtime.Agents
             Flag = flag;
         }
 
-        public NodeStatus Execute(IWorldContext context, IUnit unit)
+        public NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            if (unit.Flags.TryGetValue(Flag, out var flag))
+            if (controllable.Flags.TryGetValue(Flag, out var flag))
             {
-                Debug.Log($"{Flag}: {flag}");
                 return flag ? NodeStatus.Success :  NodeStatus.Failure;  
             }
             

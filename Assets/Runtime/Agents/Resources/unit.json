@@ -10,10 +10,10 @@
                   
                ],
                "position" : [
-                  -384.8,
-                  262.4
+                  -407.3333,
+                  277.3333
                ],
-               "command" : "attack"
+               "command" : "has_flag"
             },
             {
                "type" : "leaf",
@@ -21,19 +21,30 @@
                   
                ],
                "position" : [
-                  -102.4,
-                  262.4
+                  -236,
+                  277.3333
                ],
-               "command" : "has_player"
+               "command" : "move_right"
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  -64.66666,
+                  277.3333
+               ],
+               "command" : "set_false_flag"
             }
          ],
          "position" : [
-            -269.6,
-            75.2
+            -135.3333,
+            132
          ]
       },
       {
-         "type" : "selector",
+         "type" : "sequence",
          "children" : [
             {
                "type" : "leaf",
@@ -41,20 +52,31 @@
                   
                ],
                "position" : [
-                  403.2,
-                  276.8
+                  180.6667,
+                  298.6667
                ],
-               "command" : "move"
+               "command" : "move_left"
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "position" : [
+                  390,
+                  298.6667
+               ],
+               "command" : "set_true_flag"
             }
          ],
          "position" : [
-            132,
-            75.2
+            228.6667,
+            132
          ]
       }
    ],
    "position" : [
-      -4.8,
-      -48.8
+      0,
+      -78.66667
    ]
 }

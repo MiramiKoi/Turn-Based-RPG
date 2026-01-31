@@ -37,7 +37,16 @@ namespace Editor.Agents
 
         public virtual void SaveData()
         {
+            SortPortsByPositionX();
             Data.Position = GetPosition().position;
+        }
+        
+        private void SortPortsByPositionX()
+        {
+            var sequence = Data as AgentSequence;
+            
+            sequence?.Children.Sort((a, b) 
+                => a.Position.x.CompareTo(b.Position.x));
         }
     }
 }
