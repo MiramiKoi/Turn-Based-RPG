@@ -4,11 +4,11 @@ namespace Runtime.Agents.Nodes
     {
         public override string Type => "selector";
 
-        public override NodeStatus Process(IWorldContext context, IUnit unit)
+        public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
             foreach (var child in Children)
             {
-                if (child.Process(context, unit) == NodeStatus.Success)
+                if (child.Process(context, controllable) == NodeStatus.Success)
                     return NodeStatus.Success;
             }
 

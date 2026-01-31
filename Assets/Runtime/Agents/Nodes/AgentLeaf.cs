@@ -13,9 +13,9 @@ namespace Runtime.Agents.Nodes
         
         public string Command { get; set; }
         
-        public override NodeStatus Process(IWorldContext context, IUnit unit)
+        public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
-            return unit.AvailableCommands[Command].Execute(context, unit);
+            return controllable.Commands[Command].Execute(context, controllable);
         }
 
         public override Dictionary<string, object> Serialize()

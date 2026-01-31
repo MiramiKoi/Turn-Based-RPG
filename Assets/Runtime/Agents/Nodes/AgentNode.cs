@@ -29,7 +29,7 @@ namespace Runtime.Agents.Nodes
             OnAddChild?.Invoke();
         }
 
-        public abstract NodeStatus Process(IWorldContext context, IUnit unit);
+        public abstract NodeStatus Process(IWorldContext context, IControllable controllable);
 
         public virtual Dictionary<string, object> Serialize()
         {
