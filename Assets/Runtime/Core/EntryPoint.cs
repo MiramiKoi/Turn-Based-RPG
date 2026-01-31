@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using fastJSON;
 using Runtime.Agents;
@@ -42,7 +41,6 @@ namespace Runtime.Core
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world)
@@ -64,14 +62,7 @@ namespace Runtime.Core
 
         private async Task CreateControllableUnit()
         {
-            var unitDescription = _worldDescription.UnitCollection.First();
-            
-            var unitModel = new UnitModel
-            (
-                "unit_0", 
-                unitDescription, 
-                new Vector2Int(51, 49)
-            );
+            var unitModel = _world.UnitCollection.Get("character");
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
@@ -88,14 +79,7 @@ namespace Runtime.Core
         
         private async Task CreateUnit()
         {
-            var unitDescription = _worldDescription.UnitCollection.Last();
-            
-            var unitModel = new UnitModel
-            (
-                "bear", 
-                unitDescription, 
-                new Vector2Int(51, 50)
-            );
+            var unitModel = _world.UnitCollection.Get("bear");
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
