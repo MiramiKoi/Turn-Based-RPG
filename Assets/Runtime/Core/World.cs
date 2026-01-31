@@ -1,3 +1,4 @@
+using Runtime.Agents.Nodes;
 using Runtime.Descriptions;
 using Runtime.GameSystems;
 using Runtime.Input;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Runtime.Core
 {
-    public class World
+    public class World : IWorldContext
     {
         public TurnBaseModel TurnBaseModel { get; private set; }
         public PlayerControls PlayerControls { get; private set; }

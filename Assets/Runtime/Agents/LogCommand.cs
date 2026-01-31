@@ -12,7 +12,7 @@ namespace Runtime.Agents
             Message = message;
         }
 
-        public NodeStatus Execute(IWorldContext context, IUnit unit)
+        public NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             Debug.Log($"Execute Log: {Message} ");
             

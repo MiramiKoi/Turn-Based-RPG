@@ -53,8 +53,6 @@ namespace Runtime.Player
 
                     if (_world.GridModel.CanPlace(nextCell))
                     {
-                        RotateCharacter(nextCell);
-
                         _world.GridModel.ReleaseCell(_model.Position.Value);
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
@@ -74,14 +72,6 @@ namespace Runtime.Player
                 }
             }
         }
-
-        private void RotateCharacter(Vector2Int next)
-        {
-            var current = _model.Position.Value;
-            if (next.x != current.x)
-                _model.Rotate(next.x < current.x ? UnitDirection.Left : UnitDirection.Right);
-        }
-
         private void StopRoute()
         {
             _world.GridInteractionModel.IsActive = true;

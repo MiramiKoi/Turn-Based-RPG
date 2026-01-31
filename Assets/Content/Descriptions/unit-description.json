@@ -4,5 +4,11 @@
       "health": 100
     },
     "view_id": "Warrior"
+  },
+  "bear": {
+    "stats": {
+      "health": 100
+    },
+    "view_id": "Bear"
   }
 }

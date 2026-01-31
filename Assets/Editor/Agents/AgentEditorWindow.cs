@@ -14,7 +14,7 @@ namespace Editor.Agents
 {
     public class AgentEditorWindow : EditorWindow
     {
-        private const string Title = "Agent Behavior Tree Editor";
+        private const string Title = "Controllable Behavior Tree Editor";
 
         private AgentGraphView _graphView;
 
@@ -38,7 +38,7 @@ namespace Editor.Agents
             _graphView.graphViewChanged -= OnGraphElementChanged;
         }
 
-        [MenuItem("Window/Agent Behavior Tree Editor")]
+        [MenuItem("Window/Controllable Behavior Tree Editor")]
         public static void ShowEditor()
         {
             var window = GetWindow<AgentEditorWindow>();
@@ -84,7 +84,7 @@ namespace Editor.Agents
         private void Save()
         {
             var path = EditorUtility.SaveFilePanel(
-                "Save Agent Behavior",
+                "Save Controllable Behavior",
                 Application.dataPath,
                 "behavior-tree.json",
                 "json");
@@ -115,7 +115,7 @@ namespace Editor.Agents
             _graphView.ClearGraph();
             
             var path = EditorUtility.OpenFilePanel
-                ("Load Agent Behavior", 
+                ("Load Controllable Behavior", 
                 Application.dataPath, 
                 "json");
 
