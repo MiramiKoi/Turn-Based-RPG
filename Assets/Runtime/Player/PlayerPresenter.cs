@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using Runtime.Common;
 using Runtime.Common.Movement;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
 {
-    public class PlayerPresenter : UnitPresenter
+    public class PlayerPresenter : IPresenter
     {
         private readonly UnitModel _model;
         private readonly World _world;
@@ -17,24 +17,22 @@ namespace Runtime.Player
 
         private bool _isExecutingRoute;
 
-        public PlayerPresenter(UnitModel model, UnitView unitView, World world) : base(model, unitView)
+        public PlayerPresenter(UnitModel model, World world)
         {
             _model = model;
             _world = world;
             _movementQueueModel = new MovementQueueModel();
         }
 
-        public override void Enable()
+        public void Enable()
         {
-            base.Enable();
             _world.GridInteractionModel.OnCurrentCellChanged += HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
             _world.TurnBaseModel.OnStepFinished += HandleTurnFinished;
         }
 
-        public override void Disable()
+        public void Disable()
         {
-            base.Disable();
             _world.GridInteractionModel.OnCurrentCellChanged -= HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed -= HandleAttackPerformed;
             _world.TurnBaseModel.OnStepFinished -= HandleTurnFinished;

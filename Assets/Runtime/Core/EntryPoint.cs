@@ -72,7 +72,10 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
             
-            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
+            var unitPresenter = new UnitPresenter(unitModel, unitView);
+            var playerPresenter = new PlayerPresenter(unitModel, _world);
+            
+            unitPresenter.Enable();
             playerPresenter.Enable();
         }
         
