@@ -11,6 +11,7 @@ using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
+using Runtime.TurnBase;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -53,6 +54,10 @@ namespace Runtime.Core
             
             await CreateControllableUnit();
             await CreateUnit();
+
+            _world.TurnBaseModel.Steps.Clear();
+            var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
+            turnBasePresenter.Enable();
         }
         
         private void Update()
@@ -72,7 +77,7 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             var playerPresenter = new PlayerPresenter(unitModel, _world);
             
             unitPresenter.Enable();
@@ -97,10 +102,10 @@ namespace Runtime.Core
             
             decisionRoot.Deserialize(dictionary);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView);
             var agentModel = new AgentModel(unitModel, decisionRoot, _world);
             _world.AgentCollection.Add(unitModel.Id, agentModel);
             
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
             unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
             unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));

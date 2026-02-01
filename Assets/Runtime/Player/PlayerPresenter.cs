@@ -38,7 +38,7 @@ namespace Runtime.Player
             _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
         }
 
-        private async void ExecuteNextStep()
+        private void ExecuteNextStep()
         {
             if (_isExecutingRoute)
             {
@@ -52,8 +52,6 @@ namespace Runtime.Player
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
                         _world.GridInteractionModel.IsActive.Value = false;
-
-                        await _model.Awaiter;
                         _world.TurnBaseModel.PlayerStep();
                     }
                     else

@@ -51,14 +51,14 @@ namespace Runtime.Units
 
         public void MoveTo(Vector2Int position)
         {
+            Awaiter = new CustomAwaiter();
+            
             var current = Position.Value;
          
             if (position.x != current.x)
                 Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
             
             _position.Value =  position;
-
-            Awaiter = new CustomAwaiter();
         }
 
         public void SetFlag(string key, bool value)
