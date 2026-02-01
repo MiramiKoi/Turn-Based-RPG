@@ -29,13 +29,23 @@ namespace Runtime.LoadSteps
             
             var bearModel = new UnitModel
             (
-                "bear", 
+                "bear_0", 
                 _world.WorldDescription.UnitCollection.Last(), 
                 new Vector2Int(5, 5)
             );
             
             _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);
             _world.UnitCollection.Add(bearModel.Id, bearModel);
+            
+            var bearModel1 = new UnitModel
+            (
+                "bear_1", 
+                _world.WorldDescription.UnitCollection.Last(), 
+                new Vector2Int(3, 5)
+            );
+            
+            _world.GridModel.TryPlace(bearModel1, bearModel1.Position.Value);
+            _world.UnitCollection.Add(bearModel1.Id, bearModel1);
             
             return Task.CompletedTask;
         }

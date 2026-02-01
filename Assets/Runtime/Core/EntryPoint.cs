@@ -53,7 +53,8 @@ namespace Runtime.Core
             }
             
             await CreateControllableUnit();
-            await CreateUnit();
+            await CreateUnit("bear_0");
+            await CreateUnit("bear_1");
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
@@ -85,9 +86,9 @@ namespace Runtime.Core
         }
         
         
-        private async Task CreateUnit()
+        private async Task CreateUnit(string id)
         {
-            var unitModel = _world.UnitCollection.Get("bear");
+            var unitModel = _world.UnitCollection.Get(id);
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
