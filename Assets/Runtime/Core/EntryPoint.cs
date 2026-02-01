@@ -97,9 +97,10 @@ namespace Runtime.Core
             
             decisionRoot.Deserialize(dictionary);
             
-            var playerPresenter = new AgentPresenter(unitModel, decisionRoot, _world);
-
             var unitPresenter = new UnitPresenter(unitModel, unitView);
+            var agentModel = new AgentModel(unitModel, decisionRoot, _world);
+            _world.AgentCollection.Add(unitModel.Id, agentModel);
+            
             
             unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
             unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));
@@ -109,7 +110,6 @@ namespace Runtime.Core
             
             
             unitPresenter.Enable();
-            playerPresenter.Enable();
         }
     }
 }

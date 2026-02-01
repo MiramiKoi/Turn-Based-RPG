@@ -1,3 +1,4 @@
+using Runtime.Agents;
 using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
@@ -24,6 +25,7 @@ namespace Runtime.Core
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
+        public AgentModelCollection AgentCollection { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls, WorldDescription worldDescription)
         {
@@ -43,6 +45,7 @@ namespace Runtime.Core
             GameSystems = new GameSystemCollection();
             
             UnitCollection = new UnitModelCollection();
+            AgentCollection = new AgentModelCollection();
         }
     }
 }
