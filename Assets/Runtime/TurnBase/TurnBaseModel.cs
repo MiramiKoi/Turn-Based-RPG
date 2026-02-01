@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Runtime.TurnBase
 {
@@ -9,6 +10,8 @@ namespace Runtime.TurnBase
         
         public int CurrentTurn { get; private set; }
 
+        public Queue<StepModel> Steps { get; } = new();
+        
         public void PlayerStep()
         {
             CurrentTurn++;
