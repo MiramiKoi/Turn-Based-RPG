@@ -28,14 +28,14 @@ namespace Runtime.Player
         {
             _world.GridInteractionModel.OnCurrentCellChanged += HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
-            _world.TurnBaseModel.OnStepFinished += HandleTurnFinished;
+            _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
         }
 
         public void Disable()
         {
             _world.GridInteractionModel.OnCurrentCellChanged -= HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed -= HandleAttackPerformed;
-            _world.TurnBaseModel.OnStepFinished -= HandleTurnFinished;
+            _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
         }
 
         private async void ExecuteNextStep()
@@ -54,7 +54,7 @@ namespace Runtime.Player
                         _world.GridInteractionModel.IsActive.Value = false;
 
                         await _model.Awaiter;
-                        _world.TurnBaseModel.Step();
+                        _world.TurnBaseModel.PlayerStep();
                     }
                     else
                     {
@@ -72,8 +72,8 @@ namespace Runtime.Player
             _world.CameraControlModel.IsActive.Value = true;
             _world.GridInteractionModel.IsActive.Value = true;
             _isExecutingRoute = false;
-            _movementQueueModel.Clear();
             ClearRouteIndication();
+            _movementQueueModel.Clear();
         }
 
         private void ClearRouteIndication()

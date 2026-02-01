@@ -4,14 +4,20 @@ namespace Runtime.TurnBase
 {
     public class TurnBaseModel
     {
-        public event Action OnStepFinished;
-
+        public event Action OnPlayerStepFinished;
+        public event Action OnWorldStepFinished;
+        
         public int CurrentTurn { get; private set; }
 
-        public void Step()
+        public void PlayerStep()
         {
             CurrentTurn++;
-            OnStepFinished?.Invoke();
+            OnPlayerStepFinished?.Invoke();
+        }
+
+        public void WorldStep()
+        {
+            OnWorldStepFinished?.Invoke();
         }
     }
 }
