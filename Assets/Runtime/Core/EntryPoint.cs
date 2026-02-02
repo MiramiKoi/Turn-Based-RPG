@@ -79,7 +79,9 @@ namespace Runtime.Core
             _addressableModel.Unload(loadModel);
             
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
-            var playerPresenter = new PlayerPresenter(unitModel, _world);
+
+            var playerModel = new PlayerModel(unitModel, _world.GridModel);
+            var playerPresenter = new PlayerPresenter(playerModel, _world);
             
             unitPresenter.Enable();
             playerPresenter.Enable();
