@@ -1,7 +1,7 @@
-﻿using Runtime.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Runtime.Extensions;
 
-namespace Runtime.Descriptions
+namespace Runtime.Descriptions.Surface
 {
     public class SurfaceDescription : Description
     {
