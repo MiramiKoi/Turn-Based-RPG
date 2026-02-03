@@ -9,8 +9,6 @@ using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
-using Runtime.Landscape.Grid.Indication;
-using Runtime.Landscape.Grid.Interaction;
 using Runtime.LoadSteps;
 using Runtime.Player;
 using Runtime.Units;
@@ -34,31 +32,22 @@ namespace Runtime.Core
         
         private async void Start()
         {
+            _playerControls = new PlayerControls();
+            _playerControls.Enable();
+            
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel)
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
+                new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions)
             };
 
             foreach (var step in persistentLoadStep)
             {
                 await step.Run();
             }
-
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
-            
-            _world.SetData(_addressableModel, _playerControls, _worldDescription);
-            
-            var gridPresenter = new GridPresenter(_world.GridModel, _gridView, _world, _worldViewDescriptions);
-            gridPresenter.Enable();
-            
-            var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, _gridView, _world);
-            gridInteractionPresenter.Enable();
-            
-            var gridIndicationPresenter = new GridIndicationPresenter(_gridView, _world,  _worldViewDescriptions);
-            gridIndicationPresenter.Enable();
             
             await CreateControllableUnit();
             await CreateUnit();
