@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using Runtime.Common.Movement;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
@@ -113,16 +115,14 @@ namespace Runtime.Player
                             _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.Null);
                     }
 
-                    var path = GridPathfinder.FindPath(
-                        _world.GridModel,
-                        start,
-                        target);
-
-                    _movementQueueModel.SetPath(path);
-
-                    foreach (var position in path.Where(position => _model.Position.Value != position))
+                    if (GridPathfinder.FindPath(_world.GridModel, start, target, out var path))
                     {
-                        _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
+                        _movementQueueModel.SetPath(path);
+
+                        foreach (var position in path.Where(position => _model.Position.Value != position))
+                        {
+                            _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
+                        }
                     }
                 }
             }

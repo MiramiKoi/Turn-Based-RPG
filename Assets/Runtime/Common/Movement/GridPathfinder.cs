@@ -18,10 +18,11 @@ namespace Runtime.Common.Movement
             new(-1, -1)
         };
 
-        public static List<Vector2Int> FindPath(
+        public static bool FindPath(
             GridModel grid,
             Vector2Int start,
-            Vector2Int target)
+            Vector2Int target,
+            out List<Vector2Int> path)
         {
             var open = new SimplePriorityQueue<Vector2Int>();
             var cameFrom = new Dictionary<Vector2Int, Vector2Int>();
@@ -36,7 +37,10 @@ namespace Runtime.Common.Movement
             {
                 var current = open.Dequeue();
                 if (current == target)
-                    return Reconstruct(cameFrom, current);
+                {
+                    path = Reconstruct(cameFrom, current);
+                    return true;
+                }
 
                 foreach (var direction in Directions)
                 {
@@ -57,7 +61,8 @@ namespace Runtime.Common.Movement
                 }
             }
 
-            return new List<Vector2Int>();
+            path = null;
+            return false;
         }
 
         private static int Heuristic(Vector2Int a, Vector2Int b)
