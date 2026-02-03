@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.ViewDescriptions;
@@ -14,6 +15,8 @@ namespace Runtime.Landscape.Grid.Indication
         private readonly WorldViewDescriptions _worldViewDescriptions;
         
         private readonly Dictionary<IndicationType, Tile> _indicationTiles = new();
+        private LoadModel<Tile> _cellCursorLoadModel;
+        private LoadModel<Tile> _routePointLoadModel;
         
         public GridIndicationPresenter(GridView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
@@ -24,14 +27,17 @@ namespace Runtime.Landscape.Grid.Indication
         
         public async void Enable()
         {
-            var cellCursorTile = await _worldViewDescriptions.GridIndicationViewDescription.CellCursorAsset.LoadAssetAsync().Task;
-            var routePointTile = await _worldViewDescriptions.GridIndicationViewDescription.RoutePointAsset.LoadAssetAsync().Task;
+            _cellCursorLoadModel = _world.AddressableModel.Load<Tile>(_worldViewDescriptions.GridIndicationViewDescription.CellCursorAsset.AssetGUID);
+            await _cellCursorLoadModel.LoadAwaiter;
+            var cellCursorTile = _cellCursorLoadModel.Result;
+            
+            _routePointLoadModel = _world.AddressableModel.Load<Tile>(_worldViewDescriptions.GridIndicationViewDescription.RoutePointAsset.AssetGUID);
+            await _routePointLoadModel.LoadAwaiter;
+            var routePointTile = _routePointLoadModel.Result;
+            
             _indicationTiles.Add(IndicationType.Null, null);
             _indicationTiles.Add(IndicationType.Cursor, cellCursorTile);
             _indicationTiles.Add(IndicationType.RoutePoint, routePointTile);
-            
-            _worldViewDescriptions.GridIndicationViewDescription.CellCursorAsset.ReleaseAsset();
-            _worldViewDescriptions.GridIndicationViewDescription.RoutePointAsset.ReleaseAsset();
             
             foreach (var cell in _world.GridModel.Cells)
                 cell.OnIndicationTypeChanged += HandleCellIndicationTypeChange;
@@ -39,6 +45,8 @@ namespace Runtime.Landscape.Grid.Indication
 
         public void Disable()
         {
+            _world.AddressableModel.Unload(_cellCursorLoadModel);
+            _world.AddressableModel.Unload(_routePointLoadModel);
             foreach (var cell in _world.GridModel.Cells)
                 cell.OnIndicationTypeChanged -= HandleCellIndicationTypeChange;
         }

@@ -1,6 +1,8 @@
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.ViewDescriptions;
+using UnityEngine.Tilemaps;
 
 namespace Runtime.Landscape.Grid.Cell
 {
@@ -9,15 +11,18 @@ namespace Runtime.Landscape.Grid.Cell
         private readonly CellModel _model;
         private readonly GridView _view;
         private readonly WorldViewDescriptions _worldViewDescriptions;
+        private readonly World _world;
+        private LoadModel<TileBase> _loadModel;
 
-        public CellPresenter(CellModel model, GridView view, WorldViewDescriptions worldViewDescriptions)
+        public CellPresenter(CellModel model, GridView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _model = model;
             _view = view;
             _worldViewDescriptions = worldViewDescriptions;
+            _world = world;
         }
 
-        public void Enable()
+        public async void Enable()
         {
             var surfaceView = _worldViewDescriptions.SurfaceViewDescriptions.Get(_model.SurfaceDescription.ViewId);
             
@@ -26,11 +31,14 @@ namespace Runtime.Landscape.Grid.Cell
                 return;
             }
 
-            _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), surfaceView.TileAsset.editorAsset);
+            _loadModel = _world.AddressableModel.Load<TileBase>(surfaceView.TileAsset.AssetGUID);
+            await _loadModel.LoadAwaiter;
+            _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), _loadModel.Result);
         }
 
         public void Disable()
         {
+            _world.AddressableModel.Unload(_loadModel);
             _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);
         }
     }

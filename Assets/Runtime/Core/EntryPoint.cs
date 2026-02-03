@@ -49,9 +49,9 @@ namespace Runtime.Core
             _playerControls = new PlayerControls();
             _playerControls.Enable();
             
-            _world.SetData(_playerControls, _worldDescription);
+            _world.SetData(_addressableModel, _playerControls, _worldDescription);
             
-            var gridPresenter = new GridPresenter(_world.GridModel, _gridView, _worldViewDescriptions);
+            var gridPresenter = new GridPresenter(_world.GridModel, _gridView, _world, _worldViewDescriptions);
             gridPresenter.Enable();
             
             var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, _gridView, _world);
@@ -81,9 +81,11 @@ namespace Runtime.Core
             );
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
-            var unitPrefab = await unitViewDescription.Prefab.LoadAssetAsync().Task;
+            var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
+            await loadModel.LoadAwaiter;
+            var unitPrefab = loadModel.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
-            unitViewDescription.Prefab.ReleaseAsset();
+            _addressableModel.Unload(loadModel);
             
             var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
             playerPresenter.Enable();
@@ -102,9 +104,11 @@ namespace Runtime.Core
             );
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
-            var unitPrefab = await unitViewDescription.Prefab.LoadAssetAsync().Task;
+            var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
+            await loadModel.LoadAwaiter;
+            var unitPrefab = loadModel.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
-            unitViewDescription.Prefab.ReleaseAsset();
+            _addressableModel.Unload(loadModel);
             
             var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
 

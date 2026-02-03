@@ -1,3 +1,5 @@
+using Runtime.Common;
+
 namespace Runtime.AsyncLoad
 {
     public class LoadModel<T> : ILoadModel
@@ -7,10 +9,12 @@ namespace Runtime.AsyncLoad
         public T Result { get; set; }
 
         public string Key { get; }
+        public int RefCount { get; set; }
 
         public LoadModel(string key)
         {
             Key = key;
+            RefCount = 1;
         }
 
         public void CompleteLoad()
@@ -23,7 +27,7 @@ namespace Runtime.AsyncLoad
             LoadAwaiter.Dispose();
         }
 
-        public ILoadPresenter CreatePresenter()
+        public IPresenter CreatePresenter()
         {
             return new LoadPresenter<T>(this);
         }

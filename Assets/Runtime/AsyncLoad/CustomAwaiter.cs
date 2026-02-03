@@ -3,26 +3,32 @@ using System.Runtime.CompilerServices;
 
 namespace Runtime.AsyncLoad
 {
-    //taken from: https://gist.github.com/Krumelur/39c44b45dfc658bb633c
     public class CustomAwaiter : INotifyCompletion
     {
-        private Action _continuation;
+        private Action _continuations;
 
-        public bool IsCompleted
-        {
-            get;
-            private set;
-        }
+        public bool IsCompleted { get; private set; }
 
         public void Complete()
         {
-            IsCompleted = true;
-            _continuation?.Invoke();
+            if (!IsCompleted)
+            {
+                IsCompleted = true;
+                _continuations?.Invoke();
+                _continuations = null;
+            }
         }
 
-        public void OnCompleted(Action continuation) => _continuation = continuation;
-        public void GetResult() => Console.WriteLine("Done!");
+        public void OnCompleted(Action continuation)
+        {
+            _continuations += continuation;
+        }
+
+        public void GetResult()
+        {
+        }
+
         public CustomAwaiter GetAwaiter() => this;
-        public void Dispose() => _continuation = null;
+        public void Dispose() => _continuations = null;
     }
 }

@@ -6,7 +6,7 @@ namespace Runtime.AsyncLoad
     public class AddressablePresenter : IPresenter
     {
         private readonly AddressableModel _addressableModel;
-        private readonly Dictionary<ILoadModel, ILoadPresenter> _loadPresenters = new();
+        private readonly Dictionary<ILoadModel, IPresenter> _loadPresenters = new();
 
         public AddressablePresenter(AddressableModel addressableModel)
         {
