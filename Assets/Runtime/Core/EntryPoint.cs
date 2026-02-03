@@ -5,6 +5,7 @@ using fastJSON;
 using Runtime.Agents;
 using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
+using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Input;
@@ -19,6 +20,7 @@ namespace Runtime.Core
 {
     public class EntryPoint : MonoBehaviour
     {
+        [SerializeField] private CameraControlView _cameraControlView;
         [SerializeField] private GridView _gridView;
         
         private readonly World _world = new();
@@ -40,8 +42,10 @@ namespace Runtime.Core
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
-                new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions)
+                new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
+                new CameraControlLoadStep(_presenters, _cameraControlView, _world)
             };
 
             foreach (var step in persistentLoadStep)
@@ -74,6 +78,7 @@ namespace Runtime.Core
             await loadModel.LoadAwaiter;
             var unitPrefab = loadModel.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
+            _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
             
             var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
