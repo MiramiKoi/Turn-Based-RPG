@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using System.Linq;
 using Runtime.Common.Movement;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
