@@ -24,7 +24,7 @@ namespace Runtime.Landscape.Grid.Interaction
         {
             if (_model.IsActive)
             {
-                var mousePosition = _world.PlayerControls.Gameplay.PointerMove.ReadValue<Vector2>();
+                var mousePosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
 
                 var worldPosition =
                     _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
