@@ -95,7 +95,7 @@ namespace Runtime.Player
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (_movementQueueModel.HasSteps && !_isExecutingRoute)
+            if (_movementQueueModel.HasSteps && !_isExecutingRoute && !_world.CameraControlModel.IsManualControl)
             {
                 _isExecutingRoute = true;
                 ExecuteNextStep();
