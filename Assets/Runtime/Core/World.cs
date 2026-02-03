@@ -1,4 +1,5 @@
 using Runtime.Agents.Nodes;
+using Runtime.AsyncLoad;
 using Runtime.Descriptions;
 using Runtime.GameSystems;
 using Runtime.Input;
@@ -11,6 +12,7 @@ namespace Runtime.Core
 {
     public class World : IWorldContext
     {
+        public AddressableModel AddressableModel { get; private set; }
         public TurnBaseModel TurnBaseModel { get; private set; }
         public PlayerControls PlayerControls { get; private set; }
         public GridModel GridModel { get; private set; }
@@ -19,9 +21,11 @@ namespace Runtime.Core
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
 
-        public void SetData(PlayerControls playerControls, WorldDescription worldDescription)
+        public void SetData(AddressableModel addressableModel, PlayerControls playerControls, WorldDescription worldDescription)
         {
             WorldDescription = worldDescription;
+            
+            AddressableModel = addressableModel;
 
             TurnBaseModel = new TurnBaseModel();
             PlayerControls = playerControls;

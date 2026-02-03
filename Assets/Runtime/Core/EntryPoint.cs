@@ -49,7 +49,7 @@ namespace Runtime.Core
             _playerControls = new PlayerControls();
             _playerControls.Enable();
             
-            _world.SetData(_playerControls, _worldDescription);
+            _world.SetData(_addressableModel, _playerControls, _worldDescription);
             
             var gridPresenter = new GridPresenter(_world.GridModel, _gridView, _worldViewDescriptions);
             gridPresenter.Enable();
