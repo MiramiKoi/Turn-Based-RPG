@@ -1,6 +1,8 @@
 using Runtime.Common;
+using Runtime.Core;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Runtime.CameraControl
 {
@@ -8,27 +10,53 @@ namespace Runtime.CameraControl
     {
         private readonly CameraControlModel _model;
         private readonly CameraControlView _view;
+        private readonly World _world;
+        private readonly CameraControlSystem _system;
         private readonly CompositeDisposable _disposables = new();
 
-        public CameraControlPresenter(CameraControlModel model, CameraControlView view)
+        public CameraControlPresenter(CameraControlModel model, CameraControlView view, World world)
         {
             _model = model;
             _view = view;
+            _world = world;
+
+            _system = new CameraControlSystem(_model, _view, _world);
         } 
         
         public void Enable()
         {
             _model.Target.Subscribe(HandleTargetChanged).AddTo(_disposables);
+            
+            _world.PlayerControls.Gameplay.CameraControl.started += HandleCameraControllingStarted;
+            _world.PlayerControls.Gameplay.CameraControl.canceled += HandleCameraControllingCanceled;
+
+            _world.GameSystems.Add(_system);
         }
 
         public void Disable()
         {
             _disposables.Dispose();
+            
+            _world.PlayerControls.Gameplay.CameraControl.started -= HandleCameraControllingStarted;
+            _world.PlayerControls.Gameplay.CameraControl.canceled -= HandleCameraControllingCanceled;
+
+            _world.GameSystems.Remove(_system);
         }
 
         private void HandleTargetChanged(Transform target)
         {
             _view.Camera.Follow = target;
+        }
+        
+        private void HandleCameraControllingStarted(InputAction.CallbackContext obj)
+        {
+            _model.IsManualControl = true;
+            _model.LastPointerPosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
+        }
+        
+        private void HandleCameraControllingCanceled(InputAction.CallbackContext obj)
+        {
+            _model.IsManualControl = false;
         }
     }
 }

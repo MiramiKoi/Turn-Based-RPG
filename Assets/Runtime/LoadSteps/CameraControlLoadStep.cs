@@ -21,7 +21,7 @@ namespace Runtime.LoadSteps
 
         public Task Run()
         {
-            var presenter = new CameraControlPresenter(_world.CameraControlModel, _view);
+            var presenter = new CameraControlPresenter(_world.CameraControlModel, _view, _world);
             presenter.Enable();
             _presenters.Add(presenter);
             return Task.CompletedTask;
