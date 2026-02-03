@@ -4,6 +4,6 @@ namespace Runtime.Agents.Nodes
     {
         Success,
         Failure,
-        Running,
+        Running
     }
 }

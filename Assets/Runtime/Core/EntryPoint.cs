@@ -38,7 +38,7 @@ namespace Runtime.Core
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel)
             };
 
             foreach (var step in persistentLoadStep)
@@ -77,7 +77,7 @@ namespace Runtime.Core
             (
                 "unit_0", 
                 unitDescription, 
-                new Vector2Int(5, 4)
+                new Vector2Int(51, 49)
             );
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
@@ -98,7 +98,7 @@ namespace Runtime.Core
             (
                 "bear", 
                 unitDescription, 
-                new Vector2Int(5, 5)
+                new Vector2Int(51, 50)
             );
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);

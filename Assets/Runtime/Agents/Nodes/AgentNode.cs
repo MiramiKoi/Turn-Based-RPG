@@ -44,7 +44,7 @@ namespace Runtime.Agents.Nodes
             {
                 {TypeKey, Type},
                 {ChildrenKey, children},
-                {PositionKey, Position.ToList()},
+                {PositionKey, Position.ToList()}
             };
         }
 

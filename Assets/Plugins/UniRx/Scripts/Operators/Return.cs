@@ -170,7 +170,7 @@ namespace UniRx.Operators
             new ImmutableReturnInt32Observable(6),
             new ImmutableReturnInt32Observable(7),
             new ImmutableReturnInt32Observable(8),
-            new ImmutableReturnInt32Observable(9),
+            new ImmutableReturnInt32Observable(9)
         };
 
         public static IObservable<int> GetInt32Observable(int x)

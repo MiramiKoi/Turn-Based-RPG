@@ -49,11 +49,6 @@ namespace Runtime.Agents
             var unit = controllable as UnitModel;
 
             unit?.SetFlag(_key, _value);
-
-            foreach (var flags in unit.Flags)
-            {
-                Debug.Log($"{flags.Key}: {_value}");
-            }
             
             return NodeStatus.Success;
         }

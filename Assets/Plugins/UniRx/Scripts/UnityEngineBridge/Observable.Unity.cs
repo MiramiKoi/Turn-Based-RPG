@@ -20,7 +20,7 @@ namespace UniRx
     {
         Update,
         FixedUpdate,
-        EndOfFrame,
+        EndOfFrame
     }
 
     public enum MainThreadDispatchType
@@ -30,7 +30,7 @@ namespace UniRx
         FixedUpdate,
         EndOfFrame,
         GameObjectUpdate,
-        LateUpdate,
+        LateUpdate
     }
 
     public static class FrameCountTypeExtensions

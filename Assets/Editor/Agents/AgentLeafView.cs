@@ -16,7 +16,7 @@ namespace Editor.Agents
             {
                 name = "command",
                 multiline = false,
-                value = LeafData.Command,
+                value = LeafData.Command
             };
             
             titleContainer.Add(_commandTextField);
