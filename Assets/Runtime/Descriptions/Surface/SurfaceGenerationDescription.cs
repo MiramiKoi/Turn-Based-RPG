@@ -17,10 +17,10 @@ namespace Runtime.Descriptions.Surface
 
         public SurfaceGenerationDescription(Dictionary<string, object> data)
         {
-            _centerLandProbability = data.GetInt("center-land-probability");
-            _edgeLandProbability = data.GetInt("edge-land-probability");
-            _declineSteepness = data.GetFloat("decline-steepness");
-            _islandMaxSizeRatio = data.GetFloat("island-max-size-ratio");
+            _centerLandProbability = data.GetInt("center_land_probability");
+            _edgeLandProbability = data.GetInt("edge_land_probability");
+            _declineSteepness = data.GetFloat("decline_steepness");
+            _islandMaxSizeRatio = data.GetFloat("island_max_size_ratio");
         }
 
         public int[,] Generate()

@@ -1,6 +1,6 @@
 ﻿{
-  "center-land-probability": 100,
-  "edge-land-probability": 0,
-  "decline-steepness": 10.0,
-  "island-max-size-ratio": 1.0
+  "center_land_probability": 100,
+  "edge_land_probability": 0,
+  "decline_steepness": 10.0,
+  "island_max_size_ratio": 1.0
 }
