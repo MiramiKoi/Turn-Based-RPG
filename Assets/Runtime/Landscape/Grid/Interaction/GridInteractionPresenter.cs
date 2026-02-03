@@ -11,6 +11,7 @@ namespace Runtime.Landscape.Grid.Interaction
         private readonly World _world;
         
         private readonly GridInteractionSystem _system;
+        private readonly CompositeDisposable _disposable = new();
 
         public GridInteractionPresenter(GridInteractionModel model, GridView view, World world)
         {
@@ -22,13 +23,14 @@ namespace Runtime.Landscape.Grid.Interaction
         public void Enable()
         {
             _world.GameSystems.Add(_system);
-            _model.IsActive.Subscribe(HandleIsActiveChanged);
+            _model.IsActive.Subscribe(HandleIsActiveChanged).AddTo(_disposable);
         }
 
         public void Disable()
         {
             Clear();
             _world.GameSystems.Remove(_system);
+            _disposable.Dispose();
         }
 
         private void Clear()
