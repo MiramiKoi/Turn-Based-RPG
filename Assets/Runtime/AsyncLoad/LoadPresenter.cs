@@ -1,10 +1,12 @@
 using System;
+using Runtime.Common;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.AsyncLoad
 {
-    public class LoadPresenter<T> : ILoadPresenter
+    public class LoadPresenter<T> : IPresenter
     {
         private readonly LoadModel<T> _loadModel;
         private AsyncOperationHandle<T> _handle;

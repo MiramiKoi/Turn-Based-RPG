@@ -1,3 +1,5 @@
+using Runtime.Common;
+
 namespace Runtime.AsyncLoad
 {
     public interface ILoadModel
@@ -5,6 +7,6 @@ namespace Runtime.AsyncLoad
         public CustomAwaiter LoadAwaiter { get; }
         public string Key { get; }
 
-        public ILoadPresenter CreatePresenter();
+        public IPresenter CreatePresenter();
     }
 }

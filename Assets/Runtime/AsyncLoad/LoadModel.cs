@@ -1,3 +1,5 @@
+using Runtime.Common;
+
 namespace Runtime.AsyncLoad
 {
     public class LoadModel<T> : ILoadModel
@@ -23,7 +25,7 @@ namespace Runtime.AsyncLoad
             LoadAwaiter.Dispose();
         }
 
-        public ILoadPresenter CreatePresenter()
+        public IPresenter CreatePresenter()
         {
             return new LoadPresenter<T>(this);
         }
