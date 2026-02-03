@@ -44,7 +44,8 @@ namespace Runtime.Common.Movement
 
                     if (grid.IsInsideGrid(next) && !grid.GetCell(next).IsOccupied)
                     {
-                        var tentative = gScore[current] + 1;
+                        var stepCost = direction.x != 0 && direction.y != 0 ? 14 : 10;
+                        var tentative = gScore[current] + stepCost;
 
                         if (!gScore.TryGetValue(next, out var cost) || tentative < cost)
                         {
