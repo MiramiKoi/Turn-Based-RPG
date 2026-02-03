@@ -27,11 +27,14 @@ namespace Runtime.CameraControl
 
         public void Update(float deltaTime)
         {
-            var pointerPosition = GetPointerPosition();
-
-            if (!TryApplyDrag(pointerPosition))
+            if (_model.IsActive.Value)
             {
-                TryApplyEdgeScroll(pointerPosition, deltaTime);
+                var pointerPosition = GetPointerPosition();
+
+                if (!TryApplyDrag(pointerPosition))
+                {
+                    TryApplyEdgeScroll(pointerPosition, deltaTime);
+                }
             }
         }
         

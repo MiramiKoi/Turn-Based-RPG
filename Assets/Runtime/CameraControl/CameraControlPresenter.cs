@@ -34,6 +34,7 @@ namespace Runtime.CameraControl
             _world.PlayerControls.Gameplay.CameraControl.canceled += HandleCameraControllingCanceled;
             
             _model.OnResetCameraPosition += HandleResetCameraPosition;
+            _model.IsActive.SkipLatestValueOnSubscribe().Subscribe(HandleActiveChanged).AddTo(_disposables);
 
             _world.GameSystems.Add(_system);
         }
@@ -79,6 +80,20 @@ namespace Runtime.CameraControl
         private void HandleResetCameraPosition()
         {
             _view.PositionComposer.TargetOffset = Vector3.zero;
+        }
+
+        private void HandleActiveChanged(bool value)
+        {
+            if (value)
+            {
+                _world.PlayerControls.Gameplay.CameraControl.started += HandleCameraControllingStarted;
+                _world.PlayerControls.Gameplay.CameraControl.canceled += HandleCameraControllingCanceled;
+            }
+            else
+            {
+                _world.PlayerControls.Gameplay.CameraControl.started -= HandleCameraControllingStarted;
+                _world.PlayerControls.Gameplay.CameraControl.canceled -= HandleCameraControllingCanceled;
+            }
         }
     }
 }

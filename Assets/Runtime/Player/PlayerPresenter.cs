@@ -71,6 +71,7 @@ namespace Runtime.Player
         }
         private void StopRoute()
         {
+            _world.CameraControlModel.IsActive.Value = true;
             _world.GridInteractionModel.IsActive.Value = true;
             _isExecutingRoute = false;
             _movementQueueModel.Clear();
@@ -101,6 +102,7 @@ namespace Runtime.Player
                 ExecuteNextStep();
                 DrawPath(_movementQueueModel.Steps);
                 _world.CameraControlModel.ResetCameraPosition();
+                _world.CameraControlModel.IsActive.Value = false;
             }
         }
 
