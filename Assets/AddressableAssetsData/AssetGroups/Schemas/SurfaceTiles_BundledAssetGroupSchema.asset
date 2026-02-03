@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
   m_Name: SurfaceTiles_BundledAssetGroupSchema
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema
-  m_Group: {fileID: 11400000, guid: 30a6837e27243454ab1fad18e23ba359, type: 2}
+  m_Group: {fileID: 11400000, guid: 8182dd8d2e6afca45884535a4e6e5be5, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1
@@ -35,14 +35,14 @@ MonoBehaviour:
   m_RedirectLimit: -1
   m_RetryCount: 0
   m_BuildPath:
-    m_Id: 6eef32fca893be94caf0f69130026690
+    m_Id: b2599e41f36aef9499d30b3534d73d3a
   m_LoadPath:
-    m_Id: 80d280d2d006218498adf423a328d0a1
+    m_Id: 156576afc280fd8459a72d51be4127fb
   m_BundleMode: 0
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
-  m_UseDefaultSchemaSettings: 0
+  m_UseDefaultSchemaSettings: 1
   m_SelectedPathPairIndex: 0
   m_BundleNaming: 0
   m_AssetLoadMode: 0

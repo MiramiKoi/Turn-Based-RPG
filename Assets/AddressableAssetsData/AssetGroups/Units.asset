@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: IndicationOnGridTiles
+  m_Name: Units
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: IndicationOnGridTiles
-  m_GUID: fc1f525d2e888dc4ab2d1a5ed1c665b6
+  m_GroupName: Units
+  m_GUID: 228c0c324c22ffd4c88649ae788ca2b8
   m_SerializeEntries:
-  - m_GUID: 6a5a1a2600d518b4c84a0c12084bccf8
-    m_Address: route-point
+  - m_GUID: 1f177ce22deec9344872bac20cbb902c
+    m_Address: Warrior
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c65c116c07ccd25409811148560a18d0
-    m_Address: cursor
+  - m_GUID: cb50fd9647d0d3945b554936ab0c014e
+    m_Address: Bear
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 5c4cf7afff9bcf9408b92132b2ade4a4, type: 2}
-    - {fileID: 11400000, guid: 405712106011e464995d3e46efc726ad, type: 2}
+    - {fileID: 11400000, guid: 1d9f81ee405ddad489d9887d992d4511, type: 2}
+    - {fileID: 11400000, guid: 30de36955e16ea24dbd73c128c8693da, type: 2}
