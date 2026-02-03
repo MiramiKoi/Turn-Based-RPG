@@ -196,7 +196,8 @@ namespace UniRx
                     {
                         break;
                     }
-                };
+                }
+
                 ConsumeEnumerator(continuation);
             }
 
@@ -480,7 +481,7 @@ namespace UniRx
         {
             get
             {
-                return (mainThreadToken != null);
+                return mainThreadToken != null;
             }
         }
 

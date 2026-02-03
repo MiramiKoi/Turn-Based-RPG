@@ -110,7 +110,7 @@ namespace UniRx
         {
             var result = Observable.Defer(() =>
             {
-                var dueTime = (delay.Ticks < 0) ? TimeSpan.Zero : delay;
+                var dueTime = delay.Ticks < 0 ? TimeSpan.Zero : delay;
                 var count = 0;
 
                 IObservable<TSource> self = null;
@@ -118,8 +118,8 @@ namespace UniRx
                 {
                     onError(ex);
 
-                    return (++count < retryCount)
-                        ? (dueTime == TimeSpan.Zero)
+                    return ++count < retryCount
+                        ? dueTime == TimeSpan.Zero
                             ? self.SubscribeOn(Scheduler.CurrentThread)
                             : self.DelaySubscription(dueTime, delayScheduler).SubscribeOn(Scheduler.CurrentThread)
                         : Observable.Throw<TSource>(ex);

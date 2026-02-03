@@ -10,7 +10,7 @@ namespace Runtime.GameSystems
 
         private readonly List<T> _itemsToRemove = new();
 
-        public RegisterGameSystem(string id)
+        protected RegisterGameSystem(string id)
         {
             Id = id;
         }

@@ -252,7 +252,7 @@ namespace UniRx.Operators
                         }
                     }
 
-                    parent.observer.OnNext((isZero) ? EmptyArray : currentList);
+                    parent.observer.OnNext(isZero ? EmptyArray : currentList);
                 }
 
                 public void OnError(Exception error)
@@ -441,7 +441,7 @@ namespace UniRx.Operators
                     }
                 }
 
-                observer.OnNext((isZero) ? EmptyArray : currentList);
+                observer.OnNext(isZero ? EmptyArray : currentList);
             }
 
             void OnNextRecursive(long currentTimerId, Action<TimeSpan> self)
@@ -463,7 +463,7 @@ namespace UniRx.Operators
                     }
                 }
 
-                observer.OnNext((isZero) ? EmptyArray : currentList);
+                observer.OnNext(isZero ? EmptyArray : currentList);
                 self(parent.timeSpan);
             }
 

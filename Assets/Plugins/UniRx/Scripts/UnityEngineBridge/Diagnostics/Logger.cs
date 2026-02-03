@@ -8,7 +8,7 @@ namespace UniRx.Diagnostics
         static bool isInitialized = false;
         static bool isDebugBuild = false;
 
-        public string Name { get; private set; }
+        public string Name { get; }
         protected readonly Action<LogEntry> logPublisher;
 
         public Logger(string loggerName)
@@ -29,7 +29,7 @@ namespace UniRx.Diagnostics
             if (isDebugBuild)
             {
                 logPublisher(new LogEntry(
-                    message: (message != null) ? message.ToString() : "",
+                    message: message != null ? message.ToString() : "",
                     logType: LogType.Log,
                     timestamp: DateTime.Now,
                     loggerName: Name,
@@ -49,7 +49,7 @@ namespace UniRx.Diagnostics
             if (isDebugBuild)
             {
                 logPublisher(new LogEntry(
-                    message: (format != null) ? string.Format(format, args) : "",
+                    message: format != null ? string.Format(format, args) : "",
                     logType: LogType.Log,
                     timestamp: DateTime.Now,
                     loggerName: Name,
@@ -60,7 +60,7 @@ namespace UniRx.Diagnostics
         public virtual void Log(object message, UnityEngine.Object context = null)
         {
             logPublisher(new LogEntry(
-                message: (message != null) ? message.ToString() : "",
+                message: message != null ? message.ToString() : "",
                 logType: LogType.Log,
                 timestamp: DateTime.Now,
                 loggerName: Name,
@@ -70,7 +70,7 @@ namespace UniRx.Diagnostics
         public virtual void LogFormat(string format, params object[] args)
         {
             logPublisher(new LogEntry(
-                message: (format != null) ? string.Format(format, args) : "",
+                message: format != null ? string.Format(format, args) : "",
                 logType: LogType.Log,
                 timestamp: DateTime.Now,
                 loggerName: Name,
@@ -80,7 +80,7 @@ namespace UniRx.Diagnostics
         public virtual void Warning(object message, UnityEngine.Object context = null)
         {
             logPublisher(new LogEntry(
-                message: (message != null) ? message.ToString() : "",
+                message: message != null ? message.ToString() : "",
                 logType: LogType.Warning,
                 timestamp: DateTime.Now,
                 loggerName: Name,
@@ -90,7 +90,7 @@ namespace UniRx.Diagnostics
         public virtual void WarningFormat(string format, params object[] args)
         {
             logPublisher(new LogEntry(
-                message: (format != null) ? string.Format(format, args) : "",
+                message: format != null ? string.Format(format, args) : "",
                 logType: LogType.Warning,
                 timestamp: DateTime.Now,
                 loggerName: Name,
@@ -100,7 +100,7 @@ namespace UniRx.Diagnostics
         public virtual void Error(object message, UnityEngine.Object context = null)
         {
             logPublisher(new LogEntry(
-                message: (message != null) ? message.ToString() : "",
+                message: message != null ? message.ToString() : "",
                 logType: LogType.Error,
                 timestamp: DateTime.Now,
                 loggerName: Name,
@@ -110,7 +110,7 @@ namespace UniRx.Diagnostics
         public virtual void ErrorFormat(string format, params object[] args)
         {
             logPublisher(new LogEntry(
-                message: (format != null) ? string.Format(format, args) : "",
+                message: format != null ? string.Format(format, args) : "",
                 logType: LogType.Error,
                 timestamp: DateTime.Now,
                 loggerName: Name,
@@ -120,7 +120,7 @@ namespace UniRx.Diagnostics
         public virtual void Exception(Exception exception, UnityEngine.Object context = null)
         {
             logPublisher(new LogEntry(
-                message: (exception != null) ? exception.ToString() : "",
+                message: exception != null ? exception.ToString() : "",
                 exception: exception,
                 logType: LogType.Exception,
                 timestamp: DateTime.Now,

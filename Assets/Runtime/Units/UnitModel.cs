@@ -19,7 +19,7 @@ namespace Runtime.Units
         private readonly ReactiveProperty<UnitDirection> _direction = new ();
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
         
-        public StatModelCollection Stats { get; private set; }
+        public StatModelCollection Stats { get; }
 
         public IReadOnlyDictionary<string, IUnitCommand> Commands => _commands;
         public IReadOnlyDictionary<string, bool> Flags => _flags;

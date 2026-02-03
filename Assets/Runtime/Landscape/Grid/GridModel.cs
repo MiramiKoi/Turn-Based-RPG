@@ -8,12 +8,9 @@ namespace Runtime.Landscape.Grid
     public class GridModel
     {
         public CellModel[,] Cells { get; }
-        private readonly SurfaceDescriptionCollection _surfaceDescriptions;
 
         public GridModel(int[,] matrix, SurfaceDescriptionCollection surfaceDescriptionCollection)
         {
-            _surfaceDescriptions = surfaceDescriptionCollection;
-            
             Cells = new CellModel[GridConstants.Width, GridConstants.Height];
         
             for (var y = 0; y < GridConstants.Height; y++)
@@ -22,7 +19,7 @@ namespace Runtime.Landscape.Grid
                 {
                     var surface = matrix[x, y].ToString();
                     
-                    _surfaceDescriptions.Surfaces.TryGetValue(surface, out var description);
+                    surfaceDescriptionCollection.Surfaces.TryGetValue(surface, out var description);
                     Cells[x, y] = new CellModel(x, y, description);
                 }
             }

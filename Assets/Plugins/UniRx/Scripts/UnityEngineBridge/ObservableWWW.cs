@@ -31,16 +31,16 @@ namespace UniRx
     {
         public static IObservable<string> Get(string url, Hash headers = null, IProgress<float> progress = null)
         {
-            return ObservableUnity.FromCoroutine<string>((observer, cancellation) => FetchText(new WWW(url, null, (headers ?? new Hash())), observer, progress, cancellation));
+            return ObservableUnity.FromCoroutine<string>((observer, cancellation) => FetchText(new WWW(url, null, headers ?? new Hash()), observer, progress, cancellation));
         }
 
         public static IObservable<byte[]> GetAndGetBytes(string url, Hash headers = null, IProgress<float> progress = null)
         {
-            return ObservableUnity.FromCoroutine<byte[]>((observer, cancellation) => FetchBytes(new WWW(url, null, (headers ?? new Hash())), observer, progress, cancellation));
+            return ObservableUnity.FromCoroutine<byte[]>((observer, cancellation) => FetchBytes(new WWW(url, null, headers ?? new Hash()), observer, progress, cancellation));
         }
         public static IObservable<WWW> GetWWW(string url, Hash headers = null, IProgress<float> progress = null)
         {
-            return ObservableUnity.FromCoroutine<WWW>((observer, cancellation) => Fetch(new WWW(url, null, (headers ?? new Hash())), observer, progress, cancellation));
+            return ObservableUnity.FromCoroutine<WWW>((observer, cancellation) => Fetch(new WWW(url, null, headers ?? new Hash()), observer, progress, cancellation));
         }
 
         public static IObservable<string> Post(string url, byte[] postData, IProgress<float> progress = null)
@@ -393,9 +393,9 @@ namespace UniRx
 
     public class WWWErrorException : Exception
     {
-        public string RawErrorMessage { get; private set; }
+        public string RawErrorMessage { get; }
         public bool HasResponse { get; private set; }
-        public string Text { get; private set; }
+        public string Text { get; }
         public System.Net.HttpStatusCode StatusCode { get; private set; }
         public System.Collections.Generic.Dictionary<string, string> ResponseHeaders { get; private set; }
         public WWW WWW { get; private set; }

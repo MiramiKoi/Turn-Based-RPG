@@ -65,8 +65,8 @@ namespace Runtime.Agents.Nodes
                 }
             }
 
-            Position = data.GetVector2(PositionKey);;
-            
+            Position = data.GetVector2(PositionKey);
+
             Children = agentNode.Children;
         }
 

@@ -3,17 +3,13 @@ using Runtime.Common.Movement;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
 {
     public class PlayerPresenter : UnitPresenter
     {
-        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        
         private readonly UnitModel _model;
-        private readonly UnitView _view;
         private readonly World _world;
         private readonly MovementQueueModel _movementQueueModel;
 
@@ -22,7 +18,6 @@ namespace Runtime.Player
         public PlayerPresenter(UnitModel model, UnitView unitView, World world) : base(model, unitView)
         {
             _model = model;
-            _view = unitView;
             _world = world;
             _movementQueueModel = new MovementQueueModel();
         }

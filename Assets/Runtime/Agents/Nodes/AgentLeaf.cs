@@ -5,8 +5,6 @@ namespace Runtime.Agents.Nodes
 {
     public class AgentLeaf : AgentNode
     {
-        private const string StrategyKey = "strategy";
-
         public override string Type => "leaf";
 
         public string CommandKey => "command";

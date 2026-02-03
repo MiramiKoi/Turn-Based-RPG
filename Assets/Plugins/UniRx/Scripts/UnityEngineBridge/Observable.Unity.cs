@@ -113,7 +113,7 @@ namespace UniRx
         {
             get
             {
-                return HasResult || HasError || (cancel.IsCancellationRequested);
+                return HasResult || HasError || cancel.IsCancellationRequested;
             }
         }
 
@@ -1074,7 +1074,7 @@ namespace UniRx
 
         public static IObservable<T> RepeatUntilDestroy<T>(this IObservable<T> source, Component target)
         {
-            return RepeatUntilCore(RepeatInfinite(source), target.OnDestroyAsObservable(), (target != null) ? target.gameObject : null);
+            return RepeatUntilCore(RepeatInfinite(source), target.OnDestroyAsObservable(), target != null ? target.gameObject : null);
         }
 
         public static IObservable<T> RepeatUntilDisable<T>(this IObservable<T> source, GameObject target)
@@ -1084,7 +1084,7 @@ namespace UniRx
 
         public static IObservable<T> RepeatUntilDisable<T>(this IObservable<T> source, Component target)
         {
-            return RepeatUntilCore(RepeatInfinite(source), target.OnDisableAsObservable(), (target != null) ? target.gameObject : null);
+            return RepeatUntilCore(RepeatInfinite(source), target.OnDisableAsObservable(), target != null ? target.gameObject : null);
         }
 
         static IObservable<T> RepeatUntilCore<T>(this IEnumerable<IObservable<T>> sources, IObservable<Unit> trigger, GameObject lifeTimeChecker)

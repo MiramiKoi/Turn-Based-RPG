@@ -27,7 +27,7 @@ namespace UniRx.Operators
             semaphore = new System.Threading.ManualResetEvent(false);
             using (source.Subscribe(this))
             {
-                var waitComplete = (timeout == InfiniteTimeSpan)
+                var waitComplete = timeout == InfiniteTimeSpan
                     ? semaphore.WaitOne()
                     : semaphore.WaitOne(timeout);
 

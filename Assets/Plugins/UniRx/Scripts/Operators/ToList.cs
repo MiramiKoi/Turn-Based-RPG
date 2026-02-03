@@ -48,7 +48,7 @@ namespace UniRx.Operators
             public override void OnCompleted()
             {
                 base.observer.OnNext(list);
-                try { observer.OnCompleted(); } finally { Dispose(); };
+                try { observer.OnCompleted(); } finally { Dispose(); }
             }
         }
     }

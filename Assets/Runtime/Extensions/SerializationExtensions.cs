@@ -34,12 +34,7 @@ namespace Runtime.Extensions
         
         public static List<T> GetList<T>(this Dictionary<string, object> dictionary, string key)
         {
-            var list = new List<T>();
-            foreach (var obj in dictionary.GetList(key))
-            {
-                list.Add((T)Convert.ChangeType(obj, typeof(T)));
-            }
-            return list;
+            return dictionary.GetList(key).Select(obj => (T)Convert.ChangeType(obj, typeof(T))).ToList();
         }
 
         public static Queue<T> GetQueue<T>(this Dictionary<string, object> dictionary, string key)

@@ -48,7 +48,7 @@ namespace Runtime.Descriptions.Surface
 
                     var normalizedDistance = distance / maxIslandDistance;
                     var probability = CalculateProbability(normalizedDistance);
-                    var isLand = (_random.Next(0, 100) < probability) ? 1 : 0;
+                    var isLand = _random.Next(0, 100) < probability ? 1 : 0;
                     _landMatrix[y, x] = isLand;
                 }
             }

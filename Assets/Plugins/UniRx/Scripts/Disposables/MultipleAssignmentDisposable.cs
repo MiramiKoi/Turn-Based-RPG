@@ -26,7 +26,7 @@ namespace UniRx
             {
                 lock (gate)
                 {
-                    return (current == True)
+                    return current == True
                         ? UniRx.Disposable.Empty
                         : current;
                 }
@@ -36,7 +36,7 @@ namespace UniRx
                 var shouldDispose = false;
                 lock (gate)
                 {
-                    shouldDispose = (current == True);
+                    shouldDispose = current == True;
                     if (!shouldDispose)
                     {
                         current = value;

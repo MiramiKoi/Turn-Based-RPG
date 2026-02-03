@@ -183,12 +183,12 @@ namespace UniRx.Operators
 
             void OnError_(Exception error)
             {
-                try { observer.OnError(error); } finally { Dispose(); };
+                try { observer.OnError(error); } finally { Dispose(); }
             }
 
             void OnCompleted_(Unit _)
             {
-                try { observer.OnCompleted(); } finally { Dispose(); };
+                try { observer.OnCompleted(); } finally { Dispose(); }
             }
 
             public override void OnNext(T value)

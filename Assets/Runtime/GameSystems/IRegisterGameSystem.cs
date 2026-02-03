@@ -1,6 +1,6 @@
 namespace Runtime.GameSystems
 {
-    public interface IRegisterGameSystem<T> : IGameSystem
+    public interface IRegisterGameSystem<in T> : IGameSystem
     {
         void Register(T item);
         
