@@ -55,12 +55,14 @@ namespace Runtime.CameraControl
             _model.IsManualControl = true;
             _damping = _view.PositionComposer.Damping;
             _view.PositionComposer.Damping = Vector3.zero;
+            _world.GridInteractionModel.IsActive.Value = false;
             _model.LastPointerPosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
         }
         
         private void HandleCameraControllingCanceled(InputAction.CallbackContext obj)
         {
             _model.IsManualControl = false;
+            _world.GridInteractionModel.IsActive.Value = true;
             _view.PositionComposer.Damping = _damping;
         }
     }

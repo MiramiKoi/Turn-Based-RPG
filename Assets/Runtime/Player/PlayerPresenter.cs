@@ -51,7 +51,7 @@ namespace Runtime.Player
                         _world.GridModel.ReleaseCell(_model.Position.Value);
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
-                        _world.GridInteractionModel.IsActive = false;
+                        _world.GridInteractionModel.IsActive.Value = false;
 
                         await _model.Awaiter;
                         _world.TurnBaseModel.Step();
@@ -69,7 +69,7 @@ namespace Runtime.Player
         }
         private void StopRoute()
         {
-            _world.GridInteractionModel.IsActive = true;
+            _world.GridInteractionModel.IsActive.Value = true;
             _isExecutingRoute = false;
             _movementQueueModel.Clear();
             ClearRouteIndication();

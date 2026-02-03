@@ -1,6 +1,7 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
+using UniRx;
 
 namespace Runtime.Landscape.Grid.Interaction
 {
@@ -21,6 +22,7 @@ namespace Runtime.Landscape.Grid.Interaction
         public void Enable()
         {
             _world.GameSystems.Add(_system);
+            _model.IsActive.Subscribe(HandleIsActiveChanged);
         }
 
         public void Disable()
@@ -34,6 +36,14 @@ namespace Runtime.Landscape.Grid.Interaction
             if (_model.CurrentCell != null)
                 _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y].SetIndication(IndicationType.Null);
             _model.SetCell(null);
+        }
+
+        private void HandleIsActiveChanged(bool value)
+        {
+            if (!value)
+            {
+                Clear();
+            }
         }
     }
 }
