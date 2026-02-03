@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Common;
+using Runtime.Core;
 using Runtime.Landscape.Grid.Cell;
 using Runtime.ViewDescriptions;
 
@@ -9,13 +10,15 @@ namespace Runtime.Landscape.Grid
     {
         private readonly GridModel _model;
         private readonly GridView _view;
+        private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
         private readonly List<CellPresenter> _cells = new();
 
-        public GridPresenter(GridModel model, GridView view, WorldViewDescriptions worldViewDescriptions)
+        public GridPresenter(GridModel model, GridView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _model = model;
             _view = view;
+            _world = world;
             _worldViewDescriptions = worldViewDescriptions;
         }
 
@@ -23,7 +26,7 @@ namespace Runtime.Landscape.Grid
         {
             foreach (var cellModel in _model.Cells)
             {
-                var cellPresenter = new CellPresenter(cellModel, _view, _worldViewDescriptions);
+                var cellPresenter = new CellPresenter(cellModel, _view, _world, _worldViewDescriptions);
                 cellPresenter.Enable();
 
                 _cells.Add(cellPresenter);
