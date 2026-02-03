@@ -100,6 +100,7 @@ namespace Runtime.Player
                 _isExecutingRoute = true;
                 ExecuteNextStep();
                 DrawPath(_movementQueueModel.Steps);
+                _world.CameraControlModel.ResetCameraPosition();
             }
         }
 
