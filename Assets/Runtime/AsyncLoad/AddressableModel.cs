@@ -10,16 +10,24 @@ namespace Runtime.AsyncLoad
 
         public LoadModel<T> Load<T>(string key)
         {
-            var model = new LoadModel<T>(key);
+            LoadModel<T> model;
+            if (_loadModels.TryGet(key, out var loadModel))
+            {
+                model = (LoadModel<T>)loadModel;
+                model.RefCount++;
+                return model;
+            }
 
-            _loadModels.Add(key, model);           
-
+            model = new LoadModel<T>(key);
+            _loadModels.Add(key, model);
             return model;
         }
         
         public void Unload<T>(LoadModel<T> loadModel)
         {
-            _loadModels.Remove(loadModel.Key);            
+            loadModel.RefCount--;
+            if (loadModel.RefCount == 0)
+                _loadModels.Remove(loadModel.Key);
         }
 
         public void UnloadAll()

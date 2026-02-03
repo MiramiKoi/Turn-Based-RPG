@@ -9,10 +9,12 @@ namespace Runtime.AsyncLoad
         public T Result { get; set; }
 
         public string Key { get; }
+        public int RefCount { get; set; }
 
         public LoadModel(string key)
         {
             Key = key;
+            RefCount = 1;
         }
 
         public void CompleteLoad()
