@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: UnitPrefabs
+  m_Name: IndicationTiles
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: UnitPrefabs
-  m_GUID: e561042459c278849a669801c84e80cd
+  m_GroupName: IndicationTiles
+  m_GUID: f9d4669f6cb35a7409ebc15988657780
   m_SerializeEntries:
-  - m_GUID: 1f177ce22deec9344872bac20cbb902c
-    m_Address: Warrior
+  - m_GUID: 6a5a1a2600d518b4c84a0c12084bccf8
+    m_Address: route-point
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c65c116c07ccd25409811148560a18d0
+    m_Address: cursor
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -24,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c619b36885142f6458cd8b2eea7a047c, type: 2}
-    - {fileID: 11400000, guid: 45c6c80d6c7f5dd40a2d70f0eea39d62, type: 2}
+    - {fileID: 11400000, guid: 8a9a5c1c1c6e6d04497dcbe6cd57fdfa, type: 2}
+    - {fileID: 11400000, guid: 8874c0f458d6762468d94588416925c8, type: 2}

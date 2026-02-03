@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SurfaceTiles
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: SurfaceTiles
-  m_GUID: a0bbefb1bb4a89b45a55e2455559a858
+  m_GUID: 89f81b3b9cce1804bb6c5dcee04c3299
   m_SerializeEntries:
   - m_GUID: 699f72ea180b89243851638a0cf6d1cd
     m_Address: Ground
@@ -24,5 +24,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 6b79b1e15d32661469d2148344d84c9b, type: 2}
-    - {fileID: 11400000, guid: 4393241b32fb7f64cb27c18657a40d8a, type: 2}
+    - {fileID: 11400000, guid: 218fa12ecbe9020468afdd82915b6033, type: 2}
+    - {fileID: 11400000, guid: 97c189977fb703a48aa185cf345df25f, type: 2}

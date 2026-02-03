@@ -53,7 +53,7 @@ namespace Runtime.Player
                         _world.GridModel.ReleaseCell(_model.Position.Value);
                         _world.GridModel.TryPlace(_model, nextCell);
                         _model.MoveTo(nextCell);
-                        _world.GridInteractionModel.IsActive = false;
+                        _world.GridInteractionModel.IsActive.Value = false;
 
                         await _model.Awaiter;
                         _world.TurnBaseModel.Step();
@@ -71,7 +71,8 @@ namespace Runtime.Player
         }
         private void StopRoute()
         {
-            _world.GridInteractionModel.IsActive = true;
+            _world.CameraControlModel.IsActive.Value = true;
+            _world.GridInteractionModel.IsActive.Value = true;
             _isExecutingRoute = false;
             _movementQueueModel.Clear();
             ClearRouteIndication();
@@ -84,13 +85,24 @@ namespace Runtime.Player
                 _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.Null);
             }
         }
+        
+        private void DrawPath(IReadOnlyCollection<Vector2Int> path)
+        {
+            foreach (var position in path.Where(position => _model.Position.Value != position))
+            {
+                _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
+            }
+        }
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (_movementQueueModel.HasSteps && !_isExecutingRoute)
+            if (_movementQueueModel.HasSteps && !_isExecutingRoute && !_world.CameraControlModel.IsManualControl)
             {
                 _isExecutingRoute = true;
                 ExecuteNextStep();
+                DrawPath(_movementQueueModel.Steps);
+                _world.CameraControlModel.ResetCameraPosition();
+                _world.CameraControlModel.IsActive.Value = false;
             }
         }
 
@@ -119,10 +131,7 @@ namespace Runtime.Player
                     {
                         _movementQueueModel.SetPath(path);
 
-                        foreach (var position in path.Where(position => _model.Position.Value != position))
-                        {
-                            _world.GridModel.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
-                        }
+                        DrawPath(path);
                     }
                 }
             }

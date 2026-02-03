@@ -1,5 +1,6 @@
 using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
+using Runtime.CameraControl;
 using Runtime.Descriptions;
 using Runtime.GameSystems;
 using Runtime.Input;
@@ -13,11 +14,12 @@ namespace Runtime.Core
     public class World : IWorldContext
     {
         public AddressableModel AddressableModel { get; private set; }
+        public Camera MainCamera { get; private set; }
+        public CameraControlModel CameraControlModel { get; private set; }
         public TurnBaseModel TurnBaseModel { get; private set; }
         public PlayerControls PlayerControls { get; private set; }
         public GridModel GridModel { get; private set; }
         public GridInteractionModel GridInteractionModel { get; private set; }
-        public Camera MainCamera { get; private set; }
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
 
@@ -34,6 +36,8 @@ namespace Runtime.Core
             GridInteractionModel = new GridInteractionModel();
 
             MainCamera = Camera.main;
+            CameraControlModel = new CameraControlModel();
+            
             GameSystems = new GameSystemCollection();
         }
     }

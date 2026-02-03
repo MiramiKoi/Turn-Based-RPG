@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Descriptions
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Descriptions
-  m_GUID: f0d8db5137e9ce54b912820dbb5ad36b
+  m_GUID: 561ebd7700bca82478674b84911b6d21
   m_SerializeEntries:
   - m_GUID: 44c63747aeaf43108d0e60ae403a3f1e
     m_Address: surface-description
@@ -22,6 +22,21 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63752f1e522046d58e51d9ea1aed0e23
     m_Address: surface-generation-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 702a800394f14420a9bfdab4b3e31f26
+    m_Address: behavior-tree-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9866e8879fed41beb619c0cb41d27a2a
+    m_Address: camera-control-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4b5218ab3e14d94882eb9d072e47b80
+    m_Address: behavior-tree1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -34,5 +49,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 33737a4ea05457f41ba080a5d0e3fef0, type: 2}
-    - {fileID: 11400000, guid: 1b1693dc41935bc44b282f2550b413c6, type: 2}
+    - {fileID: 11400000, guid: c475ff8f5916add4780dd2acd4f1f97a, type: 2}
+    - {fileID: 11400000, guid: 38559db869752ce4493e2753a5371d86, type: 2}

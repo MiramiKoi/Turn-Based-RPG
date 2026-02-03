@@ -95,10 +95,10 @@ namespace Runtime.Input
             ""id"": ""5b4c6813-f231-4e5c-a93f-7b852310cd47"",
             ""actions"": [
                 {
-                    ""name"": ""PointerMove"",
+                    ""name"": ""PointerPosition"",
                     ""type"": ""Value"",
                     ""id"": ""0971b8da-dbea-4720-84af-c25b129eaf51"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -111,28 +111,48 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraControl"",
+                    ""type"": ""Button"",
+                    ""id"": ""57e49d80-c115-47d7-b182-7c986d7bbe55"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""05d9f95c-30d2-48ab-95b8-0d0e7e64be9c"",
-                    ""path"": ""<Pointer>/position"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PointerMove"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PointerPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""d347edd4-01a3-4e12-90fa-d00470249ded"",
-                    ""path"": ""<Pointer>/press"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9118903a-9078-48b1-8ec6-f813e1dc38b4"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CameraControl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -204,8 +224,9 @@ namespace Runtime.Input
 }");
             // Gameplay
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-            m_Gameplay_PointerMove = m_Gameplay.FindAction("PointerMove", throwIfNotFound: true);
+            m_Gameplay_PointerPosition = m_Gameplay.FindAction("PointerPosition", throwIfNotFound: true);
             m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
+            m_Gameplay_CameraControl = m_Gameplay.FindAction("CameraControl", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -286,8 +307,9 @@ namespace Runtime.Input
         // Gameplay
         private readonly InputActionMap m_Gameplay;
         private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-        private readonly InputAction m_Gameplay_PointerMove;
+        private readonly InputAction m_Gameplay_PointerPosition;
         private readonly InputAction m_Gameplay_Attack;
+        private readonly InputAction m_Gameplay_CameraControl;
         /// <summary>
         /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
@@ -300,13 +322,17 @@ namespace Runtime.Input
             /// </summary>
             public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Gameplay/PointerMove".
+            /// Provides access to the underlying input action "Gameplay/PointerPosition".
             /// </summary>
-            public InputAction @PointerMove => m_Wrapper.m_Gameplay_PointerMove;
+            public InputAction @PointerPosition => m_Wrapper.m_Gameplay_PointerPosition;
             /// <summary>
             /// Provides access to the underlying input action "Gameplay/Attack".
             /// </summary>
             public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/CameraControl".
+            /// </summary>
+            public InputAction @CameraControl => m_Wrapper.m_Gameplay_CameraControl;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -333,12 +359,15 @@ namespace Runtime.Input
             {
                 if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-                @PointerMove.started += instance.OnPointerMove;
-                @PointerMove.performed += instance.OnPointerMove;
-                @PointerMove.canceled += instance.OnPointerMove;
+                @PointerPosition.started += instance.OnPointerPosition;
+                @PointerPosition.performed += instance.OnPointerPosition;
+                @PointerPosition.canceled += instance.OnPointerPosition;
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @CameraControl.started += instance.OnCameraControl;
+                @CameraControl.performed += instance.OnCameraControl;
+                @CameraControl.canceled += instance.OnCameraControl;
             }
 
             /// <summary>
@@ -350,12 +379,15 @@ namespace Runtime.Input
             /// <seealso cref="GameplayActions" />
             private void UnregisterCallbacks(IGameplayActions instance)
             {
-                @PointerMove.started -= instance.OnPointerMove;
-                @PointerMove.performed -= instance.OnPointerMove;
-                @PointerMove.canceled -= instance.OnPointerMove;
+                @PointerPosition.started -= instance.OnPointerPosition;
+                @PointerPosition.performed -= instance.OnPointerPosition;
+                @PointerPosition.canceled -= instance.OnPointerPosition;
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
+                @CameraControl.started -= instance.OnCameraControl;
+                @CameraControl.performed -= instance.OnCameraControl;
+                @CameraControl.canceled -= instance.OnCameraControl;
             }
 
             /// <summary>
@@ -462,12 +494,12 @@ namespace Runtime.Input
         public interface IGameplayActions
         {
             /// <summary>
-            /// Method invoked when associated input action "PointerMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "PointerPosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPointerMove(InputAction.CallbackContext context);
+            void OnPointerPosition(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
@@ -475,6 +507,13 @@ namespace Runtime.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnAttack(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "CameraControl" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnCameraControl(InputAction.CallbackContext context);
         }
     }
 }

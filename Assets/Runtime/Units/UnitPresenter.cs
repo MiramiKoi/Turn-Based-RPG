@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Common;
@@ -11,7 +9,7 @@ namespace Runtime.Units
     public class UnitPresenter : IPresenter
     {
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        private readonly List<IDisposable> _disposables = new();
+        private readonly CompositeDisposable _disposables = new();
         
         private readonly UnitModel _unit;
         private readonly UnitView _view;
@@ -32,8 +30,7 @@ namespace Runtime.Units
 
         public virtual void Disable()
         {
-            _disposables.ForEach(x => x.Dispose());
-            _disposables.Clear();
+            _disposables.Dispose();
         }
         
         protected async Task AnimateMoveChanged(Vector2Int position)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ViewDescriptions
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: ViewDescriptions
-  m_GUID: 3733df6f3331c8e46ae115bebcc7c0c0
+  m_GUID: 1a073d406ac8a614eb1317c259bd0942
   m_SerializeEntries:
   - m_GUID: 0d9288408407c714c96eca251584b972
     m_Address: UnitViewDescriptionCollection
@@ -30,14 +30,9 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cb50fd9647d0d3945b554936ab0c014e
-    m_Address: Assets/Content/Prefabs/Bear.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d7cc53133faff0640805ecd77a61ceaa, type: 2}
-    - {fileID: 11400000, guid: 20257bf1d8a978f4f8bf6397cd89ca66, type: 2}
+    - {fileID: 11400000, guid: e349c01d116c2134eaf2f50d8c47401b, type: 2}
+    - {fileID: 11400000, guid: ff443d1f09893874e801315422b4c10b, type: 2}

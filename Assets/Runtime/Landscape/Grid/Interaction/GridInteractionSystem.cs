@@ -22,15 +22,14 @@ namespace Runtime.Landscape.Grid.Interaction
 
         public void Update(float deltaTime)
         {
-            if (_model.IsActive)
+            if (_model.IsActive.Value)
             {
-                var mousePosition = _world.PlayerControls.Gameplay.PointerMove.ReadValue<Vector2>();
+                var mousePosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
 
                 var worldPosition =
                     _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
                 var nextCellPosition = _view.IndicationTilemap.WorldToCell(worldPosition);
-                if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and
-                    { x: >= 0, y: >= 0 })
+                if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
                 {
                     var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
 
