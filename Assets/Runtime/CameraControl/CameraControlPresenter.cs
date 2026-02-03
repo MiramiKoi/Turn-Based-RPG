@@ -1,5 +1,6 @@
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.Landscape.Grid.Indication;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -56,6 +57,10 @@ namespace Runtime.CameraControl
             _damping = _view.PositionComposer.Damping;
             _view.PositionComposer.Damping = Vector3.zero;
             _world.GridInteractionModel.IsActive.Value = false;
+            foreach (var cellModel in _world.GridModel.Cells)
+            {
+                cellModel.SetIndication(IndicationType.Null);
+            }
             _model.LastPointerPosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
         }
         
@@ -63,6 +68,7 @@ namespace Runtime.CameraControl
         {
             _model.IsManualControl = false;
             _world.GridInteractionModel.IsActive.Value = true;
+            
             _view.PositionComposer.Damping = _damping;
         }
     }
