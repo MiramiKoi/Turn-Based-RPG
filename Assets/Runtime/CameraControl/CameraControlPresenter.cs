@@ -14,6 +14,8 @@ namespace Runtime.CameraControl
         private readonly CameraControlSystem _system;
         private readonly CompositeDisposable _disposables = new();
 
+        private Vector3 _damping;
+
         public CameraControlPresenter(CameraControlModel model, CameraControlView view, World world)
         {
             _model = model;
@@ -51,12 +53,15 @@ namespace Runtime.CameraControl
         private void HandleCameraControllingStarted(InputAction.CallbackContext obj)
         {
             _model.IsManualControl = true;
+            _damping = _view.PositionComposer.Damping;
+            _view.PositionComposer.Damping = Vector3.zero;
             _model.LastPointerPosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
         }
         
         private void HandleCameraControllingCanceled(InputAction.CallbackContext obj)
         {
             _model.IsManualControl = false;
+            _view.PositionComposer.Damping = _damping;
         }
     }
 }
