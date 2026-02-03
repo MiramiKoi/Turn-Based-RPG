@@ -15,6 +15,7 @@ namespace Runtime.LoadSteps
 
         private readonly Dictionary<string, string> _keys = new()
         {
+            { "camera_control", "camera-control-description" },
             { "surface_generation", "surface-generation-description" },
             { "surfaces", "surface-description" },
             { "units", "unit-description" }

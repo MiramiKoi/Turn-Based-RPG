@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9866e8879fed41beb619c0cb41d27a2a
+    m_Address: camera-control-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd617ed6732347818d638c34dcb32b75
     m_Address: unit-description
     m_ReadOnly: 0
