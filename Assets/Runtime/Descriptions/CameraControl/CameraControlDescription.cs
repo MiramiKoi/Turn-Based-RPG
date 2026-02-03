@@ -5,11 +5,15 @@ namespace Runtime.Descriptions.CameraControl
 {
     public class CameraControlDescription
     {
-        public float CameraDragSensitivity { get; }
+        public float DragSensitivity { get; }
+        public float EdgeSize { get; }
+        public float EdgeSensitivity { get; }
 
         public CameraControlDescription(Dictionary<string, object> data)
         {
-            CameraDragSensitivity = data.GetFloat("drag_sensitivity");
+            DragSensitivity = data.GetFloat("drag_sensitivity");
+            EdgeSize = data.GetFloat("edge_size");
+            EdgeSensitivity = data.GetFloat("edge_sensitivity");
         }
     }
 }
