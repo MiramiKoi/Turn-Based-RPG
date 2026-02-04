@@ -30,9 +30,9 @@ namespace Runtime.Units
 
         public CustomAwaiter Awaiter { get; private set; }
 
-        private Dictionary<string, IUnitCommand> _commands = new();
+        private readonly Dictionary<string, IUnitCommand> _commands = new();
 
-        private Dictionary<string, bool> _flags = new();
+        private readonly Dictionary<string, bool> _flags = new();
 
 
         public UnitModel(string id, UnitDescription description, Vector2Int position)

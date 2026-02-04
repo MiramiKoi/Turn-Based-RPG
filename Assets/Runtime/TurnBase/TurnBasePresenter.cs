@@ -8,8 +8,8 @@ namespace Runtime.TurnBase
 {
     public class TurnBasePresenter : IPresenter
     {
-        private TurnBaseModel _model;
-        private World _world;
+        private readonly TurnBaseModel _model;
+        private readonly World _world;
 
         private readonly List<CustomAwaiter> _parallelAwaiters = new();
 
