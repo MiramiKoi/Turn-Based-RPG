@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="cell" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Content/Imports/Tiny%20Swords/UI/Buttons/Button_Disable_9Slides.png?fileID=2800000&amp;guid=6976260b573e5d14498c4909232be1e8&amp;type=3#Button_Disable_9Slides&quot;); min-width: 100px; max-width: 100px; max-height: 100px; min-height: 100px;">
+        <ui:VisualElement name="icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Content/Imports/Tiny%20Swords/UI/Avatars/Avatars_11.png?fileID=2800000&amp;guid=743d5e95e478ac146bd31fb834c28722&amp;type=3#Avatars_11&quot;); background-size: 80% 80%;"/>
+    </ui:VisualElement>
+</ui:UXML>
