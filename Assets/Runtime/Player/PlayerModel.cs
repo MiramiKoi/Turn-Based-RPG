@@ -35,7 +35,7 @@ namespace Runtime.Player
             }
         }
 
-        public bool CanAttack(Vector2Int target) => _grid.GetCell(target).Unit is UnitModel && _model.CanAttack(target);
+        public bool CanAttack(Vector2Int target) => _grid.GetCell(target).Unit is UnitModel unit && unit != _model && _model.CanAttack(target);
 
         public void Attack(Vector2Int target)
         {
