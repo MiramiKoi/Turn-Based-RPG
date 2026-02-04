@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Common;
+using Runtime.Core;
+using Runtime.TurnBase;
 using UniRx;
 using UnityEngine;
 
@@ -13,11 +15,13 @@ namespace Runtime.Units
         
         private readonly UnitModel _unit;
         private readonly UnitView _view;
+        private readonly World _world;
 
-        public UnitPresenter(UnitModel unit, UnitView view)
+        public UnitPresenter(UnitModel unit, UnitView view, World world)
         {
             _unit = unit;
             _view = view;
+            _world = world;
         }
         
         public virtual void Enable()
@@ -33,7 +37,7 @@ namespace Runtime.Units
             _disposables.Dispose();
         }
         
-        protected async Task AnimateMoveChanged(Vector2Int position)
+        private async Task AnimateMoveChanged(Vector2Int position)
         {
             await _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
@@ -43,13 +47,20 @@ namespace Runtime.Units
             _view.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
 
-        private async void OnPositionChanged(Vector2Int position)
+        private void OnPositionChanged(Vector2Int position)
         {
-            _view.Animator.SetBool(IsMoving, true);
-            await AnimateMoveChanged(position);
-            _view.Animator.SetBool(IsMoving, false);
-            
-            _unit.Awaiter.Complete();
+            var step = new StepModel(StepType.Parallel, StepAction, _unit.Awaiter);
+            _world.TurnBaseModel.Steps.Enqueue(step);
+            return;
+
+            async void StepAction()
+            {
+                _view.Animator.SetBool(IsMoving, true);
+                await AnimateMoveChanged(position);
+                _view.Animator.SetBool(IsMoving, false);
+
+                _unit.Awaiter.Complete();
+            }
         }
     }
 }

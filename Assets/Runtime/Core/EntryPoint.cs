@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using fastJSON;
 using Runtime.Agents;
@@ -12,6 +11,7 @@ using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
+using Runtime.TurnBase;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -42,9 +42,9 @@ namespace Runtime.Core
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
+                new UnitsLoadStep(_world),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world)
             };
 
@@ -54,7 +54,12 @@ namespace Runtime.Core
             }
             
             await CreateControllableUnit();
-            await CreateUnit();
+            await CreateUnit("bear_0");
+            await CreateUnit("bear_1");
+
+            _world.TurnBaseModel.Steps.Clear();
+            var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
+            turnBasePresenter.Enable();
         }
         
         private void Update()
@@ -64,14 +69,7 @@ namespace Runtime.Core
 
         private async Task CreateControllableUnit()
         {
-            var unitDescription = _worldDescription.UnitCollection.First();
-            
-            var unitModel = new UnitModel
-            (
-                "unit_0", 
-                unitDescription, 
-                new Vector2Int(51, 49)
-            );
+            var unitModel = _world.UnitCollection.Get("character");
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
@@ -81,21 +79,19 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
             
-            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
+
+            var playerModel = new PlayerModel(unitModel, _world.GridModel);
+            var playerPresenter = new PlayerPresenter(playerModel, _world);
+            
+            unitPresenter.Enable();
             playerPresenter.Enable();
         }
         
         
-        private async Task CreateUnit()
+        private async Task CreateUnit(string id)
         {
-            var unitDescription = _worldDescription.UnitCollection.Last();
-            
-            var unitModel = new UnitModel
-            (
-                "bear", 
-                unitDescription, 
-                new Vector2Int(51, 50)
-            );
+            var unitModel = _world.UnitCollection.Get(id);
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
@@ -110,9 +106,10 @@ namespace Runtime.Core
             
             decisionRoot.Deserialize(dictionary);
             
-            var playerPresenter = new AgentPresenter(unitModel, decisionRoot, _world);
-
-            var unitPresenter = new UnitPresenter(unitModel, unitView);
+            var agentModel = new AgentModel(unitModel, decisionRoot, _world);
+            _world.AgentCollection.Add(unitModel.Id, agentModel);
+            
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
             unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
             unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));
@@ -122,7 +119,6 @@ namespace Runtime.Core
             
             
             unitPresenter.Enable();
-            playerPresenter.Enable();
         }
     }
 }

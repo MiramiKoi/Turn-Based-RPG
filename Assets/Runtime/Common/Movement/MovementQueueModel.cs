@@ -20,8 +20,17 @@ namespace Runtime.Common.Movement
                 _steps.Enqueue(path[i]);
         }
 
-        public Vector2Int Dequeue() => _steps.Dequeue();
-
         public void Clear() => _steps.Clear();
+
+        public bool TryDequeue(out Vector2Int result)
+        {
+            result = Vector2Int.zero;
+            if (_steps.Count <= 0) 
+                return false;
+            
+            result = _steps.Dequeue();
+            return true;
+
+        }
     }
 }

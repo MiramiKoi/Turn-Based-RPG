@@ -30,9 +30,9 @@ namespace Runtime.Units
 
         public CustomAwaiter Awaiter { get; private set; }
 
-        private Dictionary<string, IUnitCommand> _commands = new();
+        private readonly Dictionary<string, IUnitCommand> _commands = new();
 
-        private Dictionary<string, bool> _flags = new();
+        private readonly Dictionary<string, bool> _flags = new();
 
 
         public UnitModel(string id, UnitDescription description, Vector2Int position)
@@ -51,14 +51,14 @@ namespace Runtime.Units
 
         public void MoveTo(Vector2Int position)
         {
+            Awaiter = new CustomAwaiter();
+            
             var current = Position.Value;
          
             if (position.x != current.x)
                 Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
             
             _position.Value =  position;
-
-            Awaiter = new CustomAwaiter();
         }
 
         public void SetFlag(string key, bool value)

@@ -1,3 +1,4 @@
+using Runtime.Agents;
 using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
@@ -7,6 +8,7 @@ using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
+using Runtime.Units;
 using UnityEngine;
 
 namespace Runtime.Core
@@ -22,6 +24,8 @@ namespace Runtime.Core
         public GridInteractionModel GridInteractionModel { get; private set; }
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
+        public UnitModelCollection UnitCollection { get; private set; }
+        public AgentModelCollection AgentCollection { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls, WorldDescription worldDescription)
         {
@@ -39,6 +43,9 @@ namespace Runtime.Core
             CameraControlModel = new CameraControlModel();
             
             GameSystems = new GameSystemCollection();
+            
+            UnitCollection = new UnitModelCollection();
+            AgentCollection = new AgentModelCollection();
         }
     }
 }
