@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Runtime.Common.Movement;
 using Runtime.Landscape.Grid;
@@ -24,21 +25,13 @@ namespace Runtime.Player
 
         public void FindPath(Vector2Int target)
         {
+            ClearRouteIndication();
+            
             var start = _model.Position.Value;
-
-            if (_movementQueueModel.HasSteps)
+            if (GridPathfinder.FindPath(_grid, start, target, out var path))
             {
-                foreach (var position in _movementQueueModel.Steps)
-                    _grid.Cells[position.x, position.y].SetIndication(IndicationType.Null);
-            }
-
-            var path = GridPathfinder.FindPath(_grid, start, target);
-
-            _movementQueueModel.SetPath(path);
-
-            foreach (var position in path.Where(position => _model.Position.Value != position))
-            {
-                _grid.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
+                _movementQueueModel.SetPath(path);
+                DrawRoute(path.Where(position => _model.Position.Value != position));
             }
         }
 
@@ -49,6 +42,7 @@ namespace Runtime.Player
             if (!IsExecutingRoute)
             {
                 IsExecutingRoute = true;
+                DrawRoute(_movementQueueModel.Steps);
             }
             
             if (_movementQueueModel.TryDequeue(out var nextCell) && _grid.CanPlace(nextCell))
@@ -75,6 +69,14 @@ namespace Runtime.Player
             foreach (var position in _movementQueueModel.Steps)
             {
                 _grid.Cells[position.x, position.y].SetIndication(IndicationType.Null);
+            }
+        }
+        
+        private void DrawRoute(IEnumerable<Vector2Int> path)
+        {
+            foreach (var position in path)
+            {
+                _grid.Cells[position.x, position.y].SetIndication(IndicationType.RoutePoint);
             }
         }
     }
