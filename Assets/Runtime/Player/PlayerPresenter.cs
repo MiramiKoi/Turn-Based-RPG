@@ -31,18 +31,34 @@ namespace Runtime.Player
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (!_model.IsExecutingRoute && _model.HasPath())
+            if (_model.IsExecutingRoute)
             {
-                _world.GridInteractionModel.IsActive.Value = false;
-                
-                _world.CameraControlModel.IsActive.Value = false;
-                _world.CameraControlModel.ResetCameraPosition();
-                
+                return;
+            }
+
+            var currentCell = _world.GridInteractionModel.CurrentCell;
+            if (currentCell != null && _model.CanAttack(currentCell.Position))
+            {
+                _model.Attack(currentCell.Position);
+                MakeStep();
+            }
+            else if (_model.HasPath())
+            {
                 _model.ExecuteNextStep();
-                _world.TurnBaseModel.PlayerStep();
+                MakeStep();
             }
         }
 
+        private void MakeStep()
+        {
+            _world.GridInteractionModel.IsActive.Value = false;
+                
+            _world.CameraControlModel.IsActive.Value = false;
+            _world.CameraControlModel.ResetCameraPosition();
+                
+            _world.TurnBaseModel.PlayerStep();
+        }
+        
         private void HandleInteractionCellChanged()
         {
             if (!_model.IsExecutingRoute && _world.GridInteractionModel.CurrentCell != null)
@@ -53,7 +69,11 @@ namespace Runtime.Player
         
         private void HandleTurnFinished()
         {
-            _model.ExecuteNextStep();
+            if (_model.IsExecutingRoute)
+            {
+                _model.ExecuteNextStep();
+            }
+            
             if (_model.IsExecutingRoute)
             {
                 _world.TurnBaseModel.PlayerStep();
