@@ -1,13 +1,17 @@
 {
   "warrior": {
     "stats": {
-      "health": 100
+      "health": 100,
+      "attack_damage": 10,
+      "attack_range": 1
     },
     "view_id": "Warrior"
   },
   "bear": {
     "stats": {
-      "health": 100
+      "health": 100,
+      "attack_damage": 10,
+      "attack_range": 1
     },
     "view_id": "Bear"
   }
