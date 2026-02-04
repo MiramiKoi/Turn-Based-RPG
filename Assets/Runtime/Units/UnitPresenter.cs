@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.Stats;
 using Runtime.TurnBase;
 using UniRx;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Runtime.Units
     public class UnitPresenter : IPresenter
     {
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
+        private static readonly int IsDamaging = Animator.StringToHash("IsDamaging");
+        
         private readonly CompositeDisposable _disposables = new();
         
         private readonly UnitModel _unit;
@@ -26,14 +30,25 @@ namespace Runtime.Units
         
         public virtual void Enable()
         {
+            foreach (var stat in _unit.Stats)
+            {
+                var statPresenter = new StatPresenter(stat);
+                statPresenter.Enable();
+            }
+            
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
+
+            _unit.OnAttacked += OnAttacked;
+            _unit.OnDamaging += OnDamaged;
             
             _view.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
         }
 
         public virtual void Disable()
         {
+            _unit.OnDamaging -= OnDamaged;
+            _unit.OnAttacked -= OnAttacked;
             _disposables.Dispose();
         }
         
@@ -59,6 +74,38 @@ namespace Runtime.Units
                 await AnimateMoveChanged(position);
                 _view.Animator.SetBool(IsMoving, false);
 
+                _unit.Awaiter.Complete();
+            }
+        }
+
+        private void OnAttacked()
+        {
+            var step = new StepModel(StepType.Parallel, StepAction, _unit.Awaiter);
+            _world.TurnBaseModel.Steps.Enqueue(step);
+            return;
+            
+            async void StepAction()
+            {
+                _view.Animator.SetBool(IsAttacking, true);
+                await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
+                _view.Animator.SetBool(IsAttacking, false);
+                
+                _unit.Awaiter.Complete();
+            }
+        }
+
+        private void OnDamaged()
+        {
+            var step = new StepModel(StepType.Consistent, StepAction, _unit.Awaiter);
+            _world.TurnBaseModel.Steps.Enqueue(step);
+            return;
+            
+            async void StepAction()
+            {
+                _view.Animator.SetBool(IsDamaging, true);
+                await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
+                _view.Animator.SetBool(IsDamaging, false);
+                
                 _unit.Awaiter.Complete();
             }
         }
