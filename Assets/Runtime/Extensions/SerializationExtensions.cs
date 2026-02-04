@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace Runtime.Extensions
@@ -41,6 +43,21 @@ namespace Runtime.Extensions
         {
             var list = dictionary.GetList(key);
             return new Queue<T>(list.Select(obj => (T)Convert.ChangeType(obj, typeof(T))));
+        }
+
+        public static T GetEnum<T>(this Dictionary<string, object> dictionary, string key) where T : Enum
+        {
+            var value = (string)dictionary[key];
+            var type = typeof(T);
+
+            foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                var attribute = field.GetCustomAttribute<EnumMemberAttribute>();
+                if (attribute?.Value == value)
+                    return (T)field.GetValue(null);
+            }
+
+            return (T)Enum.Parse(type, ToPascalCase(value), ignoreCase: true);
         }
 
         public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this Dictionary<string, object> dictionary, string key)
@@ -124,6 +141,12 @@ namespace Runtime.Extensions
         private static List<object> GetList(this Dictionary<string, object> dictionary, string key)
         {
             return (List<object>)dictionary[key];
+        }
+        
+        private static string ToPascalCase(string value)
+        {
+            return string.Concat(value.Split('_', '-').Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1))
+            );
         }
     }
 }
