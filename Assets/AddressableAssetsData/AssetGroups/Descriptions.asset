@@ -36,7 +36,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a758673cdfe46444680444e75ba83420
-    m_Address: Assets/Content/Descriptions/bear-description.json
+    m_Address: bear-description
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

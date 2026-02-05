@@ -8,20 +8,20 @@ namespace Runtime.Agents
     {
         private readonly UnitModel _unitModel;
         
-        private readonly AgentDecisionRoot _decisionRoot;
+        private readonly AgentDecisionDescription _decisionDescription;
 
         private readonly World _world;
         
-        public AgentModel(UnitModel unitModel, AgentDecisionRoot decisionRoot, World world)
+        public AgentModel(UnitModel unitModel, AgentDecisionDescription decisionDescription, World world)
         {
             _unitModel = unitModel;
-            _decisionRoot = decisionRoot;
+            _decisionDescription = decisionDescription;
             _world = world;
         }
 
         public void MakeStep()
         {
-            _decisionRoot.Process(_world, _unitModel);
+            _decisionDescription.Process(_world, _unitModel);
         }
     }
 }

@@ -7,16 +7,16 @@ namespace Editor.Agents
 {
     public class AgentPresenter : IPresenter
     {
-        private readonly AgentDecisionRoot _decisionRoot;
+        private readonly AgentDecisionDescription _decisionDescription;
         
         private readonly UnitModel _unitModel;
 
         private readonly World _world;
         
-        public AgentPresenter(UnitModel unitModel, AgentDecisionRoot decisionRoot, World world)
+        public AgentPresenter(UnitModel unitModel, AgentDecisionDescription decisionDescription, World world)
         {
             _unitModel = unitModel;
-            _decisionRoot = decisionRoot;
+            _decisionDescription = decisionDescription;
             _world = world;
         }
 
@@ -32,7 +32,7 @@ namespace Editor.Agents
 
         private void OnStep()
         {
-            _decisionRoot.Process(_world, _unitModel);
+            _decisionDescription.Process(_world, _unitModel);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Runtime.Descriptions.Agents.Nodes
                 "selector" => new AgentSelector(),
                 "sequence" => new AgentSequence(),
                 "leaf" => new AgentLeaf(),
-                "root" => new AgentDecisionRoot(),
+                "root" => new AgentDecisionDescription(),
                 _ => throw new Exception()
             };
             
