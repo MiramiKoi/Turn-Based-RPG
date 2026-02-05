@@ -4,20 +4,57 @@
       {
          "type" : "sequence",
          "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "command" : "command_1",
+               "_editor" : {
+                  "position" : [
+                     -132,
+                     370.6667
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "command" : "command_2",
+               "_editor" : {
+                  "position" : [
+                     96.66666,
+                     357.3333
+                  ]
+               }
+            }
+         ],
+         "_editor" : {
+            "position" : [
+               -14,
+               146.6667
+            ]
+         }
+      },
+      {
+         "type" : "sequence",
+         "children" : [
             
          ],
          "_editor" : {
             "position" : [
-               196,
-               137.3333
+               268,
+               186
             ]
          }
       }
    ],
    "_editor" : {
       "position" : [
-         196,
-         30
+         0,
+         0
       ]
    }
 }

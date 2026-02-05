@@ -18,21 +18,27 @@ namespace Editor.Agents.Nodes
             set => base.title = value;
         }
 
-        public AgentBaseNodeView(AgentNodeEditorWrapper data)
+        protected AgentBaseNodeView(AgentNodeEditorWrapper data)
         {
             Data = data;
 
-            SetupNode();
+            Setup();
         }
 
-        public AgentBaseNodeView(AgentNode data)
+        protected AgentBaseNodeView(AgentNode data)
         {
             Data = new AgentNodeEditorWrapper(data);
             
-            SetupNode();
+            Setup();
         }
 
-        private void SetupNode()
+        public virtual void SaveData()
+        {
+            Data.SortChildrenByPositionX();
+            Data.Position = GetPosition().position;
+        }
+
+        protected virtual void Setup()
         {
             Title = Data.Node.Type;
             
@@ -46,12 +52,6 @@ namespace Editor.Agents.Nodes
             RefreshPorts();
             
             SetPosition(new Rect(Data.Position, new Vector2(100, 100)));
-        }
-
-        public virtual void SaveData()
-        {
-            Data.SortChildrenByPositionX();
-            Data.Position = GetPosition().position;
         }
     }
 }

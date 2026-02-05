@@ -38,8 +38,7 @@ namespace Editor.Agents
         
         private void BuildGraphViewRecursive(AgentNodeEditorWrapper wrapper)
         {
-            var nodeView = _graphView.AddAgentNode(wrapper.Node);
-            nodeView.Data = wrapper; 
+            var nodeView = _graphView.AddAgentNode(wrapper);
 
             foreach (var childWrapper in wrapper.ChildWrappers)
             {
