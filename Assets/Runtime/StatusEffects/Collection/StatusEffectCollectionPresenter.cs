@@ -11,7 +11,7 @@ namespace Runtime.StatusEffects.Collection
         private readonly StatusEffectModelCollection _collection;
         private readonly UnitModel _unit;
         private readonly World _world;
-        private readonly Dictionary<StatusEffectModel, StatusEffectPresenter> _presenters = new();
+        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
         public StatusEffectCollectionPresenter(StatusEffectModelCollection collection, UnitModel unit, World world)
         {
@@ -55,7 +55,7 @@ namespace Runtime.StatusEffects.Collection
                 pair.Value.Tick(TickMoment.TurnEnd);
 
                 if (pair.Value.IsExpired)
-                    expired.Add(pair.Key);
+                    expired.Add(_collection.Get(pair.Key));
             }
 
             foreach (var model in expired)
@@ -66,12 +66,9 @@ namespace Runtime.StatusEffects.Collection
 
         private void AddPresenter(StatusEffectModel model)
         {
-            if (!_presenters.ContainsKey(model))
-            {
-                var presenter = new StatusEffectPresenter(model, _unit, _world);
-                presenter.Enable();
-                _presenters.Add(model, presenter);
-            }
+            var presenter = new StatusEffectPresenter(model, _unit, _world);
+            presenter.Enable();
+            _presenters.Add(model.Id, presenter);
         }
 
         private void HandleAdded(StatusEffectModel model)
@@ -81,7 +78,7 @@ namespace Runtime.StatusEffects.Collection
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            _presenters.Remove(model);
+            _presenters.Remove(model.Id);
         }
     }
 }
