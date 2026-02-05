@@ -39,13 +39,17 @@ namespace Runtime.Player
             var currentCell = _world.GridInteractionModel.CurrentCell;
             if (currentCell != null && _model.CanAttack(currentCell.Position))
             {
-                _model.Attack(currentCell.Position);
                 MakeStep();
+                _model.Attack(currentCell.Position);
+                
+                _world.TurnBaseModel.PlayerStep();
             }
             else if (_model.HasPath())
             {
-                _model.ExecuteNextStep();
                 MakeStep();
+                _model.ExecuteNextStep();
+                
+                _world.TurnBaseModel.PlayerStep();
             }
         }
 
@@ -55,8 +59,6 @@ namespace Runtime.Player
                 
             _world.CameraControlModel.IsActive.Value = false;
             _world.CameraControlModel.ResetCameraPosition();
-                
-            _world.TurnBaseModel.PlayerStep();
         }
         
         private void HandleInteractionCellChanged()

@@ -16,7 +16,11 @@ namespace Runtime.Agents
         public NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var unit = controllable as UnitModel;
-
+            if (unit.IsDead)
+            {
+                return NodeStatus.Failure;
+            }
+            
             var nextPosition = unit.Position.Value + _delta;
             
             var success = context.GridModel.TryPlace(unit, nextPosition);

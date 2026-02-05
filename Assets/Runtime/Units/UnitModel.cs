@@ -31,6 +31,8 @@ namespace Runtime.Units
         public string Id { get; }
 
         public int Health => (int)Stats["health"].Value;
+        
+        public bool IsDead => (int)Stats["health"].Value <= 0;
 
         public CustomAwaiter Awaiter { get; private set; }
 
@@ -99,6 +101,11 @@ namespace Runtime.Units
             OnDamaging?.Invoke();
             
             Stats["health"].ChangeValue(-damage);
+        }
+
+        public void Await()
+        {
+            Awaiter = new CustomAwaiter();
         }
     }
 }

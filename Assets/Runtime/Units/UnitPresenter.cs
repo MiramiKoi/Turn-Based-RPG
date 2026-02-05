@@ -14,6 +14,7 @@ namespace Runtime.Units
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int IsDamaging = Animator.StringToHash("IsDamaging");
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
         
         private readonly CompositeDisposable _disposables = new();
         
@@ -103,6 +104,22 @@ namespace Runtime.Units
             async void StepAction()
             {
                 _view.Animator.SetBool(IsDamaging, true);
+                await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
+                _view.Animator.SetBool(IsDamaging, false);
+                
+                var awaiter = _unit.Awaiter;
+                if (_unit.Health <= 0)
+                {
+                    _unit.Await();
+                    var nextStep = new StepModel(StepType.Consistent, DeathAction, _unit.Awaiter);
+                    _world.TurnBaseModel.Steps.Enqueue(nextStep);
+                }
+                awaiter.Complete();
+            }
+            
+            async void DeathAction()
+            {
+                _view.Animator.SetBool(IsDead, true);
                 await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
                 _view.Animator.SetBool(IsDamaging, false);
                 
