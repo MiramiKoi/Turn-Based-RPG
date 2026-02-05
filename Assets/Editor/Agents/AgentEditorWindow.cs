@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Editor.Agents.Nodes;
+using Editor.Agents.Utilities;
 using fastJSON;
 using Runtime.Agents.Nodes;
 using UnityEditor;
@@ -9,6 +11,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Edge = UnityEditor.Experimental.GraphView.Edge;
 
 namespace Editor.Agents
 {
@@ -17,6 +20,12 @@ namespace Editor.Agents
         private const string Title = "Controllable Behavior Tree Editor";
 
         private AgentGraphView _graphView;
+        
+        private AgentGraphSaveUtility _saveUtility;
+        
+        private AgentGraphLoadUtility _loadUtility;
+        
+        private AgentGraphSerializer _serializer;
 
         private void OnEnable()
         {
@@ -24,6 +33,12 @@ namespace Editor.Agents
 
             _graphView = new AgentGraphView();
 
+            _serializer = new AgentGraphSerializer();
+            
+            _saveUtility = new AgentGraphSaveUtility(_graphView, _serializer);
+            
+            _loadUtility = new AgentGraphLoadUtility(_graphView, _serializer);
+            
             _graphView.StretchToParentSize();
 
             rootVisualElement.Add(_graphView);
@@ -60,11 +75,10 @@ namespace Editor.Agents
             toolbar.Add(CreateToolbarButton("Leaf", _graphView.AddAgentNode<AgentLeaf>));
             toolbar.Add(CreateToolbarButton("Root", _graphView.AddAgentNode<AgentDecisionRoot>));
 
-            toolbar.Add(CreateToolbarButton("Save", Save));
-
-            toolbar.Add(CreateToolbarButton("Load", Load));
-
-            toolbar.Add(CreateToolbarButton("Clear", () => _graphView.ClearGraph()));
+            toolbar.Add(CreateToolbarButton("Save", _saveUtility.Save));
+            toolbar.Add(CreateToolbarButton("Bake", _saveUtility.Bake));
+            toolbar.Add(CreateToolbarButton("Load", _loadUtility.Load));
+            toolbar.Add(CreateToolbarButton("Clear", _graphView.ClearGraph));
 
             return toolbar;
         }
@@ -81,69 +95,19 @@ namespace Editor.Agents
             return button;
         }
 
-        private void Save()
-        {
-            var path = EditorUtility.SaveFilePanel(
-                "Save Controllable Behavior",
-                Application.dataPath,
-                "behavior-tree.json",
-                "json");
-
-            if (string.IsNullOrEmpty(path))
-            {
-                return;
-            }
-
-            var nodes = _graphView.nodes.OfType<AgentBaseNodeView>().ToList(); 
-            
-            nodes.ToList().ForEach(nv => nv.SaveData());
-            
-            var rootNodeView = nodes.FirstOrDefault(nv => nv.Data is AgentDecisionRoot);
-
-            if (rootNodeView == null)
-            {
-                return;
-            }
-
-            var json = JSON.ToNiceJSON(rootNodeView.Data.Serialize());
-            
-            File.WriteAllText(path, json);
-        }
-
-        private void Load()
-        {
-            _graphView.ClearGraph();
-            
-            var path = EditorUtility.OpenFilePanel
-                ("Load Controllable Behavior", 
-                Application.dataPath, 
-                "json");
-
-            Debug.Log(path);
-            
-            var json = File.ReadAllText(path);
-
-            var agentBehaviorTree = new AgentDecisionRoot();
-            
-            agentBehaviorTree.Deserialize(JSON.ToObject<Dictionary<string, object>>(json));
-            
-            BuildGraphRecursive(agentBehaviorTree);
-        }
-
         private GraphViewChange OnGraphElementChanged(GraphViewChange graphViewChange)
         {
             if (graphViewChange.edgesToCreate != null)
             {
                 foreach (var edge in graphViewChange.edgesToCreate)
                 {
-                    var outputNodeView = edge.output.node as AgentBaseNodeView;
-                    var inputNodeView = edge.input.node as AgentBaseNodeView;
+                    if (edge.output.node is not AgentBaseNodeView outputNodeView ||
+                        edge.input.node is not AgentBaseNodeView inputNodeView)
+                        continue;
 
-                    if (!outputNodeView.Data.Children.Contains(inputNodeView.Data))
-                    {
-                        outputNodeView.Data.AddChild(inputNodeView.Data);
-                        Debug.Log($"Added child: {inputNodeView.Data.Type} to {outputNodeView.Data.Type}");
-                    }
+                    outputNodeView.Data.AddChild(inputNodeView.Data);
+
+                    outputNodeView.Data.SortChildrenByPositionX();
                 }
             }
 
@@ -151,35 +115,15 @@ namespace Editor.Agents
             {
                 foreach (var edge in graphViewChange.elementsToRemove.OfType<Edge>())
                 {
-                    var outputNodeView = edge.output.node as AgentBaseNodeView;
-                    var inputNodeView = edge.input.node as AgentBaseNodeView;
+                    if (edge.output.node is not AgentBaseNodeView outputNodeView ||
+                        edge.input.node is not AgentBaseNodeView inputNodeView)
+                        continue;
 
-                    if (outputNodeView.Data.Children.Contains(inputNodeView.Data))
-                    {
-                        outputNodeView.Data.Children.Remove(inputNodeView.Data);
-                        Debug.Log($"Removed child: {inputNodeView.Data.Type} from {outputNodeView.Data.Type}");
-                    }
+                    outputNodeView.Data.RemoveChild(inputNodeView.Data);
                 }
             }
-            
+
             return graphViewChange;
-        }
-
-        private void BuildGraphRecursive(AgentNode node)
-        {
-            var nodeView = _graphView.AddAgentNode(node);
-
-            foreach (var child in node.Children)
-            {
-                BuildGraphRecursive(child);
-                
-                var childView = _graphView.nodes.ToList()
-                    .OfType<AgentBaseNodeView>()
-                    .First(nv => nv.Data ==  child);
-                
-                var edge = nodeView.OutputPort.ConnectTo(childView.InputPort);
-                _graphView.AddElement(edge);
-            }
         }
     }
 }
