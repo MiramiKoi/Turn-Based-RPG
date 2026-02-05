@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Common;
+using Runtime.Core;
 using Runtime.UI.Inventory.Cells;
 using Runtime.ViewDescriptions;
 
@@ -10,15 +11,17 @@ namespace Runtime.UI.Inventory
         private readonly List<CellPresenter> _cellsPresenters = new();
         private readonly InventoryModel _model;
         private readonly InventoryView _view;
+        private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
 
-        public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions, UIContent uiContent, World world)
         {
             _model = model;
             _view = view;
             _viewDescriptions = viewDescriptions;
             _uiContent = uiContent;
+            _world = world;
         }
 
         public void Enable()
@@ -31,7 +34,7 @@ namespace Runtime.UI.Inventory
                 var cellView = new CellView(cellAsset);
                 _view.CellsContainer.Add(cellView.Root);
                 
-                var cellPresenter = new CellPresenter(cellModel, cellView);
+                var cellPresenter = new CellPresenter(cellModel, cellView, _viewDescriptions, _world);
                 cellPresenter.Enable();
                 
                 _cellsPresenters.Add(cellPresenter);
