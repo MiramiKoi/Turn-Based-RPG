@@ -8,6 +8,7 @@ using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Input;
+using Runtime.Items;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
@@ -70,6 +71,11 @@ namespace Runtime.Core
             _uiContent = new UIContent(_gameplayDocument);
             _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
             _uiController.Enable();
+            
+            //TODO: Putting item test
+            var itemFactory = new ItemFactory(_world.WorldDescription.ItemCollection);
+            _world.InventoryModel.TryPutItem(itemFactory.Create("bear_meat").Description, 14);
+            _world.InventoryModel.TryPutItem(itemFactory.Create("bear_fur").Description, 28);
         }
         
         private void Update()
