@@ -33,10 +33,6 @@ namespace Editor.Agents.Utilities
         {
             Nodes.ForEach(nv => nv.SaveData());
             
-            var dict = _serializer.Serialize(GetRoot().Data);
-            var json = JSON.ToNiceJSON(dict);
-            File.WriteAllText(GetPath(), json);
-            
             Save(GetRoot().Data, GetPath());
         }
 
