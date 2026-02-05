@@ -127,12 +127,6 @@ namespace Runtime.Core
             
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
-            unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
-            unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));
-            unitModel.RegisterCommand("set_false_flag", new SetFlagCommand(false, "flag"));
-            unitModel.RegisterCommand("set_true_flag", new SetFlagCommand(true, "flag"));
-            unitModel.RegisterCommand("has_flag", new HasFlagCommand("flag"));
-            
             
             unitPresenter.Enable();
         }
