@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Bleeding
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.StatusEffects.StatusEffectViewDescription
   Icon:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
+    m_AssetGUID: df737b3eea0d34140a2db70bbba4727a
+    m_SubObjectName: cloth2
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
+    m_EditorAssetChanged: 1
   StatusEffectViewAsset:
-    m_AssetGUID: 
+    m_AssetGUID: 9738b0956bf1456c91793f1df789754c
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

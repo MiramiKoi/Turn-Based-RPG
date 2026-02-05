@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b61ff1c93882642b8d1f00d96315e5, type: 3}
   m_Name: StatusEffectViewDescriptionCollection
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.StatusEffects.StatusEffectViewDescriptionCollection
-  _descriptions:
-  - {fileID: 11400000, guid: 7d46197e46529d5428cd5f71d821bfc4, type: 2}
-  _statusEffectContainerAsset:
-    m_AssetGUID: 
+  StatusEffectContainerAsset:
+    m_AssetGUID: 4338c3a1a305ec04d950e93a626c3bb9
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  _descriptions:
+  - {fileID: 11400000, guid: 7d46197e46529d5428cd5f71d821bfc4, type: 2}
