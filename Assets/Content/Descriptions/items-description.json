@@ -1,0 +1,12 @@
+{
+  "bear_fur": {
+    "type": "resource",
+    "view_id": "Bear-fur",
+    "stack_size": 10
+  },
+  "bear_meat": {
+    "type": "food",
+    "view_id": "Bear-meat",
+    "stack_size": 20
+  }
+}
