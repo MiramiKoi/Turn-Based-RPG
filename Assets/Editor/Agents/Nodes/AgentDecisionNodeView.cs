@@ -9,7 +9,7 @@ namespace Editor.Agents.Nodes
             
         }
         
-        public AgentDecisionNodeView(AgentDecisionRoot data) : base(data)
+        public AgentDecisionNodeView(AgentDecisionDescription data) : base(data)
         {
         }
 

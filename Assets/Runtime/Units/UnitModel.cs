@@ -25,8 +25,8 @@ namespace Runtime.Units
         
         public StatModelCollection Stats { get; }
 
-        public IReadOnlyDictionary<string, IUnitCommand> Commands => _commands;
         public IReadOnlyDictionary<string, bool> Flags => _flags;
+        public IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; private set; }
 
         public string Id { get; }
 
@@ -36,11 +36,10 @@ namespace Runtime.Units
 
         public CustomAwaiter Awaiter { get; private set; }
 
-        private readonly Dictionary<string, IUnitCommand> _commands = new();
-
         private readonly Dictionary<string, bool> _flags = new();
 
-
+        private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
+                
         public UnitModel(string id, UnitDescription description, Vector2Int position)
         {
             Description = description;
@@ -48,11 +47,6 @@ namespace Runtime.Units
             Stats = new StatModelCollection(Description.Stats);
             
             MoveTo(position);
-        }
-
-        public void RegisterCommand(string key, IUnitCommand command)
-        {
-            _commands[key] = command;
         }
 
         public void MoveTo(Vector2Int position)
@@ -70,6 +64,16 @@ namespace Runtime.Units
         public void SetFlag(string key, bool value)
         {
             _flags[key] = value;
+        }
+
+        public void SetPointOfInterest(string key, Vector2Int value)
+        {
+            _pointOfInterest[key] = value;
+        }
+
+        public Vector2Int GetPointOfInterest(string key)
+        {
+            return _pointOfInterest[key];
         }
 
         public void Rotate(UnitDirection direction)

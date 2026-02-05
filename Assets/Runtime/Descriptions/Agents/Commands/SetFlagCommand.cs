@@ -8,8 +8,8 @@ namespace Runtime.Descriptions.Agents.Commands
     {
         private const string FlagKey = "flag";
         private const string ValueKey = "value";
-        
-        protected override string Type => "set_flag";
+
+        public override string Type => "set_flag";
 
         public string Flag { get; private set; } = string.Empty;
         

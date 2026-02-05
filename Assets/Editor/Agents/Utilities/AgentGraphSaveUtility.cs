@@ -73,7 +73,7 @@ namespace Editor.Agents.Utilities
 
         private AgentBaseNodeView GetRoot()
         {
-            var rootNodeView = Nodes.FirstOrDefault(nv => nv.Data.Node is AgentDecisionRoot);
+            var rootNodeView = Nodes.FirstOrDefault(nv => nv.Data.Node is AgentDecisionDescription);
 
             if (rootNodeView == null)
             {

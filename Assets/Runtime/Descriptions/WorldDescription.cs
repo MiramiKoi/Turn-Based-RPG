@@ -1,5 +1,6 @@
 using Runtime.Extensions;
 using System.Collections.Generic;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.CameraControl;
 using Runtime.Descriptions.Items;
 using Runtime.Descriptions.Surface;
@@ -14,6 +15,8 @@ namespace Runtime.Descriptions
         public SurfaceDescriptionCollection SurfaceCollection { get; private set; }
         public UnitDescriptionCollection UnitCollection { get; private set; }
         public ItemDescriptionCollection  ItemCollection { get; private set; }
+        
+        public AgentDecisionDescription AgentDecisionDescription { get; private set; }
 
         public void SetData(Dictionary<string, object> data)
         {
@@ -22,6 +25,7 @@ namespace Runtime.Descriptions
             SurfaceCollection = new SurfaceDescriptionCollection(data.GetNode("surfaces"));
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
             ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
+            AgentDecisionDescription = new AgentDecisionDescription(data.GetNode("bear"));
         }
     }
 }

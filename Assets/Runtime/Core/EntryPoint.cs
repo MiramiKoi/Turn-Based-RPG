@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Editor.Agents;
 using fastJSON;
 using Runtime.Agents;
 using Runtime.AsyncLoad;
@@ -115,13 +116,13 @@ namespace Runtime.Core
             var unitPrefab = loadModel.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _addressableModel.Unload(loadModel);
-            
-            var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
 
+            var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
+            
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
-            
             unitPresenter.Enable();
+            agentPresenter.Enable();
         }
     }
 }

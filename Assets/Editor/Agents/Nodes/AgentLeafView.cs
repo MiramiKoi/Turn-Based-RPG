@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Runtime.Descriptions.Agents;
 using Runtime.Descriptions.Agents.Commands;
 using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Descriptions.Units;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Agents.Nodes
@@ -27,11 +28,6 @@ namespace Editor.Agents.Nodes
 
         }
 
-        public override void SaveData()
-        {
-            base.SaveData();
-        }
-
         protected override void Setup()
         {
             base.Setup();
@@ -41,11 +37,15 @@ namespace Editor.Agents.Nodes
             _commandDropdownField = new DropdownField()
             {
                 label = "command",
-                choices = new List<string>()
+                choices =
                 {
                     "log",
+                    "set_flag",
                     "has_flag",
-                    "set_flag"
+                    "has_point_of_interest",
+                    "set_random_point_of_interest",
+                    "distance_point_of_interest",
+                    "move_to_point_of_interest"
                 },
                 value = "log"
             };
@@ -57,13 +57,30 @@ namespace Editor.Agents.Nodes
             outputContainer.Add(_commandDropdownField);
             
             outputContainer.Add(_parametersContainer);
-            
-            SetupFields<LogCommand>();
+
+            if (LeafData.CommandDescription == null)
+            {
+                SetupNewCommand(_commandDropdownField.value);
+            }
+            else
+            {
+                SetupCommand(LeafData.CommandDescription);
+            }
         }
 
         private void OnChangeCommand(ChangeEvent<string> evt)
         {
-            switch (evt.newValue)
+            SetupNewCommand(evt.newValue);
+        }
+
+        private void SetupCommand(CommandDescription command)
+        {
+            SetupFields(command);
+        }
+        
+        private void SetupNewCommand(string command)
+        {
+            switch (command)
             {
                 case "log":
                     SetupFields<LogCommand>();
@@ -74,6 +91,18 @@ namespace Editor.Agents.Nodes
                 case "has_flag":
                     SetupFields<HasFlagCommand>();
                     break;
+                case  "has_point_of_interest":
+                    SetupFields<HasPointOfInterestCommand>();
+                    break;
+                case  "set_random_point_of_interest":
+                    SetupFields<SetRandomPointOfInterest>();
+                    break;
+                case "distance_point_of_interest":
+                    SetupFields<DistancePointOfInterest>();
+                    break;
+                case "move_to_point_of_interest":
+                    SetupFields<MoveToPointOfInterest>();
+                    break;
             }
         }
 
@@ -82,7 +111,12 @@ namespace Editor.Agents.Nodes
             _parametersContainer.Clear();
             
             var command = new T();
+            
+            SetupFields(command);
+        }
 
+        private void SetupFields(CommandDescription command) 
+        {
             _currentParameters = command.Serialize();
 
             foreach (var parameter in _currentParameters)
@@ -91,36 +125,27 @@ namespace Editor.Agents.Nodes
                 {
                     continue;
                 }
-                
-                VisualElement field = parameter.Value switch
+
+                var field = parameter.Value switch
                 {
-                    int intValue => CreateIntField(parameter.Key, intValue, (newValue) =>
-                    {
-                        _currentParameters[parameter.Key] = newValue;
-                        command.Deserialize(_currentParameters);
-                    }),
-                    float floatValue => CreateFloatField(parameter.Key, floatValue, (newValue) =>
-                    {
-                        _currentParameters[parameter.Key] = newValue;
-                        command.Deserialize(_currentParameters);
-                    }),
-                    bool boolValue => CreateBoolField(parameter.Key, boolValue, (newValue) =>
-                    {
-                        _currentParameters[parameter.Key] = newValue;
-                        command.Deserialize(_currentParameters);
-                    }),
-                    string stringValue => CreateTextField(parameter.Key, stringValue, (newValue) =>
-                    {
-                        _currentParameters[parameter.Key] = newValue;
-                        command.Deserialize(_currentParameters);
-                    }),
+                    int intValue => CreateIntField(parameter.Key, intValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    float floatValue => CreateFloatField(parameter.Key, floatValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    bool boolValue => CreateBoolField(parameter.Key, boolValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    string stringValue => CreateTextField(parameter.Key, stringValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 
-                LeafData.CommandDescription = command;
                 
                 _parametersContainer.Add(field);
             }
+            
+            LeafData.CommandDescription = command;
+        }
+
+        private void UpdateParameter<T>(T command, string key, object value) where T : CommandDescription
+        {
+            _currentParameters[key] = value;
+            command.Deserialize(_currentParameters);
         }
 
         private VisualElement CreateIntField(string title, int value, Action<int> callback)

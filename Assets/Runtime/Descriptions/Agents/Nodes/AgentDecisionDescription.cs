@@ -1,9 +1,21 @@
+using System.Collections.Generic;
+
 namespace Runtime.Descriptions.Agents.Nodes
 {
-    public class AgentDecisionRoot : AgentNode
+    public sealed class AgentDecisionDescription : AgentNode
     {
         public override string Type => "root";
 
+        public AgentDecisionDescription()
+        {
+            
+        }
+        
+        public AgentDecisionDescription(Dictionary<string, object> data)
+        {
+            Deserialize(data);
+        }
+        
         public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
             foreach (var child in Children)

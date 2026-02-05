@@ -20,6 +20,7 @@ namespace Runtime.LoadSteps
             { "surfaces", "surface-description" },
             { "units", "unit-description" },
             { "items", "items-description" },
+            { "bear", "bear-description" },
         };
 
         public DescriptionsLoadStep(WorldDescription worldDescription, AddressableModel addressableModel)
