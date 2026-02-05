@@ -59,6 +59,29 @@ namespace Runtime.Extensions
 
             return (T)Enum.Parse(type, ToPascalCase(value), ignoreCase: true);
         }
+        
+        public static T GetFlags<T>(this Dictionary<string, object> dictionary, string key) where T : Enum
+        {
+            var type = typeof(T);
+            long combinedValue = 0;
+
+            foreach (var item in (IEnumerable<object>)dictionary[key])
+            {
+                var str = item.ToString();
+
+                foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    var attribute = field.GetCustomAttribute<EnumMemberAttribute>();
+                    if (attribute?.Value == str)
+                    {
+                        combinedValue |= Convert.ToInt64(field.GetValue(null));
+                        break;
+                    }
+                }
+            }
+
+            return (T)Enum.ToObject(type, combinedValue);
+        }
 
         public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this Dictionary<string, object> dictionary, string key)
         {
@@ -138,7 +161,7 @@ namespace Runtime.Extensions
             return new List<object> { vector.x, vector.y, vector.z };
         }
         
-        private static List<object> GetList(this Dictionary<string, object> dictionary, string key)
+        public static List<object> GetList(this Dictionary<string, object> dictionary, string key)
         {
             return (List<object>)dictionary[key];
         }
