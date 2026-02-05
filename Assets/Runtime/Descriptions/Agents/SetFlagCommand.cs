@@ -4,16 +4,21 @@ using Runtime.Extensions;
 
 namespace Runtime.Descriptions.Agents
 {
-    public class LogCommand : CommandDescription
+    public class SetFlagCommand : CommandDescription
     {
-        private const string MessageKey = "message";
+        private const string FlagKey = "flag";
+        private const string ValueKey = "value";
+        
+        protected override string Type => "set_flag";
 
-        protected override string Type => "log";
-
-        public string Message { get; private set; } = string.Empty;
-
+        public string Flag { get; private set; } = string.Empty;
+        
+        public bool Value { get; private set; } = false;
+        
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
+            controllable.SetFlag(Flag, Value);
+            
             return NodeStatus.Success;
         }
 
@@ -21,7 +26,8 @@ namespace Runtime.Descriptions.Agents
         {
             var dictionary = base.Serialize();
             
-            dictionary[MessageKey] = Message;
+            dictionary[FlagKey] = Flag;
+            dictionary[ValueKey] = Value;
             
             return dictionary;
         }
@@ -29,7 +35,9 @@ namespace Runtime.Descriptions.Agents
         public override void Deserialize(Dictionary<string, object> dictionary)
         {
             base.Deserialize(dictionary);
-            Message = dictionary.GetString(MessageKey);
+            
+            Flag = dictionary.GetString(FlagKey);
+            Value = dictionary.GetBool(ValueKey);
         }
     }
 }
