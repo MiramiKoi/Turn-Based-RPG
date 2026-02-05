@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using Runtime.Descriptions.Agents;
 using Runtime.Descriptions.Agents.Commands;
 using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Extensions;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Agents.Nodes
@@ -45,7 +48,9 @@ namespace Editor.Agents.Nodes
                 {
                     "log",
                     "has_flag",
-                    "set_flag"
+                    "set_flag",
+                    "has_point_of_interest",
+                    "set_random_point_of_interest",
                 },
                 value = "log"
             };
@@ -73,6 +78,12 @@ namespace Editor.Agents.Nodes
                     break;
                 case "has_flag":
                     SetupFields<HasFlagCommand>();
+                    break;
+                case  "has_point_of_interest":
+                    SetupFields<HasPointOfInterestCommand>();
+                    break;
+                case  "set_random_point_of_interest":
+                    SetupFields<SetRandomPointOfInterest>();
                     break;
             }
         }
@@ -114,6 +125,11 @@ namespace Editor.Agents.Nodes
                         _currentParameters[parameter.Key] = newValue;
                         command.Deserialize(_currentParameters);
                     }),
+                    object[] vector2IntValue => CreateVector2IntField(parameter.Key, vector2IntValue, (newValue) =>
+                    {
+                        _currentParameters[parameter.Key] = newValue.ToList();
+                        command.Deserialize(_currentParameters);
+                    }),
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 
@@ -123,6 +139,19 @@ namespace Editor.Agents.Nodes
             }
         }
 
+        private VisualElement CreateVector2IntField(string title, object[] value, Action<Vector2Int> callback)
+        {
+            var field = new Vector2IntField()
+            {
+                label = title,
+                value = new Vector2Int((int)value[0], (int)value[1]),
+            };
+
+            field.RegisterValueChangedCallback(evt => callback?.Invoke(evt.newValue));
+
+            return field;
+        }
+        
         private VisualElement CreateIntField(string title, int value, Action<int> callback)
         {
             var field = new IntegerField()
