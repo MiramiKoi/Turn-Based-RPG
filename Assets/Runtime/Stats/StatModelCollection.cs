@@ -28,6 +28,6 @@ namespace Runtime.Stats
             return GetEnumerator();
         }
 
-        public int this[string id] => (int)Stats[id].Value;
+        public StatModel this[string id] => Stats[id];
     }
 }

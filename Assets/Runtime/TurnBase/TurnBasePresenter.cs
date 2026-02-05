@@ -62,9 +62,9 @@ namespace Runtime.TurnBase
             }
             else
             {
-                await WaitParallelSteps();
-
                 stepModel.StepAction.Invoke();
+                
+                await WaitParallelSteps();
                 await stepModel.Awaiter;
             }
         }

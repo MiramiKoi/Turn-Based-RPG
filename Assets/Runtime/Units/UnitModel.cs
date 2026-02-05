@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Runtime.AsyncLoad;
 using Runtime.Common;
@@ -11,6 +12,9 @@ namespace Runtime.Units
 {
     public class UnitModel : IUnit, IControllable
     {
+        public event Action OnAttacked;
+        public event Action OnDamaging;
+        
         public UnitDescription Description { get; }
         
         private readonly ReactiveProperty<Vector2Int> _position = new ();
@@ -26,7 +30,9 @@ namespace Runtime.Units
 
         public string Id { get; }
 
-        public int Health => Stats["health"];
+        public int Health => (int)Stats["health"].Value;
+        
+        public bool IsDead => (int)Stats["health"].Value <= 0;
 
         public CustomAwaiter Awaiter { get; private set; }
 
@@ -69,6 +75,37 @@ namespace Runtime.Units
         public void Rotate(UnitDirection direction)
         {
             _direction.Value = direction;
+        }
+        
+        public float GetDamage()
+        {
+            Awaiter = new CustomAwaiter();
+            OnAttacked?.Invoke();
+            
+            return Stats["attack_damage"].Value;
+        }
+
+        public bool CanAttack(Vector2Int position)
+        { 
+            var current = Position.Value;
+            if (position.x != current.x)
+                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+            
+            return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
+                   Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            Awaiter = new CustomAwaiter();
+            OnDamaging?.Invoke();
+            
+            Stats["health"].ChangeValue(-damage);
+        }
+
+        public void Await()
+        {
+            Awaiter = new CustomAwaiter();
         }
     }
 }

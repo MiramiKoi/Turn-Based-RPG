@@ -35,6 +35,26 @@ namespace Runtime.Player
             }
         }
 
+        public bool CanAttack(Vector2Int target)
+        {
+            return _grid.GetCell(target).Unit is UnitModel unit && 
+                   unit != _model && 
+                   !unit.IsDead &&
+                   _model.CanAttack(target);
+        }
+
+        public void Attack(Vector2Int target)
+        {
+            if (!CanAttack(target))
+            {
+                return;
+            }
+            
+            var enemy = (UnitModel)_grid.GetCell(target).Unit;
+            var damage = _model.GetDamage();
+            enemy.TakeDamage(damage);
+        }
+        
         public bool HasPath() => _movementQueueModel.HasSteps;
         
         public void ExecuteNextStep()
