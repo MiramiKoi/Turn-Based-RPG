@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Runtime.AsyncLoad;
 using Runtime.ViewDescriptions;
+using Runtime.ViewDescriptions.Inventory;
 using Runtime.ViewDescriptions.Landscape.Grid;
 using Runtime.ViewDescriptions.Landscape.Surface;
 using Runtime.ViewDescriptions.Units;
@@ -32,6 +33,10 @@ namespace Runtime.LoadSteps
                 {
                     "UnitViewDescriptionCollection",
                     obj => worldViewDescriptions.UnitViewDescriptions = obj as UnitViewDescriptionCollection
+                },
+                {
+                    "InventoryViewDescription",
+                    obj => worldViewDescriptions.InventoryViewDescription = obj as InventoryViewDescription
                 }
             };
         }
