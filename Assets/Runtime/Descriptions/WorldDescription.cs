@@ -1,6 +1,7 @@
 using Runtime.Extensions;
 using System.Collections.Generic;
 using Runtime.Descriptions.CameraControl;
+using Runtime.Descriptions.Items;
 using Runtime.Descriptions.Surface;
 using Runtime.Descriptions.Units;
 
@@ -12,6 +13,7 @@ namespace Runtime.Descriptions
         public SurfaceGenerationDescription SurfaceGenerationDescription { get; private set; }
         public SurfaceDescriptionCollection SurfaceCollection { get; private set; }
         public UnitDescriptionCollection UnitCollection { get; private set; }
+        public ItemDescriptionCollection  ItemCollection { get; private set; }
 
         public void SetData(Dictionary<string, object> data)
         {
@@ -19,6 +21,7 @@ namespace Runtime.Descriptions
             SurfaceGenerationDescription = new SurfaceGenerationDescription(data.GetNode("surface_generation"));
             SurfaceCollection = new SurfaceDescriptionCollection(data.GetNode("surfaces"));
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
+            ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
         }
     }
 }
