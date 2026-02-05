@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Editor.Agents.Nodes;
-using Runtime.Agents.Nodes;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 
 namespace Editor.Agents.Utilities
