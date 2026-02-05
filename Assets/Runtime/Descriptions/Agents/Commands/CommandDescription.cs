@@ -4,7 +4,7 @@ using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
 
-namespace Runtime.Descriptions.Agents
+namespace Runtime.Descriptions.Agents.Commands
 {
     public abstract class CommandDescription : IUnitCommand, ISerializable, IDeserializable
     {
