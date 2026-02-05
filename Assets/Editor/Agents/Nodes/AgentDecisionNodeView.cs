@@ -1,4 +1,4 @@
-using Runtime.Agents.Nodes;
+using Runtime.Descriptions.Agents.Nodes;
 
 namespace Editor.Agents.Nodes
 {

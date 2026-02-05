@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Runtime.Descriptions.Agents.Commands;
 using Runtime.Extensions;
-using UnityEngine;
 
-namespace Runtime.Agents.Nodes
+namespace Runtime.Descriptions.Agents.Nodes
 {
     public class AgentLeaf : AgentNode
     {
@@ -10,18 +10,18 @@ namespace Runtime.Agents.Nodes
 
         public string CommandKey => "command";
         
-        public string Command { get; set; }
+        public CommandDescription CommandDescription { get; set; }
         
         public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
-            return controllable.Commands[Command].Execute(context, controllable);
+            return CommandDescription.Execute(context, controllable);
         }
 
         public override Dictionary<string, object> Serialize()
         {
             var dictionary = base.Serialize();
             
-            dictionary[CommandKey] = Command;
+            dictionary[CommandKey] = CommandDescription.Serialize();
             
             return dictionary;
         }
@@ -29,7 +29,7 @@ namespace Runtime.Agents.Nodes
         public override void Deserialize(Dictionary<string, object> dictionary)
         {
             base.Deserialize(dictionary);
-            Command = dictionary.GetString(CommandKey);
+            CommandDescription = CommandDescription.CreateCommandFromData(dictionary.GetNode(CommandKey));
         }
     }
 }
