@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Runtime.Descriptions.Agents;
 using Runtime.Descriptions.Agents.Nodes;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Agents.Nodes
@@ -14,7 +13,9 @@ namespace Editor.Agents.Nodes
         private DropdownField _commandDropdownField;
 
         private Dictionary<string, object> _currentParameters;
-
+        
+        private VisualElement _parametersContainer;
+        
         public AgentLeafView(AgentNodeEditorWrapper wrapper) : base(wrapper)
         {
             
@@ -36,7 +37,25 @@ namespace Editor.Agents.Nodes
             
             outputContainer.Clear();
 
-            AddCommandDropdown();
+            _commandDropdownField = new DropdownField()
+            {
+                label = "command",
+                choices = new List<string>()
+                {
+                    "log",
+                    "has_flag",
+                    "set_flag"
+                },
+                value = "log"
+            };
+            
+            _commandDropdownField.RegisterValueChangedCallback(OnChangeCommand);
+            
+            _parametersContainer = new VisualElement();
+            
+            outputContainer.Add(_commandDropdownField);
+            
+            outputContainer.Add(_parametersContainer);
             
             SetupFields<LogCommand>();
         }
@@ -48,14 +67,18 @@ namespace Editor.Agents.Nodes
                 case "log":
                     SetupFields<LogCommand>();
                     break;
+                case "set_flag":
+                    SetupFields<SetFlagCommand>();
+                    break;
+                case "has_flag":
+                    SetupFields<HasFlagCommand>();
+                    break;
             }
         }
 
         private void SetupFields<T>() where T : CommandDescription, new()
         {
-            outputContainer.Clear();
-            
-            AddCommandDropdown();
+            _parametersContainer.Clear();
             
             var command = new T();
 
@@ -95,26 +118,8 @@ namespace Editor.Agents.Nodes
                 
                 LeafData.CommandDescription = command;
                 
-                outputContainer.Add(field);
+                _parametersContainer.Add(field);
             }
-        }
-
-        private void AddCommandDropdown()
-        {
-            _commandDropdownField = new DropdownField()
-            {
-                label = "command",
-                choices = new List<string>()
-                {
-                    "log",
-                    "has_flag",
-                },
-                value = "log"
-            };
-            
-            _commandDropdownField.RegisterValueChangedCallback(OnChangeCommand);
-            
-            outputContainer.Add(_commandDropdownField);
         }
 
         private VisualElement CreateIntField(string title, int value, Action<int> callback)
