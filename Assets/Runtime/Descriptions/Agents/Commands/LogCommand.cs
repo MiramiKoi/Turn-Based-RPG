@@ -19,7 +19,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override Dictionary<string, object> Serialize()
         {
-            var dictionary = new Dictionary<string, object>();
+            var dictionary = base.Serialize();
             
             dictionary[MessageKey] = Message;
             

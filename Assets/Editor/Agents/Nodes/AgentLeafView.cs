@@ -45,9 +45,11 @@ namespace Editor.Agents.Nodes
                     "has_point_of_interest",
                     "set_random_point_of_interest",
                     "distance_point_of_interest",
-                    "move_to_point_of_interest"
+                    "move_to_point_of_interest",
+                    "has_unit_with_fraction",
+                    "set_point_of_interest_with_fraction"
                 },
-                value = "log"
+                value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
             
             _commandDropdownField.RegisterValueChangedCallback(OnChangeCommand);
@@ -103,6 +105,12 @@ namespace Editor.Agents.Nodes
                 case "move_to_point_of_interest":
                     SetupFields<MoveToPointOfInterest>();
                     break;
+                case "has_unit_with_fraction":
+                    SetupFields<HasUnitWithFraction>();
+                    break;
+                case "set_point_of_interest_with_fraction":
+                    SetupFields<SetPointOfInterestWithFraction>();
+                    break;
             }
         }
 
@@ -125,7 +133,7 @@ namespace Editor.Agents.Nodes
                 {
                     continue;
                 }
-
+                
                 var field = parameter.Value switch
                 {
                     int intValue => CreateIntField(parameter.Key, intValue, newValue => UpdateParameter(command, parameter.Key, newValue)),

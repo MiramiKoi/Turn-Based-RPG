@@ -13,7 +13,7 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public override string Type => "has_unit_with_fraction";
         
-        public string Fraction { get; private set; }
+        public string Fraction { get; private set; } = string.Empty;
 
         public bool UseVisibilityRadius { get; private set; }
         
@@ -50,7 +50,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override Dictionary<string, object> Serialize()
         {
-            var dictionary = new Dictionary<string, object>();
+            var dictionary = base.Serialize();
             
             dictionary[FractionKey] = Fraction;
             dictionary[UseVisibilityRadiusKey] = UseVisibilityRadius;
