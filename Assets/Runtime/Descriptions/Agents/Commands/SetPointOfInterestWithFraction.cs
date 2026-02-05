@@ -11,15 +11,17 @@ namespace Runtime.Descriptions.Agents.Commands
         private const string FractionKey = "fraction";
         private const string UseVisibilityRadiusKey = "use_visibility_radius";
         private const string CustomVisibilityRadiusKey = "custom_visibility_radius";
-        private const string TargetPointOfInterestKey = "target";
+        private const string PointOfInterestKey = "point_of_interest";
         
-        public string Fraction { get; private set; }
+        public string Fraction { get; private set; } = string.Empty;
         
         public bool UseVisibilityRadius { get; private set; }
         
         public int CustomVisibilityRadius { get; private set; }
+
+        public string PointOfInterest { get; private set; } = string.Empty;
         
-        public override string Type => "set_unit_with_fraction";
+        public override string Type => "set_point_of_interest_with_fraction";
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var radius = UseVisibilityRadius ? controllable.Stats["visibility_radius"].Value : CustomVisibilityRadius;
@@ -59,7 +61,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
             if (path != null || path.Count < 2)
             {
-                controllable.SetPointOfInterest(TargetPointOfInterestKey, path[^1]);
+                controllable.SetPointOfInterest(PointOfInterest, path[^1]);
                 
                 return NodeStatus.Success;
             }
@@ -69,11 +71,12 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override Dictionary<string, object> Serialize()
         {
-            var dictionary = new Dictionary<string, object>();
+            var dictionary = base.Serialize();
             
             dictionary[FractionKey] = Fraction;
             dictionary[UseVisibilityRadiusKey] = UseVisibilityRadius;
             dictionary[CustomVisibilityRadiusKey] = CustomVisibilityRadius;
+            dictionary[PointOfInterestKey] = PointOfInterest;
             
             return dictionary;
         }
@@ -83,6 +86,7 @@ namespace Runtime.Descriptions.Agents.Commands
             Fraction = data.GetString(FractionKey);
             UseVisibilityRadius = data.GetBool(UseVisibilityRadiusKey);
             CustomVisibilityRadius = data.GetInt(CustomVisibilityRadiusKey);
+            PointOfInterest = data.GetString(PointOfInterestKey);
         }
     }
 }
