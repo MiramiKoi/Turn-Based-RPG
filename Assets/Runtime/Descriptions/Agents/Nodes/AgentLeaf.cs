@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Runtime.Descriptions.Agents;
 using Runtime.Extensions;
 
-namespace Runtime.Agents.Nodes
+namespace Runtime.Descriptions.Agents.Nodes
 {
     public class AgentLeaf : AgentNode
     {

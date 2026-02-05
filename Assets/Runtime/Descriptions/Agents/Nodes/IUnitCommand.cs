@@ -1,4 +1,4 @@
-namespace Runtime.Agents.Nodes
+namespace Runtime.Descriptions.Agents.Nodes
 {
     public interface IUnitCommand
     {

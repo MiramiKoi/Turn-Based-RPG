@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
 using UniRx;

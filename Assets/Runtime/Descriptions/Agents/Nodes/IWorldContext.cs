@@ -1,6 +1,6 @@
 using Runtime.Landscape.Grid;
 
-namespace Runtime.Agents.Nodes
+namespace Runtime.Descriptions.Agents.Nodes
 {
     public interface IWorldContext
     {

@@ -1,6 +1,6 @@
-using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.Descriptions;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.GameSystems;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
