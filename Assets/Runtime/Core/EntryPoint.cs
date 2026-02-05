@@ -31,20 +31,20 @@ namespace Runtime.Core
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
         private readonly WorldViewDescriptions _worldViewDescriptions = new();
-        
+
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
         private UIController _uiController;
-        private UIContent _uiContent; 
-            
+        private UIContent _uiContent;
+
         private PlayerControls _playerControls;
-        
+
         private async void Start()
         {
             _playerControls = new PlayerControls();
             _playerControls.Enable();
-            
+
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
@@ -60,7 +60,7 @@ namespace Runtime.Core
             {
                 await step.Run();
             }
-            
+
             await CreateControllableUnit();
             await CreateUnit("bear_0");
             await CreateUnit("bear_1");
@@ -68,17 +68,16 @@ namespace Runtime.Core
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
             turnBasePresenter.Enable();
-            
+
             _uiContent = new UIContent(_gameplayDocument);
             _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
             _uiController.Enable();
-            
-            //TODO: Putting item test
+
             var itemFactory = new ItemFactory(_world.WorldDescription.ItemCollection);
             _world.InventoryModel.TryPutItem(itemFactory.Create("bear_meat").Description, 14);
             _world.InventoryModel.TryPutItem(itemFactory.Create("bear_fur").Description, 28);
         }
-        
+
         private void Update()
         {
             _world.GameSystems?.Update(Time.deltaTime);
@@ -87,7 +86,7 @@ namespace Runtime.Core
         private async Task CreateControllableUnit()
         {
             var unitModel = _world.UnitCollection.Get("character");
-            
+
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModel.LoadAwaiter;
@@ -95,21 +94,22 @@ namespace Runtime.Core
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
-            
+
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
 
             var playerModel = new PlayerModel(unitModel, _world.GridModel);
             var playerPresenter = new PlayerPresenter(playerModel, _world);
-            
+
             unitPresenter.Enable();
             playerPresenter.Enable();
+
+            unitModel.ActiveEffects.Create("bleeding");
         }
-        
-        
+
         private async Task CreateUnit(string id)
         {
             var unitModel = _world.UnitCollection.Get(id);
-            
+
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModel.LoadAwaiter;

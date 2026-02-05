@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.Stats;
 using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
 using UniRx;
@@ -51,7 +52,6 @@ namespace Runtime.Units
         public void Disable()
         {
             _statusEffectsPresenter.Disable();
-            _world.TurnBaseModel.OnWorldStepFinished -= OnWorldStepFinished;
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
             _disposables.Dispose();
