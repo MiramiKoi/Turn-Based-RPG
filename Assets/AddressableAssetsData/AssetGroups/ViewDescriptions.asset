@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef56711d8275ca34b868c4b84779ce27
+    m_Address: StatusEffectViewDescriptionCollection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f97ff8ad4f4fc55439c7901331216901
     m_Address: ItemViewDescriptionCollection
     m_ReadOnly: 0
