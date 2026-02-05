@@ -1,6 +1,6 @@
 using Runtime.Agents.Nodes;
 
-namespace Editor.Agents
+namespace Editor.Agents.NodeViews
 {
     public class AgentSequenceView : AgentBaseNodeView
     {

@@ -1,7 +1,7 @@
 using Runtime.Agents.Nodes;
 using UnityEngine.UIElements;
 
-namespace Editor.Agents
+namespace Editor.Agents.NodeViews
 {
     public class AgentLeafView : AgentBaseNodeView
     {
@@ -11,7 +11,7 @@ namespace Editor.Agents
         public AgentLeafView(AgentLeaf data) : base(data)
         {
             outputContainer.Clear();
-
+                
             _commandTextField = new TextField()
             {
                 name = "command",

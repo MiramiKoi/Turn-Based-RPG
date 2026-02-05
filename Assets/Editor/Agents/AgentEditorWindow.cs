@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Editor.Agents.NodeViews;
 using fastJSON;
 using Runtime.Agents.Nodes;
 using UnityEditor;
@@ -119,8 +120,6 @@ namespace Editor.Agents
                 Application.dataPath, 
                 "json");
 
-            Debug.Log(path);
-            
             var json = File.ReadAllText(path);
 
             var agentBehaviorTree = new AgentDecisionRoot();
@@ -142,7 +141,6 @@ namespace Editor.Agents
                     if (!outputNodeView.Data.Children.Contains(inputNodeView.Data))
                     {
                         outputNodeView.Data.AddChild(inputNodeView.Data);
-                        Debug.Log($"Added child: {inputNodeView.Data.Type} to {outputNodeView.Data.Type}");
                     }
                 }
             }

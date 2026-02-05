@@ -2,7 +2,7 @@ using Runtime.Agents.Nodes;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Editor.Agents
+namespace Editor.Agents.NodeViews
 {
     public class AgentBaseNodeView : Node 
     {
@@ -32,6 +32,7 @@ namespace Editor.Agents
             
             RefreshExpandedState();
             RefreshPorts();
+            
             SetPosition(new Rect(data.Position, new Vector2(100, 100)));
         }
 
