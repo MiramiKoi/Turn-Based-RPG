@@ -705,6 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.Common.EntryPoint
   _cameraControlView: {fileID: 128191684}
   _gridView: {fileID: 1171237501}
+  _gameplayDocument: {fileID: 1185967602}
 --- !u!4 &228816972
 Transform:
   m_ObjectHideFlags: 0
