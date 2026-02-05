@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using fastJSON;
 using Runtime.Agents;
-using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
 using Runtime.Items;
 using Runtime.Landscape.Grid;
@@ -118,20 +118,7 @@ namespace Runtime.Core
             
             var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
 
-            var decisionRoot = new AgentDecisionRoot();
-            
-            decisionRoot.Deserialize(dictionary);
-            
-            var agentModel = new AgentModel(unitModel, decisionRoot, _world);
-            _world.AgentCollection.Add(unitModel.Id, agentModel);
-            
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
-            
-            unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
-            unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));
-            unitModel.RegisterCommand("set_false_flag", new SetFlagCommand(false, "flag"));
-            unitModel.RegisterCommand("set_true_flag", new SetFlagCommand(true, "flag"));
-            unitModel.RegisterCommand("has_flag", new HasFlagCommand("flag"));
             
             
             unitPresenter.Enable();

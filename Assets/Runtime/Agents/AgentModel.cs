@@ -1,5 +1,5 @@
-using Runtime.Agents.Nodes;
 using Runtime.Core;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Units;
 
 namespace Runtime.Agents

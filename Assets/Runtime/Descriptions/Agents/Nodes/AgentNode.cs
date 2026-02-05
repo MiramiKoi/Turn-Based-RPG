@@ -2,15 +2,12 @@ using System;
 using System.Collections.Generic;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
-using UnityEngine;
 
-namespace Runtime.Agents.Nodes
+namespace Runtime.Descriptions.Agents.Nodes
 {
     public abstract class AgentNode : ISerializable, IDeserializable
     {
         private const string TypeKey = "type";
-        
-        private const string PositionKey = "position";
         
         private const string ChildrenKey = "children";
 
