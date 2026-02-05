@@ -10,8 +10,6 @@ namespace Runtime.Agents.Nodes
     {
         private const string TypeKey = "type";
         
-        private const string PositionKey = "position";
-        
         private const string ChildrenKey = "children";
 
         public event Action OnAddChild;
