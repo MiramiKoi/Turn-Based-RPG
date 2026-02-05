@@ -33,7 +33,7 @@ namespace Runtime.Units
         public int Health => (int)Stats["health"].Value;
         
         public bool IsDead => (int)Stats["health"].Value <= 0;
-
+        
         public CustomAwaiter Awaiter { get; private set; }
 
         private readonly Dictionary<string, bool> _flags = new();
