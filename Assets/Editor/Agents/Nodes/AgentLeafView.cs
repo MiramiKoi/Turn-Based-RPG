@@ -51,6 +51,8 @@ namespace Editor.Agents.Nodes
                     "set_flag",
                     "has_point_of_interest",
                     "set_random_point_of_interest",
+                    "distance_point_of_interest",
+                    "move_to_point_of_interest"
                 },
                 value = "log"
             };
@@ -84,6 +86,12 @@ namespace Editor.Agents.Nodes
                     break;
                 case  "set_random_point_of_interest":
                     SetupFields<SetRandomPointOfInterest>();
+                    break;
+                case "distance_point_of_interest":
+                    SetupFields<DistancePointOfInterest>();
+                    break;
+                case "move_to_point_of_interest":
+                    SetupFields<MoveToPointOfInterest>();
                     break;
             }
         }
