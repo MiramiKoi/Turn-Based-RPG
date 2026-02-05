@@ -29,7 +29,7 @@ namespace Runtime.Units
         public StatusEffectModelCollection ActiveEffects { get; }
 
         public IReadOnlyDictionary<string, bool> Flags => _flags;
-        public IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; private set; }
+        public IReadOnlyDictionary<string, Vector2Int> PointOfInterest => _pointOfInterest;
 
         public string Id { get; }
 
@@ -43,7 +43,7 @@ namespace Runtime.Units
 
         private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
                 
-        public UnitModel(string id, UnitDescription description, Vector2Int position, WorldDescription worldDescription)
+        public UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
         {
             Description = description;
             Id = id;
