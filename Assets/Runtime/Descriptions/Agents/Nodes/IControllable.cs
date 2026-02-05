@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.Stats;
 using UniRx;
 using UnityEngine;
 
@@ -6,15 +7,17 @@ namespace Runtime.Descriptions.Agents.Nodes
 {
     public interface IControllable
     {
-        public IReadOnlyReactiveProperty<Vector2Int> Position { get; }
+        IReadOnlyReactiveProperty<Vector2Int> Position { get; }
         IReadOnlyDictionary<string, bool> Flags { get; }
         
         IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; }
         
-        public void SetFlag(string key, bool value);
+        StatModelCollection Stats { get; }
         
-        public void SetPointOfInterest(string key, Vector2Int value);
+        void SetFlag(string key, bool value);
         
-        public Vector2Int GetPointOfInterest(string key);
+        void SetPointOfInterest(string key, Vector2Int value);
+        
+        Vector2Int GetPointOfInterest(string key);
     }
 }

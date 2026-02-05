@@ -29,7 +29,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override Dictionary<string, object> Serialize()
         {
-            var dictionary = base.Serialize();
+            var dictionary = new Dictionary<string, object>();
             dictionary[PointOfInterestKey] = PointOfInterest;
             return dictionary;
         }
