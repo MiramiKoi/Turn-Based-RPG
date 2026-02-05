@@ -76,7 +76,7 @@ namespace Editor.Agents
 
             toolbar.Add(CreateToolbarButton("Save", _saveUtility.Save));
             toolbar.Add(CreateToolbarButton("Bake", _saveUtility.Bake));
-            toolbar.Add(CreateToolbarButton("Load", _loadUtility.LoadEditor));
+            toolbar.Add(CreateToolbarButton("Load", _loadUtility.Load));
             toolbar.Add(CreateToolbarButton("Clear", _graphView.ClearGraph));
 
             return toolbar;
@@ -92,24 +92,6 @@ namespace Editor.Agents
             if (onClick != null) button.clicked += onClick;
 
             return button;
-        }
-
-        private void Load()
-        {
-            _graphView.ClearGraph();
-            
-            var path = EditorUtility.OpenFilePanel
-                ("Load Controllable Behavior", 
-                Application.dataPath, 
-                "json");
-
-            var json = File.ReadAllText(path);
-
-            var agentBehaviorTree = new AgentDecisionRoot();
-            
-            agentBehaviorTree.Deserialize(JSON.ToObject<Dictionary<string, object>>(json));
-            
-            BuildGraphRecursive(agentBehaviorTree);
         }
 
         private GraphViewChange OnGraphElementChanged(GraphViewChange graphViewChange)
@@ -141,27 +123,6 @@ namespace Editor.Agents
             }
 
             return graphViewChange;
-        }
-
-        private void BuildGraphRecursive(AgentNode node)
-        {
-            var nodeView = _graphView.AddAgentNode(node);
-
-            foreach (var child in node.Children)
-            {
-                BuildGraphRecursive(child);
-
-                var childView = _graphView.nodes
-                    .OfType<AgentBaseNodeView>()
-                    .First(nv => nv.Data.Node == child);
-
-                nodeView.Data.AddChild(childView.Data);
-
-                var edge = nodeView.OutputPort.ConnectTo(childView.InputPort);
-                _graphView.AddElement(edge);
-            }
-
-            nodeView.Data.SortChildrenByPositionX();
         }
     }
 }

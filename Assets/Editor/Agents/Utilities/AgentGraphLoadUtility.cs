@@ -19,13 +19,8 @@ namespace Editor.Agents
             _graphView = graphView;
             _serializer = serializer;
         }
-
-        public void Load()
-        {
-            
-        }
         
-        public void LoadEditor()
+        public void Load()
         {
             _graphView.ClearGraph();
             
