@@ -71,7 +71,7 @@ namespace Runtime.StatusEffects.Collection
                 _presenters.Add(model, presenter);
             }
         }
-        
+
         private void HandleAdded(StatusEffectModel model)
         {
             AddPresenter(model);
@@ -79,11 +79,7 @@ namespace Runtime.StatusEffects.Collection
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            if (_presenters.TryGetValue(model, out var presenter))
-            {
-                presenter.Disable();
-                _presenters.Remove(model);
-            }
+            _presenters.Remove(model);
         }
     }
 }
