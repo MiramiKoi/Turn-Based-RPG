@@ -4,6 +4,7 @@ using System.Linq;
 using Editor.Agents.Nodes;
 using fastJSON;
 using Runtime.Agents.Nodes;
+using Runtime.Extensions;
 using Runtime.ModelCollections;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -14,22 +15,63 @@ namespace Editor.Agents
     public class AgentGraphSaveUtility
     {
         private List<AgentBaseNodeView> Nodes => _graphView.nodes.OfType<AgentBaseNodeView>().ToList();
-        
+
         private readonly GraphView _graphView;
-        
+
         public AgentGraphSaveUtility(GraphView graphView)
         {
             _graphView = graphView;
         }
-        
+
         public void Bake()
         {
-            Save(GetRoot().Data, GetPath());
+            Save(GetRoot().Data.Node, GetPath());
         }
-        
+
         public void Save()
         {
-            Save(GetRoot().Data.Node, GetPath());
+            Nodes.ForEach(nv => nv.SaveData());
+            
+            var dict = SerializeRecursive(GetRoot().Data);
+            var json = JSON.ToNiceJSON(dict);
+            File.WriteAllText(GetPath(), json);
+            
+            Save(GetRoot().Data, GetPath());
+        }
+
+        private void Save(AgentNode node, string path)
+        {
+            Save(node.Serialize(), path);
+        }
+
+        private void Save(AgentNodeEditorWrapper wrapper, string path)
+        {
+            Save(SerializeRecursive(wrapper), path);     
+        }
+
+        private void Save(Dictionary<string, object> dictionary, string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogWarning("[Agent Editor]: Path is empty");
+
+                return;
+            }
+
+            var json = JSON.ToNiceJSON(dictionary);
+
+            File.WriteAllText(path, json);
+        }
+
+        private string GetPath()
+        {
+            var path = EditorUtility.SaveFilePanel(
+                "Save Controllable Behavior",
+                Application.dataPath,
+                "behavior-tree.json",
+                "json");
+
+            return path;
         }
 
         private AgentBaseNodeView GetRoot()
@@ -44,31 +86,22 @@ namespace Editor.Agents
             return rootNodeView;
         }
 
-        private void Save(ISerializable serializable, string path)
+        public static Dictionary<string, object> SerializeRecursive(AgentNodeEditorWrapper wrapper)
         {
-            Nodes.ForEach(nv => nv.SaveData());
-            
-            if (string.IsNullOrEmpty(path))
+            var dict = wrapper.Node.Serialize();
+
+            dict["_editor"] = new Dictionary<string, object>
             {
-                Debug.LogWarning("[Agent Editor]: Path is empty");
-                
-                return;
-            }
-            
-            var json = JSON.ToNiceJSON(serializable.Serialize());
+                { "position", wrapper.Position.ToList() }
+            };
 
-            File.WriteAllText(path, json);
-        }
+            var childrenList = wrapper.ChildWrappers
+                .Select(SerializeRecursive)
+                .ToList();
 
-        private string GetPath()
-        {
-            var path = EditorUtility.SaveFilePanel(
-                "Save Controllable Behavior",
-                Application.dataPath,
-                "behavior-tree.json",
-                "json");
+            dict["children"] = childrenList;
 
-            return path;
+            return dict;
         }
     }
 }

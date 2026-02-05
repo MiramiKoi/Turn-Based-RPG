@@ -65,7 +65,7 @@ namespace Runtime.Agents.Nodes
             Children = agentNode.Children;
         }
 
-        private static AgentNode CreateNodeFromData(Dictionary<string, object> data)
+        public static AgentNode CreateNodeFromData(Dictionary<string, object> data)
         {
             var typeString = data.GetString(TypeKey).ToLowerInvariant();
 

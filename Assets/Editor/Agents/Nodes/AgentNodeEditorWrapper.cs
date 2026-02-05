@@ -7,46 +7,53 @@ using UnityEngine;
 
 namespace Editor.Agents.Nodes
 {
-    public class AgentNodeEditorWrapper : ISerializable, IDeserializable
+    public class AgentNodeEditorWrapper 
     {
         private const string PositionKey = "position";
+        private const string ChildrenKey = "children";
+        private const string EditorKey = "_editor";
         
         public Vector2 Position { get; set; }
         
-        public AgentNode Node { get; private set;}
+        public AgentNode Node { get; private set; }
 
-        private readonly List<AgentNodeEditorWrapper> _children = new();
+        public readonly List<AgentNodeEditorWrapper> ChildWrappers = new();
         
         public AgentNodeEditorWrapper(AgentNode node)
         {
             Node = node;
         }
-
+        
         public Dictionary<string, object> Serialize()
         {
             var dictionary = Node.Serialize();
             
-            dictionary[PositionKey] = Position;
+            dictionary[PositionKey] = Position.ToList();
             
             return dictionary;
         }
-
+        
         public void Deserialize(Dictionary<string, object> data)
         {
-            Node.Deserialize(data);
+            Node = AgentNode.CreateNodeFromData(data);
 
-            Position = data.GetVector2(PositionKey);
+            if (data.TryGetValue(EditorKey, out var founded))
+            {
+                var editor = founded as Dictionary<string, object>;
+                
+                Position = editor.GetVector2(PositionKey);
+            }
         }
-        
+
         public void SortChildrenByPositionX()
         {
-            if (_children == null || _children.Count == 0)
+            if (ChildWrappers == null || ChildWrappers.Count == 0)
                 return;
 
-            _children.Sort((a, b) =>
+            ChildWrappers.Sort((a, b) =>
                 a.Position.x.CompareTo(b.Position.x));
 
-            Node.Children = _children
+            Node.Children = ChildWrappers
                 .Select(w => w.Node)
                 .ToList();
         }
@@ -56,10 +63,10 @@ namespace Editor.Agents.Nodes
             if (child == null)
                 return;
 
-            if (_children.Contains(child))
+            if (ChildWrappers.Contains(child))
                 return;
 
-            _children.Add(child);
+            ChildWrappers.Add(child);
             Node.Children.Add(child.Node);
         }
 
@@ -68,7 +75,7 @@ namespace Editor.Agents.Nodes
             if (child == null)
                 return;
 
-            if (!_children.Remove(child))
+            if (!ChildWrappers.Remove(child))
                 return;
 
             Node.Children.Remove(child.Node);

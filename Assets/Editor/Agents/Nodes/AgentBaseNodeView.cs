@@ -6,7 +6,7 @@ namespace Editor.Agents.Nodes
 {
     public class AgentBaseNodeView : Node 
     {
-        public AgentNodeEditorWrapper Data { get; }
+        public AgentNodeEditorWrapper Data { get; set; }
 
         public Port InputPort { get; set; }
 

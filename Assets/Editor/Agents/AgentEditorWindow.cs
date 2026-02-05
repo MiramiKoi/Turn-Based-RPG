@@ -14,14 +14,6 @@ using Edge = UnityEditor.Experimental.GraphView.Edge;
 
 namespace Editor.Agents
 {
-    public class AgentGraphLoadUtility
-    {
-        public void Load()
-        {
-            
-        }
-    }
-    
     public class AgentEditorWindow : EditorWindow
     {
         private const string Title = "Controllable Behavior Tree Editor";
@@ -29,6 +21,8 @@ namespace Editor.Agents
         private AgentGraphView _graphView;
         
         private AgentGraphSaveUtility _saveUtility;
+        
+        private AgentGraphLoadUtility _loadUtility;
 
         private void OnEnable()
         {
@@ -37,6 +31,8 @@ namespace Editor.Agents
             _graphView = new AgentGraphView();
 
             _saveUtility = new AgentGraphSaveUtility(_graphView);
+            
+            _loadUtility = new AgentGraphLoadUtility(_graphView);
             
             _graphView.StretchToParentSize();
 
@@ -76,7 +72,7 @@ namespace Editor.Agents
 
             toolbar.Add(CreateToolbarButton("Save", _saveUtility.Save));
             toolbar.Add(CreateToolbarButton("Bake", _saveUtility.Bake));
-            toolbar.Add(CreateToolbarButton("Load", Load));
+            toolbar.Add(CreateToolbarButton("Load", _loadUtility.LoadEditor));
             toolbar.Add(CreateToolbarButton("Clear", _graphView.ClearGraph));
 
             return toolbar;
