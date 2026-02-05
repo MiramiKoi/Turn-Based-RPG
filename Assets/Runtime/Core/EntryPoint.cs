@@ -118,13 +118,6 @@ namespace Runtime.Core
             
             var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
 
-            var decisionRoot = new AgentDecisionRoot();
-            
-            decisionRoot.Deserialize(dictionary);
-            
-            var agentModel = new AgentModel(unitModel, decisionRoot, _world);
-            _world.AgentCollection.Add(unitModel.Id, agentModel);
-            
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
             
