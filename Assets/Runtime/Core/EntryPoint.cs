@@ -12,9 +12,11 @@ using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
 using Runtime.TurnBase;
+using Runtime.UI;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Runtime.Core
 {
@@ -22,6 +24,7 @@ namespace Runtime.Core
     {
         [SerializeField] private CameraControlView _cameraControlView;
         [SerializeField] private GridView _gridView;
+        [SerializeField] private UIDocument _gameplayDocument;
         
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
@@ -30,6 +33,9 @@ namespace Runtime.Core
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
+        private UIController _uiController;
+        private UIContent _uiContent; 
+            
         private PlayerControls _playerControls;
         
         private async void Start()
@@ -60,6 +66,10 @@ namespace Runtime.Core
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
             turnBasePresenter.Enable();
+            
+            _uiContent = new UIContent(_gameplayDocument);
+            _uiController = new UIController(_playerControls, _worldViewDescriptions, _uiContent);
+            _uiController.Enable();
         }
         
         private void Update()

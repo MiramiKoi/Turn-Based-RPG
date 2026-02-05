@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 500239b71ea073444b2f8a0723529954
+    m_Address: InventoryViewDescription
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 674428b540fce734996356cbf1e124f8
     m_Address: GridIndicationViewDescription
     m_ReadOnly: 0
