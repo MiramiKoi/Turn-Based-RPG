@@ -1,11 +1,23 @@
 {
    "type" : "root",
    "children" : [
-      
+      {
+         "type" : "sequence",
+         "children" : [
+            
+         ],
+         "_editor" : {
+            "position" : [
+               196,
+               137.3333
+            ]
+         }
+      }
    ],
-   "position" : {
-      "$type" : "UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-      "x" : 0,
-      "y" : 0
+   "_editor" : {
+      "position" : [
+         196,
+         30
+      ]
    }
 }

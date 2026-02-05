@@ -23,6 +23,8 @@ namespace Editor.Agents
         private AgentGraphSaveUtility _saveUtility;
         
         private AgentGraphLoadUtility _loadUtility;
+        
+        private AgentGraphSerializer _serializer;
 
         private void OnEnable()
         {
@@ -30,9 +32,11 @@ namespace Editor.Agents
 
             _graphView = new AgentGraphView();
 
-            _saveUtility = new AgentGraphSaveUtility(_graphView);
+            _serializer = new AgentGraphSerializer();
             
-            _loadUtility = new AgentGraphLoadUtility(_graphView);
+            _saveUtility = new AgentGraphSaveUtility(_graphView, _serializer);
+            
+            _loadUtility = new AgentGraphLoadUtility(_graphView, _serializer);
             
             _graphView.StretchToParentSize();
 

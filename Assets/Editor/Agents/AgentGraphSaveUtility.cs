@@ -18,9 +18,12 @@ namespace Editor.Agents
 
         private readonly GraphView _graphView;
 
-        public AgentGraphSaveUtility(GraphView graphView)
+        private readonly AgentGraphSerializer _serializer;
+        
+        public AgentGraphSaveUtility(GraphView graphView, AgentGraphSerializer serializer)
         {
             _graphView = graphView;
+            _serializer = serializer;
         }
 
         public void Bake()
@@ -32,7 +35,7 @@ namespace Editor.Agents
         {
             Nodes.ForEach(nv => nv.SaveData());
             
-            var dict = SerializeRecursive(GetRoot().Data);
+            var dict = _serializer.Serialize(GetRoot().Data);
             var json = JSON.ToNiceJSON(dict);
             File.WriteAllText(GetPath(), json);
             
@@ -46,7 +49,7 @@ namespace Editor.Agents
 
         private void Save(AgentNodeEditorWrapper wrapper, string path)
         {
-            Save(SerializeRecursive(wrapper), path);     
+            Save(_serializer.Serialize(wrapper), path);     
         }
 
         private void Save(Dictionary<string, object> dictionary, string path)
@@ -84,24 +87,6 @@ namespace Editor.Agents
             }
 
             return rootNodeView;
-        }
-
-        public static Dictionary<string, object> SerializeRecursive(AgentNodeEditorWrapper wrapper)
-        {
-            var dict = wrapper.Node.Serialize();
-
-            dict["_editor"] = new Dictionary<string, object>
-            {
-                { "position", wrapper.Position.ToList() }
-            };
-
-            var childrenList = wrapper.ChildWrappers
-                .Select(SerializeRecursive)
-                .ToList();
-
-            dict["children"] = childrenList;
-
-            return dict;
         }
     }
 }

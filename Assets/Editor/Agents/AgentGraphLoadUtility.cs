@@ -12,10 +12,12 @@ namespace Editor.Agents
     public class AgentGraphLoadUtility
     {
         private readonly AgentGraphView _graphView;
+        private readonly AgentGraphSerializer _serializer;
 
-        public AgentGraphLoadUtility(AgentGraphView graphView)
+        public AgentGraphLoadUtility(AgentGraphView graphView, AgentGraphSerializer serializer)
         {
             _graphView = graphView;
+            _serializer = serializer;
         }
 
         public void Load()
@@ -34,9 +36,7 @@ namespace Editor.Agents
 
             var json = File.ReadAllText(path);
 
-            var agentBehaviorTree = new AgentDecisionRoot();
-
-            var agentWrapper = DeserializeRecursive(JSON.ToObject<Dictionary<string, object>>(json));
+            var agentWrapper = _serializer.Deserialize(JSON.ToObject<Dictionary<string, object>>(json));
             
             BuildGraphViewRecursive(agentWrapper);
         }
@@ -61,30 +61,6 @@ namespace Editor.Agents
             }
 
             wrapper.SortChildrenByPositionX();
-        }
-        
-        public AgentNodeEditorWrapper DeserializeRecursive(Dictionary<string, object> data)
-        {
-            var node = AgentNode.CreateNodeFromData(data); 
-            node.Deserialize(data);
-            
-            var wrapper = new AgentNodeEditorWrapper(node);
-            wrapper.Deserialize(data);
-
-            if (data.TryGetValue("children", out var rawChildren))
-            {
-                foreach (var childObj in (List<object>)rawChildren)
-                {
-                    var childDict = (Dictionary<string, object>)childObj;
-                    var childWrapper = DeserializeRecursive(childDict);
-
-                    wrapper.AddChild(childWrapper);
-                }
-                
-                wrapper.SortChildrenByPositionX();
-            }
-
-            return wrapper;
         }
     }
 }
