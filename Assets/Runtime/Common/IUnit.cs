@@ -1,8 +1,10 @@
+using Runtime.Stats;
+
 namespace Runtime.Common
 {
     public interface IUnit
     {
         string Id { get; }
-        int Health { get; }
+        StatModel Health { get; }
     }
 }
