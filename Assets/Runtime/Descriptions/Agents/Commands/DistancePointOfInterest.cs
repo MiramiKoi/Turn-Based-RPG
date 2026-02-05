@@ -48,7 +48,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override void Deserialize(Dictionary<string, object> dictionary)
         {
-            base.Deserialize(dictionary);
             PointOfInterest = dictionary.GetString(PointOfInterestKey);
             Distance = dictionary.GetInt(DistanceKey);
             Operation = dictionary.GetString(OperationKey);

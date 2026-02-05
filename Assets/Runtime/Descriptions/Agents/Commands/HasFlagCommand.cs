@@ -37,8 +37,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override void Deserialize(Dictionary<string, object> dictionary)
         {
-            base.Deserialize(dictionary);
-            
             Flag = dictionary.GetString(FlagKey);
             Value = dictionary.GetBool(ValueKey);
         }

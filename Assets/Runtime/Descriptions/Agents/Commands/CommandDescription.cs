@@ -23,9 +23,7 @@ namespace Runtime.Descriptions.Agents.Commands
             };
         }
 
-        public virtual void Deserialize(Dictionary<string, object> data)
-        {
-        }
+        public abstract void Deserialize(Dictionary<string, object> data);
 
         public static CommandDescription CreateCommand(string type)
         {

@@ -28,7 +28,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override void Deserialize(Dictionary<string, object> dictionary)
         {
-            base.Deserialize(dictionary);
             Message = dictionary.GetString(MessageKey);
         }
     }
