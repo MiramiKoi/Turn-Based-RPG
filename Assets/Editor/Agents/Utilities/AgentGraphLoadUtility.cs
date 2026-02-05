@@ -3,11 +3,10 @@ using System.IO;
 using System.Linq;
 using Editor.Agents.Nodes;
 using fastJSON;
-using Runtime.Agents.Nodes;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Agents
+namespace Editor.Agents.Utilities
 {
     public class AgentGraphLoadUtility
     {

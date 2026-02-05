@@ -4,13 +4,11 @@ using System.Linq;
 using Editor.Agents.Nodes;
 using fastJSON;
 using Runtime.Agents.Nodes;
-using Runtime.Extensions;
-using Runtime.ModelCollections;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Editor.Agents
+namespace Editor.Agents.Utilities
 {
     public class AgentGraphSaveUtility
     {

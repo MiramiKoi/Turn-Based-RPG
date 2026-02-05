@@ -3,9 +3,8 @@ using System.Linq;
 using Editor.Agents.Nodes;
 using Runtime.Agents.Nodes;
 using Runtime.Extensions;
-using UnityEngine;
 
-namespace Editor.Agents
+namespace Editor.Agents.Utilities
 {
     public class AgentGraphSerializer
     {
