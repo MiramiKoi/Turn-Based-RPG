@@ -18,9 +18,7 @@ namespace Runtime.Agents.Nodes
         
         public abstract string Type { get; }
         
-        public Vector2 Position { get; set; }
-        
-        public List<AgentNode> Children { get; private set; } = new List<AgentNode>();
+        public List<AgentNode> Children { get; set; } = new List<AgentNode>();
 
         public void AddChild(AgentNode child)
         {
@@ -44,7 +42,6 @@ namespace Runtime.Agents.Nodes
             {
                 {TypeKey, Type},
                 {ChildrenKey, children},
-                {PositionKey, Position.ToList()}
             };
         }
 
@@ -64,8 +61,6 @@ namespace Runtime.Agents.Nodes
                     }
                 }
             }
-
-            Position = data.GetVector2(PositionKey);
 
             Children = agentNode.Children;
         }

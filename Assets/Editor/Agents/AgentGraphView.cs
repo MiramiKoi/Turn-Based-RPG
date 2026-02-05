@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Editor.Agents.NodeViews;
+using Editor.Agents.Nodes;
 using Runtime.Agents.Nodes;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;

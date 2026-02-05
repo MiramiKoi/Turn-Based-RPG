@@ -1,11 +1,12 @@
 using Runtime.Agents.Nodes;
 using UnityEngine.UIElements;
 
-namespace Editor.Agents.NodeViews
+namespace Editor.Agents.Nodes
 {
     public class AgentLeafView : AgentBaseNodeView
     {
-        private AgentLeaf LeafData => Data as AgentLeaf;
+        private AgentLeaf LeafData => Data.Node as AgentLeaf;
+        
         private readonly TextField _commandTextField;
 
         public AgentLeafView(AgentLeaf data) : base(data)

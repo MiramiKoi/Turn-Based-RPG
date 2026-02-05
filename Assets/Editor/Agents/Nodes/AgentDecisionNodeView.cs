@@ -1,6 +1,6 @@
 using Runtime.Agents.Nodes;
 
-namespace Editor.Agents.NodeViews
+namespace Editor.Agents.Nodes
 {
     public class AgentDecisionNodeView : AgentBaseNodeView
     {
