@@ -68,7 +68,7 @@ namespace Runtime.Core
             turnBasePresenter.Enable();
             
             _uiContent = new UIContent(_gameplayDocument);
-            _uiController = new UIController(_playerControls, _worldViewDescriptions, _uiContent);
+            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
             _uiController.Enable();
         }
         

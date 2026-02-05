@@ -1,3 +1,4 @@
+using Runtime.Core;
 using Runtime.Input;
 using Runtime.UI.Inventory;
 using Runtime.ViewDescriptions;
@@ -8,18 +9,17 @@ namespace Runtime.UI
     public class UIController
     {
         private readonly InventoryPresenter _inventoryPresenter;
-        private readonly InventoryModel _inventoryModel;
-        private const int InventorySize = 16;
+        private readonly World _world;
 
         private readonly PlayerControls _playerControls;
 
-        public UIController(PlayerControls playerControls, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions, UIContent uiContent)
         {
+            _world = world;
             _playerControls = playerControls;
 
             var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
-            _inventoryModel = new InventoryModel(InventorySize);
-            _inventoryPresenter = new InventoryPresenter(_inventoryModel,  inventoryView, viewDescriptions, uiContent);
+            _inventoryPresenter = new InventoryPresenter(_world.InventoryModel, inventoryView, viewDescriptions, uiContent);
         }
 
         public void Enable()
@@ -34,7 +34,7 @@ namespace Runtime.UI
 
         private void ToggleInventory(InputAction.CallbackContext context)
         {
-            if (_inventoryModel.Enabled)
+            if (_world.InventoryModel.Enabled)
             {
                 _inventoryPresenter.Disable();
             }

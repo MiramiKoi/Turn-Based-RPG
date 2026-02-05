@@ -8,6 +8,7 @@ using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
+using Runtime.UI.Inventory;
 using Runtime.Units;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Runtime.Core
         public TurnBaseModel TurnBaseModel { get; private set; }
         public PlayerControls PlayerControls { get; private set; }
         public GridModel GridModel { get; private set; }
+        public InventoryModel InventoryModel { get; private set; }
         public GridInteractionModel GridInteractionModel { get; private set; }
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
@@ -46,6 +48,8 @@ namespace Runtime.Core
             
             UnitCollection = new UnitModelCollection();
             AgentCollection = new AgentModelCollection();
+
+            InventoryModel = new InventoryModel(16);
         }
     }
 }
