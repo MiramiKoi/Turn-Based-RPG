@@ -7,8 +7,8 @@ namespace Runtime.Descriptions.Agents.Commands
     public class HasPointOfInterestCommand : CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
-        
-        protected override string Type => "has_point_of_interest";
+
+        public override string Type => "has_point_of_interest";
 
         public string PointOfInterest { get; private set; } = string.Empty;
         

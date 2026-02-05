@@ -10,8 +10,8 @@ namespace Runtime.Descriptions.Agents.Commands
         private const string PointOfInterestKey = "point_of_interest";
         private const string DistanceKey = "distance";
         private const string OperationKey = "operation";
-        
-        protected override string Type => "distance_point_of_interest";
+
+        public override string Type => "distance_point_of_interest";
 
         public string PointOfInterest { get; private set; } = string.Empty;
         

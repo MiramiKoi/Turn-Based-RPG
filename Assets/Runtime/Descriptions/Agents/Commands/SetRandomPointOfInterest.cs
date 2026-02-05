@@ -22,8 +22,8 @@ namespace Runtime.Descriptions.Agents.Commands
         public bool NearWithPointOfInterest { get; private set; } = false;
         
         public string TargetNearPointOfInterest { get; private set; } = string.Empty;
-        
-        protected override string Type => "set_random_point_of_interest";
+
+        public override string Type => "set_random_point_of_interest";
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var center = NearWithPointOfInterest ? controllable.GetPointOfInterest(TargetNearPointOfInterest) : controllable.Position.Value;

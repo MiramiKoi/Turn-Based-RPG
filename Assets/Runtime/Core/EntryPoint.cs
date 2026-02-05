@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Editor.Agents;
 using fastJSON;
 using Runtime.Agents;
 using Runtime.AsyncLoad;
@@ -115,13 +116,19 @@ namespace Runtime.Core
             var unitPrefab = loadModel.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _addressableModel.Unload(loadModel);
-            
-            var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
 
+            var json = Resources.Load<TextAsset>("bear-description").text;
+
+            var agentDecisionRoot = new AgentDecisionRoot();
+            
+            agentDecisionRoot.Deserialize(JSON.ToObject<Dictionary<string, object>>(json));
+            
+            var agentPresenter = new AgentPresenter(unitModel, agentDecisionRoot, _world);
+            
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
-            
             unitPresenter.Enable();
+            agentPresenter.Enable();
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Runtime.Descriptions.Agents.Commands
     {
         public const string TypeKey = "type";
         private const string NameKey = "name";
-        
-        protected abstract string Type { get; }
+
+        public abstract string Type { get; }
         
         public abstract NodeStatus Execute(IWorldContext context, IControllable controllable);
 
@@ -32,6 +32,12 @@ namespace Runtime.Descriptions.Agents.Commands
             CommandDescription command = type switch
             {
                 "log" => new LogCommand(),
+                "distance_point_of_interest" => new DistancePointOfInterest(),
+                "has_flag" => new HasFlagCommand(),
+                "has_point_of_interest" => new HasPointOfInterestCommand(),
+                "move_to_point_of_interest" => new MoveToPointOfInterest(),
+                "set_flag" => new SetFlagCommand(),
+                "set_random_point_of_interest" => new SetRandomPointOfInterest(),
                 _ => throw new ArgumentOutOfRangeException()
             };
             

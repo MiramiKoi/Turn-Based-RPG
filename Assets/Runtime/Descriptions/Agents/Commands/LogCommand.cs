@@ -8,7 +8,7 @@ namespace Runtime.Descriptions.Agents.Commands
     {
         private const string MessageKey = "message";
 
-        protected override string Type => "log";
+        public override string Type => "log";
 
         public string Message { get; private set; } = string.Empty;
 
