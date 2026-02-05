@@ -22,7 +22,8 @@ namespace Runtime.LoadSteps
             { "items", "items-description" },
             { "bear", "bear-description" },
             { "environment_generation", "environment-generation-description" },
-            { "environment", "environment-description" }
+            { "environment", "environment-description" },
+            { "status_effects", "status-effect-descriptions" }
         };
 
         public DescriptionsLoadStep(WorldDescription worldDescription, AddressableModel addressableModel)
