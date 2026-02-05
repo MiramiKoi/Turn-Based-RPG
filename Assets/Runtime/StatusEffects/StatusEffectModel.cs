@@ -43,8 +43,8 @@ namespace Runtime.StatusEffects
             RemainingTurns--;
         }
 
-        public bool IsExpired => RemainingTurns <= 0;
-        
+        public bool IsExpired => RemainingTurns <= 0 && Description.Duration.Type == DurationType.TurnBased;
+
         public Dictionary<string, object> Serialize()
         {
             return new Dictionary<string, object>
