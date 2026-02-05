@@ -22,6 +22,7 @@ namespace Runtime.StatusEffects.Collection
 
         public void Enable()
         {
+            _world.TurnBaseModel.OnWorldStepFinished += Tick;
             _collection.OnAdded += HandleAdded;
             _collection.OnRemoved += HandleRemoved;
 
@@ -33,6 +34,7 @@ namespace Runtime.StatusEffects.Collection
 
         public void Disable()
         {
+            _world.TurnBaseModel.OnWorldStepFinished -= Tick;
             _collection.OnAdded -= HandleAdded;
             _collection.OnRemoved -= HandleRemoved;
 
@@ -44,13 +46,13 @@ namespace Runtime.StatusEffects.Collection
             _presenters.Clear();
         }
 
-        public void Tick(TickMoment moment)
+        private void Tick()
         {
             var expired = new List<StatusEffectModel>();
 
             foreach (var pair in _presenters)
             {
-                pair.Value.Tick(moment);
+                pair.Value.Tick(TickMoment.TurnEnd);
 
                 if (pair.Value.IsExpired)
                     expired.Add(pair.Key);

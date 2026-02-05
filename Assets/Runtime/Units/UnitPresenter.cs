@@ -42,7 +42,6 @@ namespace Runtime.Units
             
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
-            _world.TurnBaseModel.OnWorldStepFinished += OnWorldStepFinished;
             _statusEffectsPresenter.Enable();
             _unit.OnAttacked += OnAttacked;
             _unit.OnDamaging += OnDamaged;
@@ -131,11 +130,6 @@ namespace Runtime.Units
                 
                 _unit.Awaiter.Complete();
             }
-        }
-
-        private void OnWorldStepFinished()
-        {
-            _statusEffectsPresenter.Tick(TickMoment.TurnEnd);
         }
     }
 }
