@@ -19,7 +19,7 @@ namespace Runtime.UI
             _playerControls = playerControls;
 
             var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
-            _inventoryPresenter = new InventoryPresenter(_world.InventoryModel, inventoryView, viewDescriptions, uiContent);
+            _inventoryPresenter = new InventoryPresenter(_world.InventoryModel, inventoryView, viewDescriptions, uiContent, _world);
         }
 
         public void Enable()
