@@ -7,10 +7,9 @@ using UnityEngine;
 
 namespace Editor.Agents.Nodes
 {
-    public class AgentNodeEditorWrapper 
+    public class AgentNodeEditorWrapper : IDeserializable
     {
         private const string PositionKey = "position";
-        private const string ChildrenKey = "children";
         private const string EditorKey = "_editor";
         
         public Vector2 Position { get; set; }
@@ -23,20 +22,9 @@ namespace Editor.Agents.Nodes
         {
             Node = node;
         }
-        
-        public Dictionary<string, object> Serialize()
-        {
-            var dictionary = Node.Serialize();
-            
-            dictionary[PositionKey] = Position.ToList();
-            
-            return dictionary;
-        }
-        
+
         public void Deserialize(Dictionary<string, object> data)
         {
-            Node = AgentNode.CreateNodeFromData(data);
-
             if (data.TryGetValue(EditorKey, out var founded))
             {
                 var editor = founded as Dictionary<string, object>;

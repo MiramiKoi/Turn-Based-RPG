@@ -3,25 +3,32 @@ using System.Linq;
 using Editor.Agents.Nodes;
 using Runtime.Agents.Nodes;
 using Runtime.Extensions;
+using UnityEngine;
 
 namespace Editor.Agents
 {
     public class AgentGraphSerializer
     {
+        private const string ChildrenKey = "children";
+        
+        private const string PositionKey = "position";
+
+        private const string EditorKey = "_editor";
+        
         public Dictionary<string, object> Serialize(AgentNodeEditorWrapper wrapper)
         {
             var dict = wrapper.Node.Serialize();
 
-            dict["_editor"] = new Dictionary<string, object>
+            dict[EditorKey] = new Dictionary<string, object>
             {
-                { "position", wrapper.Position.ToList() }
+                { PositionKey, wrapper.Position.ToList() }
             };
 
             var childrenList = wrapper.ChildWrappers
                 .Select(Serialize)
                 .ToList();
 
-            dict["children"] = childrenList;
+            dict[ChildrenKey] = childrenList;
 
             return dict;
         }
@@ -34,7 +41,7 @@ namespace Editor.Agents
             var wrapper = new AgentNodeEditorWrapper(node);
             wrapper.Deserialize(data);
 
-            if (data.TryGetValue("children", out var rawChildren))
+            if (data.TryGetValue(ChildrenKey, out var rawChildren))
             {
                 foreach (var childObj in (List<object>)rawChildren)
                 {

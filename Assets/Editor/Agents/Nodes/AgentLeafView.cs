@@ -32,6 +32,8 @@ namespace Editor.Agents.Nodes
             base.Setup();
             
             outputContainer.Clear();
+            
+            Debug.Log($"{Data.Node is AgentLeaf}: {LeafData.Command}");
                 
             _commandTextField = new TextField()
             {
