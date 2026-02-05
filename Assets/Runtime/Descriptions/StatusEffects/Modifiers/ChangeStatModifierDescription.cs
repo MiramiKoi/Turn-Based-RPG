@@ -18,7 +18,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
         
         public override void Tick(UnitModel unit, World world)
         {
-            unit.Stats[Stat].Value += Amount;
+            unit.Stats[Stat].ChangeValue(Amount);
         }
     }
 }
