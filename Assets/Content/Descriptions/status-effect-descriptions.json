@@ -1,0 +1,28 @@
+﻿{
+  "bleeding": {
+    "category": "damage_over_time",
+    "polarity": "debuff",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 5
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    },
+    "tick": {
+      "on": "turn_end"
+    },
+    "modifiers": {
+      "change_stat": {
+        "amount": -4,
+        "stat": "health"
+      }
+    },
+    "constraints": {},
+    "flags": [
+      "physical",
+      "dot"
+    ]
+  }
+}
