@@ -13,7 +13,7 @@ namespace UniRx
         , INotifyCompletion
 #endif
     {
-        readonly object observerLock = new object();
+        readonly object observerLock = new();
 
         T lastValue;
         bool hasValue;
@@ -181,7 +181,7 @@ namespace UniRx
 
         class Subscription : IDisposable
         {
-            readonly object gate = new object();
+            readonly object gate = new();
             AsyncSubject<T> parent;
             IObserver<T> unsubscribeTarget;
 

@@ -4,9 +4,9 @@ namespace UniRx
 {
     public sealed class MultipleAssignmentDisposable : IDisposable, ICancelable
     {
-        static readonly BooleanDisposable True = new BooleanDisposable(true);
+        static readonly BooleanDisposable True = new(true);
 
-        readonly object gate = new object();
+        readonly object gate = new();
         IDisposable current;
 
         public bool IsDisposed

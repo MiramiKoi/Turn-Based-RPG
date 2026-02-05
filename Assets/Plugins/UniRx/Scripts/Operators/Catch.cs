@@ -107,7 +107,7 @@ namespace UniRx.Operators
         class Catch : OperatorObserverBase<T, T>
         {
             readonly CatchObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             bool isDisposed;
             IEnumerator<IObservable<T>> e;
             SerialDisposable subscription;

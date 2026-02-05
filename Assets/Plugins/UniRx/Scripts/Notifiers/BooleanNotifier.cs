@@ -7,7 +7,7 @@
     /// </summary>
     public class BooleanNotifier : IObservable<bool>
     {
-        readonly Subject<bool> boolTrigger = new Subject<bool>();
+        readonly Subject<bool> boolTrigger = new();
 
         bool boolValue;
         /// <summary>Current flag value</summary>

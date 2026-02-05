@@ -26,8 +26,8 @@ namespace UniRx.Operators
         class DelayFrame : OperatorObserverBase<T, T>
         {
             readonly DelayFrameObservable<T> parent;
-            readonly object gate = new object();
-            readonly QueuePool pool = new QueuePool();
+            readonly object gate = new();
+            readonly QueuePool pool = new();
             int runningEnumeratorCount;
             bool readyDrainEnumerator;
             bool running;
@@ -230,8 +230,8 @@ namespace UniRx.Operators
 
         class QueuePool
         {
-            readonly object gate = new object();
-            readonly Queue<Queue<T>> pool = new Queue<Queue<T>>(2);
+            readonly object gate = new();
+            readonly Queue<Queue<T>> pool = new(2);
 
             public Queue<T> Get()
             {

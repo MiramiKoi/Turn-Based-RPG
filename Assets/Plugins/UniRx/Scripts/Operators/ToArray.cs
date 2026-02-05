@@ -20,7 +20,7 @@ namespace UniRx.Operators
 
         class ToArray : OperatorObserverBase<TSource, TSource[]>
         {
-            readonly List<TSource> list = new List<TSource>();
+            readonly List<TSource> list = new();
 
             public ToArray(IObserver<TSource[]> observer, IDisposable cancel)
                 : base(observer, cancel)

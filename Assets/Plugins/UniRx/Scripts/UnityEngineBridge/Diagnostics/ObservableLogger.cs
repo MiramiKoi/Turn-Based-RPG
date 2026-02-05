@@ -4,9 +4,9 @@ namespace UniRx.Diagnostics
 {
     public class ObservableLogger : IObservable<LogEntry>
     {
-        static readonly Subject<LogEntry> logPublisher = new Subject<LogEntry>();
+        static readonly Subject<LogEntry> logPublisher = new();
 
-        public static readonly ObservableLogger Listener = new ObservableLogger();
+        public static readonly ObservableLogger Listener = new();
 
         private ObservableLogger()
         {

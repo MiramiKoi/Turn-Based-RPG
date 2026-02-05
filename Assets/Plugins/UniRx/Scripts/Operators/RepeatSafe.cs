@@ -21,7 +21,7 @@ namespace UniRx.Operators
         class RepeatSafe : OperatorObserverBase<T, T>
         {
             readonly RepeatSafeObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             IEnumerator<IObservable<T>> e;
             SerialDisposable subscription;

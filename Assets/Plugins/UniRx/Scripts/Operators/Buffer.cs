@@ -181,7 +181,7 @@ namespace UniRx.Operators
             static readonly T[] EmptyArray = new T[0];
 
             readonly BufferObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             List<T> list;
 
@@ -269,7 +269,7 @@ namespace UniRx.Operators
         class BufferTS : OperatorObserverBase<T, IList<T>>
         {
             readonly BufferObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             Queue<IList<T>> q;
             TimeSpan totalTime;
@@ -381,7 +381,7 @@ namespace UniRx.Operators
             static readonly T[] EmptyArray = new T[0]; // cache
 
             readonly BufferObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             List<T> list;
             long timerId;
@@ -528,7 +528,7 @@ namespace UniRx.Operators
             static readonly TSource[] EmptyArray = new TSource[0]; // cache
 
             readonly BufferObservable<TSource, TWindowBoundary> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             List<TSource> list;
 
             public Buffer(BufferObservable<TSource, TWindowBoundary> parent, IObserver<IList<TSource>> observer, IDisposable cancel) : base(observer, cancel)

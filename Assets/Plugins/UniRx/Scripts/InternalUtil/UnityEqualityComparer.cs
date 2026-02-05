@@ -213,7 +213,7 @@ namespace UniRx.InternalUtil
 
         sealed class Vector3IntEqualityComparer : IEqualityComparer<Vector3Int>
         {
-            public static readonly Vector3IntEqualityComparer Default = new Vector3IntEqualityComparer();
+            public static readonly Vector3IntEqualityComparer Default = new();
 
             public bool Equals(Vector3Int self, Vector3Int vector)
             {

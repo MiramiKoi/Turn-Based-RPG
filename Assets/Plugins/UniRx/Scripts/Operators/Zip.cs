@@ -33,10 +33,10 @@ namespace UniRx.Operators
         {
             readonly ZipObservable<TLeft, TRight, TResult> parent;
 
-            readonly object gate = new object();
-            readonly Queue<TLeft> leftQ = new Queue<TLeft>();
+            readonly object gate = new();
+            readonly Queue<TLeft> leftQ = new();
             bool leftCompleted = false;
-            readonly Queue<TRight> rightQ = new Queue<TRight>();
+            readonly Queue<TRight> rightQ = new();
             bool rightCompleted = false;
 
             public Zip(ZipObservable<TLeft, TRight, TResult> parent, IObserver<TResult> observer, IDisposable cancel)
@@ -207,7 +207,7 @@ namespace UniRx.Operators
         class Zip : OperatorObserverBase<IList<T>, IList<T>>
         {
             readonly ZipObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             Queue<T>[] queues;
             bool[] isDone;
@@ -403,10 +403,10 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, TR> parent;
-            readonly object gate = new object();
-            readonly Queue<T1> q1 = new Queue<T1>();
-            readonly Queue<T2> q2 = new Queue<T2>();
-            readonly Queue<T3> q3 = new Queue<T3>();
+            readonly object gate = new();
+            readonly Queue<T1> q1 = new();
+            readonly Queue<T2> q2 = new();
+            readonly Queue<T3> q3 = new();
 
             public Zip(ZipObservable<T1, T2, T3, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -491,11 +491,11 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, TR> parent;
-            readonly object gate = new object();
-            readonly Queue<T1> q1 = new Queue<T1>();
-            readonly Queue<T2> q2 = new Queue<T2>();
-            readonly Queue<T3> q3 = new Queue<T3>();
-            readonly Queue<T4> q4 = new Queue<T4>();
+            readonly object gate = new();
+            readonly Queue<T1> q1 = new();
+            readonly Queue<T2> q2 = new();
+            readonly Queue<T3> q3 = new();
+            readonly Queue<T4> q4 = new();
 
             public Zip(ZipObservable<T1, T2, T3, T4, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -585,12 +585,12 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, T5, TR> parent;
-            readonly object gate = new object();
-            readonly Queue<T1> q1 = new Queue<T1>();
-            readonly Queue<T2> q2 = new Queue<T2>();
-            readonly Queue<T3> q3 = new Queue<T3>();
-            readonly Queue<T4> q4 = new Queue<T4>();
-            readonly Queue<T5> q5 = new Queue<T5>();
+            readonly object gate = new();
+            readonly Queue<T1> q1 = new();
+            readonly Queue<T2> q2 = new();
+            readonly Queue<T3> q3 = new();
+            readonly Queue<T4> q4 = new();
+            readonly Queue<T5> q5 = new();
 
             public Zip(ZipObservable<T1, T2, T3, T4, T5, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -685,13 +685,13 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, T5, T6, TR> parent;
-            readonly object gate = new object();
-            readonly Queue<T1> q1 = new Queue<T1>();
-            readonly Queue<T2> q2 = new Queue<T2>();
-            readonly Queue<T3> q3 = new Queue<T3>();
-            readonly Queue<T4> q4 = new Queue<T4>();
-            readonly Queue<T5> q5 = new Queue<T5>();
-            readonly Queue<T6> q6 = new Queue<T6>();
+            readonly object gate = new();
+            readonly Queue<T1> q1 = new();
+            readonly Queue<T2> q2 = new();
+            readonly Queue<T3> q3 = new();
+            readonly Queue<T4> q4 = new();
+            readonly Queue<T5> q5 = new();
+            readonly Queue<T6> q6 = new();
 
             public Zip(ZipObservable<T1, T2, T3, T4, T5, T6, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -791,14 +791,14 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent;
-            readonly object gate = new object();
-            readonly Queue<T1> q1 = new Queue<T1>();
-            readonly Queue<T2> q2 = new Queue<T2>();
-            readonly Queue<T3> q3 = new Queue<T3>();
-            readonly Queue<T4> q4 = new Queue<T4>();
-            readonly Queue<T5> q5 = new Queue<T5>();
-            readonly Queue<T6> q6 = new Queue<T6>();
-            readonly Queue<T7> q7 = new Queue<T7>();
+            readonly object gate = new();
+            readonly Queue<T1> q1 = new();
+            readonly Queue<T2> q2 = new();
+            readonly Queue<T3> q3 = new();
+            readonly Queue<T4> q4 = new();
+            readonly Queue<T5> q5 = new();
+            readonly Queue<T6> q6 = new();
+            readonly Queue<T7> q7 = new();
 
             public Zip(ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)

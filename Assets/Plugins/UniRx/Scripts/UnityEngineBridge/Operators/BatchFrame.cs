@@ -25,8 +25,8 @@ namespace UniRx.Operators
         class BatchFrame : OperatorObserverBase<T, IList<T>>
         {
             readonly BatchFrameObservable<T> parent;
-            readonly object gate = new object();
-            readonly BooleanDisposable cancellationToken = new BooleanDisposable();
+            readonly object gate = new();
+            readonly BooleanDisposable cancellationToken = new();
             readonly System.Collections.IEnumerator timer;
             bool isRunning;
             bool isCompleted;
@@ -167,8 +167,8 @@ namespace UniRx.Operators
         class BatchFrame : OperatorObserverBase<Unit, Unit>
         {
             readonly BatchFrameObservable parent;
-            readonly object gate = new object();
-            readonly BooleanDisposable cancellationToken = new BooleanDisposable();
+            readonly object gate = new();
+            readonly BooleanDisposable cancellationToken = new();
             readonly System.Collections.IEnumerator timer;
 
             bool isRunning;

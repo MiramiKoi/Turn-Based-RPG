@@ -24,7 +24,7 @@ namespace UniRx.Operators
         class Throttle : OperatorObserverBase<T, T>
         {
             readonly ThrottleObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             T latestValue = default(T);
             bool hasValue = false;
             SerialDisposable cancelable;
