@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
 
 namespace Runtime.StatusEffects.Collection
@@ -52,7 +51,7 @@ namespace Runtime.StatusEffects.Collection
 
             foreach (var pair in _presenters)
             {
-                pair.Value.Tick(TickMoment.TurnEnd);
+                pair.Value.Tick();
 
                 if (pair.Value.IsExpired)
                     expired.Add(_collection.Get(pair.Key));

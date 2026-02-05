@@ -28,20 +28,17 @@ namespace Runtime.StatusEffects
         {
         }
 
-        public void Tick(TickMoment moment)
+        public void Tick()
         {
-            if (_model.Description.Tick.On == moment)
+            if (CanApply())
             {
-                if (CanApply())
+                foreach (var modifier in _model.Description.Modifiers)
                 {
-                    foreach (var modifier in _model.Description.Modifiers)
-                    {
-                        modifier.Tick(_unit, _world);
-                    }
-
-                    if (_model.Description.Duration.Type == DurationType.TurnBased)
-                        _model.DecrementRemainingTurns();
+                    modifier.Tick(_unit, _world);
                 }
+
+                if (_model.Description.Duration.Type == DurationType.TurnBased)
+                    _model.DecrementRemainingTurns();
             }
         }
 

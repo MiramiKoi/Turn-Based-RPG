@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
 using UniRx;

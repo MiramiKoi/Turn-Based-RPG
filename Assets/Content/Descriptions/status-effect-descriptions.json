@@ -10,9 +10,6 @@
       "type": "turn_based",
       "turns": 6
     },
-    "tick": {
-      "on": "turn_end"
-    },
     "modifiers": {
       "change_stat": {
         "amount": -4,

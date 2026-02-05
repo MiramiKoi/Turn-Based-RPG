@@ -12,7 +12,6 @@ namespace Runtime.Descriptions.StatusEffects
         private const string PolarityKey = "polarity";
         private const string StackingKey = "stacking";
         private const string DurationKey = "duration";
-        private const string TickKey = "tick";
         private const string ModifiersKey = "modifiers";
         private const string ConstraintsKey = "constraints";
         private const string FlagsKey = "flags";
@@ -22,7 +21,6 @@ namespace Runtime.Descriptions.StatusEffects
 
         public StackingDescription Stacking { get; }
         public DurationDescription Duration { get; }
-        public TickDescription Tick { get; }
 
         public List<ModifierDescription> Modifiers { get; } = new();
         public List<ConstraintDescription> Constraint { get; } = new();
@@ -36,7 +34,6 @@ namespace Runtime.Descriptions.StatusEffects
 
             Stacking = new StackingDescription(data.GetNode(StackingKey));
             Duration = new DurationDescription(data.GetNode(DurationKey));
-            Tick = new TickDescription(data.GetNode(TickKey));
 
             var modifierData = data.GetNode(ModifiersKey);
 
