@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Descriptions.Agents;
+using Runtime.Descriptions.Agents.Commands;
 using Runtime.Descriptions.Agents.Nodes;
 using UnityEngine.UIElements;
 
