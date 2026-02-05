@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
+using Runtime.StatusEffects.Collection;
 using UniRx;
 using UnityEngine;
 
@@ -24,6 +26,7 @@ namespace Runtime.Units
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
         
         public StatModelCollection Stats { get; }
+        public StatusEffectModelCollection ActiveEffects { get; }
 
         public IReadOnlyDictionary<string, bool> Flags => _flags;
         public IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; private set; }
@@ -40,25 +43,26 @@ namespace Runtime.Units
 
         private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
                 
-        public UnitModel(string id, UnitDescription description, Vector2Int position)
+        public UnitModel(string id, UnitDescription description, Vector2Int position, WorldDescription worldDescription)
         {
             Description = description;
             Id = id;
             Stats = new StatModelCollection(Description.Stats);
-            
+            ActiveEffects = new StatusEffectModelCollection(worldDescription.StatusEffectCollection);
+
             MoveTo(position);
         }
 
         public void MoveTo(Vector2Int position)
         {
             Awaiter = new CustomAwaiter();
-            
+
             var current = Position.Value;
-         
+
             if (position.x != current.x)
                 Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
-            
-            _position.Value =  position;
+
+            _position.Value = position;
         }
 
         public void SetFlag(string key, bool value)

@@ -2,7 +2,8 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Stats;
+using Runtime.Descriptions.StatusEffects.Enums;
+using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
 using UniRx;
 using UnityEngine;
@@ -21,15 +22,17 @@ namespace Runtime.Units
         private readonly UnitModel _unit;
         private readonly UnitView _view;
         private readonly World _world;
+        private readonly StatusEffectCollectionPresenter _statusEffectsPresenter;
 
         public UnitPresenter(UnitModel unit, UnitView view, World world)
         {
             _unit = unit;
             _view = view;
             _world = world;
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit.ActiveEffects, _unit, _world);
         }
         
-        public virtual void Enable()
+        public void Enable()
         {
             foreach (var stat in _unit.Stats)
             {
@@ -39,15 +42,18 @@ namespace Runtime.Units
             
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
-
+            _world.TurnBaseModel.OnWorldStepFinished += OnWorldStepFinished;
+            _statusEffectsPresenter.Enable();
             _unit.OnAttacked += OnAttacked;
             _unit.OnDamaging += OnDamaged;
             
             _view.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
         }
 
-        public virtual void Disable()
+        public void Disable()
         {
+            _statusEffectsPresenter.Disable();
+            _world.TurnBaseModel.OnWorldStepFinished -= OnWorldStepFinished;
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
             _disposables.Dispose();
@@ -125,6 +131,11 @@ namespace Runtime.Units
                 
                 _unit.Awaiter.Complete();
             }
+        }
+
+        private void OnWorldStepFinished()
+        {
+            _statusEffectsPresenter.Tick(TickMoment.TurnEnd);
         }
     }
 }
