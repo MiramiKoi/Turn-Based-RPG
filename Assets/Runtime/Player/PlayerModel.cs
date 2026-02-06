@@ -67,9 +67,12 @@ namespace Runtime.Player
             
             if (_movementQueueModel.TryDequeue(out var nextCell) && _grid.CanPlace(nextCell))
             {
-                _grid.ReleaseCell(_model.Position.Value);
-                _grid.TryPlace(_model, nextCell);
-                _model.MoveTo(nextCell);
+                if (_grid.CanPlace(nextCell) && _model.CanMove())
+                {
+                    _grid.ReleaseCell(_model.Position.Value);
+                    _grid.TryPlace(_model, nextCell);
+                    _model.MoveTo(nextCell);
+                }
             }
             else
             {

@@ -55,7 +55,7 @@ namespace Runtime.Units
 
         public void MoveTo(Vector2Int position)
         {
-            if (!IsActionDisabled(UnitActionType.Move))
+            if (CanMove())
             {
                 Awaiter = new CustomAwaiter();
 
@@ -66,6 +66,11 @@ namespace Runtime.Units
 
                 _position.Value = position;
             }
+        }
+
+        public bool CanMove()
+        {
+            return !IsActionDisabled(UnitActionType.Move) && !IsActionDisabled(UnitActionType.All);
         }
 
         public void SetFlag(string key, bool value)
@@ -97,13 +102,17 @@ namespace Runtime.Units
         }
 
         public bool CanAttack(Vector2Int position)
-        { 
-            var current = Position.Value;
-            if (position.x != current.x)
-                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+        {
+            if (!IsActionDisabled(UnitActionType.All))
+            {
+                var current = Position.Value;
+                if (position.x != current.x)
+                    Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
             
-            return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
-                   Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
+                return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
+                       Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
+            }
+            return false;
         }
 
         public void TakeDamage(float damage)
