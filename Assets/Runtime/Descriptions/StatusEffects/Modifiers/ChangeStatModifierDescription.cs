@@ -20,5 +20,11 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
         {
             unit.Stats[Stat].ChangeValue(Amount);
         }
+        
+        public override void Tick(UnitModel unit, World world, int stacks)
+        {
+            var coefficient = stacks <= 0 ? 1 : stacks;
+            unit.Stats[Stat].ChangeValue(Amount * coefficient);
+        }
     }
 }

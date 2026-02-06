@@ -16,5 +16,10 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
         }
         
         public abstract void Tick(UnitModel unit, World world);
+        
+        public virtual void Tick(UnitModel unit, World world, int stacks)
+        {
+            Tick(unit, world);
+        }
     }
 }

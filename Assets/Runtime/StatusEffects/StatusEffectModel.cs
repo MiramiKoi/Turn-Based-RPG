@@ -28,10 +28,18 @@ namespace Runtime.StatusEffects
             switch (Description.Stacking.Mode)
             {
                 case StackingMode.Additive:
+                {
+                    var before = CurrentStacks.Value;
                     CurrentStacks.Value = Math.Min(CurrentStacks.Value + 1, Description.Stacking.MaxStacks);
+
+                    if (CurrentStacks.Value == Description.Stacking.MaxStacks && before == Description.Stacking.MaxStacks)
+                        RemainingTurns.Value = Description.Duration.Turns;
+
                     break;
+                }
                 case StackingMode.Refresh:
                     RemainingTurns.Value = Description.Duration.Turns;
+                    CurrentStacks.Value = 1;
                     break;
                 case StackingMode.Independent:
                 case StackingMode.None:
@@ -51,8 +59,8 @@ namespace Runtime.StatusEffects
             return new Dictionary<string, object>
             {
                 { "id", Description.Id },
-                { "stacks", CurrentStacks },
-                { "remaining_turns", RemainingTurns }
+                { "stacks", CurrentStacks.Value },
+                { "remaining_turns", RemainingTurns.Value }
             };
         }
 

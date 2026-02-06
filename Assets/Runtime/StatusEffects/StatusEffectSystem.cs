@@ -24,21 +24,23 @@ namespace Runtime.StatusEffects
         {
             if (CanApply())
             {
+                var stacks = _model.CurrentStacks.Value;
+
                 foreach (var modifier in _model.Description.Modifiers.Where(modifier =>
                              modifier.Type is ModifierExecutionTime.WhileActive))
                 {
-                    modifier.Tick(_unit, _world);
+                    modifier.Tick(_unit, _world, stacks);
                 }
-                
+
                 if (_model.Description.Duration.Type == DurationType.TurnBased)
                     _model.DecrementRemainingTurns();
-                
+
                 foreach (var modifier in _model.Description.Modifiers.Where(modifier =>
-                    modifier.Type is ModifierExecutionTime.ImmediateWhileActive))
+                             modifier.Type is ModifierExecutionTime.ImmediateWhileActive))
                 {
                     if (!IsExpired)
                     {
-                        modifier.Tick(_unit, _world);
+                        modifier.Tick(_unit, _world, stacks);
                     }
                 }
             }
