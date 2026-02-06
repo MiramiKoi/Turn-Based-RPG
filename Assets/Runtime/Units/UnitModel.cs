@@ -55,14 +55,17 @@ namespace Runtime.Units
 
         public void MoveTo(Vector2Int position)
         {
-            Awaiter = new CustomAwaiter();
+            if (!IsActionDisabled(UnitActionType.Move))
+            {
+                Awaiter = new CustomAwaiter();
 
-            var current = Position.Value;
+                var current = Position.Value;
 
-            if (position.x != current.x)
-                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+                if (position.x != current.x)
+                    Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
 
-            _position.Value = position;
+                _position.Value = position;
+            }
         }
 
         public void SetFlag(string key, bool value)
@@ -114,6 +117,32 @@ namespace Runtime.Units
         public void Await()
         {
             Awaiter = new CustomAwaiter();
+        }
+        
+        public void SetActionDisabled(UnitActionType action, bool disabled)
+        {
+            if (action == UnitActionType.All)
+            {
+                SetActionDisabled(UnitActionType.Move, disabled);
+                SetActionDisabled(UnitActionType.Attack, disabled);
+                return;
+            }
+
+            SetFlag("action_disabled: " + action.ToString().ToLowerInvariant(), disabled);
+        }
+
+        public bool IsActionDisabled(UnitActionType action)
+        {
+            if (action == UnitActionType.All)
+                return IsActionDisabled(UnitActionType.Move) && IsActionDisabled(UnitActionType.Attack);
+
+            var key = "action_disabled: " + action.ToString().ToLowerInvariant();
+            return _flags.TryGetValue(key, out var disabled) && disabled;
+        }
+
+        public void ResetActionDisables()
+        {
+            SetActionDisabled(UnitActionType.All, false);
         }
     }
 }
