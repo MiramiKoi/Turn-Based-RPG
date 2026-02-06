@@ -32,7 +32,7 @@ namespace Runtime.Core
             TurnBaseModel = new TurnBaseModel();
             PlayerControls = playerControls;
             
-            GridModel = new GridModel(WorldDescription.SurfaceGenerationDescription.Generate(), worldDescription.SurfaceCollection);
+            GridModel = new GridModel(WorldDescription);
             GridInteractionModel = new GridInteractionModel();
 
             MainCamera = Camera.main;

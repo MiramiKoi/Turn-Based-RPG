@@ -1,0 +1,17 @@
+{
+  "0": {
+    "view_id": "empty",
+    "is_walkable": true,
+    "spawn_probability": 0.25
+  },
+  "1": {
+    "view_id": "stone",
+    "is_walkable": false,
+    "spawn_probability": 0.25
+  },
+  "2": {
+    "view_id": "tree",
+    "is_walkable": false,
+    "spawn_probability": 0.25
+  }
+}

@@ -18,6 +18,8 @@ namespace Runtime.LoadSteps
             { "camera_control", "camera-control-description" },
             { "surface_generation", "surface-generation-description" },
             { "surfaces", "surface-description" },
+            { "environment_generation", "environment-generation-description" },
+            { "environment", "environment-description" },
             { "units", "unit-description" }
         };
 
