@@ -66,13 +66,13 @@ namespace Runtime.Units
 
         public void Disable()
         {
-            _statusEffectsPresenter.Disable();
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
             _disposables.Dispose();
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
             _statusEffectsPresenter.Disable();
+            _statusEffectsView = null;
             _statusEffectsPresenter = null;
         }
         
