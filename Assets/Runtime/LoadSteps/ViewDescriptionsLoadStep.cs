@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Runtime.AsyncLoad;
 using Runtime.ViewDescriptions;
+using Runtime.ViewDescriptions.Landscape.Environment;
 using Runtime.ViewDescriptions.Inventory;
 using Runtime.ViewDescriptions.Items;
 using Runtime.ViewDescriptions.Landscape.Grid;
 using Runtime.ViewDescriptions.Landscape.Surface;
 using Runtime.ViewDescriptions.Units;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Runtime.LoadSteps
 {
@@ -42,6 +43,10 @@ namespace Runtime.LoadSteps
                 {
                     "ItemViewDescriptionCollection",
                     obj => worldViewDescriptions.ItemViewDescriptions = obj as ItemViewDescriptionCollection
+                },
+                {
+                    "EnvironmentViewDescriptionCollection",
+                    obj => worldViewDescriptions.EnvironmentViewDescriptions = obj as EnvironmentViewDescriptionCollection
                 }
             };
         }
