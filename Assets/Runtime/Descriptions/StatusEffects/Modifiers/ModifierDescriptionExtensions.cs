@@ -6,6 +6,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
     {
         private const string ChangeStatKey = "change_stat";
         private const string DisableActionsKey = "disable_actions";
+        private const string RandomizeActionKey = "randomize_action";
         
         public static ModifierDescription ToModifierDescription(this Dictionary<string, object> data, string type)
         {
@@ -13,6 +14,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
             {
                 ChangeStatKey => new ChangeStatModifierDescription(data),
                 DisableActionsKey => new DisableActionsModifierDescription(data),
+                RandomizeActionKey => new RandomizeActionModifierDescription(data),
                 _ =>  null
             };
         }

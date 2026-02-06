@@ -4,6 +4,7 @@
     {
         DamageOverTime,
         Control,
+        Behavior,
         Combat,
         Mental,
         Injury,
