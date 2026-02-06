@@ -10,16 +10,15 @@
                   
                ],
                "command" : {
-                  "type" : "set_point_of_interest_with_fraction",
+                  "type" : "has_unit_with_fraction",
                   "fraction" : "player",
                   "use_visibility_radius" : true,
-                  "custom_visibility_radius" : 0,
-                  "point_of_interest" : "target"
+                  "custom_visibility_radius" : 0
                },
                "_editor" : {
                   "position" : [
-                     -366.6667,
-                     280
+                     -294,
+                     219.3333
                   ]
                }
             },
@@ -29,15 +28,16 @@
                   
                ],
                "command" : {
-                  "type" : "has_unit_with_fraction",
+                  "type" : "set_point_of_interest_with_fraction",
                   "fraction" : "player",
                   "use_visibility_radius" : true,
-                  "custom_visibility_radius" : 0
+                  "custom_visibility_radius" : 0,
+                  "point_of_interest" : "target"
                },
                "_editor" : {
                   "position" : [
-                     114.6667,
-                     280
+                     -706,
+                     177.3333
                   ]
                }
             },
@@ -52,8 +52,8 @@
                },
                "_editor" : {
                   "position" : [
-                     424,
-                     89.33334
+                     306.6667,
+                     237.3333
                   ]
                }
             }

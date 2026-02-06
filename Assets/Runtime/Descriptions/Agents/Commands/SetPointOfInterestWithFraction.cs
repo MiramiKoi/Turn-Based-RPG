@@ -3,6 +3,8 @@ using Runtime.Common.Movement;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
+using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -31,6 +33,7 @@ namespace Runtime.Descriptions.Agents.Commands
             var controllableUnit = controllable as UnitModel;
 
             UnitModel targetUnit = null;
+            float bestDistance = float.MaxValue;
             
             foreach (var unit in context.UnitCollection.Models.Values)
             {
@@ -44,11 +47,9 @@ namespace Runtime.Descriptions.Agents.Commands
                 
                 var distanceSquared = dx * dx + dy * dy;
 
-                if (distanceSquared <= radius * radius)
+                if (distanceSquared <= radius * radius && distanceSquared < bestDistance)
                 {
                     targetUnit = unit;
-                    
-                    break;
                 }
             }
 
@@ -57,16 +58,15 @@ namespace Runtime.Descriptions.Agents.Commands
                 return NodeStatus.Failure;
             }
             
-            GridPathfinder.FindPath(context.GridModel, controllableUnit.Position.Value, targetUnit.Position.Value, out var path);
-
-            if (path != null || path.Count < 2)
-            {
-                controllable.SetPointOfInterest(PointOfInterest, path[^1]);
-                
-                return NodeStatus.Success;
-            }
+            Vector2 toTargetVector = targetUnit.Position.Value - center;
             
-            return NodeStatus.Failure;
+            var direction = toTargetVector.normalized;
+            
+            Vector2Int closestPoint = Vector2Int.RoundToInt((center + direction * Mathf.Min(toTargetVector.magnitude, radius)));
+            
+            controllable.SetPointOfInterest(PointOfInterest, closestPoint);
+            
+            return NodeStatus.Success;
         }
 
         public override Dictionary<string, object> Serialize()

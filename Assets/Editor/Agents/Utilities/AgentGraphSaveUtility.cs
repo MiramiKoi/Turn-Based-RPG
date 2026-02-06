@@ -31,7 +31,10 @@ namespace Editor.Agents.Utilities
 
         public void Save()
         {
-            Nodes.ForEach(nv => nv.SaveData());
+            Nodes.ForEach(nv =>
+            {
+                nv.SaveData();
+            });
             
             Save(GetRoot().Data, GetPath());
         }

@@ -106,8 +106,6 @@ namespace Editor.Agents
                         continue;
 
                     outputNodeView.Data.AddChild(inputNodeView.Data);
-
-                    outputNodeView.Data.SortChildrenByPositionX();
                 }
             }
 

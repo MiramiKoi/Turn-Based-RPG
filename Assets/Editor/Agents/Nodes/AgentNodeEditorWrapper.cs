@@ -35,9 +35,6 @@ namespace Editor.Agents.Nodes
 
         public void SortChildrenByPositionX()
         {
-            if (ChildWrappers == null || ChildWrappers.Count == 0)
-                return;
-
             ChildWrappers.Sort((a, b) =>
                 a.Position.x.CompareTo(b.Position.x));
 
@@ -46,14 +43,9 @@ namespace Editor.Agents.Nodes
                 .ToList();
         }
 
+
         public void AddChild(AgentNodeEditorWrapper child)
         {
-            if (child == null)
-                return;
-
-            if (ChildWrappers.Contains(child))
-                return;
-
             ChildWrappers.Add(child);
             Node.Children.Add(child.Node);
         }
