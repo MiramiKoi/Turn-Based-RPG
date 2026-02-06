@@ -35,7 +35,6 @@ namespace Editor.Agents.Nodes
         public virtual void SaveData()
         {
             Data.Position = GetPosition().position;
-            Data.SortChildrenByPositionX();
         }
 
         protected virtual void Setup()
