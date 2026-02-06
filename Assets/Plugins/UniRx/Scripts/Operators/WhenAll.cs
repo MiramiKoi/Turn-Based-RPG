@@ -40,7 +40,7 @@ namespace UniRx.Operators
         class WhenAll : OperatorObserverBase<T[], T[]>
         {
             readonly IObservable<T>[] sources;
-            readonly object gate = new object();
+            readonly object gate = new();
             int completedCount;
             int length;
             T[] values;
@@ -148,7 +148,7 @@ namespace UniRx.Operators
         class WhenAll_ : OperatorObserverBase<T[], T[]>
         {
             readonly IList<IObservable<T>> sources;
-            readonly object gate = new object();
+            readonly object gate = new();
             int completedCount;
             int length;
             T[] values;
@@ -291,7 +291,7 @@ namespace UniRx.Operators
         class WhenAll : OperatorObserverBase<Unit, Unit>
         {
             readonly IObservable<Unit>[] sources;
-            readonly object gate = new object();
+            readonly object gate = new();
             int completedCount;
             int length;
 
@@ -388,7 +388,7 @@ namespace UniRx.Operators
         class WhenAll_ : OperatorObserverBase<Unit, Unit>
         {
             readonly IList<IObservable<Unit>> sources;
-            readonly object gate = new object();
+            readonly object gate = new();
             int completedCount;
             int length;
 

@@ -11,7 +11,7 @@ namespace UniRx.InternalUtil
     /// </summary>
     internal class ScheduledItem : IComparable<ScheduledItem>
     {
-        private readonly BooleanDisposable _disposable = new BooleanDisposable();
+        private readonly BooleanDisposable _disposable = new();
         private readonly TimeSpan _dueTime;
         private readonly Action _action;
 

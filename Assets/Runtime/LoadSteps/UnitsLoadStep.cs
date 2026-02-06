@@ -19,10 +19,8 @@ namespace Runtime.LoadSteps
         {
             var characterModel = new UnitModel
             (
-                "character", 
-                _world.WorldDescription.UnitCollection.First(),
-                new Vector2Int(10, 15)
-            );
+                "character",
+                new Vector2Int(50, 49), _world.WorldDescription.UnitCollection.First(), _world.WorldDescription);
             
             _world.GridModel.TryPlace(characterModel, characterModel.Position.Value);
             _world.UnitCollection.Add(characterModel.Id, characterModel);
@@ -30,9 +28,7 @@ namespace Runtime.LoadSteps
             var bearModel = new UnitModel
             (
                 "bear_0", 
-                _world.WorldDescription.UnitCollection.Last(), 
-                new Vector2Int(10, 20)
-            );
+                new Vector2Int(50, 50), _world.WorldDescription.UnitCollection.Last(), _world.WorldDescription);
             
             _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);
             _world.UnitCollection.Add(bearModel.Id, bearModel);
@@ -40,9 +36,7 @@ namespace Runtime.LoadSteps
             var bearModel1 = new UnitModel
             (
                 "bear_1", 
-                _world.WorldDescription.UnitCollection.Last(), 
-                new Vector2Int(5, 15)
-            );
+                new Vector2Int(48, 50), _world.WorldDescription.UnitCollection.Last(), _world.WorldDescription);
             
             _world.GridModel.TryPlace(bearModel1, bearModel1.Position.Value);
             _world.UnitCollection.Add(bearModel1.Id, bearModel1);

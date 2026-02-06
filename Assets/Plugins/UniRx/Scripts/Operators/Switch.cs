@@ -21,8 +21,8 @@ namespace UniRx.Operators
         {
             readonly SwitchObservable<T> parent;
 
-            readonly object gate = new object();
-            readonly SerialDisposable innerSubscription = new SerialDisposable();
+            readonly object gate = new();
+            readonly SerialDisposable innerSubscription = new();
             bool isStopped = false;
             ulong latest = 0UL;
             bool hasLatest = false;

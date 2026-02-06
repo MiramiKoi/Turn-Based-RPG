@@ -3,7 +3,7 @@ using Runtime.Core;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Units;
 
-namespace Editor.Agents
+namespace Runtime.Agents
 {
     public class AgentPresenter : IPresenter
     {

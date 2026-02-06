@@ -10,7 +10,7 @@ namespace UniRx.InternalUtil
     /// </summary>
     internal sealed class AsyncLock : IDisposable
     {
-        private readonly Queue<Action> queue = new Queue<Action>();
+        private readonly Queue<Action> queue = new();
         private bool isAcquired = false;
         private bool hasFaulted = false;
 

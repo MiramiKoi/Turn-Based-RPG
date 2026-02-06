@@ -22,7 +22,7 @@ namespace UniRx.Operators
         class ContinueWith : OperatorObserverBase<TSource, TResult>
         {
             readonly ContinueWithObservable<TSource, TResult> parent;
-            readonly SerialDisposable serialDisposable = new SerialDisposable();
+            readonly SerialDisposable serialDisposable = new();
 
             bool seenValue;
             TSource lastValue;

@@ -40,7 +40,7 @@ namespace UniRx.Operators
         class Timeout : OperatorObserverBase<T, T>
         {
             readonly TimeoutObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             ulong objectId = 0ul;
             bool isTimeout = false;
             SingleAssignmentDisposable sourceSubscription;
@@ -128,7 +128,7 @@ namespace UniRx.Operators
         class Timeout_ : OperatorObserverBase<T, T>
         {
             readonly TimeoutObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             bool isFinished = false;
             SingleAssignmentDisposable sourceSubscription;
             IDisposable timerSubscription;

@@ -25,7 +25,7 @@ namespace UniRx.Operators
         class Delay : OperatorObserverBase<T, T>
         {
             readonly DelayObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             bool hasFailed;
             bool running;
             bool active;

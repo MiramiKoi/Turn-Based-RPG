@@ -5,7 +5,7 @@ namespace UniRx
     [Serializable]
     public struct Unit : IEquatable<Unit>
     {
-        static readonly Unit @default = new Unit();
+        static readonly Unit @default = new();
 
         public static Unit Default { get { return @default; } }
 

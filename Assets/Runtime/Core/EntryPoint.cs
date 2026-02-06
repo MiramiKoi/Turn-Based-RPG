@@ -1,18 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Editor.Agents;
-using fastJSON;
 using Runtime.Agents;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
-using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
 using Runtime.Items;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
+using Runtime.Player.StatusEffects;
 using Runtime.TurnBase;
 using Runtime.UI;
 using Runtime.Units;
@@ -31,20 +29,20 @@ namespace Runtime.Core
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
         private readonly WorldViewDescriptions _worldViewDescriptions = new();
-        
+
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
         private UIController _uiController;
-        private UIContent _uiContent; 
-            
+        private UIContent _uiContent;
+
         private PlayerControls _playerControls;
-        
+
         private async void Start()
         {
             _playerControls = new PlayerControls();
             _playerControls.Enable();
-            
+
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
@@ -60,25 +58,24 @@ namespace Runtime.Core
             {
                 await step.Run();
             }
-            
+
+            _uiContent = new UIContent(_gameplayDocument);
+            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
+            _uiController.Enable();
+
             await CreateControllableUnit();
             await CreateUnit("bear_0");
             await CreateUnit("bear_1");
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
+
             turnBasePresenter.Enable();
-            
-            _uiContent = new UIContent(_gameplayDocument);
-            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            _uiController.Enable();
-            
-            //TODO: Putting item test
             var itemFactory = new ItemFactory(_world.WorldDescription.ItemCollection);
             _world.InventoryModel.TryPutItem(itemFactory.Create("bear_meat").Description, 14);
             _world.InventoryModel.TryPutItem(itemFactory.Create("bear_fur").Description, 28);
         }
-        
+
         private void Update()
         {
             _world.GameSystems?.Update(Time.deltaTime);
@@ -87,29 +84,36 @@ namespace Runtime.Core
         private async Task CreateControllableUnit()
         {
             var unitModel = _world.UnitCollection.Get("character");
-            
+
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
-            var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
-            await loadModel.LoadAwaiter;
-            var unitPrefab = loadModel.Result;
+            var loadModelPrefab = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
+            await loadModelPrefab.LoadAwaiter;
+            var unitPrefab = loadModelPrefab.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _world.CameraControlModel.Target.Value = unitView.Transform;
-            _addressableModel.Unload(loadModel);
-            
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
+            _addressableModel.Unload(loadModelPrefab);
+
+            var loadModelUiAsset = _addressableModel.Load<VisualTreeAsset>(_worldViewDescriptions.StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
+            await loadModelUiAsset.LoadAwaiter;
+            var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
+            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel.ActiveEffects, statusEffectsView, unitModel, _world, _worldViewDescriptions, _uiContent);
+
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
 
             var playerModel = new PlayerModel(unitModel, _world.GridModel);
             var playerPresenter = new PlayerPresenter(playerModel, _world);
-            
+
             unitPresenter.Enable();
             playerPresenter.Enable();
+            statusEffectsPresenter.Enable();
+
+            unitModel.ActiveEffects.Create("bleeding");
         }
-        
-        
+
         private async Task CreateUnit(string id)
         {
             var unitModel = _world.UnitCollection.Get(id);
-            
+
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModel.LoadAwaiter;
@@ -119,7 +123,7 @@ namespace Runtime.Core
 
             var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
             
             unitPresenter.Enable();
             agentPresenter.Enable();

@@ -33,7 +33,7 @@ namespace UniRx.Operators
         class CombineLatest : OperatorObserverBase<TResult, TResult>
         {
             readonly CombineLatestObservable<TLeft, TRight, TResult> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             TLeft leftValue = default(TLeft);
             bool leftStarted = false;
@@ -198,7 +198,7 @@ namespace UniRx.Operators
         class CombineLatest : OperatorObserverBase<IList<T>, IList<T>>
         {
             readonly CombineLatestObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             int length;
             T[] values;
@@ -389,7 +389,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -474,7 +474,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -566,7 +566,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, T5, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -665,7 +665,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, T5, T6, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -771,7 +771,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;

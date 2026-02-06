@@ -27,7 +27,7 @@ namespace UniRx.Operators
             }
 
             readonly AmbObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             SingleAssignmentDisposable leftSubscription;
             SingleAssignmentDisposable rightSubscription;
             AmbState choice = AmbState.Neither;

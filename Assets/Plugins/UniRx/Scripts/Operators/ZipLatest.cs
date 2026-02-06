@@ -32,7 +32,7 @@ namespace UniRx.Operators
         class ZipLatest : OperatorObserverBase<TResult, TResult>
         {
             readonly ZipLatestObservable<TLeft, TRight, TResult> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             TLeft leftValue = default(TLeft);
             bool leftStarted = false;
@@ -206,7 +206,7 @@ namespace UniRx.Operators
         class ZipLatest : OperatorObserverBase<IList<T>, IList<T>>
         {
             readonly ZipLatestObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             int length;
             T[] values;
@@ -389,7 +389,7 @@ namespace UniRx.Operators
         class ZipLatest : NthZipLatestObserverBase<TR>
         {
             readonly ZipLatestObservable<T1, T2, T3, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             ZipLatestObserver<T1> c1;
             ZipLatestObserver<T2> c2;
             ZipLatestObserver<T3> c3;
@@ -474,7 +474,7 @@ namespace UniRx.Operators
         class ZipLatest : NthZipLatestObserverBase<TR>
         {
             readonly ZipLatestObservable<T1, T2, T3, T4, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             ZipLatestObserver<T1> c1;
             ZipLatestObserver<T2> c2;
             ZipLatestObserver<T3> c3;
@@ -566,7 +566,7 @@ namespace UniRx.Operators
         class ZipLatest : NthZipLatestObserverBase<TR>
         {
             readonly ZipLatestObservable<T1, T2, T3, T4, T5, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             ZipLatestObserver<T1> c1;
             ZipLatestObserver<T2> c2;
             ZipLatestObserver<T3> c3;
@@ -665,7 +665,7 @@ namespace UniRx.Operators
         class ZipLatest : NthZipLatestObserverBase<TR>
         {
             readonly ZipLatestObservable<T1, T2, T3, T4, T5, T6, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             ZipLatestObserver<T1> c1;
             ZipLatestObserver<T2> c2;
             ZipLatestObserver<T3> c3;
@@ -771,7 +771,7 @@ namespace UniRx.Operators
         class ZipLatest : NthZipLatestObserverBase<TR>
         {
             readonly ZipLatestObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
             ZipLatestObserver<T1> c1;
             ZipLatestObserver<T2> c2;
             ZipLatestObserver<T3> c3;

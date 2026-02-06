@@ -24,7 +24,7 @@ namespace UniRx.Operators
         class WithLatestFrom : OperatorObserverBase<TResult, TResult>
         {
             readonly WithLatestFromObservable<TLeft, TRight, TResult> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             volatile bool hasLatest;
             TRight latestValue = default(TRight);

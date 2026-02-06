@@ -55,7 +55,7 @@ namespace UniRx
 
     public class ReactiveCommand<T> : IReactiveCommand<T>, IDisposable
     {
-        readonly Subject<T> trigger = new Subject<T>();
+        readonly Subject<T> trigger = new();
         readonly IDisposable canExecuteSubscription;
 
         readonly ReactiveProperty<bool> canExecute;
@@ -174,7 +174,7 @@ namespace UniRx
     {
         UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>> asyncActions = UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>>.Empty;
 
-        readonly object gate = new object();
+        readonly object gate = new();
         readonly IReactiveProperty<bool> canExecuteSource;
         readonly IReadOnlyReactiveProperty<bool> canExecute;
 

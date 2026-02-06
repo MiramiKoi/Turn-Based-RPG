@@ -18,7 +18,7 @@ namespace UniRx
 
         class EmptyDisposable : IDisposable
         {
-            public static readonly EmptyDisposable Singleton = new EmptyDisposable();
+            public static readonly EmptyDisposable Singleton = new();
 
             private EmptyDisposable()
             {

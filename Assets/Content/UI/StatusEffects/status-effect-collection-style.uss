@@ -1,0 +1,45 @@
+﻿.status-effects-root {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    translate: -50% 0;
+}
+
+.status-effects-container {
+    display: flex;
+    flex-direction: row;
+    padding: 6px 10px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 8px;
+}
+
+.status-effect-item {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-effect-icon {
+    width: 32px;
+    height: 32px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.status-effect-counter {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 11px;
+    border-radius: 9px;
+    align-items: center;
+    justify-content: center;
+}

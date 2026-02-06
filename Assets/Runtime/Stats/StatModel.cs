@@ -21,5 +21,17 @@ namespace Runtime.Stats
             Value += delta;
             ValueChanged?.Invoke(Value);
         }
+        
+        public void SetValue(float value)
+        {
+            Value = value;
+            ValueChanged?.Invoke(Value);
+        }
+
+        public void MultiplyValue(float factor)
+        {
+            Value *= factor;
+            ValueChanged?.Invoke(Value);
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace UniRx.Operators
 
         class ToList : OperatorObserverBase<TSource, IList<TSource>>
         {
-            readonly List<TSource> list = new List<TSource>();
+            readonly List<TSource> list = new();
 
             public ToList(IObserver<IList<TSource>> observer, IDisposable cancel)
                 : base(observer, cancel)

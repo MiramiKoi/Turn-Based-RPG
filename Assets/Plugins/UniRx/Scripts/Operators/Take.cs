@@ -98,7 +98,7 @@ namespace UniRx.Operators
         class Take_ : OperatorObserverBase<T, T>
         {
             readonly TakeObservable<T> parent;
-            readonly object gate = new object();
+            readonly object gate = new();
 
             public Take_(TakeObservable<T> parent, IObserver<T> observer, IDisposable cancel) : base(observer, cancel)
             {

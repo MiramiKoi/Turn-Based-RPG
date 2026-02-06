@@ -6,7 +6,7 @@ namespace UniRx
 {
     public sealed class ReplaySubject<T> : ISubject<T>, IOptimizedObservable<T>, IDisposable
     {
-        readonly object observerLock = new object();
+        readonly object observerLock = new();
 
         bool isStopped;
         bool isDisposed;
@@ -17,7 +17,7 @@ namespace UniRx
         readonly TimeSpan window;
         readonly DateTimeOffset startTime;
         readonly IScheduler scheduler;
-        Queue<TimeInterval<T>> queue = new Queue<TimeInterval<T>>();
+        Queue<TimeInterval<T>> queue = new();
 
 
         public ReplaySubject()
@@ -212,7 +212,7 @@ namespace UniRx
 
         class Subscription : IDisposable
         {
-            readonly object gate = new object();
+            readonly object gate = new();
             ReplaySubject<T> parent;
             IObserver<T> unsubscribeTarget;
 

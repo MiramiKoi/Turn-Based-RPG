@@ -1,15 +1,16 @@
-using Runtime.AsyncLoad;
-using Runtime.ViewDescriptions;
-using Runtime.ViewDescriptions.Landscape.Environment;
-using Runtime.ViewDescriptions.Inventory;
-using Runtime.ViewDescriptions.Items;
-using Runtime.ViewDescriptions.Landscape.Grid;
-using Runtime.ViewDescriptions.Landscape.Surface;
-using Runtime.ViewDescriptions.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Runtime.AsyncLoad;
+using Runtime.ViewDescriptions;
+using Runtime.ViewDescriptions.Inventory;
+using Runtime.ViewDescriptions.Items;
+using Runtime.ViewDescriptions.Landscape.Environment;
+using Runtime.ViewDescriptions.Landscape.Grid;
+using Runtime.ViewDescriptions.Landscape.Surface;
+using Runtime.ViewDescriptions.StatusEffects;
+using Runtime.ViewDescriptions.Units;
 
 namespace Runtime.LoadSteps
 {
@@ -17,7 +18,7 @@ namespace Runtime.LoadSteps
     {
         private readonly AddressableModel _addressableModel;
         private readonly Dictionary<string, Action<object>> _loadMap;
-        
+
         public ViewDescriptionsLoadStep(WorldViewDescriptions worldViewDescriptions, AddressableModel addressableModel)
         {
             _addressableModel = addressableModel;
@@ -43,6 +44,11 @@ namespace Runtime.LoadSteps
                 {
                     "ItemViewDescriptionCollection",
                     obj => worldViewDescriptions.ItemViewDescriptions = obj as ItemViewDescriptionCollection
+                },
+                {
+                    "StatusEffectViewDescriptionCollection",
+                    obj => worldViewDescriptions.StatusEffectViewDescriptions =
+                        obj as StatusEffectViewDescriptionCollection
                 },
                 {
                     "EnvironmentViewDescriptionCollection",

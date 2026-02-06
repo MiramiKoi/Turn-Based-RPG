@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/StatusEffects/status-effect-collection-style.uss?fileID=7433441132597879392&amp;guid=e62c665fc71438b4981488beed9dd1ca&amp;type=3#status-effect-collection-style"/>
+    <ui:VisualElement name="status-effects-root" class="status-effects-root" style="left: auto; top: auto; justify-content: flex-start; align-self: center; align-items: center;">
+        <ui:VisualElement name="status-effects-container" class="status-effects-container" style="justify-content: center; align-items: center; align-self: center; align-content: center;"/>
+    </ui:VisualElement>
+</ui:UXML>

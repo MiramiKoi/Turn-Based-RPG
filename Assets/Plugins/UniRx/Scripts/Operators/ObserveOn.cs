@@ -52,7 +52,7 @@ namespace UniRx.Operators
             }
 
             readonly ObserveOnObservable<T> parent;
-            readonly LinkedList<SchedulableAction> actions = new LinkedList<SchedulableAction>();
+            readonly LinkedList<SchedulableAction> actions = new();
             bool isDisposed;
 
             public ObserveOn(ObserveOnObservable<T> parent, IObserver<T> observer, IDisposable cancel) : base(observer, cancel)

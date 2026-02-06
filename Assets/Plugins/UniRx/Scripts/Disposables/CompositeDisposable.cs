@@ -8,7 +8,7 @@ namespace UniRx
 
     public sealed class CompositeDisposable : ICollection<IDisposable>, IDisposable, ICancelable
     {
-        private readonly object _gate = new object();
+        private readonly object _gate = new();
 
         private bool _disposed;
         private List<IDisposable> _disposables;

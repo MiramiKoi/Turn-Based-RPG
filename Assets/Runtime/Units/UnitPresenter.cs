@@ -1,11 +1,15 @@
 using System.Threading.Tasks;
 using DG.Tweening;
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Stats;
+using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
+using Runtime.ViewDescriptions;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Runtime.Units
 {
@@ -21,15 +25,20 @@ namespace Runtime.Units
         private readonly UnitModel _unit;
         private readonly UnitView _view;
         private readonly World _world;
+        private readonly WorldViewDescriptions _viewDescriptions;
+        private StatusEffectCollectionPresenter _statusEffectsPresenter;
+        
+        private LoadModel<VisualTreeAsset> _statusEffectsLoadModel;
 
-        public UnitPresenter(UnitModel unit, UnitView view, World world)
+        public UnitPresenter(UnitModel unit, UnitView view, World world, WorldViewDescriptions viewDescriptions)
         {
             _unit = unit;
             _view = view;
             _world = world;
+            _viewDescriptions = viewDescriptions;
         }
         
-        public virtual void Enable()
+        public async void Enable()
         {
             foreach (var stat in _unit.Stats)
             {
@@ -39,18 +48,26 @@ namespace Runtime.Units
             
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
-
             _unit.OnAttacked += OnAttacked;
             _unit.OnDamaging += OnDamaged;
             
             _view.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
+
+            _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions.StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
+            await _statusEffectsLoadModel.LoadAwaiter;
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit.ActiveEffects, _unit, _world);
+            _statusEffectsPresenter.Enable();
         }
 
-        public virtual void Disable()
+        public void Disable()
         {
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
             _disposables.Dispose();
+
+            _world.AddressableModel.Unload(_statusEffectsLoadModel);
+            _statusEffectsPresenter.Disable();
+            _statusEffectsPresenter = null;
         }
         
         private async Task AnimateMoveChanged(Vector2Int position)

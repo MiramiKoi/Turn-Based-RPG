@@ -11,14 +11,14 @@ namespace UniRx.InternalUtil
     {
         const int InitialSize = 16;
 
-        readonly object runningAndQueueLock = new object();
-        readonly object arrayLock = new object();
+        readonly object runningAndQueueLock = new();
+        readonly object arrayLock = new();
         readonly Action<Exception> unhandledExceptionCallback;
 
         int tail = 0;
         bool running = false;
         IEnumerator[] coroutines = new IEnumerator[InitialSize];
-        readonly Queue<IEnumerator> waitQueue = new Queue<IEnumerator>();
+        readonly Queue<IEnumerator> waitQueue = new();
 
         public MicroCoroutine(Action<Exception> unhandledExceptionCallback)
         {

@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
+using Runtime.StatusEffects.Collection;
 using UniRx;
 using UnityEngine;
 
@@ -24,41 +26,51 @@ namespace Runtime.Units
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
         
         public StatModelCollection Stats { get; }
+        public StatusEffectModelCollection ActiveEffects { get; }
 
         public IReadOnlyDictionary<string, bool> Flags => _flags;
-        public IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; private set; }
+        public IReadOnlyDictionary<string, Vector2Int> PointOfInterest => _pointOfInterest;
 
         public string Id { get; }
 
         public int Health => (int)Stats["health"].Value;
         
         public bool IsDead => (int)Stats["health"].Value <= 0;
-
+        
         public CustomAwaiter Awaiter { get; private set; }
 
         private readonly Dictionary<string, bool> _flags = new();
 
         private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
                 
-        public UnitModel(string id, UnitDescription description, Vector2Int position)
+        public UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
         {
             Description = description;
             Id = id;
             Stats = new StatModelCollection(Description.Stats);
-            
+            ActiveEffects = new StatusEffectModelCollection(worldDescription.StatusEffectCollection);
+
             MoveTo(position);
         }
 
         public void MoveTo(Vector2Int position)
         {
-            Awaiter = new CustomAwaiter();
-            
-            var current = Position.Value;
-         
-            if (position.x != current.x)
-                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
-            
-            _position.Value =  position;
+            if (CanMove())
+            {
+                Awaiter = new CustomAwaiter();
+
+                var current = Position.Value;
+
+                if (position.x != current.x)
+                    Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+
+                _position.Value = position;
+            }
+        }
+
+        public bool CanMove()
+        {
+            return !IsActionDisabled(UnitActionType.Move) && !IsActionDisabled(UnitActionType.All);
         }
 
         public void SetFlag(string key, bool value)
@@ -90,13 +102,17 @@ namespace Runtime.Units
         }
 
         public bool CanAttack(Vector2Int position)
-        { 
-            var current = Position.Value;
-            if (position.x != current.x)
-                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+        {
+            if (!IsActionDisabled(UnitActionType.All))
+            {
+                var current = Position.Value;
+                if (position.x != current.x)
+                    Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
             
-            return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
-                   Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
+                return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
+                       Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
+            }
+            return false;
         }
 
         public void TakeDamage(float damage)
@@ -110,6 +126,32 @@ namespace Runtime.Units
         public void Await()
         {
             Awaiter = new CustomAwaiter();
+        }
+        
+        public void SetActionDisabled(UnitActionType action, bool disabled)
+        {
+            if (action == UnitActionType.All)
+            {
+                SetActionDisabled(UnitActionType.Move, disabled);
+                SetActionDisabled(UnitActionType.Attack, disabled);
+                return;
+            }
+
+            SetFlag("action_disabled: " + action.ToString().ToLowerInvariant(), disabled);
+        }
+
+        public bool IsActionDisabled(UnitActionType action)
+        {
+            if (action == UnitActionType.All)
+                return IsActionDisabled(UnitActionType.Move) && IsActionDisabled(UnitActionType.Attack);
+
+            var key = "action_disabled: " + action.ToString().ToLowerInvariant();
+            return _flags.TryGetValue(key, out var disabled) && disabled;
+        }
+
+        public void ResetActionDisables()
+        {
+            SetActionDisabled(UnitActionType.All, false);
         }
     }
 }

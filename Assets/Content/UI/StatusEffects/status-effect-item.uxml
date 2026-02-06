@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/StatusEffects/status-effect-collection-style.uss?fileID=7433441132597879392&amp;guid=e62c665fc71438b4981488beed9dd1ca&amp;type=3#status-effect-collection-style"/>
+    <ui:VisualElement name="status-effect-root" class="status-effect-item" style="width: 100px; height: 100px;">
+        <ui:Image name="icon" source="project://database/Assets/Content/Imports/StrategyGameResourceIcons/Icons/crystal.png?fileID=21300000&amp;guid=64da693ba6b64ae44a77b519e8467d05&amp;type=3#crystal" class="status-effect-icon" style="width: 100px; height: 100px;"/>
+        <ui:Label name="turns_counter" text="3" class="status-effect-counter" style="bottom: -2px; right: auto; align-self: center; -unity-text-align: middle-center; font-size: 32px; height: 32px; min-width: 32px; left: -2px;"/>
+        <ui:Label name="stack_counter" text="3x" class="status-effect-counter" style="bottom: -2px; right: -4px; align-self: center; -unity-text-align: middle-center; font-size: 32px; height: 32px; min-width: 32px;"/>
+    </ui:VisualElement>
+</ui:UXML>

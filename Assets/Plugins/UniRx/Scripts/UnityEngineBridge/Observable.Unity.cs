@@ -227,7 +227,7 @@ namespace UniRx
     public static partial class Observable
 #endif
     {
-        readonly static HashSet<Type> YieldInstructionTypes = new HashSet<Type>
+        readonly static HashSet<Type> YieldInstructionTypes = new()
         {
             #if UNITY_2018_3_OR_NEWER
 #pragma warning disable CS0618

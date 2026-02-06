@@ -9,7 +9,7 @@ namespace UniRx
 
     public sealed class SingleAssignmentDisposable : IDisposable, ICancelable
     {
-        readonly object gate = new object();
+        readonly object gate = new();
         IDisposable current;
         bool disposed;
 

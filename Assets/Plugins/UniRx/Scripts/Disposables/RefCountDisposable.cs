@@ -11,7 +11,7 @@ namespace UniRx
     /// </summary>
     public sealed class RefCountDisposable : ICancelable
     {
-        private readonly object _gate = new object();
+        private readonly object _gate = new();
         private IDisposable _disposable;
         private bool _isPrimaryDisposed;
         private int _count;
@@ -114,7 +114,7 @@ namespace UniRx
         sealed class InnerDisposable : IDisposable
         {
             private RefCountDisposable _parent;
-            readonly object parentLock = new object();
+            readonly object parentLock = new();
 
             public InnerDisposable(RefCountDisposable parent)
             {

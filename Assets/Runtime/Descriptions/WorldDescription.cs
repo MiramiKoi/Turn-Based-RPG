@@ -4,6 +4,7 @@ using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.CameraControl;
 using Runtime.Descriptions.Environment;
 using Runtime.Descriptions.Items;
+using Runtime.Descriptions.StatusEffects;
 using Runtime.Descriptions.Surface;
 using Runtime.Descriptions.Units;
 
@@ -18,8 +19,8 @@ namespace Runtime.Descriptions
         public EnvironmentDescriptionCollection EnvironmentCollection { get; private set; }
         public UnitDescriptionCollection UnitCollection { get; private set; }
         public ItemDescriptionCollection  ItemCollection { get; private set; }
-        
         public AgentDecisionDescription AgentDecisionDescription { get; private set; }
+        public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
         public void SetData(Dictionary<string, object> data)
         {
@@ -30,6 +31,7 @@ namespace Runtime.Descriptions
             EnvironmentCollection = new EnvironmentDescriptionCollection(data.GetNode("environment"));
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
             ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
+            StatusEffectCollection = new StatusEffectDescriptionCollection(data.GetNode("status_effects"));
             AgentDecisionDescription = new AgentDecisionDescription(data.GetNode("bear"));
         }
     }

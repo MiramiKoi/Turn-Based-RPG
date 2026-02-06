@@ -66,7 +66,7 @@ namespace UniRx
 
             sealed class Timer : IDisposable
             {
-                static readonly HashSet<System.Threading.Timer> s_timers = new HashSet<System.Threading.Timer>();
+                static readonly HashSet<System.Threading.Timer> s_timers = new();
 
                 private readonly SingleAssignmentDisposable _disposable;
 
@@ -142,7 +142,7 @@ namespace UniRx
 
             sealed class PeriodicTimer : IDisposable
             {
-                static readonly HashSet<System.Threading.Timer> s_timers = new HashSet<System.Threading.Timer>();
+                static readonly HashSet<System.Threading.Timer> s_timers = new();
 
                 private Action _action;
                 private System.Threading.Timer _timer;

@@ -5,7 +5,7 @@ namespace Runtime.Stats
 {
     public class StatPresenter : IPresenter
     {
-        private StatModel _model;
+        private readonly StatModel _model;
         
         public StatPresenter(StatModel model)
         {

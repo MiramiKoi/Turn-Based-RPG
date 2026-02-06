@@ -20,8 +20,8 @@
     /// </summary>
     public class CountNotifier : IObservable<CountChangedStatus>
     {
-        readonly object lockObject = new object();
-        readonly Subject<CountChangedStatus> statusChanged = new Subject<CountChangedStatus>();
+        readonly object lockObject = new();
+        readonly Subject<CountChangedStatus> statusChanged = new();
         readonly int max;
 
         public int Max { get { return max; } }
