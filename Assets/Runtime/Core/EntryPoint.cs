@@ -107,7 +107,7 @@ namespace Runtime.Core
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
 
-            unitModel.ActiveEffects.Create("bleeding");
+            unitModel.ActiveEffects.Create("bleed");
         }
 
         private async Task CreateUnit(string id)
