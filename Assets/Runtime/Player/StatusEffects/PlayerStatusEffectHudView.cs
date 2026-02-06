@@ -1,12 +1,12 @@
 ﻿using UnityEngine.UIElements;
 
-namespace Runtime.StatusEffects.Collection
+namespace Runtime.Player.StatusEffects
 {
-    public class StatusEffectCollectionView
+    public class PlayerStatusEffectHudView
     {
         public VisualElement Root { get; }
         
-        public StatusEffectCollectionView(VisualTreeAsset asset)
+        public PlayerStatusEffectHudView(VisualTreeAsset asset)
         {
             Root = asset.CloneTree().Q<VisualElement>("status-effects-container");
         }

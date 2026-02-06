@@ -10,6 +10,7 @@ using Runtime.Items;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
+using Runtime.Player.StatusEffects;
 using Runtime.TurnBase;
 using Runtime.UI;
 using Runtime.Units;
@@ -85,12 +86,17 @@ namespace Runtime.Core
             var unitModel = _world.UnitCollection.Get("character");
 
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
-            var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
-            await loadModel.LoadAwaiter;
-            var unitPrefab = loadModel.Result;
+            var loadModelPrefab = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
+            await loadModelPrefab.LoadAwaiter;
+            var unitPrefab = loadModelPrefab.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _world.CameraControlModel.Target.Value = unitView.Transform;
-            _addressableModel.Unload(loadModel);
+            _addressableModel.Unload(loadModelPrefab);
+
+            var loadModelUiAsset = _addressableModel.Load<VisualTreeAsset>(_worldViewDescriptions.StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
+            await loadModelUiAsset.LoadAwaiter;
+            var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
+            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel.ActiveEffects, statusEffectsView, unitModel, _world, _worldViewDescriptions, _uiContent);
 
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
 
@@ -99,6 +105,7 @@ namespace Runtime.Core
 
             unitPresenter.Enable();
             playerPresenter.Enable();
+            statusEffectsPresenter.Enable();
 
             unitModel.ActiveEffects.Create("bleeding");
         }
