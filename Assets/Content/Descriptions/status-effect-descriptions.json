@@ -133,5 +133,28 @@
     },
     "constraints": {},
     "flags": ["mental"]
+  },
+  "bless": {
+    "category": "combat",
+    "polarity": "buff",
+    "view_id": "bless",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 3
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 4
+    },
+    "modifiers": {
+      "modify_stat": {
+        "type": "immediate_while_active",
+        "mode": "multiply",
+        "stat": "attack_damage",
+        "amount": 2
+      }
+    },
+    "constraints": {},
+    "flags": ["physical"]
   }
 }
