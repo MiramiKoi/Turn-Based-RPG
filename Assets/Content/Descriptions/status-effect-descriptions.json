@@ -88,5 +88,26 @@
     },
     "constraints": {},
     "flags": ["control"]
+  },
+  "immobilize": {
+    "category": "control",
+    "polarity": "debuff",
+    "view_id": "immobilize",
+    "stacking": {
+      "mode": "refresh",
+      "max_stacks": 1
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 3
+    },
+    "modifiers": {
+      "disable_actions": {
+        "type": "immediate_while_active",
+        "action_type": "move"
+      }
+    },
+    "constraints": {},
+    "flags": ["control"]
   }
 }
