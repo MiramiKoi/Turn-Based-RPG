@@ -2,6 +2,7 @@
   "bleeding": {
     "category": "damage_over_time",
     "polarity": "debuff",
+    "view_id": "bleeding",
     "stacking": {
       "mode": "additive",
       "max_stacks": 5
