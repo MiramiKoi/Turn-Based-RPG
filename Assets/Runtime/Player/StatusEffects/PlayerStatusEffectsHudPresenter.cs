@@ -71,7 +71,7 @@ namespace Runtime.Player.StatusEffects
             var viewDescription = _viewDescriptions.StatusEffectViewDescriptions.Get(model.Description.ViewId);
 
             var loadModel = _world.AddressableModel.Load<VisualTreeAsset>(
-                viewDescription.StatusEffectViewAsset.AssetGUID);
+                _viewDescriptions.StatusEffectViewDescriptions.StatusEffectViewAsset.AssetGUID);
 
             _loadModels[id] = loadModel;
 

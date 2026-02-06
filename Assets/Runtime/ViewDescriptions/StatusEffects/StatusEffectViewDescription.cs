@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.UIElements;
 
 namespace Runtime.ViewDescriptions.StatusEffects
 {
@@ -9,6 +8,5 @@ namespace Runtime.ViewDescriptions.StatusEffects
     {
         public string Id => name;
         public AssetReferenceSprite Icons;
-        public AssetReferenceT<VisualTreeAsset> StatusEffectViewAsset;
     }
 }

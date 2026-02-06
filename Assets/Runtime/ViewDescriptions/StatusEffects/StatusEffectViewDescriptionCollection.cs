@@ -9,6 +9,7 @@ namespace Runtime.ViewDescriptions.StatusEffects
     public class StatusEffectViewDescriptionCollection : ScriptableObject
     {
         public AssetReferenceT<VisualTreeAsset> StatusEffectContainerAsset;
+        public AssetReferenceT<VisualTreeAsset> StatusEffectViewAsset;
         public IReadOnlyList<StatusEffectViewDescription> Descriptions => _descriptions;
 
         [SerializeField] private List<StatusEffectViewDescription> _descriptions;
