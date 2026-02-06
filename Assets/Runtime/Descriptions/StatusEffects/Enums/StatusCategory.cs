@@ -3,6 +3,7 @@
     public enum StatusCategory
     {
         DamageOverTime,
+        Control,
         Combat,
         Mental,
         Injury,
