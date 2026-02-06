@@ -82,19 +82,19 @@ namespace Runtime.Descriptions.Agents.Commands
 
         private Vector2Int GetNearestPoint(IWorldContext context, Vector2Int startPosition, Vector2Int endPosition)
         {
-            float minDistance = float.MaxValue;
+            var minDistance = float.MaxValue;
 
-            Vector2Int bestPosition = endPosition;
+            var bestPosition = endPosition;
             
-            for (int dx = -1; dx <= 1; dx++)
+            for (var dx = -1; dx <= 1; dx++)
             {
-                for (int dy = -1; dy <= 1; dy++)
+                for (var dy = -1; dy <= 1; dy++)
                 {
-                    Vector2Int candidate = new Vector2Int(endPosition.x + dx, endPosition.y + dy);
+                    var candidate = new Vector2Int(endPosition.x + dx, endPosition.y + dy);
             
                     if (context.GridModel.CanPlace(candidate))
                     {
-                        float distance = Vector2Int.Distance(startPosition, candidate);
+                        var distance = Vector2Int.Distance(startPosition, candidate);
                         if (distance < minDistance)
                         {
                             minDistance = distance;

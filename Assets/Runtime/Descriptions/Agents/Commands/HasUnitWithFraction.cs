@@ -38,7 +38,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 var dx = unit.Position.Value.x - center.x;
                 var dy =  unit.Position.Value.y - center.y;
                 
-                int distanceSquared = dx * dx + dy * dy;
+                var distanceSquared = dx * dx + dy * dy;
 
                 if (distanceSquared <= radius * radius)
                 {

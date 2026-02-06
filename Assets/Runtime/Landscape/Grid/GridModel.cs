@@ -11,8 +11,8 @@ namespace Runtime.Landscape.Grid
 
         public GridModel(WorldDescription worldDescription)
         {
-            int[,] surfaceMatrix = worldDescription.SurfaceGenerationDescription.Generate();
-            int[,] environmentMatrix = worldDescription.EnvironmentGenerationDescription.Generate(surfaceMatrix);
+            var surfaceMatrix = worldDescription.SurfaceGenerationDescription.Generate();
+            var environmentMatrix = worldDescription.EnvironmentGenerationDescription.Generate(surfaceMatrix);
 
             Cells = new CellModel[GridConstants.Width, GridConstants.Height];
 
