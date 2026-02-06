@@ -33,6 +33,7 @@ namespace Runtime.StatusEffects
             await _loadModel.LoadAwaiter;
             _view.Icon.sprite = _loadModel.Result;
             _model.RemainingTurns.Subscribe(HandleRemainingTurnsChanged).AddTo(_disposables);
+            _model.CurrentStacks.Subscribe(HandleStacksChanged).AddTo(_disposables);
         }
 
         public void Disable()
@@ -45,8 +46,13 @@ namespace Runtime.StatusEffects
         {
             if (_model.Description.Duration.Type == DurationType.TurnBased)
             {
-                _view.Counter.text = remainingTurns.ToString();
+                _view.TurnsCounter.text = remainingTurns.ToString();
             }
+        }
+        
+        private void HandleStacksChanged(int stacks)
+        {
+            _view.StackCounter.text = stacks + "X";
         }
     }
 }
