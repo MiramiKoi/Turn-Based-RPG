@@ -13,7 +13,7 @@
     },
     "modifiers": {
       "change_stat": {
-        "type": "WhileActive",
+        "type": "while_active",
         "amount": -4,
         "stat": "health"
       }
@@ -38,7 +38,7 @@
     },
     "modifiers": {
       "change_stat": {
-        "type": "WhileActive",
+        "type": "while_active",
         "stat": "health",
         "amount": -3
       }
@@ -60,7 +60,7 @@
     },
     "modifiers": {
       "change_stat": {
-        "type": "WhileActive",
+        "type": "while_active",
         "stat": "health",
         "amount": -6
       }
@@ -82,7 +82,7 @@
     },
     "modifiers": {
       "disable_actions": {
-        "type": "Immediate",
+        "type": "immediate",
         "action_type": "all"
       }
     },
