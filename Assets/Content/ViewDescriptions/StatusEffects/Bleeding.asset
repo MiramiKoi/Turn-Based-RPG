@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c15486b519e28fc4fa3b949ee528ae96, type: 3}
   m_Name: bleeding
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.StatusEffects.StatusEffectViewDescription
-  Icon:
-    m_AssetGUID: df737b3eea0d34140a2db70bbba4727a
-    m_SubObjectName: cloth2
+  Icons:
+    m_AssetGUID: 080cb6d98b00c2645b2c41df5f69bc78
+    m_SubObjectName: Bleeding
     m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 

@@ -8,7 +8,7 @@ namespace Runtime.ViewDescriptions.StatusEffects
     public class StatusEffectViewDescription : ScriptableObject
     {
         public string Id => name;
-        public AssetReferenceT<Sprite> Icon;
+        public AssetReferenceSprite Icons;
         public AssetReferenceT<VisualTreeAsset> StatusEffectViewAsset;
     }
 }

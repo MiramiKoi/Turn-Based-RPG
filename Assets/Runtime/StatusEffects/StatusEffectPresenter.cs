@@ -28,7 +28,8 @@ namespace Runtime.StatusEffects
 
         public async void Enable()
         {
-            _loadModel = _world.AddressableModel.Load<Sprite>(_viewDescription.Icon.AssetGUID);
+            var key = $"{_viewDescription.Icons.AssetGUID}[{_viewDescription.Icons.SubObjectName}]";
+            _loadModel = _world.AddressableModel.Load<Sprite>(key);
             await _loadModel.LoadAwaiter;
             _view.Icon.sprite = _loadModel.Result;
             _model.RemainingTurns.Subscribe(HandleRemainingTurnsChanged).AddTo(_disposables);
