@@ -92,7 +92,7 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
 
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions, _uiContent);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
 
             var playerModel = new PlayerModel(unitModel, _world.GridModel);
             var playerPresenter = new PlayerPresenter(playerModel, _world);
@@ -116,7 +116,7 @@ namespace Runtime.Core
 
             var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions, _uiContent);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
             
             unitPresenter.Enable();
             agentPresenter.Enable();

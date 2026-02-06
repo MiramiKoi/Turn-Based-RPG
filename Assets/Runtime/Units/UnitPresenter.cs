@@ -6,7 +6,6 @@ using Runtime.Core;
 using Runtime.Stats;
 using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
-using Runtime.UI;
 using Runtime.ViewDescriptions;
 using UniRx;
 using UnityEngine;
@@ -27,19 +26,16 @@ namespace Runtime.Units
         private readonly UnitView _view;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
-        private readonly UIContent _uiContent;
         private StatusEffectCollectionPresenter _statusEffectsPresenter;
-        private StatusEffectCollectionView _statusEffectsView;
         
         private LoadModel<VisualTreeAsset> _statusEffectsLoadModel;
 
-        public UnitPresenter(UnitModel unit, UnitView view, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public UnitPresenter(UnitModel unit, UnitView view, World world, WorldViewDescriptions viewDescriptions)
         {
             _unit = unit;
             _view = view;
             _world = world;
             _viewDescriptions = viewDescriptions;
-            _uiContent = uiContent;
         }
         
         public async void Enable()
@@ -59,8 +55,7 @@ namespace Runtime.Units
 
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions.StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
-            _statusEffectsView = new StatusEffectCollectionView(_statusEffectsLoadModel.Result);
-            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit.ActiveEffects, _statusEffectsView, _unit, _world, _viewDescriptions, _uiContent);
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit.ActiveEffects, _unit, _world);
             _statusEffectsPresenter.Enable();
         }
 
@@ -72,7 +67,6 @@ namespace Runtime.Units
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
             _statusEffectsPresenter.Disable();
-            _statusEffectsView = null;
             _statusEffectsPresenter = null;
         }
         

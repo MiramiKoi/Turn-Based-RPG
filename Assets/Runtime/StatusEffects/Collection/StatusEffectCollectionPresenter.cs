@@ -1,74 +1,52 @@
 using System.Collections.Generic;
-using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.UI;
 using Runtime.Units;
-using Runtime.ViewDescriptions;
-using UnityEngine.UIElements;
 
 namespace Runtime.StatusEffects.Collection
 {
     public class StatusEffectCollectionPresenter : IPresenter
     {
         private readonly StatusEffectModelCollection _collection;
-        private readonly StatusEffectCollectionView _view;
         private readonly UnitModel _unit;
         private readonly World _world;
-        private readonly WorldViewDescriptions _viewDescriptions;
-        private readonly UIContent _uiContent;
 
-        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
-        private readonly Dictionary<string, StatusEffectView> _views = new();
-        private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
+        private readonly Dictionary<string, StatusEffectSystem> _systems = new();
 
-        public StatusEffectCollectionPresenter(StatusEffectModelCollection collection, StatusEffectCollectionView view,
-            UnitModel unit, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public StatusEffectCollectionPresenter(StatusEffectModelCollection collection,
+            UnitModel unit, World world)
         {
             _collection = collection;
-            _view = view;
             _unit = unit;
             _world = world;
-            _viewDescriptions = viewDescriptions;
-            _uiContent = uiContent;
         }
 
         public void Enable()
         {
-            _uiContent.GameplayContent.Add(_view.Root);
             _world.TurnBaseModel.OnWorldStepFinished += Tick;
             _collection.OnAdded += HandleAdded;
             _collection.OnRemoved += HandleRemoved;
 
             foreach (var model in _collection.Models.Values)
             {
-                AddPresenter(model);
+                AddSystem(model);
             }
         }
 
         public void Disable()
         {
-            _uiContent.GameplayContent.Remove(_view.Root);
             _world.TurnBaseModel.OnWorldStepFinished -= Tick;
             _collection.OnAdded -= HandleAdded;
             _collection.OnRemoved -= HandleRemoved;
 
-            var ids = new List<string>(_loadModels.Keys);
-            foreach (var id in ids)
-            {
-                RemovePresenter(id);
-            }
-
-            _presenters.Clear();
-            _views.Clear();
-            _loadModels.Clear();
+            _systems.Clear();
         }
 
         private void Tick()
         {
             var expired = new List<StatusEffectModel>();
 
-            foreach (var pair in _presenters)
+            foreach (var pair in _systems)
             {
                 pair.Value.Tick();
 
@@ -82,48 +60,21 @@ namespace Runtime.StatusEffects.Collection
             }
         }
 
-        private async void AddPresenter(StatusEffectModel model)
+        private void AddSystem(StatusEffectModel model)
         {
             var id = model.Id;
-
-            var viewDescription = _viewDescriptions.StatusEffectViewDescriptions.Get(model.Description.ViewId);
-
-            var loadModel = _world.AddressableModel.Load<VisualTreeAsset>(
-                viewDescription.StatusEffectViewAsset.AssetGUID);
-
-            _loadModels[id] = loadModel;
-
-            await loadModel.LoadAwaiter;
-
-            var view = new StatusEffectView(loadModel.Result);
-            _views[id] = view;
-            _view.Root.Add(view.Root);
-
-            var presenter = new StatusEffectPresenter(model, view, _unit, _world, viewDescription);
-            _presenters[id] = presenter;
-            presenter.Enable();
-        }
-
-        private void RemovePresenter(string id)
-        {
-            _presenters[id].Disable();
-            _presenters.Remove(id);
-
-            _views[id].Root.RemoveFromHierarchy();
-            _views.Remove(id);
-
-            _world.AddressableModel.Unload(_loadModels[id]);
-            _loadModels.Remove(id);
+            var presenter = new StatusEffectSystem(model, _unit, _world);
+            _systems[id] = presenter;
         }
 
         private void HandleAdded(StatusEffectModel model)
         {
-            AddPresenter(model);
+            AddSystem(model);
         }
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            RemovePresenter(model.Id);
+            _systems.Remove(model.Id);
         }
     }
 }
