@@ -1,4 +1,4 @@
-using Runtime.Common;
+using System.Linq;
 using Runtime.Core;
 using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
@@ -24,7 +24,7 @@ namespace Runtime.StatusEffects
         {
             if (CanApply())
             {
-                foreach (var modifier in _model.Description.Modifiers)
+                foreach (var modifier in _model.Description.Modifiers.Where(modifier => modifier.Type == ModifierExecutionTime.WhileActive))
                 {
                     modifier.Tick(_unit, _world);
                 }

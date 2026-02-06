@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
 
 namespace Runtime.StatusEffects.Collection
@@ -58,6 +60,8 @@ namespace Runtime.StatusEffects.Collection
             {
                 _collection.Remove(model.Id);
             }
+            
+            _unit.ResetActionDisables();
         }
 
         private void AddSystem(StatusEffectModel model)
@@ -65,6 +69,12 @@ namespace Runtime.StatusEffects.Collection
             var id = model.Id;
             var presenter = new StatusEffectSystem(model, _unit, _world);
             _systems[id] = presenter;
+
+            var immediateModifiers = model.Description.Modifiers.Where(modifier => modifier.Type == ModifierExecutionTime.Immediate);
+            foreach (var modifier in immediateModifiers)
+            {
+                modifier.Tick(_unit, _world);
+            }
         }
 
         private void HandleAdded(StatusEffectModel model)

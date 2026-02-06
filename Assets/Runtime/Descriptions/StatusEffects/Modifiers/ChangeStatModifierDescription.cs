@@ -10,7 +10,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
         private int Amount { get; }
         private string Stat { get; }
 
-        public ChangeStatModifierDescription(Dictionary<string, object> data)
+        public ChangeStatModifierDescription(Dictionary<string, object> data) : base(data)
         {
             Amount = data.GetInt("amount");
             Stat = data.GetString("stat");
