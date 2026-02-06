@@ -65,14 +65,11 @@ namespace Runtime.Player
                 DrawRoute(_movementQueueModel.Steps);
             }
             
-            if (_movementQueueModel.TryDequeue(out var nextCell) && _grid.CanPlace(nextCell))
+            if (_movementQueueModel.TryDequeue(out var nextCell) && _grid.CanPlace(nextCell) && _model.CanMove())
             {
-                if (_grid.CanPlace(nextCell) && _model.CanMove())
-                {
-                    _grid.ReleaseCell(_model.Position.Value);
-                    _grid.TryPlace(_model, nextCell);
-                    _model.MoveTo(nextCell);
-                }
+                _grid.ReleaseCell(_model.Position.Value);
+                _grid.TryPlace(_model, nextCell);
+                _model.MoveTo(nextCell);
             }
             else
             {
