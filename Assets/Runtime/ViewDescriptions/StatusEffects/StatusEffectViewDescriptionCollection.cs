@@ -8,10 +8,10 @@ namespace Runtime.ViewDescriptions.StatusEffects
     [CreateAssetMenu(fileName = "StatusEffectViewDescriptionCollection", menuName = "ViewDescription/StatusEffects/StatusEffect Collection")]
     public class StatusEffectViewDescriptionCollection : ScriptableObject
     {
-        [SerializeField] private List<StatusEffectViewDescription> _descriptions;
-        [SerializeField] private AssetReferenceT<VisualTreeAsset> _statusEffectContainerAsset;
-
+        public AssetReferenceT<VisualTreeAsset> StatusEffectContainerAsset;
         public IReadOnlyList<StatusEffectViewDescription> Descriptions => _descriptions;
+
+        [SerializeField] private List<StatusEffectViewDescription> _descriptions;
 
         public StatusEffectViewDescription Get(string id)
         {
