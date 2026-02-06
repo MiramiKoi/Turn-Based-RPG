@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.UI;
@@ -16,9 +17,13 @@ namespace Runtime.StatusEffects.Collection
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
-        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
-        public StatusEffectCollectionPresenter(StatusEffectModelCollection collection, StatusEffectCollectionView view, UnitModel unit, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
+        private readonly Dictionary<string, StatusEffectView> _views = new();
+        private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
+
+        public StatusEffectCollectionPresenter(StatusEffectModelCollection collection, StatusEffectCollectionView view,
+            UnitModel unit, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
         {
             _collection = collection;
             _view = view;
@@ -48,12 +53,15 @@ namespace Runtime.StatusEffects.Collection
             _collection.OnAdded -= HandleAdded;
             _collection.OnRemoved -= HandleRemoved;
 
-            foreach (var presenter in _presenters.Values)
+            var ids = new List<string>(_loadModels.Keys);
+            foreach (var id in ids)
             {
-                presenter.Disable();
+                RemovePresenter(id);
             }
 
             _presenters.Clear();
+            _views.Clear();
+            _loadModels.Clear();
         }
 
         private void Tick()
@@ -76,16 +84,36 @@ namespace Runtime.StatusEffects.Collection
 
         private async void AddPresenter(StatusEffectModel model)
         {
+            var id = model.Id;
+
             var viewDescription = _viewDescriptions.StatusEffectViewDescriptions.Get(model.Description.ViewId);
-            var loadModel = _world.AddressableModel.Load<VisualTreeAsset>(viewDescription.StatusEffectViewAsset.AssetGUID);
+
+            var loadModel = _world.AddressableModel.Load<VisualTreeAsset>(
+                viewDescription.StatusEffectViewAsset.AssetGUID);
+
+            _loadModels[id] = loadModel;
+
             await loadModel.LoadAwaiter;
-            
+
             var view = new StatusEffectView(loadModel.Result);
+            _views[id] = view;
             _view.Root.Add(view.Root);
-            
+
             var presenter = new StatusEffectPresenter(model, view, _unit, _world, viewDescription);
+            _presenters[id] = presenter;
             presenter.Enable();
-            _presenters.Add(model.Id, presenter);
+        }
+
+        private void RemovePresenter(string id)
+        {
+            _presenters[id].Disable();
+            _presenters.Remove(id);
+
+            _views[id].Root.RemoveFromHierarchy();
+            _views.Remove(id);
+
+            _world.AddressableModel.Unload(_loadModels[id]);
+            _loadModels.Remove(id);
         }
 
         private void HandleAdded(StatusEffectModel model)
@@ -95,7 +123,7 @@ namespace Runtime.StatusEffects.Collection
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            _presenters.Remove(model.Id);
+            RemovePresenter(model.Id);
         }
     }
 }
