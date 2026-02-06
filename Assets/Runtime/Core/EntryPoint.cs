@@ -121,12 +121,15 @@ namespace Runtime.Core
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _addressableModel.Unload(loadModel);
 
-            var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
+            //var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
+
+            var agentModel = new AgentModel(unitModel, _worldDescription.AgentDecisionDescription, _world);
+            _world.AgentCollection.Add(unitModel.Id, agentModel);
             
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
             
             unitPresenter.Enable();
-            agentPresenter.Enable();
+            //agentPresenter.Enable();
         }
     }
 }
