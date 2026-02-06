@@ -46,6 +46,8 @@ namespace Runtime.StatusEffects.Collection
 
         private void Tick()
         {
+            _unit.ResetActionDisables();
+            
             var expired = new List<StatusEffectModel>();
 
             foreach (var pair in _systems)
@@ -60,8 +62,6 @@ namespace Runtime.StatusEffects.Collection
             {
                 _collection.Remove(model.Id);
             }
-            
-            _unit.ResetActionDisables();
         }
 
         private void AddSystem(StatusEffectModel model)
@@ -70,7 +70,8 @@ namespace Runtime.StatusEffects.Collection
             var presenter = new StatusEffectSystem(model, _unit, _world);
             _systems[id] = presenter;
 
-            var immediateModifiers = model.Description.Modifiers.Where(modifier => modifier.Type == ModifierExecutionTime.Immediate);
+            var immediateModifiers = model.Description.Modifiers.Where(modifier =>
+                modifier.Type is ModifierExecutionTime.Immediate or ModifierExecutionTime.ImmediateWhileActive);
             foreach (var modifier in immediateModifiers)
             {
                 modifier.Tick(_unit, _world);

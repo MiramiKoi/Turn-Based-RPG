@@ -3,6 +3,7 @@
     public enum ModifierExecutionTime
     {
         Immediate,
-        WhileActive
+        WhileActive,
+        ImmediateWhileActive
     }
 }

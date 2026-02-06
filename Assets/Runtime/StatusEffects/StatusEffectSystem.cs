@@ -8,11 +8,11 @@ namespace Runtime.StatusEffects
     public class StatusEffectSystem
     {
         public bool IsExpired => _model.IsExpired;
-        
+
         private readonly StatusEffectModel _model;
         private readonly UnitModel _unit;
         private readonly World _world;
-        
+
         public StatusEffectSystem(StatusEffectModel model, UnitModel unit, World world)
         {
             _model = model;
@@ -24,13 +24,23 @@ namespace Runtime.StatusEffects
         {
             if (CanApply())
             {
-                foreach (var modifier in _model.Description.Modifiers.Where(modifier => modifier.Type == ModifierExecutionTime.WhileActive))
+                foreach (var modifier in _model.Description.Modifiers.Where(modifier =>
+                             modifier.Type is ModifierExecutionTime.WhileActive))
                 {
                     modifier.Tick(_unit, _world);
                 }
-
+                
                 if (_model.Description.Duration.Type == DurationType.TurnBased)
                     _model.DecrementRemainingTurns();
+                
+                foreach (var modifier in _model.Description.Modifiers.Where(modifier =>
+                    modifier.Type is ModifierExecutionTime.ImmediateWhileActive))
+                {
+                    if (!IsExpired)
+                    {
+                        modifier.Tick(_unit, _world);
+                    }
+                }
             }
         }
 
