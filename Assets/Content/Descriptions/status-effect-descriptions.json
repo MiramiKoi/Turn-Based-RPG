@@ -13,6 +13,7 @@
     },
     "modifiers": {
       "change_stat": {
+        "type": "WhileActive",
         "amount": -4,
         "stat": "health"
       }
@@ -37,6 +38,7 @@
     },
     "modifiers": {
       "change_stat": {
+        "type": "WhileActive",
         "stat": "health",
         "amount": -3
       }
@@ -58,11 +60,33 @@
     },
     "modifiers": {
       "change_stat": {
+        "type": "WhileActive",
         "stat": "health",
         "amount": -6
       }
     },
     "constraints": {},
     "flags": ["fire", "dot"]
+  },
+  "stun": {
+    "category": "control",
+    "polarity": "debuff",
+    "view_id": "stun",
+    "stacking": {
+      "mode": "refresh",
+      "max_stacks": 1
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 1
+    },
+    "modifiers": {
+      "disable_actions": {
+        "type": "Immediate",
+        "action_type": "all"
+      }
+    },
+    "constraints": {},
+    "flags": ["control"]
   }
 }
