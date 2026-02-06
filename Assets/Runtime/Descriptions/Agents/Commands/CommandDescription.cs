@@ -28,8 +28,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public static CommandDescription CreateCommand(string type)
         {
-            Debug.Log(type);
-            
             CommandDescription command = type switch
             {
                 "log" => new LogCommand(),

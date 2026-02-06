@@ -47,13 +47,9 @@ namespace Editor.Agents.Utilities
                     .OfType<AgentBaseNodeView>()
                     .First(nv => nv.Data == childWrapper);
 
-                wrapper.AddChild(childWrapper); 
-
                 var edge = nodeView.OutputPort.ConnectTo(childView.InputPort);
                 _graphView.AddElement(edge);
             }
-
-            wrapper.SortChildrenByPositionX();
         }
     }
 }

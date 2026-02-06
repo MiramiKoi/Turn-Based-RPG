@@ -25,11 +25,6 @@ namespace Runtime.Descriptions.Agents.Nodes
 
                 if (status == NodeStatus.Success)
                 {
-                    if (child is AgentLeaf leaf)
-                    {
-                        Debug.Log(leaf.CommandDescription.Type);
-                    }
-                    
                     return NodeStatus.Success;
                 }
             }
