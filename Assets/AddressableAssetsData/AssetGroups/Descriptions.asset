@@ -45,6 +45,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a758673cdfe46444680444e75ba83420
+    m_Address: bear-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9f6c1ad1b6c495b8ac3171f63d01825
+    m_Address: items-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4b5218ab3e14d94882eb9d072e47b80
     m_Address: behavior-tree1
     m_ReadOnly: 0

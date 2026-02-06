@@ -18,9 +18,11 @@ namespace Runtime.LoadSteps
             { "camera_control", "camera-control-description" },
             { "surface_generation", "surface-generation-description" },
             { "surfaces", "surface-description" },
+            { "units", "unit-description" },
+            { "items", "items-description" },
+            { "bear", "bear-description" },
             { "environment_generation", "environment-generation-description" },
-            { "environment", "environment-description" },
-            { "units", "unit-description" }
+            { "environment", "environment-description" }
         };
 
         public DescriptionsLoadStep(WorldDescription worldDescription, AddressableModel addressableModel)

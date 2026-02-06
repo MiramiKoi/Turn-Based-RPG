@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Runtime.Agents.Nodes;
+using Editor.Agents.Nodes;
+using Runtime.Descriptions.Agents.Nodes;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -27,13 +28,29 @@ namespace Editor.Agents
             return ports.ToList();
         }
 
+        public AgentBaseNodeView AddAgentNode(AgentNodeEditorWrapper wrapper)
+        {
+            AgentBaseNodeView agentNodeView = wrapper.Node switch
+            {
+                AgentSequence agentSequence => new AgentSequenceView(wrapper),
+                AgentSelector agentSelector => new AgentSelectorView(wrapper),
+                AgentDecisionDescription agentBehaviorTree => new AgentDecisionNodeView(wrapper),
+                AgentLeaf agentLeaf => new AgentLeafView(wrapper),
+                _ => throw new SystemException()
+            };
+            
+            AddElement(agentNodeView);
+            
+            return agentNodeView;
+        }
+        
         public AgentBaseNodeView AddAgentNode(AgentNode data)
         {
             AgentBaseNodeView agentNodeView = data switch
             {
                 AgentSequence agentSequence => new AgentSequenceView(agentSequence),
                 AgentSelector agentSelector => new AgentSelectorView(agentSelector),
-                AgentDecisionRoot agentBehaviorTree => new AgentDecisionNodeView(agentBehaviorTree),
+                AgentDecisionDescription agentBehaviorTree => new AgentDecisionNodeView(agentBehaviorTree),
                 AgentLeaf agentLeaf => new AgentLeafView(agentLeaf),
                 _ => throw new SystemException()
             };

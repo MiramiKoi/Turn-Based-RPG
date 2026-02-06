@@ -1,20 +1,24 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Editor.Agents;
 using fastJSON;
 using Runtime.Agents;
-using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
+using Runtime.Items;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
+using Runtime.TurnBase;
+using Runtime.UI;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Runtime.Core
 {
@@ -22,6 +26,7 @@ namespace Runtime.Core
     {
         [SerializeField] private CameraControlView _cameraControlView;
         [SerializeField] private GridView _gridView;
+        [SerializeField] private UIDocument _gameplayDocument;
         
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
@@ -30,6 +35,9 @@ namespace Runtime.Core
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
+        private UIController _uiController;
+        private UIContent _uiContent; 
+            
         private PlayerControls _playerControls;
         
         private async void Start()
@@ -42,9 +50,9 @@ namespace Runtime.Core
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
+                new UnitsLoadStep(_world),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world)
             };
 
@@ -54,7 +62,21 @@ namespace Runtime.Core
             }
             
             await CreateControllableUnit();
-            await CreateUnit();
+            await CreateUnit("bear_0");
+            await CreateUnit("bear_1");
+
+            _world.TurnBaseModel.Steps.Clear();
+            var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
+            turnBasePresenter.Enable();
+            
+            _uiContent = new UIContent(_gameplayDocument);
+            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
+            _uiController.Enable();
+            
+            //TODO: Putting item test
+            var itemFactory = new ItemFactory(_world.WorldDescription.ItemCollection);
+            _world.InventoryModel.TryPutItem(itemFactory.Create("bear_meat").Description, 14);
+            _world.InventoryModel.TryPutItem(itemFactory.Create("bear_fur").Description, 28);
         }
         
         private void Update()
@@ -64,14 +86,7 @@ namespace Runtime.Core
 
         private async Task CreateControllableUnit()
         {
-            var unitDescription = _worldDescription.UnitCollection.First();
-            
-            var unitModel = new UnitModel
-            (
-                "unit_0", 
-                unitDescription, 
-                new Vector2Int(51, 49)
-            );
+            var unitModel = _world.UnitCollection.Get("character");
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
@@ -81,21 +96,19 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
             
-            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
+
+            var playerModel = new PlayerModel(unitModel, _world.GridModel);
+            var playerPresenter = new PlayerPresenter(playerModel, _world);
+            
+            unitPresenter.Enable();
             playerPresenter.Enable();
         }
         
         
-        private async Task CreateUnit()
+        private async Task CreateUnit(string id)
         {
-            var unitDescription = _worldDescription.UnitCollection.Last();
-            
-            var unitModel = new UnitModel
-            (
-                "bear", 
-                unitDescription, 
-                new Vector2Int(51, 50)
-            );
+            var unitModel = _world.UnitCollection.Get(id);
             
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
@@ -103,26 +116,13 @@ namespace Runtime.Core
             var unitPrefab = loadModel.Result;
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _addressableModel.Unload(loadModel);
-            
-            var dictionary = JSON.ToObject<Dictionary<string, object>>(Resources.Load<TextAsset>("unit").text);
 
-            var decisionRoot = new AgentDecisionRoot();
+            var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
             
-            decisionRoot.Deserialize(dictionary);
-            
-            var playerPresenter = new AgentPresenter(unitModel, decisionRoot, _world);
-
-            var unitPresenter = new UnitPresenter(unitModel, unitView);
-            
-            unitModel.RegisterCommand("move_right", new MoveCommand(Vector2Int.right));
-            unitModel.RegisterCommand("move_left", new MoveCommand(Vector2Int.left));
-            unitModel.RegisterCommand("set_false_flag", new SetFlagCommand(false, "flag"));
-            unitModel.RegisterCommand("set_true_flag", new SetFlagCommand(true, "flag"));
-            unitModel.RegisterCommand("has_flag", new HasFlagCommand("flag"));
-            
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
             
             unitPresenter.Enable();
-            playerPresenter.Enable();
+            agentPresenter.Enable();
         }
     }
 }

@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Runtime.Agents.Nodes;
 using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
 using UniRx;
@@ -11,6 +12,9 @@ namespace Runtime.Units
 {
     public class UnitModel : IUnit, IControllable
     {
+        public event Action OnAttacked;
+        public event Action OnDamaging;
+        
         public UnitDescription Description { get; }
         
         private readonly ReactiveProperty<Vector2Int> _position = new ();
@@ -21,20 +25,21 @@ namespace Runtime.Units
         
         public StatModelCollection Stats { get; }
 
-        public IReadOnlyDictionary<string, IUnitCommand> Commands => _commands;
         public IReadOnlyDictionary<string, bool> Flags => _flags;
+        public IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; private set; }
 
         public string Id { get; }
 
-        public int Health => Stats["health"];
+        public int Health => (int)Stats["health"].Value;
+        
+        public bool IsDead => (int)Stats["health"].Value <= 0;
 
         public CustomAwaiter Awaiter { get; private set; }
 
-        private Dictionary<string, IUnitCommand> _commands = new();
+        private readonly Dictionary<string, bool> _flags = new();
 
-        private Dictionary<string, bool> _flags = new();
-
-
+        private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
+                
         public UnitModel(string id, UnitDescription description, Vector2Int position)
         {
             Description = description;
@@ -44,21 +49,16 @@ namespace Runtime.Units
             MoveTo(position);
         }
 
-        public void RegisterCommand(string key, IUnitCommand command)
-        {
-            _commands[key] = command;
-        }
-
         public void MoveTo(Vector2Int position)
         {
+            Awaiter = new CustomAwaiter();
+            
             var current = Position.Value;
          
             if (position.x != current.x)
                 Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
             
             _position.Value =  position;
-
-            Awaiter = new CustomAwaiter();
         }
 
         public void SetFlag(string key, bool value)
@@ -66,9 +66,50 @@ namespace Runtime.Units
             _flags[key] = value;
         }
 
+        public void SetPointOfInterest(string key, Vector2Int value)
+        {
+            _pointOfInterest[key] = value;
+        }
+
+        public Vector2Int GetPointOfInterest(string key)
+        {
+            return _pointOfInterest[key];
+        }
+
         public void Rotate(UnitDirection direction)
         {
             _direction.Value = direction;
+        }
+        
+        public float GetDamage()
+        {
+            Awaiter = new CustomAwaiter();
+            OnAttacked?.Invoke();
+            
+            return Stats["attack_damage"].Value;
+        }
+
+        public bool CanAttack(Vector2Int position)
+        { 
+            var current = Position.Value;
+            if (position.x != current.x)
+                Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
+            
+            return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
+                   Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            Awaiter = new CustomAwaiter();
+            OnDamaging?.Invoke();
+            
+            Stats["health"].ChangeValue(-damage);
+        }
+
+        public void Await()
+        {
+            Awaiter = new CustomAwaiter();
         }
     }
 }

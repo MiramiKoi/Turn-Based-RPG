@@ -1,0 +1,211 @@
+using System;
+using System.Collections.Generic;
+using Runtime.Descriptions.Agents.Commands;
+using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Descriptions.Units;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace Editor.Agents.Nodes
+{
+    public class AgentLeafView : AgentBaseNodeView
+    {
+        private AgentLeaf LeafData => Data.Node as AgentLeaf;
+        
+        private DropdownField _commandDropdownField;
+
+        private Dictionary<string, object> _currentParameters;
+        
+        private VisualElement _parametersContainer;
+        
+        public AgentLeafView(AgentNodeEditorWrapper wrapper) : base(wrapper)
+        {
+            
+        }
+        
+        public AgentLeafView(AgentLeaf data) : base(data)
+        {
+
+        }
+
+        protected override void Setup()
+        {
+            base.Setup();
+            
+            outputContainer.Clear();
+
+            _commandDropdownField = new DropdownField()
+            {
+                label = "command",
+                choices =
+                {
+                    "log",
+                    "set_flag",
+                    "has_flag",
+                    "has_point_of_interest",
+                    "set_random_point_of_interest",
+                    "distance_point_of_interest",
+                    "move_to_point_of_interest",
+                    "has_unit_with_fraction",
+                    "set_point_of_interest_with_fraction"
+                },
+                value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
+            };
+            
+            _commandDropdownField.RegisterValueChangedCallback(OnChangeCommand);
+            
+            _parametersContainer = new VisualElement();
+            
+            outputContainer.Add(_commandDropdownField);
+            
+            outputContainer.Add(_parametersContainer);
+
+            if (LeafData.CommandDescription == null)
+            {
+                SetupNewCommand(_commandDropdownField.value);
+            }
+            else
+            {
+                SetupCommand(LeafData.CommandDescription);
+            }
+        }
+
+        private void OnChangeCommand(ChangeEvent<string> evt)
+        {
+            SetupNewCommand(evt.newValue);
+        }
+
+        private void SetupCommand(CommandDescription command)
+        {
+            SetupFields(command);
+        }
+        
+        private void SetupNewCommand(string command)
+        {
+            switch (command)
+            {
+                case "log":
+                    SetupFields<LogCommand>();
+                    break;
+                case "set_flag":
+                    SetupFields<SetFlagCommand>();
+                    break;
+                case "has_flag":
+                    SetupFields<HasFlagCommand>();
+                    break;
+                case  "has_point_of_interest":
+                    SetupFields<HasPointOfInterestCommand>();
+                    break;
+                case  "set_random_point_of_interest":
+                    SetupFields<SetRandomPointOfInterest>();
+                    break;
+                case "distance_point_of_interest":
+                    SetupFields<DistancePointOfInterest>();
+                    break;
+                case "move_to_point_of_interest":
+                    SetupFields<MoveToPointOfInterest>();
+                    break;
+                case "has_unit_with_fraction":
+                    SetupFields<HasUnitWithFraction>();
+                    break;
+                case "set_point_of_interest_with_fraction":
+                    SetupFields<SetPointOfInterestWithFraction>();
+                    break;
+            }
+        }
+
+        private void SetupFields<T>() where T : CommandDescription, new()
+        {
+            _parametersContainer.Clear();
+            
+            var command = new T();
+            
+            SetupFields(command);
+        }
+
+        private void SetupFields(CommandDescription command) 
+        {
+            _currentParameters = command.Serialize();
+
+            foreach (var parameter in _currentParameters)
+            {
+                if (parameter.Key == CommandDescription.TypeKey)
+                {
+                    continue;
+                }
+                
+                var field = parameter.Value switch
+                {
+                    int intValue => CreateIntField(parameter.Key, intValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    float floatValue => CreateFloatField(parameter.Key, floatValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    bool boolValue => CreateBoolField(parameter.Key, boolValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    string stringValue => CreateTextField(parameter.Key, stringValue, newValue => UpdateParameter(command, parameter.Key, newValue)),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                
+                
+                _parametersContainer.Add(field);
+            }
+            
+            LeafData.CommandDescription = command;
+        }
+
+        private void UpdateParameter<T>(T command, string key, object value) where T : CommandDescription
+        {
+            _currentParameters[key] = value;
+            command.Deserialize(_currentParameters);
+        }
+
+        private VisualElement CreateIntField(string title, int value, Action<int> callback)
+        {
+            var field = new IntegerField()
+            {
+                label = title,
+                value = value
+            };
+            
+            field.RegisterValueChangedCallback(e => callback(e.newValue));
+            
+            return field;
+        }
+        
+        private VisualElement CreateTextField(string title, string value, Action<string> callback)
+        {
+            var field = new TextField()
+            {
+                label = title,
+                value = value
+            };
+            
+            field.RegisterValueChangedCallback(evt => callback(evt.newValue));
+            
+            return field;
+        }
+        
+        private VisualElement CreateFloatField(string title, float value, Action<float> callback)
+        {
+            var field = new FloatField()
+            {
+                label = title,
+                value = value,
+            };
+
+            field.RegisterValueChangedCallback(evt => callback?.Invoke(evt.newValue));
+            
+            return field;
+        }
+
+        private VisualElement CreateBoolField(string title, bool value, Action<bool> callback)
+        {
+            var toggle = new Toggle()
+            {
+                label = title,
+                value = value
+            };
+
+            toggle.RegisterValueChangedCallback(evt => callback?.Invoke(evt.newValue));
+            
+            return toggle;
+        }
+    }
+}

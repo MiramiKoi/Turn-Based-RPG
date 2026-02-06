@@ -120,6 +120,15 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""c01a3cde-066f-4707-a2e2-40ad6f3bb4ef"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -153,6 +162,28 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""CameraControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb85b692-1406-4326-a1ea-3fa0c6dedad1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f76e50d1-7121-4ef9-8a3f-a160fec2c288"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -227,6 +258,7 @@ namespace Runtime.Input
             m_Gameplay_PointerPosition = m_Gameplay.FindAction("PointerPosition", throwIfNotFound: true);
             m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
             m_Gameplay_CameraControl = m_Gameplay.FindAction("CameraControl", throwIfNotFound: true);
+            m_Gameplay_ToggleInventory = m_Gameplay.FindAction("ToggleInventory", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -310,6 +342,7 @@ namespace Runtime.Input
         private readonly InputAction m_Gameplay_PointerPosition;
         private readonly InputAction m_Gameplay_Attack;
         private readonly InputAction m_Gameplay_CameraControl;
+        private readonly InputAction m_Gameplay_ToggleInventory;
         /// <summary>
         /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
@@ -333,6 +366,10 @@ namespace Runtime.Input
             /// Provides access to the underlying input action "Gameplay/CameraControl".
             /// </summary>
             public InputAction @CameraControl => m_Wrapper.m_Gameplay_CameraControl;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/ToggleInventory".
+            /// </summary>
+            public InputAction @ToggleInventory => m_Wrapper.m_Gameplay_ToggleInventory;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -368,6 +405,9 @@ namespace Runtime.Input
                 @CameraControl.started += instance.OnCameraControl;
                 @CameraControl.performed += instance.OnCameraControl;
                 @CameraControl.canceled += instance.OnCameraControl;
+                @ToggleInventory.started += instance.OnToggleInventory;
+                @ToggleInventory.performed += instance.OnToggleInventory;
+                @ToggleInventory.canceled += instance.OnToggleInventory;
             }
 
             /// <summary>
@@ -388,6 +428,9 @@ namespace Runtime.Input
                 @CameraControl.started -= instance.OnCameraControl;
                 @CameraControl.performed -= instance.OnCameraControl;
                 @CameraControl.canceled -= instance.OnCameraControl;
+                @ToggleInventory.started -= instance.OnToggleInventory;
+                @ToggleInventory.performed -= instance.OnToggleInventory;
+                @ToggleInventory.canceled -= instance.OnToggleInventory;
             }
 
             /// <summary>
@@ -514,6 +557,13 @@ namespace Runtime.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnCameraControl(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ToggleInventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnToggleInventory(InputAction.CallbackContext context);
         }
     }
 }
