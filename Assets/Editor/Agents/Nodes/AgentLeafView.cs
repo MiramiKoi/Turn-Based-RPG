@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Commands;
 using Runtime.Descriptions.Agents.Nodes;
-using Runtime.Descriptions.Units;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Agents.Nodes
