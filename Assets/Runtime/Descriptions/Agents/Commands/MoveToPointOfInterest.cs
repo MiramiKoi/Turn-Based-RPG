@@ -16,6 +16,11 @@ namespace Runtime.Descriptions.Agents.Commands
         {
             var targetPosition = controllable.GetPointOfInterest(PointOfInterest);
             var unit = controllable as UnitModel;
+
+            if (unit.IsDead)
+            {
+                return NodeStatus.Failure;
+            }
             
             if (context.GridModel.TryPlace(unit, targetPosition))
             {
