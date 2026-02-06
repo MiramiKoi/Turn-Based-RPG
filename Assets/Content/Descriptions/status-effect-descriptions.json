@@ -22,5 +22,26 @@
       "physical",
       "dot"
     ]
+  },
+  "poison": {
+    "category": "damage_over_time",
+    "polarity": "debuff",
+    "view_id": "poison",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 4
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 8
+    },
+    "modifiers": {
+      "change_stat": {
+        "stat": "health",
+        "amount": -3
+      }
+    },
+    "constraints": {},
+    "flags": ["poison", "dot"]
   }
 }
