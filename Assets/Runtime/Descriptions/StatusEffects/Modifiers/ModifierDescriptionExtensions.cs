@@ -4,7 +4,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
 {
     public static class ModifierDescriptionExtensions
     {
-        private const string ChangeStatKey = "change_stat";
+        private const string ModifyStatKey = "modify_stat";
         private const string DisableActionsKey = "disable_actions";
         private const string RandomizeActionKey = "randomize_action";
         
@@ -12,7 +12,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
         {
             return type switch
             {
-                ChangeStatKey => new ChangeStatModifierDescription(data),
+                ModifyStatKey => new ModifyStatModifierDescription(data),
                 DisableActionsKey => new DisableActionsModifierDescription(data),
                 RandomizeActionKey => new RandomizeActionModifierDescription(data),
                 _ =>  null
