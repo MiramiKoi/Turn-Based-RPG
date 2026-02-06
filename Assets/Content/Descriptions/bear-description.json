@@ -10,6 +10,70 @@
                   
                ],
                "command" : {
+                  "type" : "has_unit_with_fraction",
+                  "fraction" : "player",
+                  "use_visibility_radius" : true,
+                  "custom_visibility_radius" : 0
+               },
+               "_editor" : {
+                  "position" : [
+                     -666.6667,
+                     127.3333
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "command" : {
+                  "type" : "set_point_of_interest_with_fraction",
+                  "fraction" : "player",
+                  "use_visibility_radius" : true,
+                  "custom_visibility_radius" : 0,
+                  "point_of_interest" : "target"
+               },
+               "_editor" : {
+                  "position" : [
+                     -240.6667,
+                     224.6667
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "command" : {
+                  "type" : "move_to_point_of_interest",
+                  "point_of_interest" : "target"
+               },
+               "_editor" : {
+                  "position" : [
+                     306.6667,
+                     237.3333
+                  ]
+               }
+            }
+         ],
+         "_editor" : {
+            "position" : [
+               114.6667,
+               -92
+            ]
+         }
+      },
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "command" : {
                   "type" : "set_random_point_of_interest",
                   "point_of_interest" : "patrol",
                   "radius" : 2,
@@ -18,8 +82,8 @@
                },
                "_editor" : {
                   "position" : [
-                     -331.3333,
-                     66
+                     790,
+                     146.6667
                   ]
                }
             },
@@ -34,24 +98,24 @@
                },
                "_editor" : {
                   "position" : [
-                     62,
-                     117.3333
+                     1072,
+                     98.66666
                   ]
                }
             }
          ],
          "_editor" : {
             "position" : [
-               -28,
-               -102
+               801.3333,
+               -52.66666
             ]
          }
       }
    ],
    "_editor" : {
       "position" : [
-         77.33334,
-         -242
+         256,
+         -192.6667
       ]
    }
 }

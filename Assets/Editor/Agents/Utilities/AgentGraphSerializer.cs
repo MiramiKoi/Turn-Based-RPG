@@ -16,8 +16,10 @@ namespace Editor.Agents.Utilities
         
         public Dictionary<string, object> Serialize(AgentNodeEditorWrapper wrapper)
         {
+            wrapper.SortChildrenByPositionX();
+            
             var dict = wrapper.Node.Serialize();
-
+            
             dict[EditorKey] = new Dictionary<string, object>
             {
                 { PositionKey, wrapper.Position.ToList() }

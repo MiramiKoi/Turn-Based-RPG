@@ -3,16 +3,20 @@
     "stats": {
       "health": 100,
       "attack_damage": 10,
-      "attack_range": 1
+      "attack_range": 1,
+      "visibility_radius": 4
     },
+    "fraction": "player",
     "view_id": "Warrior"
   },
   "bear": {
     "stats": {
       "health": 20,
-      "attack_damage": 10,
-      "attack_range": 1
+      "attack_damage": 20,
+      "attack_range": 1,
+      "visibility_radius": 4
     },
+    "fraction": "animal",
     "view_id": "Bear"
   }
 }

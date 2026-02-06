@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -23,9 +24,7 @@ namespace Runtime.Descriptions.Agents.Commands
             };
         }
 
-        public virtual void Deserialize(Dictionary<string, object> data)
-        {
-        }
+        public abstract void Deserialize(Dictionary<string, object> data);
 
         public static CommandDescription CreateCommand(string type)
         {
@@ -38,6 +37,8 @@ namespace Runtime.Descriptions.Agents.Commands
                 "move_to_point_of_interest" => new MoveToPointOfInterest(),
                 "set_flag" => new SetFlagCommand(),
                 "set_random_point_of_interest" => new SetRandomPointOfInterest(),
+                "has_unit_with_fraction" => new HasUnitWithFraction(),
+                "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFraction(),
                 _ => throw new ArgumentOutOfRangeException()
             };
             

@@ -21,7 +21,7 @@ namespace Runtime.LoadSteps
             (
                 "character", 
                 _world.WorldDescription.UnitCollection.First(),
-                new Vector2Int(50, 49)
+                new Vector2Int(50, 70)
             );
             
             _world.GridModel.TryPlace(characterModel, characterModel.Position.Value);
@@ -31,7 +31,7 @@ namespace Runtime.LoadSteps
             (
                 "bear_0", 
                 _world.WorldDescription.UnitCollection.Last(), 
-                new Vector2Int(50, 50)
+                new Vector2Int(50, 60)
             );
             
             _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);

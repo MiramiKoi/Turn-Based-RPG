@@ -30,8 +30,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override void Deserialize(Dictionary<string, object> data)
         {
-            base.Deserialize(data);
-            
             PointOfInterest = data.GetString(PointOfInterestKey);
         }
     }
