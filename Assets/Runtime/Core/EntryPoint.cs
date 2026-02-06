@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Editor.Agents;
-using fastJSON;
-using Runtime.Agents;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
-using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
 using Runtime.Items;
 using Runtime.Landscape.Grid;
@@ -61,18 +58,18 @@ namespace Runtime.Core
                 await step.Run();
             }
 
+            _uiContent = new UIContent(_gameplayDocument);
+            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
+            _uiController.Enable();
+
             await CreateControllableUnit();
             await CreateUnit("bear_0");
             await CreateUnit("bear_1");
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
+
             turnBasePresenter.Enable();
-
-            _uiContent = new UIContent(_gameplayDocument);
-            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            _uiController.Enable();
-
             var itemFactory = new ItemFactory(_world.WorldDescription.ItemCollection);
             _world.InventoryModel.TryPutItem(itemFactory.Create("bear_meat").Description, 14);
             _world.InventoryModel.TryPutItem(itemFactory.Create("bear_fur").Description, 28);
@@ -95,7 +92,7 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModel);
 
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions, _uiContent);
 
             var playerModel = new PlayerModel(unitModel, _world.GridModel);
             var playerPresenter = new PlayerPresenter(playerModel, _world);
@@ -119,7 +116,7 @@ namespace Runtime.Core
 
             var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
             
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world);
+            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions, _uiContent);
             
             unitPresenter.Enable();
             agentPresenter.Enable();

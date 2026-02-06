@@ -16,6 +16,7 @@ namespace Runtime.Descriptions.StatusEffects
         private const string ConstraintsKey = "constraints";
         private const string FlagsKey = "flags";
 
+        public string ViewId { get; }
         public StatusCategory Category { get; }
         public Polarity Polarity { get; }
 
@@ -29,6 +30,8 @@ namespace Runtime.Descriptions.StatusEffects
 
         public StatusEffectDescription(string id, Dictionary<string, object> data) : base(id)
         {
+            ViewId = data.GetString("view_id");
+            
             Category = data.GetEnum<StatusCategory>(CategoryKey);
             Polarity = data.GetEnum<Polarity>(PolarityKey);
 
