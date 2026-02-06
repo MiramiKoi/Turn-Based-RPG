@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Runtime.Common.Movement;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -33,7 +31,6 @@ namespace Runtime.Descriptions.Agents.Commands
             var controllableUnit = controllable as UnitModel;
 
             UnitModel targetUnit = null;
-            float bestDistance = float.MaxValue;
             
             foreach (var unit in context.UnitCollection.Models.Values)
             {
@@ -47,7 +44,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 
                 var distanceSquared = dx * dx + dy * dy;
 
-                if (distanceSquared <= radius * radius && distanceSquared < bestDistance)
+                if (distanceSquared <= radius * radius)
                 {
                     targetUnit = unit;
                 }
@@ -58,13 +55,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 return NodeStatus.Failure;
             }
             
-            Vector2 toTargetVector = targetUnit.Position.Value - center;
-            
-            var direction = toTargetVector.normalized;
-            
-            Vector2Int closestPoint = Vector2Int.RoundToInt((center + direction * Mathf.Min(toTargetVector.magnitude, radius)));
-            
-            controllable.SetPointOfInterest(PointOfInterest, closestPoint);
+            controllable.SetPointOfInterest(PointOfInterest, GetNearestPoint(context, center, targetUnit.Position.Value));
             
             return NodeStatus.Success;
         }
@@ -87,6 +78,33 @@ namespace Runtime.Descriptions.Agents.Commands
             UseVisibilityRadius = data.GetBool(UseVisibilityRadiusKey);
             CustomVisibilityRadius = data.GetInt(CustomVisibilityRadiusKey);
             PointOfInterest = data.GetString(PointOfInterestKey);
+        }
+
+        private Vector2Int GetNearestPoint(IWorldContext context, Vector2Int startPosition, Vector2Int endPosition)
+        {
+            float minDistance = float.MaxValue;
+
+            Vector2Int bestPosition = endPosition;
+            
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    Vector2Int candidate = new Vector2Int(endPosition.x + dx, endPosition.y + dy);
+            
+                    if (context.GridModel.CanPlace(candidate))
+                    {
+                        float distance = Vector2Int.Distance(startPosition, candidate);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            bestPosition = candidate;
+                        }
+                    }
+                }
+            }
+            
+            return bestPosition;
         }
     }
 }
