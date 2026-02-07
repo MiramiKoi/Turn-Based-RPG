@@ -27,7 +27,7 @@ namespace UniRx.Operators
             public Distinct(DistinctObservable<T> parent, IObserver<T> observer, IDisposable cancel)
                 : base(observer, cancel)
             {
-                hashSet = parent.comparer == null
+                hashSet = (parent.comparer == null)
                     ? new HashSet<T>()
                     : new HashSet<T>(parent.comparer);
             }
@@ -93,7 +93,7 @@ namespace UniRx.Operators
                 : base(observer, cancel)
             {
                 this.parent = parent;
-                hashSet = parent.comparer == null
+                hashSet = (parent.comparer == null)
                     ? new HashSet<TKey>()
                     : new HashSet<TKey>(parent.comparer);
             }

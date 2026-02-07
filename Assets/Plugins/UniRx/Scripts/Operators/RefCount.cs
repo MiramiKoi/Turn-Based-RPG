@@ -1,11 +1,12 @@
 ﻿using System;
+using UniRx.Operators;
 
 namespace UniRx.Operators
 {
     internal class RefCountObservable<T> : OperatorObservableBase<T>
     {
         readonly IConnectableObservable<T> source;
-        readonly object gate = new();
+        readonly object gate = new object();
         int refCount = 0;
         IDisposable connection;
 

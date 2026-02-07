@@ -28,14 +28,14 @@ namespace UniRx.Operators
                 : base(observer, cancel)
             {
                 this.parent = parent;
-                this.lastTime = parent.ignoreTimeScale
+                this.lastTime = (parent.ignoreTimeScale)
                     ? UnityEngine.Time.unscaledTime
                     : UnityEngine.Time.time;
             }
 
             public override void OnNext(T value)
             {
-                var now = parent.ignoreTimeScale
+                var now = (parent.ignoreTimeScale)
                     ? UnityEngine.Time.unscaledTime
                     : UnityEngine.Time.time;
                 var span = now - lastTime;

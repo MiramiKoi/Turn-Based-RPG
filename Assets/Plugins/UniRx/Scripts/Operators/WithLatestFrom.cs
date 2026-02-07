@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace UniRx.Operators
 {
@@ -24,7 +27,7 @@ namespace UniRx.Operators
         class WithLatestFrom : OperatorObserverBase<TResult, TResult>
         {
             readonly WithLatestFromObservable<TLeft, TRight, TResult> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             volatile bool hasLatest;
             TRight latestValue = default(TRight);

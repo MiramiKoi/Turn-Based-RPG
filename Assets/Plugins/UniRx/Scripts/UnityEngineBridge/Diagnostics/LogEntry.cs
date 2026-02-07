@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace UniRx.Diagnostics
@@ -6,17 +8,17 @@ namespace UniRx.Diagnostics
     public struct LogEntry
     {
         // requires
-        public string LoggerName { get; }
-        public LogType LogType { get; }
-        public string Message { get; }
-        public DateTime Timestamp { get; }
+        public string LoggerName { get; private set; }
+        public LogType LogType { get; private set; }
+        public string Message { get; private set; }
+        public DateTime Timestamp { get; private set; }
 
         // options
 
         /// <summary>[Optional]</summary>
         public UnityEngine.Object Context { get; private set; }
         /// <summary>[Optional]</summary>
-        public Exception Exception { get; }
+        public Exception Exception { get; private set; }
         /// <summary>[Optional]</summary>
         public string StackTrace { get; private set; }
         /// <summary>[Optional]</summary>
@@ -37,7 +39,7 @@ namespace UniRx.Diagnostics
 
         public override string ToString()
         {
-            var plusEx = Exception != null ? Environment.NewLine + Exception.ToString() : "";
+            var plusEx = (Exception != null) ? (Environment.NewLine + Exception.ToString()) : "";
             return "[" + Timestamp.ToString() + "]"
                 + "[" + LoggerName + "]"
                 + "[" + LogType.ToString() + "]"

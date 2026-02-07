@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx.Operators;
 
 namespace UniRx.Operators
 {
@@ -43,7 +44,7 @@ namespace UniRx.Operators
             // xs.Skip(2s) = 2s
             // xs.Skip(2s).Skip(3s) = 3s
 
-            return duration <= this.duration
+            return (duration <= this.duration)
                 ? this
                 : new SkipObservable<T>(source, duration, scheduler);
         }
@@ -125,12 +126,12 @@ namespace UniRx.Operators
 
             public override void OnError(Exception error)
             {
-                try { observer.OnError(error); } finally { Dispose(); }
+                try { observer.OnError(error); } finally { Dispose(); };
             }
 
             public override void OnCompleted()
             {
-                try { observer.OnCompleted(); } finally { Dispose(); }
+                try { observer.OnCompleted(); } finally { Dispose(); };
             }
         }
     }

@@ -13,7 +13,7 @@ namespace UniRx
         {
             readonly IObservable<T> source;
             readonly ISubject<T> subject;
-            readonly object gate = new();
+            readonly object gate = new object();
             Connection connection;
 
             public ConnectableObservable(IObservable<T> source, ISubject<T> subject)

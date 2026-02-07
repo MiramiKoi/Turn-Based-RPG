@@ -266,7 +266,7 @@ namespace UniRx
                 if (Interlocked.Increment(ref disposedCallCount) == 0)
                 {
                     var len = _disposables.Length;
-                    for (var i = 0; i < len; i++)
+                    for (int i = 0; i < len; i++)
                     {
                         _disposables[i].Dispose();
                     }

@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-guid: 79b758631951cbc42b40ea87072e1ab3
-MonoImporter:
+guid: 560b04d1a97f54a4e82edc0cbbb69285
+AssemblyDefinitionImporter:
   externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -14,5 +10,5 @@ AssetOrigin:
   productId: 17276
   packageName: UniRx - Reactive Extensions for Unity
   packageVersion: 7.1.0
-  assetPath: Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableJointTrigger.cs
+  assetPath: Assets/Plugins/UniRx/Scripts/UniRx.asmdef
   uploadId: 318694

@@ -17,7 +17,7 @@ namespace UniRx.Operators
 
     internal class ImmutableNeverObservable<T> : IObservable<T>, IOptimizedObservable<T>
     {
-        internal static readonly ImmutableNeverObservable<T> Instance = new();
+        internal static ImmutableNeverObservable<T> Instance = new ImmutableNeverObservable<T>();
 
         public bool IsRequiredSubscribeOnCurrentThread()
         {

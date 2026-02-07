@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace UniRx
 {
@@ -18,7 +19,7 @@ namespace UniRx
 
         class EmptyDisposable : IDisposable
         {
-            public static readonly EmptyDisposable Singleton = new();
+            public static EmptyDisposable Singleton = new EmptyDisposable();
 
             private EmptyDisposable()
             {

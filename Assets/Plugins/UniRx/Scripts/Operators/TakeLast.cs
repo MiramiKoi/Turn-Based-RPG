@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UniRx.Operators;
 
 namespace UniRx.Operators
 {
@@ -111,7 +112,7 @@ namespace UniRx.Operators
 
             public override void OnError(Exception error)
             {
-                try { observer.OnError(error); } finally { Dispose(); }
+                try { observer.OnError(error); } finally { Dispose(); };
             }
 
             public override void OnCompleted()
@@ -124,7 +125,7 @@ namespace UniRx.Operators
                 {
                     observer.OnNext(item.Value);
                 }
-                try { observer.OnCompleted(); } finally { Dispose(); }
+                try { observer.OnCompleted(); } finally { Dispose(); };
             }
 
             void Trim(TimeSpan now)

@@ -24,9 +24,9 @@ namespace UniRx.Operators
 
             if (scheduler == Scheduler.Immediate)
             {
-                for (var i = 0; i < count; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    var v = start + i;
+                    int v = start + i;
                     observer.OnNext(v);
                 }
                 observer.OnCompleted();
@@ -40,7 +40,7 @@ namespace UniRx.Operators
                 {
                     if (i < count)
                     {
-                        var v = start + i;
+                        int v = start + i;
                         observer.OnNext(v);
                         i++;
                         self();

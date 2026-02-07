@@ -55,7 +55,7 @@ namespace UniRx
         public static readonly IMessageBroker Default = new MessageBroker();
 
         bool isDisposed = false;
-        readonly Dictionary<Type, object> notifiers = new();
+        readonly Dictionary<Type, object> notifiers = new Dictionary<Type, object>();
 
         public void Publish<T>(T message)
         {
@@ -81,7 +81,7 @@ namespace UniRx
 
                 if (!notifiers.TryGetValue(typeof(T), out notifier))
                 {
-                    var n = new Subject<T>().Synchronize();
+                    ISubject<T> n = new Subject<T>().Synchronize();
                     notifier = n;
                     notifiers.Add(typeof(T), notifier);
                 }
@@ -114,7 +114,7 @@ namespace UniRx
         public static readonly IAsyncMessageBroker Default = new AsyncMessageBroker();
 
         bool isDisposed = false;
-        readonly Dictionary<Type, object> notifiers = new();
+        readonly Dictionary<Type, object> notifiers = new Dictionary<Type, object>();
 
         public IObservable<Unit> PublishAsync<T>(T message)
         {
@@ -136,7 +136,7 @@ namespace UniRx
 
             var data = notifier.Data;
             var awaiter = new IObservable<Unit>[data.Length];
-            for (var i = 0; i < data.Length; i++)
+            for (int i = 0; i < data.Length; i++)
             {
                 awaiter[i] = data[i].Invoke(message);
             }

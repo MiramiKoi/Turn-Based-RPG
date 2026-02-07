@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace UniRx
 {
@@ -9,7 +10,7 @@ namespace UniRx
 
     public sealed class SingleAssignmentDisposable : IDisposable, ICancelable
     {
-        readonly object gate = new();
+        readonly object gate = new object();
         IDisposable current;
         bool disposed;
 

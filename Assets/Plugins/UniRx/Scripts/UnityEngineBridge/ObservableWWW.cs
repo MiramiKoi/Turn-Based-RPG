@@ -22,6 +22,7 @@ namespace UniRx
     // WWW: deprecated 'WWW(string url, byte[] postData, Hashtable headers)', 
     // use 'public WWW(string url, byte[] postData, Dictionary<string, string> headers)' instead.
     using Hash = System.Collections.Generic.Dictionary<string, string>;
+    using HashEntry = System.Collections.Generic.KeyValuePair<string, string>;
 #endif
 
 #if UNITY_2018_3_OR_NEWER
@@ -31,16 +32,16 @@ namespace UniRx
     {
         public static IObservable<string> Get(string url, Hash headers = null, IProgress<float> progress = null)
         {
-            return ObservableUnity.FromCoroutine<string>((observer, cancellation) => FetchText(new WWW(url, null, headers ?? new Hash()), observer, progress, cancellation));
+            return ObservableUnity.FromCoroutine<string>((observer, cancellation) => FetchText(new WWW(url, null, (headers ?? new Hash())), observer, progress, cancellation));
         }
 
         public static IObservable<byte[]> GetAndGetBytes(string url, Hash headers = null, IProgress<float> progress = null)
         {
-            return ObservableUnity.FromCoroutine<byte[]>((observer, cancellation) => FetchBytes(new WWW(url, null, headers ?? new Hash()), observer, progress, cancellation));
+            return ObservableUnity.FromCoroutine<byte[]>((observer, cancellation) => FetchBytes(new WWW(url, null, (headers ?? new Hash())), observer, progress, cancellation));
         }
         public static IObservable<WWW> GetWWW(string url, Hash headers = null, IProgress<float> progress = null)
         {
-            return ObservableUnity.FromCoroutine<WWW>((observer, cancellation) => Fetch(new WWW(url, null, headers ?? new Hash()), observer, progress, cancellation));
+            return ObservableUnity.FromCoroutine<WWW>((observer, cancellation) => Fetch(new WWW(url, null, (headers ?? new Hash())), observer, progress, cancellation));
         }
 
         public static IObservable<string> Post(string url, byte[] postData, IProgress<float> progress = null)
@@ -150,7 +151,7 @@ namespace UniRx
 #else
         static Hash MergeHash(Hash wwwFormHeaders, Hash externalHeaders)
         {
-            foreach (var item in externalHeaders)
+            foreach (HashEntry item in externalHeaders)
             {
                 wwwFormHeaders[item.Key] = item.Value;
             }
@@ -393,9 +394,9 @@ namespace UniRx
 
     public class WWWErrorException : Exception
     {
-        public string RawErrorMessage { get; }
+        public string RawErrorMessage { get; private set; }
         public bool HasResponse { get; private set; }
-        public string Text { get; }
+        public string Text { get; private set; }
         public System.Net.HttpStatusCode StatusCode { get; private set; }
         public System.Collections.Generic.Dictionary<string, string> ResponseHeaders { get; private set; }
         public WWW WWW { get; private set; }

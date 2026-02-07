@@ -3,6 +3,7 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 
 namespace UniRx.InternalUtil
 {
@@ -11,7 +12,7 @@ namespace UniRx.InternalUtil
     /// </summary>
     internal class ScheduledItem : IComparable<ScheduledItem>
     {
-        private readonly BooleanDisposable _disposable = new();
+        private readonly BooleanDisposable _disposable = new BooleanDisposable();
         private readonly TimeSpan _dueTime;
         private readonly Action _action;
 

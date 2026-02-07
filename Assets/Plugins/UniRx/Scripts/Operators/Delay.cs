@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace UniRx.Operators
 {
@@ -25,7 +27,7 @@ namespace UniRx.Operators
         class Delay : OperatorObserverBase<T, T>
         {
             readonly DelayObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             bool hasFailed;
             bool running;
             bool active;

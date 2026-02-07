@@ -27,7 +27,7 @@ namespace UniRx.Operators
         class RepeatUntil : OperatorObserverBase<T, T>
         {
             readonly RepeatUntilObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             IEnumerator<IObservable<T>> e;
             SerialDisposable subscription;

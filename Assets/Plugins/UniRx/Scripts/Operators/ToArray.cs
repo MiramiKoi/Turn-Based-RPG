@@ -20,7 +20,7 @@ namespace UniRx.Operators
 
         class ToArray : OperatorObserverBase<TSource, TSource[]>
         {
-            readonly List<TSource> list = new();
+            readonly List<TSource> list = new List<TSource>();
 
             public ToArray(IObserver<TSource[]> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -59,7 +59,7 @@ namespace UniRx.Operators
                 }
 
                 base.observer.OnNext(result);
-                try { observer.OnCompleted(); } finally { Dispose(); }
+                try { observer.OnCompleted(); } finally { Dispose(); };
             }
         }
     }

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 
 namespace UniRx
 {
     public sealed class SerialDisposable : IDisposable, ICancelable
     {
-        readonly object gate = new();
+        readonly object gate = new object();
         IDisposable current;
         bool disposed;
 

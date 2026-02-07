@@ -29,7 +29,7 @@ namespace UniRx.Operators
         class ThrottleFrame : OperatorObserverBase<T, T>
         {
             readonly ThrottleFrameObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             T latestValue = default(T);
             bool hasValue = false;
             SerialDisposable cancelable;

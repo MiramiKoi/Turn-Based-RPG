@@ -238,7 +238,7 @@ namespace UniRx
 
         public override string ToString()
         {
-            return value == null ? "(null)" : value.ToString();
+            return (value == null) ? "(null)" : value.ToString();
         }
 
         public bool IsRequiredSubscribeOnCurrentThread()
@@ -265,7 +265,7 @@ namespace UniRx
 
         T latestValue = default(T);
         Exception lastException = null;
-        readonly IDisposable sourceConnection = null;
+        IDisposable sourceConnection = null;
 
         ObserverNode<T> root;
         ObserverNode<T> last;
@@ -462,7 +462,7 @@ namespace UniRx
 
         public override string ToString()
         {
-            return latestValue == null ? "(null)" : latestValue.ToString();
+            return (latestValue == null) ? "(null)" : latestValue.ToString();
         }
 
         public bool IsRequiredSubscribeOnCurrentThread()

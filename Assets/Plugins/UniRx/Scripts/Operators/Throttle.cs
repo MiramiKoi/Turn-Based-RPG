@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace UniRx.Operators
 {
@@ -24,7 +27,7 @@ namespace UniRx.Operators
         class Throttle : OperatorObserverBase<T, T>
         {
             readonly ThrottleObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             T latestValue = default(T);
             bool hasValue = false;
             SerialDisposable cancelable;

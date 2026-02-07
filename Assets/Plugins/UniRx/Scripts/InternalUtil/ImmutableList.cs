@@ -5,9 +5,9 @@ namespace UniRx.InternalUtil
     // ImmutableList is sometimes useful, use for public.
     public class ImmutableList<T>
     {
-        public static readonly ImmutableList<T> Empty = new();
+        public static readonly ImmutableList<T> Empty = new ImmutableList<T>();
 
-        readonly T[] data;
+        T[] data;
 
         public T[] Data
         {

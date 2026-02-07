@@ -40,7 +40,7 @@ namespace UniRx.Operators
         class WhenAll : OperatorObserverBase<T[], T[]>
         {
             readonly IObservable<T>[] sources;
-            readonly object gate = new();
+            readonly object gate = new object();
             int completedCount;
             int length;
             T[] values;
@@ -67,7 +67,7 @@ namespace UniRx.Operators
                 values = new T[length];
 
                 var subscriptions = new IDisposable[length];
-                for (var index = 0; index < length; index++)
+                for (int index = 0; index < length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this, index);
@@ -148,7 +148,7 @@ namespace UniRx.Operators
         class WhenAll_ : OperatorObserverBase<T[], T[]>
         {
             readonly IList<IObservable<T>> sources;
-            readonly object gate = new();
+            readonly object gate = new object();
             int completedCount;
             int length;
             T[] values;
@@ -175,7 +175,7 @@ namespace UniRx.Operators
                 values = new T[length];
 
                 var subscriptions = new IDisposable[length];
-                for (var index = 0; index < length; index++)
+                for (int index = 0; index < length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this, index);
@@ -291,7 +291,7 @@ namespace UniRx.Operators
         class WhenAll : OperatorObserverBase<Unit, Unit>
         {
             readonly IObservable<Unit>[] sources;
-            readonly object gate = new();
+            readonly object gate = new object();
             int completedCount;
             int length;
 
@@ -316,7 +316,7 @@ namespace UniRx.Operators
                 completedCount = 0;
 
                 var subscriptions = new IDisposable[length];
-                for (var index = 0; index < sources.Length; index++)
+                for (int index = 0; index < sources.Length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this);
@@ -388,7 +388,7 @@ namespace UniRx.Operators
         class WhenAll_ : OperatorObserverBase<Unit, Unit>
         {
             readonly IList<IObservable<Unit>> sources;
-            readonly object gate = new();
+            readonly object gate = new object();
             int completedCount;
             int length;
 
@@ -413,7 +413,7 @@ namespace UniRx.Operators
                 completedCount = 0;
 
                 var subscriptions = new IDisposable[length];
-                for (var index = 0; index < length; index++)
+                for (int index = 0; index < length; index++)
                 {
                     var source = sources[index];
                     var observer = new WhenAllCollectionObserver(this);

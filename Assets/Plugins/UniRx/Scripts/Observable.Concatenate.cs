@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Linq;
 using UniRx.Operators;
 
@@ -12,7 +13,7 @@ namespace UniRx
         static IEnumerable<IObservable<T>> CombineSources<T>(IObservable<T> first, IObservable<T>[] seconds)
         {
             yield return first;
-            for (var i = 0; i < seconds.Length; i++)
+            for (int i = 0; i < seconds.Length; i++)
             {
                 yield return seconds[i];
             }

@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 using UnityEngine;
 
 namespace UniRx
@@ -189,7 +192,7 @@ namespace UniRx
 
             static class QueuedAction<T>
             {
-                public static readonly Action<object> Instance = new(Invoke);
+                public static readonly Action<object> Instance = new Action<object>(Invoke);
 
                 public static void Invoke(object state)
                 {
@@ -326,7 +329,7 @@ namespace UniRx
 
             static class QueuedAction<T>
             {
-                public static readonly Action<object> Instance = new(Invoke);
+                public static readonly Action<object> Instance = new Action<object>(Invoke);
 
                 public static void Invoke(object state)
                 {

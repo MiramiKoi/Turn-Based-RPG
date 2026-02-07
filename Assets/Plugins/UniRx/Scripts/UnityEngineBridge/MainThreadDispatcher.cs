@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using UniRx.InternalUtil;
 using UnityEngine;
 
@@ -38,7 +40,7 @@ namespace UniRx
         // EditorThreadDispatcher use EditorApplication.update instead of MonoBehaviour.Update.
         class EditorThreadDispatcher
         {
-            static readonly object gate = new();
+            static object gate = new object();
             static EditorThreadDispatcher instance;
 
             public static EditorThreadDispatcher Instance
@@ -58,7 +60,7 @@ namespace UniRx
                 }
             }
 
-            readonly ThreadSafeQueueWorker editorQueueWorker = new();
+            ThreadSafeQueueWorker editorQueueWorker = new ThreadSafeQueueWorker();
 
             EditorThreadDispatcher()
             {
@@ -196,8 +198,7 @@ namespace UniRx
                     {
                         break;
                     }
-                }
-
+                };
                 ConsumeEnumerator(continuation);
             }
 
@@ -396,7 +397,7 @@ namespace UniRx
             }
         }
 
-        readonly ThreadSafeQueueWorker queueWorker = new();
+        ThreadSafeQueueWorker queueWorker = new ThreadSafeQueueWorker();
         Action<Exception> unhandledExceptionCallback = ex => Debug.LogException(ex); // default
 
         MicroCoroutine updateMicroCoroutine = null;
@@ -481,7 +482,7 @@ namespace UniRx
         {
             get
             {
-                return mainThreadToken != null;
+                return (mainThreadToken != null);
             }
         }
 
@@ -577,7 +578,7 @@ namespace UniRx
         public static void CullAllExcessDispatchers()
         {
             var dispatchers = GameObject.FindObjectsOfType<MainThreadDispatcher>();
-            for (var i = 0; i < dispatchers.Length; i++)
+            for (int i = 0; i < dispatchers.Length; i++)
             {
                 DestroyDispatcher(dispatchers[i]);
             }
