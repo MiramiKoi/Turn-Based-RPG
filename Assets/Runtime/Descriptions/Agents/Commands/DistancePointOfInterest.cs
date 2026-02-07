@@ -15,7 +15,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public string PointOfInterest { get; private set; } = string.Empty;
         
-        public int Distance { get; private set; } = 0;
+        public int Distance { get; private set; }
         
         public string Operation { get; private set; } = string.Empty;
         

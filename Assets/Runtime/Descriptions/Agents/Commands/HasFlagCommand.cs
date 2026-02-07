@@ -13,7 +13,7 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public string Flag { get; private set; } = string.Empty;
 
-        public bool Value { get; private set; } = false;
+        public bool Value { get; private set; }
         
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {

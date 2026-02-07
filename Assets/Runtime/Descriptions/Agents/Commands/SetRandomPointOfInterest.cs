@@ -17,9 +17,9 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public string PointOfInterest { get; private set; } = string.Empty;
         
-        public int Radius { get; private set; } = 0;
+        public int Radius { get; private set; }
 
-        public bool NearWithPointOfInterest { get; private set; } = false;
+        public bool NearWithPointOfInterest { get; private set; }
         
         public string TargetNearPointOfInterest { get; private set; } = string.Empty;
 
@@ -38,7 +38,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 pointOfInterest = center + randomOffset; 
                 tryCounter--;
             }
-            while ((offset.sqrMagnitude > Radius * Radius && context.GridModel.CanPlace(pointOfInterest)) && tryCounter <= 0);
+            while (offset.sqrMagnitude > Radius * Radius && context.GridModel.CanPlace(pointOfInterest) && tryCounter <= 0);
 
             if (tryCounter <= 0)
             {

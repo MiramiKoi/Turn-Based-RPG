@@ -32,10 +32,10 @@ namespace Editor.Agents
         {
             AgentBaseNodeView agentNodeView = wrapper.Node switch
             {
-                AgentSequence agentSequence => new AgentSequenceView(wrapper),
-                AgentSelector agentSelector => new AgentSelectorView(wrapper),
-                AgentDecisionDescription agentBehaviorTree => new AgentDecisionNodeView(wrapper),
-                AgentLeaf agentLeaf => new AgentLeafView(wrapper),
+                AgentSequence => new AgentSequenceView(wrapper),
+                AgentSelector => new AgentSelectorView(wrapper),
+                AgentDecisionDescription => new AgentDecisionNodeView(wrapper),
+                AgentLeaf => new AgentLeafView(wrapper),
                 _ => throw new SystemException()
             };
             
@@ -86,10 +86,14 @@ namespace Editor.Agents
 
         private void SetupGridBackground()
         {
-            var gridBackground = new GridBackground();
+            var gridBackground = new GridBackground
+            {
+                style =
+                {
+                    backgroundColor = Color.black
+                }
+            };
 
-            gridBackground.style.backgroundColor = Color.black;
-            
             gridBackground.StretchToParentSize();
 
             Insert(0, gridBackground);
