@@ -55,7 +55,7 @@ namespace Runtime.Units
 
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions.StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
-            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit.ActiveEffects, _unit, _world);
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, _world);
             _statusEffectsPresenter.Enable();
         }
 

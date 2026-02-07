@@ -15,10 +15,9 @@ namespace Runtime.StatusEffects.Collection
 
         private readonly Dictionary<string, StatusEffectSystem> _systems = new();
 
-        public StatusEffectCollectionPresenter(StatusEffectModelCollection collection,
-            UnitModel unit, World world)
+        public StatusEffectCollectionPresenter(UnitModel unit, World world)
         {
-            _collection = collection;
+            _collection = unit.ActiveEffects;
             _unit = unit;
             _world = world;
         }
