@@ -1,5 +1,3 @@
-using System;
-using Runtime.AsyncLoad;
 using Runtime.CustomAsync;
 
 namespace Runtime.TurnBase
@@ -8,15 +6,15 @@ namespace Runtime.TurnBase
     {
         public StepType StepType { get; }
         
-        public Action StepAction { get; }
+        public CustomAwaiter AllowedAwaiter { get; }
         
-        public CustomAwaiter Awaiter { get; }
+        public CustomAwaiter CompletedAwaiter { get; }
         
-        public StepModel(StepType stepType, Action stepAction, CustomAwaiter awaiter)
+        public StepModel(StepType stepType, CustomAwaiter allowed, CustomAwaiter completed)
         {
             StepType = stepType;
-            StepAction = stepAction;
-            Awaiter = awaiter;
+            AllowedAwaiter = allowed;
+            CompletedAwaiter = completed;
         }
     }
 }

@@ -71,78 +71,73 @@ namespace Runtime.Units
             _statusEffectsPresenter = null;
         }
         
-        private async Task AnimateMoveChanged(Vector2Int position)
-        {
-            await _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear).AsyncWaitForCompletion();
-        }
-
         private void OnRotationChanged(UnitDirection direction)
         {
             _view.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
 
-        private void OnPositionChanged(Vector2Int position)
+        private async void OnPositionChanged(Vector2Int position)
         {
-            var step = new StepModel(StepType.Parallel, StepAction, _unit.Awaiter);
-            _world.TurnBaseModel.Steps.Enqueue(step);
-            return;
-
-            async void StepAction()
-            {
-                _view.Animator.SetBool(IsMoving, true);
-                await AnimateMoveChanged(position);
-                _view.Animator.SetBool(IsMoving, false);
-
-                _unit.Awaiter.Complete();
-            }
+            await WaiteRender(StepType.Parallel, PlayMoveAnimation(position));
         }
 
-        private void OnAttacked()
+        private async void OnAttacked()
         {
-            var step = new StepModel(StepType.Parallel, StepAction, _unit.Awaiter);
-            _world.TurnBaseModel.Steps.Enqueue(step);
-            return;
-            
-            async void StepAction()
-            {
-                _view.Animator.SetBool(IsAttacking, true);
-                await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
-                _view.Animator.SetBool(IsAttacking, false);
-                
-                _unit.Awaiter.Complete();
-            }
+            await WaiteRender(StepType.Parallel, PlayAnimation(IsAttacking));
         }
 
-        private void OnDamaged()
+        private async void OnDamaged()
         {
-            var step = new StepModel(StepType.Consistent, StepAction, _unit.Awaiter);
+            await WaiteRender(StepType.Consistent, PlayDamagingAnimation());
+        }
+
+        private async Task PlayMoveAnimation(Vector2Int position)
+        {
+            _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
+            await PlayAnimation(IsMoving, 0.2f);
+        }
+
+        private async Task PlayDamagingAnimation()
+        {
+            await PlayAnimation(IsDamaging);
+
+            if (_unit.Health <= 0)
+            {
+                await PlayAnimation(IsDead);
+            }
+        }
+        
+        private async Task WaiteRender(StepType stepType, Task render)
+        {
+            var allowedAwaiter = new CustomAwaiter();
+            var completedAwaiter = new CustomAwaiter();
+            
+            var step = new StepModel(stepType, allowedAwaiter, completedAwaiter);
             _world.TurnBaseModel.Steps.Enqueue(step);
-            return;
             
-            async void StepAction()
-            {
-                _view.Animator.SetBool(IsDamaging, true);
-                await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
-                _view.Animator.SetBool(IsDamaging, false);
-                
-                var awaiter = _unit.Awaiter;
-                if (_unit.Health <= 0)
-                {
-                    _unit.Await();
-                    var nextStep = new StepModel(StepType.Consistent, DeathAction, _unit.Awaiter);
-                    _world.TurnBaseModel.Steps.Enqueue(nextStep);
-                }
-                awaiter.Complete();
-            }
+            await allowedAwaiter;
             
-            async void DeathAction()
-            {
-                _view.Animator.SetBool(IsDead, true);
-                await Task.Delay((int)(_view.Animator.GetCurrentAnimatorStateInfo(0).length * 1000));
-                _view.Animator.SetBool(IsDamaging, false);
-                
-                _unit.Awaiter.Complete();
-            }
+            await render;
+            
+            completedAwaiter.Complete();
+        }
+        
+        private async Task PlayAnimation(int animationId)
+        {
+            _view.Animator.SetBool(animationId, true);
+            var scheduleAwaiter = new ScheduleAwaiter(_view.Animator.GetCurrentAnimatorStateInfo(0).length, _world.Scheduler);
+            scheduleAwaiter.Start();
+            await scheduleAwaiter;
+            _view.Animator.SetBool(animationId, false);
+        }
+        
+        private async Task PlayAnimation(int animationId, float duration)
+        {
+            _view.Animator.SetBool(animationId, true);
+            var scheduleAwaiter = new ScheduleAwaiter(duration, _world.Scheduler);
+            scheduleAwaiter.Start();
+            await scheduleAwaiter;
+            _view.Animator.SetBool(animationId, false);
         }
     }
 }
