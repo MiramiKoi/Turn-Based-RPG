@@ -1,5 +1,5 @@
 {
-    "name": "UniRx",
+    "name": "UniRx.Runtime",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
