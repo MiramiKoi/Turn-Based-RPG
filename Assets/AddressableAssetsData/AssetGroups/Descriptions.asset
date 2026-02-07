@@ -45,11 +45,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d0694958cfa33474f8be470fc1abc820
-    m_Address: environment-generation-description
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a758673cdfe46444680444e75ba83420
     m_Address: bear-description
     m_ReadOnly: 0
@@ -57,6 +52,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9f6c1ad1b6c495b8ac3171f63d01825
     m_Address: items-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0694958cfa33474f8be470fc1abc820
+    m_Address: environment-generation-description
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
