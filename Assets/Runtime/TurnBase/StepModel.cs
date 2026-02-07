@@ -1,5 +1,6 @@
 using System;
 using Runtime.AsyncLoad;
+using Runtime.CustomAsync;
 
 namespace Runtime.TurnBase
 {

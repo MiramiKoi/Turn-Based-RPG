@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.CustomAsync;
 
 namespace Runtime.TurnBase
 {
