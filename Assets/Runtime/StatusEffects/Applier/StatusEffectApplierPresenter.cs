@@ -3,7 +3,6 @@ using Runtime.Common;
 using Runtime.Core;
 using Runtime.Descriptions.StatusEffects;
 using Runtime.Units;
-using UnityEngine;
 
 namespace Runtime.StatusEffects.Applier
 {
