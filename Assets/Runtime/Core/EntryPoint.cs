@@ -105,8 +105,7 @@ namespace Runtime.Core
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await loadModelUiAsset.LoadAwaiter;
             var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
-            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel.ActiveEffects, statusEffectsView,
-                unitModel, _world, _worldViewDescriptions, _uiContent);
+            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel, statusEffectsView, _world, _worldViewDescriptions, _uiContent);
 
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
 

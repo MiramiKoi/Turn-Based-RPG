@@ -13,7 +13,7 @@ namespace Runtime.Player.StatusEffects
 {
     public class PlayerStatusEffectsHudPresenter : IPresenter
     {
-        private readonly StatusEffectModelCollection _collection;
+        private readonly StatusEffectModelCollection _modelCollection;
         private readonly PlayerStatusEffectHudView _view;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
@@ -23,10 +23,9 @@ namespace Runtime.Player.StatusEffects
         private readonly Dictionary<string, StatusEffectView> _views = new();
         private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
 
-        public PlayerStatusEffectsHudPresenter(StatusEffectModelCollection collection, PlayerStatusEffectHudView view,
-            UnitModel unit, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public PlayerStatusEffectsHudPresenter(UnitModel unit, PlayerStatusEffectHudView view, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
         {
-            _collection = collection;
+            _modelCollection = unit.ActiveEffects;
             _view = view;
             _world = world;
             _viewDescriptions = viewDescriptions;
@@ -36,10 +35,10 @@ namespace Runtime.Player.StatusEffects
         public void Enable()
         {
             _uiContent.GameplayContent.Add(_view.Root);
-            _collection.OnAdded += HandleAdded;
-            _collection.OnRemoved += HandleRemoved;
+            _modelCollection.OnAdded += HandleAdded;
+            _modelCollection.OnRemoved += HandleRemoved;
 
-            foreach (var model in _collection.Models.Values)
+            foreach (var model in _modelCollection.Models.Values)
             {
                 AddPresenter(model);
             }
@@ -48,8 +47,8 @@ namespace Runtime.Player.StatusEffects
         public void Disable()
         {
             _uiContent.GameplayContent.Remove(_view.Root);
-            _collection.OnAdded -= HandleAdded;
-            _collection.OnRemoved -= HandleRemoved;
+            _modelCollection.OnAdded -= HandleAdded;
+            _modelCollection.OnRemoved -= HandleRemoved;
 
             var ids = new List<string>(_loadModels.Keys);
             foreach (var id in ids)
