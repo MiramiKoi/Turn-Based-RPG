@@ -13,8 +13,8 @@ namespace Runtime.StatusEffects
         public string Id { get; }
         public bool IsExpired => RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased;
         public StatusEffectDescription Description { get; }
-        public ReactiveProperty<int> CurrentStacks { get; private set; } = new();
-        public ReactiveProperty<int> RemainingTurns { get; private set; } = new();
+        public ReactiveProperty<int> CurrentStacks { get; } = new();
+        public ReactiveProperty<int> RemainingTurns { get; } = new();
         
         public StatusEffectModel(string id, StatusEffectDescription description)
         {
