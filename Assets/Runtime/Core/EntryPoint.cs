@@ -53,6 +53,7 @@ namespace Runtime.Core
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
+                new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription, _uiContent.GameplayContent),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
@@ -116,7 +117,7 @@ namespace Runtime.Core
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
 
-            unitModel.ActiveEffects.Create("bleed");
+            unitModel.ActiveEffects.Create("burn");
         }
 
         private async Task CreateUnit(string id, AgentDecisionDescription description)
