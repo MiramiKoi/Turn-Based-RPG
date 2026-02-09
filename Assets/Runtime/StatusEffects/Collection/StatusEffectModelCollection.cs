@@ -15,21 +15,31 @@ namespace Runtime.StatusEffects.Collection
             _descriptions = descriptions;
         }
 
-        public void Apply(string effectId)
+        public void Create(StatusEffectDescription description)
+        {
+            CreateInternal(description, description.Id);
+        }
+
+        public override void Create(string effectId)
         {
             var description = _descriptions.Get(effectId);
-
+            CreateInternal(description, effectId);
+        }
+        
+        private void CreateInternal(StatusEffectDescription description, string effectId)
+        {
             if (description.Stacking.Mode == StackingMode.Independent)
             {
-                Create(effectId);
+                base.Create(effectId);
                 return;
             }
 
-            var existing = Models.Values.FirstOrDefault(model => model.Description.Id == effectId);
+            var existing = Models.Values
+                .FirstOrDefault(model => model.Description.Id == effectId);
 
             if (existing == null)
             {
-                Create(effectId);
+                base.Create(effectId);
                 return;
             }
 
@@ -41,10 +51,6 @@ namespace Runtime.StatusEffects.Collection
                 case StackingMode.Refresh:
                 case StackingMode.Additive:
                     existing.AddStack();
-                    return;
-
-                case StackingMode.Independent:
-                default:
                     return;
             }
         }

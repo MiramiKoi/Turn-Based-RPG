@@ -3,7 +3,7 @@
     public abstract class DescribedModelCollection<T> : SerializeModelCollection<T>
         where T : ISerializable
     {
-        public void Create(string descriptionKey)
+        public virtual void Create(string descriptionKey)
         {
             DescriptionKey = descriptionKey;
             var model = CreateModel(descriptionKey);
