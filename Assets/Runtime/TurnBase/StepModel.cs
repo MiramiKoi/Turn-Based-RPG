@@ -10,11 +10,11 @@ namespace Runtime.TurnBase
         
         public CustomAwaiter CompletedAwaiter { get; }
         
-        public StepModel(StepType stepType, CustomAwaiter allowed, CustomAwaiter completed)
+        public StepModel(StepType stepType)
         {
             StepType = stepType;
-            AllowedAwaiter = allowed;
-            CompletedAwaiter = completed;
+            AllowedAwaiter = new CustomAwaiter();
+            CompletedAwaiter = new CustomAwaiter();
         }
     }
 }

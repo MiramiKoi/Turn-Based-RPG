@@ -78,48 +78,49 @@ namespace Runtime.Units
 
         private async void OnPositionChanged(Vector2Int position)
         {
-            await WaiteRender(StepType.Parallel, PlayMoveAnimation(position));
+            var step = CreateStep(StepType.Parallel);
+
+            await step.AllowedAwaiter;
+            
+            _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
+            await PlayAnimation(IsMoving, 0.2f);
+            
+            step.CompletedAwaiter.Complete();
         }
 
         private async void OnAttacked()
         {
-            await WaiteRender(StepType.Parallel, PlayAnimation(IsAttacking));
+            var step = CreateStep(StepType.Parallel);
+            
+            await step.AllowedAwaiter;
+            
+            await PlayAnimation(IsAttacking);
+            
+            step.CompletedAwaiter.Complete();
         }
 
         private async void OnDamaged()
         {
-            await WaiteRender(StepType.Consistent, PlayDamagingAnimation());
-        }
-
-        private async Task PlayMoveAnimation(Vector2Int position)
-        {
-            _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
-            await PlayAnimation(IsMoving, 0.2f);
-        }
-
-        private async Task PlayDamagingAnimation()
-        {
+            var step = CreateStep(StepType.Consistent);
+            
+            await step.AllowedAwaiter;
+            
             await PlayAnimation(IsDamaging);
 
             if (_unit.Health <= 0)
             {
                 await PlayAnimation(IsDead);
             }
+            
+            step.CompletedAwaiter.Complete();
         }
         
-        private async Task WaiteRender(StepType stepType, Task render)
+        private StepModel CreateStep(StepType stepType)
         {
-            var allowedAwaiter = new CustomAwaiter();
-            var completedAwaiter = new CustomAwaiter();
-            
-            var step = new StepModel(stepType, allowedAwaiter, completedAwaiter);
+            var step = new StepModel(stepType);
             _world.TurnBaseModel.Steps.Enqueue(step);
-            
-            await allowedAwaiter;
-            
-            await render;
-            
-            completedAwaiter.Complete();
+
+            return step;
         }
         
         private async Task PlayAnimation(int animationId)
