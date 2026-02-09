@@ -47,6 +47,7 @@ namespace Editor.Agents.Nodes
                     "has_unit_with_fraction",
                     "set_point_of_interest_with_fraction",
                     "can_place_point_of_interest",
+                    "attack_point_of_interest"
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -112,6 +113,9 @@ namespace Editor.Agents.Nodes
                     break;
                 case "can_place_point_of_interest":
                     SetupFields<CanPlacePointOfInterest>();
+                    break;
+                case "attack_point_of_interest":
+                    SetupFields<AttackPointOfInterest>();
                     break;
             }
         }

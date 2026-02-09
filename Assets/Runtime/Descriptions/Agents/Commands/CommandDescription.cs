@@ -39,6 +39,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 "has_unit_with_fraction" => new HasUnitWithFraction(),
                 "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFraction(),
                 "can_place_point_of_interest" => new CanPlacePointOfInterest(),
+                "attack_point_of_interest" => new AttackPointOfInterest(),
                 _ => throw new ArgumentOutOfRangeException()
             };
             

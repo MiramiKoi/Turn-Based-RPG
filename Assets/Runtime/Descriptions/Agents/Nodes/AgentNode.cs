@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {
@@ -11,9 +12,13 @@ namespace Runtime.Descriptions.Agents.Nodes
         
         private const string ChildrenKey = "children";
 
+        private const string NameKey = "name";
+
         public event Action OnAddChild;
         
         public abstract string Type { get; }
+
+        public string Name { get; set; } = string.Empty;
         
         public List<AgentNode> Children { get; set; } = new();
 
@@ -38,7 +43,8 @@ namespace Runtime.Descriptions.Agents.Nodes
             return new Dictionary<string, object>
             {
                 {TypeKey, Type},
-                {ChildrenKey, children}
+                {ChildrenKey, children},
+                {NameKey, Name},
             };
         }
 
@@ -57,6 +63,11 @@ namespace Runtime.Descriptions.Agents.Nodes
                         agentNode.AddChild(childAgentNode);
                     }
                 }
+            }
+
+            if (data.ContainsKey(NameKey))
+            {
+                Name = data.GetString(NameKey);
             }
 
             Children = agentNode.Children;
