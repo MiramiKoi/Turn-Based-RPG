@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Runtime.Descriptions.Agents.Nodes
 {
     public class AgentSequence : AgentNode
@@ -9,7 +12,9 @@ namespace Runtime.Descriptions.Agents.Nodes
             foreach (var child in Children)
             {
                 if (child.Process(context, controllable) != NodeStatus.Success)
-                    return NodeStatus.Failure;
+                {
+                        return NodeStatus.Failure;
+                }
             }
 
             return NodeStatus.Success;

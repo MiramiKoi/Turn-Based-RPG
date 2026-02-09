@@ -9,16 +9,15 @@
                "children" : [
                   
                ],
+               "name" : "1",
                "command" : {
-                  "type" : "has_unit_with_fraction",
-                  "fraction" : "player",
-                  "use_visibility_radius" : true,
-                  "custom_visibility_radius" : 0
+                  "type" : "has_point_of_interest",
+                  "point_of_interest" : "target"
                },
                "_editor" : {
                   "position" : [
-                     -1144.667,
-                     224.6667
+                     -3609.333,
+                     284
                   ]
                }
             },
@@ -27,6 +26,132 @@
                "children" : [
                   
                ],
+               "name" : "2",
+               "command" : {
+                  "type" : "distance_point_of_interest",
+                  "point_of_interest" : "target",
+                  "operation" : "<",
+                  "distance" : 2
+               },
+               "_editor" : {
+                  "position" : [
+                     -3269.333,
+                     284
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "has_unit_with_fraction",
+                  "fraction" : "player",
+                  "use_visibility_radius" : false,
+                  "custom_visibility_radius" : 2
+               },
+               "_editor" : {
+                  "position" : [
+                     -2902.667,
+                     286
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "set_point_of_interest_with_fraction",
+                  "fraction" : "player",
+                  "use_visibility_radius" : false,
+                  "custom_visibility_radius" : 2,
+                  "point_of_interest" : "target"
+               },
+               "_editor" : {
+                  "position" : [
+                     -2558,
+                     284
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "distance_point_of_interest",
+                  "point_of_interest" : "target",
+                  "operation" : "<",
+                  "distance" : 2
+               },
+               "_editor" : {
+                  "position" : [
+                     -2146,
+                     284
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "3",
+               "command" : {
+                  "type" : "attack_point_of_interest",
+                  "point_of_interest" : "target"
+               },
+               "_editor" : {
+                  "position" : [
+                     -1779.333,
+                     286
+                  ]
+               }
+            }
+         ],
+         "name" : "Attack",
+         "_editor" : {
+            "position" : [
+               -2351.333,
+               -151.3333
+            ]
+         }
+      },
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "4",
+               "command" : {
+                  "type" : "has_unit_with_fraction",
+                  "fraction" : "player",
+                  "use_visibility_radius" : true,
+                  "custom_visibility_radius" : 0
+               },
+               "_editor" : {
+                  "position" : [
+                     -1173.333,
+                     242.6667
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "5",
                "command" : {
                   "type" : "set_point_of_interest_with_fraction",
                   "fraction" : "player",
@@ -37,7 +162,7 @@
                "_editor" : {
                   "position" : [
                      -796,
-                     224.6667
+                     242.6667
                   ]
                }
             },
@@ -46,6 +171,7 @@
                "children" : [
                   
                ],
+               "name" : "6",
                "command" : {
                   "type" : "move_to_point_of_interest",
                   "point_of_interest" : "target"
@@ -58,10 +184,11 @@
                }
             }
          ],
+         "name" : "Follow",
          "_editor" : {
             "position" : [
-               -539.3333,
-               -92
+               -486.6667,
+               45.33334
             ]
          }
       },
@@ -73,6 +200,7 @@
                "children" : [
                   
                ],
+               "name" : "7",
                "command" : {
                   "type" : "has_point_of_interest",
                   "point_of_interest" : "patrol"
@@ -89,6 +217,7 @@
                "children" : [
                   
                ],
+               "name" : "8",
                "command" : {
                   "type" : "can_place_point_of_interest",
                   "point_of_interest" : "patrol"
@@ -105,6 +234,7 @@
                "children" : [
                   
                ],
+               "name" : "9",
                "command" : {
                   "type" : "move_to_point_of_interest",
                   "point_of_interest" : "patrol"
@@ -117,6 +247,7 @@
                }
             }
          ],
+         "name" : "Patrol",
          "_editor" : {
             "position" : [
                261.3333,
@@ -135,6 +266,7 @@
                      "children" : [
                         
                      ],
+                     "name" : "10",
                      "command" : {
                         "type" : "has_point_of_interest",
                         "point_of_interest" : "patrol"
@@ -151,6 +283,7 @@
                      "children" : [
                         
                      ],
+                     "name" : "11",
                      "command" : {
                         "type" : "distance_point_of_interest",
                         "point_of_interest" : "patrol",
@@ -169,6 +302,7 @@
                      "children" : [
                         
                      ],
+                     "name" : "12",
                      "command" : {
                         "type" : "set_random_point_of_interest",
                         "point_of_interest" : "patrol",
@@ -188,6 +322,7 @@
                      "children" : [
                         
                      ],
+                     "name" : "13",
                      "command" : {
                         "type" : "move_to_point_of_interest",
                         "point_of_interest" : "patrol"
@@ -200,9 +335,10 @@
                      }
                   }
                ],
+               "name" : "New Patrol Target",
                "_editor" : {
                   "position" : [
-                     1316,
+                     1313.333,
                      612
                   ]
                }
@@ -212,6 +348,7 @@
                "children" : [
                   
                ],
+               "name" : "14",
                "command" : {
                   "type" : "set_random_point_of_interest",
                   "point_of_interest" : "patrol",
@@ -231,6 +368,7 @@
                "children" : [
                   
                ],
+               "name" : "15",
                "command" : {
                   "type" : "move_to_point_of_interest",
                   "point_of_interest" : "patrol"
@@ -243,6 +381,7 @@
                }
             }
          ],
+         "name" : "Look Around",
          "_editor" : {
             "position" : [
                1350.667,
@@ -251,6 +390,7 @@
          }
       }
    ],
+   "name" : "Test",
    "_editor" : {
       "position" : [
          256,

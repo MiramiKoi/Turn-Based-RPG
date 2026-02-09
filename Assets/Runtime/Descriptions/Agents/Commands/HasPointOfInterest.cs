@@ -16,7 +16,7 @@ namespace Runtime.Descriptions.Agents.Commands
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var hasPointOfInterest = controllable.PointOfInterest.ContainsKey(PointOfInterest);
-            
+
             return hasPointOfInterest ? NodeStatus.Success : NodeStatus.Failure;
         }
 
