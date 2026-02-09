@@ -55,7 +55,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 return NodeStatus.Failure;
             }
             
-            controllable.SetPointOfInterest(PointOfInterest, GetNearestPoint(context, center, targetUnit.Position.Value));
+            controllable.SetPointOfInterest(PointOfInterest, targetUnit.Position.Value);
             
             return NodeStatus.Success;
         }
@@ -78,33 +78,6 @@ namespace Runtime.Descriptions.Agents.Commands
             UseVisibilityRadius = data.GetBool(UseVisibilityRadiusKey);
             CustomVisibilityRadius = data.GetInt(CustomVisibilityRadiusKey);
             PointOfInterest = data.GetString(PointOfInterestKey);
-        }
-
-        private Vector2Int GetNearestPoint(IWorldContext context, Vector2Int startPosition, Vector2Int endPosition)
-        {
-            var minDistance = float.MaxValue;
-
-            var bestPosition = endPosition;
-            
-            for (var dx = -1; dx <= 1; dx++)
-            {
-                for (var dy = -1; dy <= 1; dy++)
-                {
-                    var candidate = new Vector2Int(endPosition.x + dx, endPosition.y + dy);
-            
-                    if (context.GridModel.CanPlace(candidate))
-                    {
-                        var distance = Vector2Int.Distance(startPosition, candidate);
-                        if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            bestPosition = candidate;
-                        }
-                    }
-                }
-            }
-            
-            return bestPosition;
         }
     }
 }
