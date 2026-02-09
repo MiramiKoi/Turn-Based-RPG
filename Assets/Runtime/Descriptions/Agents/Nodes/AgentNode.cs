@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
-using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {

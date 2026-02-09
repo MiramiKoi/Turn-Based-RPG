@@ -9,17 +9,16 @@ namespace Runtime.Descriptions.Agents.Commands
     public abstract class CommandDescription : IUnitCommand, ISerializable, IDeserializable
     {
         public const string TypeKey = "type";
-        private const string NameKey = "name";
 
         public abstract string Type { get; }
-        
+
         public abstract NodeStatus Execute(IWorldContext context, IControllable controllable);
 
         public virtual Dictionary<string, object> Serialize()
         {
             return new Dictionary<string, object>
             {
-                {TypeKey, Type}
+                { TypeKey, Type }
             };
         }
 
@@ -43,18 +42,18 @@ namespace Runtime.Descriptions.Agents.Commands
                 "stat_condition" => new StatCondition(),
                 _ => throw new ArgumentOutOfRangeException()
             };
-            
+
             return command;
         }
-        
+
         public static CommandDescription CreateCommandFromData(Dictionary<string, object> data)
         {
             var type = data.GetString(TypeKey);
-            
+
             var command = CreateCommand(type);
-            
+
             command.Deserialize(data);
-            
+
             return command;
         }
     }

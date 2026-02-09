@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
-using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -22,7 +21,7 @@ namespace Runtime.Descriptions.Agents.Commands
             
             var canPlace = context.GridModel.CanPlace(controllable.GetPointOfInterest(PointOfInterest));
             
-            return canPlace ? NodeStatus.Success  : NodeStatus.Failure;;
+            return canPlace ? NodeStatus.Success  : NodeStatus.Failure;
         }
 
         public override Dictionary<string, object> Serialize()

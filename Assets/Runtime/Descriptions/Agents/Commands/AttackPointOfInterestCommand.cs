@@ -20,7 +20,7 @@ namespace Runtime.Descriptions.Agents.Commands
             var targetCell = context.GridModel.GetCell(pointOfInterestPosition);
 
             var targetUnit = targetCell.Unit as UnitModel;
-            var controllableUnit = controllable as UnitModel;
+            var controllableUnit = (UnitModel)controllable;
 
             if (targetUnit == null)
             {

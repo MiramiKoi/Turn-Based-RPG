@@ -49,9 +49,9 @@ namespace Runtime.Descriptions.Agents.Commands
             var bestPosition = currentPosition;
             var currentDistance = Vector2Int.Distance(currentPosition, endPosition);
 
-            for (int x = -1; x <= 1; x++)
+            for (var x = -1; x <= 1; x++)
             {
-                for (int y = -1; y <= 1; y++)
+                for (var y = -1; y <= 1; y++)
                 {
                     var candidate = currentPosition + new Vector2Int(x, y);
 

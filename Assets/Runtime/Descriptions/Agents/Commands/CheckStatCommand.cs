@@ -19,7 +19,7 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public string Operation { get; private set; } = string.Empty;
 
-        public float Value { get; private set; } = 0;
+        public float Value { get; private set; }
         
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
