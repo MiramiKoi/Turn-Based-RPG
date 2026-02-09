@@ -58,12 +58,9 @@ namespace Runtime.Descriptions.Agents.Commands
             {
                 for (int y = -1; y <= 1; y++)
                 {
-                    if (x == 0 && y == 0)
-                        continue;
-
                     var candidate = currentPosition + new Vector2Int(x, y);
 
-                    if (!context.GridModel.CanPlace(candidate))
+                    if (!context.GridModel.CanPlace(candidate) && context.GridModel.GetCell(candidate).Unit != unit)
                         continue;
 
                     var candidateDistance = Vector2Int.Distance(candidate, endPosition);
