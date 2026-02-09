@@ -1,6 +1,7 @@
 using Runtime.Descriptions.Agents.Nodes;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Editor.Agents.Nodes
 {
@@ -40,6 +41,19 @@ namespace Editor.Agents.Nodes
         protected virtual void Setup()
         {
             Title = Data.Node.Type;
+
+            var nameField = new TextField()
+            {
+                value = Data.Node.Name,
+            };
+
+            nameField.RegisterValueChangedCallback(evt =>
+            {
+                Data.Node.Name = evt.newValue;
+            });
+            
+            titleContainer.Add(nameField);
+            
             
             InputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(float));
             inputContainer.Add(InputPort);
