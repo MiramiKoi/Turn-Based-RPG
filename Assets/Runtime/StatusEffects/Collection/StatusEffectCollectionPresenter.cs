@@ -53,8 +53,6 @@ namespace Runtime.StatusEffects.Collection
 
             foreach (var presenter in _presenters)
             {
-                presenter.Value.Tick();
-
                 if (presenter.Value.IsExpired)
                     expired.Add(_modelCollection.Get(presenter.Key));
             }

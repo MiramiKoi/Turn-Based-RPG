@@ -58,15 +58,17 @@ namespace Runtime.StatusEffects.Applier
             return true;
         }
         
-        private void HandleApplyRequested(string effectId)
+        private string HandleApplyRequested(string effectId)
         {
             var description = _world.WorldDescription.StatusEffectCollection.Get(effectId);
 
             if (CanApply(description))
             {
-                _model.Collection.Create(effectId);
+                var model = _model.Collection.Create(effectId);
+                return model.Id;
             }
-            Debug.Log(CanApply(description));
+
+            return null;
         }
 
         private void HandleRemoveRequested(string effectId)

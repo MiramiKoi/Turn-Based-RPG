@@ -6,7 +6,7 @@ namespace Runtime.StatusEffects.Applier
 {
     public class StatusEffectApplierModel
     {
-        public event Action<string> OnApplyRequested;
+        public event Func<string, string> OnApplyRequested;
         public event Action<string> OnRemoveRequested;
 
         public StatusEffectModelCollection Collection { get; }
@@ -16,14 +16,14 @@ namespace Runtime.StatusEffects.Applier
             Collection = new StatusEffectModelCollection(description.StatusEffectCollection);
         }
 
-        public void TryApply(string descriptionKey)
+        public string TryApply(string descriptionKey)
         {
-            OnApplyRequested?.Invoke(descriptionKey);
+            return OnApplyRequested?.Invoke(descriptionKey);
         }
 
-        public void TryRemove(string descriptionKey)
+        public void TryRemove(string statusEffectId)
         {
-            OnRemoveRequested?.Invoke(descriptionKey);
+            OnRemoveRequested?.Invoke(statusEffectId);
         }
     }
 }
