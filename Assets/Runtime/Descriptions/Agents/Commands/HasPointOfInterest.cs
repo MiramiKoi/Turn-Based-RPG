@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class HasPointOfInterestCommand : CommandDescription
+    public class HasPointOfInterest : CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
 
@@ -14,7 +15,7 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var hasPointOfInterest = controllable.PointOfInterest.ContainsKey(PointOfInterestKey);
+            var hasPointOfInterest = controllable.PointOfInterest.ContainsKey(PointOfInterest);
             
             return hasPointOfInterest ? NodeStatus.Success : NodeStatus.Failure;
         }
