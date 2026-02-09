@@ -11,7 +11,7 @@ namespace Runtime.StatusEffects.Collection
         private readonly UnitModel _unit;
         private readonly World _world;
 
-        private readonly Dictionary<string, StatusEffectPresenter> _systems = new();
+        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
         public StatusEffectCollectionPresenter(UnitModel unit, World world)
         {
@@ -28,7 +28,7 @@ namespace Runtime.StatusEffects.Collection
 
             foreach (var model in _modelCollection.Models.Values)
             {
-                AddSystem(model);
+                AddPresenter(model);
             }
         }
 
@@ -38,11 +38,11 @@ namespace Runtime.StatusEffects.Collection
             _modelCollection.OnAdded -= HandleAdded;
             _modelCollection.OnRemoved -= HandleRemoved;
 
-            foreach (var pair in _systems)
+            foreach (var presenter in _presenters.Values)
             {
-                pair.Value.Disable();
+                presenter.Disable();
             }
-            _systems.Clear();
+            _presenters.Clear();
         }
 
         private void Tick()
@@ -51,12 +51,12 @@ namespace Runtime.StatusEffects.Collection
 
             var expired = new List<StatusEffectModel>();
 
-            foreach (var pair in _systems)
+            foreach (var presenter in _presenters)
             {
-                pair.Value.Tick();
+                presenter.Value.Tick();
 
-                if (pair.Value.IsExpired)
-                    expired.Add(_modelCollection.Get(pair.Key));
+                if (presenter.Value.IsExpired)
+                    expired.Add(_modelCollection.Get(presenter.Key));
             }
 
             foreach (var model in expired)
@@ -65,23 +65,23 @@ namespace Runtime.StatusEffects.Collection
             }
         }
 
-        private void AddSystem(StatusEffectModel model)
+        private void AddPresenter(StatusEffectModel model)
         {
             var id = model.Id;
             var presenter = new StatusEffectPresenter(model, _unit, _world);
-            _systems[id] = presenter;
+            _presenters[id] = presenter;
             presenter.Enable();
         }
 
         private void RemoveSystem(string id)
         {
-            _systems[id].Disable();
-            _systems.Remove(id);
+            _presenters[id].Disable();
+            _presenters.Remove(id);
         }
 
         private void HandleAdded(StatusEffectModel model)
         {
-            AddSystem(model);
+            AddPresenter(model);
         }
 
         private void HandleRemoved(StatusEffectModel model)
