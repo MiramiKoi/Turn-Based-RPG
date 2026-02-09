@@ -1,20 +1,19 @@
 local M = {}
 
-function M.CanApply(ctx)
-    
-    return true
-end 
-
-function M.OnApply(ctx)
-    
-end
-
 function M.OnTick(ctx)
-   
-end
+    local unit = ctx.unit
+    local effect = ctx.effect
 
-function M.OnRemove(ctx)
+    local stacks = effect["stacks"] or 1
+
+    local percent = 0.05
+    local per_stack = 2
+
+    local current_health = unit.Health
+
+    local damage = math.floor(current_health * percent + stacks * per_stack)
     
+    unit:TakeDamage(damage)
 end
 
 return M
