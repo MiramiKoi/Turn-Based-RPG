@@ -25,7 +25,7 @@ namespace Runtime.Player.StatusEffects
 
         public PlayerStatusEffectsHudPresenter(UnitModel unit, PlayerStatusEffectHudView view, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
         {
-            _modelCollection = unit.ActiveEffects;
+            _modelCollection = unit.ActiveEffects.Collection;
             _view = view;
             _world = world;
             _viewDescriptions = viewDescriptions;

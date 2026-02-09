@@ -15,7 +15,7 @@ namespace Runtime.StatusEffects.Collection
 
         public StatusEffectCollectionPresenter(UnitModel unit, World world)
         {
-            _modelCollection = unit.ActiveEffects;
+            _modelCollection = unit.ActiveEffects.Collection;
             _unit = unit;
             _world = world;
         }
