@@ -30,16 +30,17 @@ namespace Runtime.Descriptions.Agents.Commands
             CommandDescription command = type switch
             {
                 "log" => new LogCommand(),
-                "distance_point_of_interest" => new DistancePointOfInterest(),
+                "distance_point_of_interest" => new DistancePointOfInterestCommand(),
                 "has_flag" => new HasFlagCommand(),
-                "has_point_of_interest" => new HasPointOfInterest(),
-                "move_to_point_of_interest" => new MoveToPointOfInterest(),
+                "has_point_of_interest" => new HasPointOfInterestCommand(),
+                "move_to_point_of_interest" => new MoveToPointOfInterestCommand(),
                 "set_flag" => new SetFlagCommand(),
-                "set_random_point_of_interest" => new SetRandomPointOfInterest(),
-                "has_unit_with_fraction" => new HasUnitWithFraction(),
-                "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFraction(),
-                "can_place_point_of_interest" => new CanPlacePointOfInterest(),
-                "attack_point_of_interest" => new AttackPointOfInterest(),
+                "set_random_point_of_interest" => new SetRandomPointOfInterestCommand(),
+                "has_unit_with_fraction" => new HasUnitWithFractionCommand(),
+                "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFractionCommand(),
+                "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
+                "attack_point_of_interest" => new AttackPointOfInterestCommand(),
+                "stat_condition" => new StatCondition(),
                 _ => throw new ArgumentOutOfRangeException()
             };
             

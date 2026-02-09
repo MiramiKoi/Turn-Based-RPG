@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class DistancePointOfInterest : CommandDescription
+    public class DistancePointOfInterestCommand : CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
         private const string DistanceKey = "distance";

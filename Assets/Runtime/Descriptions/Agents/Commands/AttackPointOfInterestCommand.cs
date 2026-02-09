@@ -5,7 +5,7 @@ using Runtime.Units;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class AttackPointOfInterest : CommandDescription
+    public class AttackPointOfInterestCommand : CommandDescription
     {
         public override string Type => "attack_point_of_interest";
         

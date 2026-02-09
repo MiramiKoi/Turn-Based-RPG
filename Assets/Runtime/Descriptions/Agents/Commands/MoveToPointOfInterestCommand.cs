@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class MoveToPointOfInterest : CommandDescription
+    public class MoveToPointOfInterestCommand : CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
         public override string Type => "move_to_point_of_interest";
@@ -20,11 +20,6 @@ namespace Runtime.Descriptions.Agents.Commands
             var pointOfInterest = unit.GetPointOfInterest(PointOfInterest);
             
             var targetPosition = GetPosition(context, unit, pointOfInterest);
-            
-            if (unit.IsDead)
-            {
-                return NodeStatus.Failure;
-            }
             
             if (context.GridModel.TryPlace(unit, targetPosition))
             {

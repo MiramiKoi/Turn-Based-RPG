@@ -47,7 +47,8 @@ namespace Editor.Agents.Nodes
                     "has_unit_with_fraction",
                     "set_point_of_interest_with_fraction",
                     "can_place_point_of_interest",
-                    "attack_point_of_interest"
+                    "attack_point_of_interest",
+                    "stat_condition"
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -94,28 +95,31 @@ namespace Editor.Agents.Nodes
                     SetupFields<HasFlagCommand>();
                     break;
                 case  "has_point_of_interest":
-                    SetupFields<HasPointOfInterest>();
+                    SetupFields<HasPointOfInterestCommand>();
                     break;
                 case  "set_random_point_of_interest":
-                    SetupFields<SetRandomPointOfInterest>();
+                    SetupFields<SetRandomPointOfInterestCommand>();
                     break;
                 case "distance_point_of_interest":
-                    SetupFields<DistancePointOfInterest>();
+                    SetupFields<DistancePointOfInterestCommand>();
                     break;
                 case "move_to_point_of_interest":
-                    SetupFields<MoveToPointOfInterest>();
+                    SetupFields<MoveToPointOfInterestCommand>();
                     break;
                 case "has_unit_with_fraction":
-                    SetupFields<HasUnitWithFraction>();
+                    SetupFields<HasUnitWithFractionCommand>();
                     break;
                 case "set_point_of_interest_with_fraction":
-                    SetupFields<SetPointOfInterestWithFraction>();
+                    SetupFields<SetPointOfInterestWithFractionCommand>();
                     break;
                 case "can_place_point_of_interest":
-                    SetupFields<CanPlacePointOfInterest>();
+                    SetupFields<CanPlacePointOfInterestCommand>();
                     break;
                 case "attack_point_of_interest":
-                    SetupFields<AttackPointOfInterest>();
+                    SetupFields<AttackPointOfInterestCommand>();
+                    break;
+                case "stat_condition":
+                    SetupFields<StatCondition>();
                     break;
             }
         }

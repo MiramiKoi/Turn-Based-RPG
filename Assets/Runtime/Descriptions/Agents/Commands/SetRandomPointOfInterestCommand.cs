@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class SetRandomPointOfInterest :  CommandDescription
+    public class SetRandomPointOfInterestCommand :  CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
 
