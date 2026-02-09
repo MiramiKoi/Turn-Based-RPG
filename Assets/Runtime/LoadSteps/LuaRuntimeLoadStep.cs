@@ -32,6 +32,13 @@ namespace Runtime.LoadSteps
                 await loadModel.LoadAwaiter;
 
                 var env = new Table(LuaRuntime.Instance.LuaScript);
+                
+                var meta = new Table(LuaRuntime.Instance.LuaScript)
+                {
+                    ["__index"] = LuaRuntime.Instance.LuaScript.Globals
+                };
+                env.MetaTable = meta;
+
                 var moduleValue = LuaRuntime.Instance.LuaScript.DoString(loadModel.Result.text, env, luaKey);
 
                 var table = moduleValue.Type == DataType.Table ? moduleValue.Table : env;

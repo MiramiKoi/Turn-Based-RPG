@@ -13,7 +13,7 @@ namespace Runtime.Common
 
         private LuaRuntime()
         {
-            LuaScript = new Script();
+            LuaScript = new Script(CoreModules.Preset_Complete);
         }
 
         public Table GetModuleAsync(string luaKey)
