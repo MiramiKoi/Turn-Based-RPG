@@ -69,10 +69,15 @@ namespace Runtime.StatusEffects
         {
             var function = _module.Get("CanApply");
 
-            RefreshEffectTable();
-            var result = LuaRuntime.Instance.LuaScript.Call(function, _context);
+            if (!function.IsNil())
+            {
+                RefreshEffectTable();
+                var result = LuaRuntime.Instance.LuaScript.Call(function, _context);
 
-            return result.Boolean;
+                return result.Boolean;
+            }
+
+            return true;
         }
     }
 }
