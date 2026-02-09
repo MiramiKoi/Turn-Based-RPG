@@ -1,13 +1,15 @@
 ﻿﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
- namespace UniRx
+namespace UniRx
 {
     /// <summary>
     /// Notify boolean flag.
     /// </summary>
     public class BooleanNotifier : IObservable<bool>
     {
-        readonly Subject<bool> boolTrigger = new();
+        readonly Subject<bool> boolTrigger = new Subject<bool>();
 
         bool boolValue;
         /// <summary>Current flag value</summary>

@@ -15,7 +15,7 @@ namespace Runtime.Descriptions.Agents.Nodes
         
         public abstract string Type { get; }
         
-        public List<AgentNode> Children { get; set; } = new List<AgentNode>();
+        public List<AgentNode> Children { get; set; } = new();
 
         public void AddChild(AgentNode child)
         {
@@ -35,10 +35,10 @@ namespace Runtime.Descriptions.Agents.Nodes
                 children.Add(child.Serialize());
             }
             
-            return new Dictionary<string, object>()
+            return new Dictionary<string, object>
             {
                 {TypeKey, Type},
-                {ChildrenKey, children},
+                {ChildrenKey, children}
             };
         }
 

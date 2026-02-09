@@ -168,7 +168,7 @@ namespace Runtime.Extensions
         
         private static string ToPascalCase(string value)
         {
-            return string.Concat(value.Split('_', '-').Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1)));
+            return string.Concat(value.Split('_', '-').Select(s => char.ToUpperInvariant(s[0]) + s[1..]));
         }
     }
 }

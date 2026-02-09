@@ -5,7 +5,7 @@ namespace UniRx.Operators
 {
     internal class Wait<T> : IObserver<T>
     {
-        static readonly TimeSpan InfiniteTimeSpan = new(0, 0, 0, 0, -1); // from .NET 4.5
+        static readonly TimeSpan InfiniteTimeSpan = new TimeSpan(0, 0, 0, 0, -1); // from .NET 4.5
 
         readonly IObservable<T> source;
         readonly TimeSpan timeout;
@@ -27,7 +27,7 @@ namespace UniRx.Operators
             semaphore = new System.Threading.ManualResetEvent(false);
             using (source.Subscribe(this))
             {
-                var waitComplete = timeout == InfiniteTimeSpan
+                var waitComplete = (timeout == InfiniteTimeSpan)
                     ? semaphore.WaitOne()
                     : semaphore.WaitOne(timeout);
 

@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using UniRx.InternalUtil;
 
 namespace UniRx
 {
     public sealed class Subject<T> : ISubject<T>, IDisposable, IOptimizedObservable<T>
     {
-        readonly object observerLock = new();
+        object observerLock = new object();
 
         bool isStopped;
         bool isDisposed;
@@ -128,7 +130,7 @@ namespace UniRx
 
         class Subscription : IDisposable
         {
-            readonly object gate = new();
+            readonly object gate = new object();
             Subject<T> parent;
             IObserver<T> unsubscribeTarget;
 

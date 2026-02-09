@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace UniRx.Operators
 {
@@ -21,8 +24,8 @@ namespace UniRx.Operators
         {
             readonly SwitchObservable<T> parent;
 
-            readonly object gate = new();
-            readonly SerialDisposable innerSubscription = new();
+            readonly object gate = new object();
+            readonly SerialDisposable innerSubscription = new SerialDisposable();
             bool isStopped = false;
             ulong latest = 0UL;
             bool hasLatest = false;

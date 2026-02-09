@@ -22,7 +22,7 @@ namespace UniRx.Operators
         class ContinueWith : OperatorObserverBase<TSource, TResult>
         {
             readonly ContinueWithObservable<TSource, TResult> parent;
-            readonly SerialDisposable serialDisposable = new();
+            readonly SerialDisposable serialDisposable = new SerialDisposable();
 
             bool seenValue;
             TSource lastValue;
@@ -49,7 +49,7 @@ namespace UniRx.Operators
 
             public override void OnError(Exception error)
             {
-                try { observer.OnError(error); } finally { Dispose(); }
+                try { observer.OnError(error); } finally { Dispose(); };
             }
 
             public override void OnCompleted()
@@ -69,7 +69,7 @@ namespace UniRx.Operators
                 }
                 else
                 {
-                    try { observer.OnCompleted(); } finally { Dispose(); }
+                    try { observer.OnCompleted(); } finally { Dispose(); };
                 }
             }
         }

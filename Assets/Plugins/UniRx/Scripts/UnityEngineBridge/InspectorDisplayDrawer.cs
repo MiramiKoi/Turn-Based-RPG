@@ -2,6 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Collections;
 using System.Linq;
 
 #if UNITY_EDITOR
@@ -13,8 +14,8 @@ namespace UniRx
     [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class InspectorDisplayAttribute : PropertyAttribute
     {
-        public string FieldName { get; }
-        public bool NotifyPropertyChanged { get; }
+        public string FieldName { get; private set; }
+        public bool NotifyPropertyChanged { get; private set; }
 
         public InspectorDisplayAttribute(string fieldName = "value", bool notifyPropertyChanged = true)
         {
@@ -29,7 +30,7 @@ namespace UniRx
     [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class MultilineReactivePropertyAttribute : PropertyAttribute
     {
-        public int Lines { get; }
+        public int Lines { get; private set; }
 
         public MultilineReactivePropertyAttribute()
         {
@@ -48,8 +49,8 @@ namespace UniRx
     [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class RangeReactivePropertyAttribute : PropertyAttribute
     {
-        public float Min { get; }
-        public float Max { get; }
+        public float Min { get; private set; }
+        public float Max { get; private set; }
 
         public RangeReactivePropertyAttribute(float min, float max)
         {
@@ -90,8 +91,8 @@ namespace UniRx
             bool notifyPropertyChanged;
             {
                 var attr = this.attribute as InspectorDisplayAttribute;
-                fieldName = attr == null ? "value" : attr.FieldName;
-                notifyPropertyChanged = attr == null ? true : attr.NotifyPropertyChanged;
+                fieldName = (attr == null) ? "value" : attr.FieldName;
+                notifyPropertyChanged = (attr == null) ? true : attr.NotifyPropertyChanged;
             }
 
             if (notifyPropertyChanged)
@@ -122,7 +123,7 @@ namespace UniRx
                     var paths = property.propertyPath.Split('.'); // X.Y.Z...
                     var attachedComponent = property.serializedObject.targetObject;
 
-                    var targetProp = paths.Length == 1
+                    var targetProp = (paths.Length == 1)
                         ? fieldInfo.GetValue(attachedComponent)
                         : GetValueRecursive(attachedComponent, 0, paths);
                     if (targetProp == null) return;
@@ -202,7 +203,7 @@ namespace UniRx
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var attr = this.attribute as InspectorDisplayAttribute;
-            var fieldName = attr == null ? "value" : attr.FieldName;
+            var fieldName = (attr == null) ? "value" : attr.FieldName;
 
             var height = base.GetPropertyHeight(property, label);
             var valueProperty = property.FindPropertyRelative(fieldName);
@@ -224,8 +225,8 @@ namespace UniRx
                 var multilineAttr = GetMultilineAttribute();
                 if (multilineAttr != null)
                 {
-                    return (!EditorGUIUtility.wideMode ? 16f : 0f) + 16f + (multilineAttr.Lines - 1) * 13;
-                }
+                    return ((!EditorGUIUtility.wideMode) ? 16f : 0f) + 16f + (float)((multilineAttr.Lines - 1) * 13);
+                };
             }
 
             if (valueProperty.isExpanded)
@@ -233,7 +234,7 @@ namespace UniRx
                 var count = 0;
                 var e = valueProperty.GetEnumerator();
                 while (e.MoveNext()) count++;
-                return (height + 4) * count + 6; // (Line = 20 + Padding) ?
+                return ((height + 4) * count) + 6; // (Line = 20 + Padding) ?
             }
 
             return height;
@@ -274,7 +275,7 @@ namespace UniRx
                 position = (Rect)method.Invoke(null, new object[] { position, 0, label, 1 });
 
                 EditorGUI.BeginChangeCheck();
-                var indentLevel = EditorGUI.indentLevel;
+                int indentLevel = EditorGUI.indentLevel;
                 EditorGUI.indentLevel = 0;
                 var stringValue = EditorGUI.TextArea(position, property.stringValue);
                 EditorGUI.indentLevel = indentLevel;

@@ -1,6 +1,8 @@
 ﻿﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
- namespace UniRx
+namespace UniRx
 {
     /// <summary>Event kind of CountNotifier.</summary>
     public enum CountChangedStatus
@@ -20,8 +22,8 @@
     /// </summary>
     public class CountNotifier : IObservable<CountChangedStatus>
     {
-        readonly object lockObject = new();
-        readonly Subject<CountChangedStatus> statusChanged = new();
+        readonly object lockObject = new object();
+        readonly Subject<CountChangedStatus> statusChanged = new Subject<CountChangedStatus>();
         readonly int max;
 
         public int Max { get { return max; } }

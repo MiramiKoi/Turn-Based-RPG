@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UniRx.Operators
 {
@@ -27,7 +28,7 @@ namespace UniRx.Operators
             }
 
             readonly AmbObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             SingleAssignmentDisposable leftSubscription;
             SingleAssignmentDisposable rightSubscription;
             AmbState choice = AmbState.Neither;

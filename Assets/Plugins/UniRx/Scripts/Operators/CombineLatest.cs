@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace UniRx.Operators
 {
@@ -33,7 +35,7 @@ namespace UniRx.Operators
         class CombineLatest : OperatorObserverBase<TResult, TResult>
         {
             readonly CombineLatestObservable<TLeft, TRight, TResult> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             TLeft leftValue = default(TLeft);
             bool leftStarted = false;
@@ -198,7 +200,7 @@ namespace UniRx.Operators
         class CombineLatest : OperatorObserverBase<IList<T>, IList<T>>
         {
             readonly CombineLatestObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             int length;
             T[] values;
@@ -220,7 +222,7 @@ namespace UniRx.Operators
                 isAllValueStarted = false;
 
                 var disposables = new IDisposable[length];
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     var source = parent.sources[i];
                     disposables[i] = source.Subscribe(new CombineLatestObserver(this, i));
@@ -241,7 +243,7 @@ namespace UniRx.Operators
                 }
 
                 var allValueStarted = true;
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (!isStarted[i])
                     {
@@ -260,7 +262,7 @@ namespace UniRx.Operators
                 else
                 {
                     var allCompletedWithoutSelf = true;
-                    for (var i = 0; i < length; i++)
+                    for (int i = 0; i < length; i++)
                     {
                         if (i == index) continue;
                         if (!isCompleted[i])
@@ -335,7 +337,7 @@ namespace UniRx.Operators
                         parent.isCompleted[index] = true;
 
                         var allTrue = true;
-                        for (var i = 0; i < parent.length; i++)
+                        for (int i = 0; i < parent.length; i++)
                         {
                             if (!parent.isCompleted[i])
                             {
@@ -359,10 +361,10 @@ namespace UniRx.Operators
 
     internal class CombineLatestObservable<T1, T2, T3, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly CombineLatestFunc<T1, T2, T3, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        CombineLatestFunc<T1, T2, T3, TR> resultSelector;
 
         public CombineLatestObservable(
             IObservable<T1> source1,
@@ -389,7 +391,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, TR> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -440,11 +442,11 @@ namespace UniRx.Operators
 
     internal class CombineLatestObservable<T1, T2, T3, T4, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly CombineLatestFunc<T1, T2, T3, T4, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        CombineLatestFunc<T1, T2, T3, T4, TR> resultSelector;
 
         public CombineLatestObservable(
             IObservable<T1> source1,
@@ -474,7 +476,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, TR> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -528,12 +530,12 @@ namespace UniRx.Operators
 
     internal class CombineLatestObservable<T1, T2, T3, T4, T5, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly IObservable<T5> source5;
-        readonly CombineLatestFunc<T1, T2, T3, T4, T5, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        IObservable<T5> source5;
+        CombineLatestFunc<T1, T2, T3, T4, T5, TR> resultSelector;
 
         public CombineLatestObservable(
             IObservable<T1> source1,
@@ -566,7 +568,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, T5, TR> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -623,13 +625,13 @@ namespace UniRx.Operators
 
     internal class CombineLatestObservable<T1, T2, T3, T4, T5, T6, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly IObservable<T5> source5;
-        readonly IObservable<T6> source6;
-        readonly CombineLatestFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        IObservable<T5> source5;
+        IObservable<T6> source6;
+        CombineLatestFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
 
         public CombineLatestObservable(
             IObservable<T1> source1,
@@ -665,7 +667,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, T5, T6, TR> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -725,14 +727,14 @@ namespace UniRx.Operators
 
     internal class CombineLatestObservable<T1, T2, T3, T4, T5, T6, T7, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly IObservable<T5> source5;
-        readonly IObservable<T6> source6;
-        readonly IObservable<T7> source7;
-        readonly CombineLatestFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        IObservable<T5> source5;
+        IObservable<T6> source6;
+        IObservable<T7> source7;
+        CombineLatestFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
 
         public CombineLatestObservable(
             IObservable<T1> source1,
@@ -771,7 +773,7 @@ namespace UniRx.Operators
         class CombineLatest : NthCombineLatestObserverBase<TR>
         {
             readonly CombineLatestObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             CombineLatestObserver<T1> c1;
             CombineLatestObserver<T2> c2;
             CombineLatestObserver<T3> c3;
@@ -882,7 +884,7 @@ namespace UniRx.Operators
             }
 
             var allValueStarted = true;
-            for (var i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 if (!isStarted[i])
                 {
@@ -912,7 +914,7 @@ namespace UniRx.Operators
             else
             {
                 var allCompletedWithoutSelf = true;
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (i == index) continue;
                     if (!isCompleted[i])
@@ -940,7 +942,7 @@ namespace UniRx.Operators
             isCompleted[index] = true;
 
             var allTrue = true;
-            for (var i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 if (!isCompleted[i])
                 {

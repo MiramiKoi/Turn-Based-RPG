@@ -29,7 +29,7 @@ namespace UniRx.Operators
         class SampleFrame : OperatorObserverBase<T, T>
         {
             readonly SampleFrameObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             T latestValue = default(T);
             bool isUpdated = false;
             bool isCompleted = false;

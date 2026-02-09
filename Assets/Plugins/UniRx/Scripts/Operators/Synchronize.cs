@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx.Operators;
 
 namespace UniRx.Operators
 {
@@ -40,7 +41,7 @@ namespace UniRx.Operators
             {
                 lock (parent.gate)
                 {
-                    try { observer.OnError(error); } finally { Dispose(); }
+                    try { observer.OnError(error); } finally { Dispose(); };
                 }
             }
 
@@ -48,7 +49,7 @@ namespace UniRx.Operators
             {
                 lock (parent.gate)
                 {
-                    try { observer.OnCompleted(); } finally { Dispose(); }
+                    try { observer.OnCompleted(); } finally { Dispose(); };
                 }
             }
         }

@@ -6,8 +6,8 @@ namespace UniRx
 {
     public struct CollectionAddEvent<T> : IEquatable<CollectionAddEvent<T>>
     {
-        public int Index { get; }
-        public T Value { get; }
+        public int Index { get; private set; }
+        public T Value { get; private set; }
 
         public CollectionAddEvent(int index, T value)
             :this()
@@ -34,8 +34,8 @@ namespace UniRx
 
     public struct CollectionRemoveEvent<T> : IEquatable<CollectionRemoveEvent<T>>
     {
-        public int Index { get; }
-        public T Value { get; }
+        public int Index { get; private set; }
+        public T Value { get; private set; }
 
         public CollectionRemoveEvent(int index, T value)
             : this()
@@ -62,9 +62,9 @@ namespace UniRx
 
     public struct CollectionMoveEvent<T> : IEquatable<CollectionMoveEvent<T>>
     {
-        public int OldIndex { get; }
-        public int NewIndex { get; }
-        public T Value { get; }
+        public int OldIndex { get; private set; }
+        public int NewIndex { get; private set; }
+        public T Value { get; private set; }
 
         public CollectionMoveEvent(int oldIndex, int newIndex, T value)
             : this()
@@ -92,9 +92,9 @@ namespace UniRx
 
     public struct CollectionReplaceEvent<T> : IEquatable<CollectionReplaceEvent<T>>
     {
-        public int Index { get; }
-        public T OldValue { get; }
-        public T NewValue { get; }
+        public int Index { get; private set; }
+        public T OldValue { get; private set; }
+        public T NewValue { get; private set; }
 
         public CollectionReplaceEvent(int index, T oldValue, T newValue)
             : this()
@@ -195,7 +195,7 @@ namespace UniRx
 
         protected virtual void MoveItem(int oldIndex, int newIndex)
         {
-            var item = this[oldIndex];
+            T item = this[oldIndex];
             base.RemoveItem(oldIndex);
             base.InsertItem(newIndex, item);
 
@@ -204,7 +204,7 @@ namespace UniRx
 
         protected override void RemoveItem(int index)
         {
-            var item = this[index];
+            T item = this[index];
             base.RemoveItem(index);
 
             if (collectionRemove != null) collectionRemove.OnNext(new CollectionRemoveEvent<T>(index, item));
@@ -213,7 +213,7 @@ namespace UniRx
 
         protected override void SetItem(int index, T item)
         {
-            var oldItem = this[index];
+            T oldItem = this[index];
             base.SetItem(index, item);
 
             if (collectionReplace != null) collectionReplace.OnNext(new CollectionReplaceEvent<T>(index, oldItem, item));

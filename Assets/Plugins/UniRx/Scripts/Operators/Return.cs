@@ -92,7 +92,7 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnUnitObservable : IObservable<Unit>, IOptimizedObservable<Unit>
     {
-        internal static readonly ImmutableReturnUnitObservable Instance = new();
+        internal static ImmutableReturnUnitObservable Instance = new ImmutableReturnUnitObservable();
 
         ImmutableReturnUnitObservable()
         {
@@ -114,7 +114,7 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnTrueObservable : IObservable<bool>, IOptimizedObservable<bool>
     {
-        internal static readonly ImmutableReturnTrueObservable Instance = new();
+        internal static ImmutableReturnTrueObservable Instance = new ImmutableReturnTrueObservable();
 
         ImmutableReturnTrueObservable()
         {
@@ -136,7 +136,7 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnFalseObservable : IObservable<bool>, IOptimizedObservable<bool>
     {
-        internal static readonly ImmutableReturnFalseObservable Instance = new();
+        internal static ImmutableReturnFalseObservable Instance = new ImmutableReturnFalseObservable();
 
         ImmutableReturnFalseObservable()
         {
@@ -158,19 +158,19 @@ namespace UniRx.Operators
 
     internal class ImmutableReturnInt32Observable : IObservable<int>, IOptimizedObservable<int>
     {
-        static readonly ImmutableReturnInt32Observable[] Caches = new ImmutableReturnInt32Observable[]
+        static ImmutableReturnInt32Observable[] Caches = new ImmutableReturnInt32Observable[]
         {
-            new(-1),
-            new(0),
-            new(1),
-            new(2),
-            new(3),
-            new(4),
-            new(5),
-            new(6),
-            new(7),
-            new(8),
-            new(9)
+            new ImmutableReturnInt32Observable(-1),
+            new ImmutableReturnInt32Observable(0),
+            new ImmutableReturnInt32Observable(1),
+            new ImmutableReturnInt32Observable(2),
+            new ImmutableReturnInt32Observable(3),
+            new ImmutableReturnInt32Observable(4),
+            new ImmutableReturnInt32Observable(5),
+            new ImmutableReturnInt32Observable(6),
+            new ImmutableReturnInt32Observable(7),
+            new ImmutableReturnInt32Observable(8),
+            new ImmutableReturnInt32Observable(9),
         };
 
         public static IObservable<int> GetInt32Observable(int x)

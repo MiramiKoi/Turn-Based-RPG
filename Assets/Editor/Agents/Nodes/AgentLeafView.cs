@@ -32,7 +32,7 @@ namespace Editor.Agents.Nodes
             
             outputContainer.Clear();
 
-            _commandDropdownField = new DropdownField()
+            _commandDropdownField = new DropdownField
             {
                 label = "command",
                 choices =
@@ -154,11 +154,11 @@ namespace Editor.Agents.Nodes
             command.Deserialize(_currentParameters);
         }
 
-        private VisualElement CreateIntField(string title, int value, Action<int> callback)
+        private VisualElement CreateIntField(string label, int value, Action<int> callback)
         {
-            var field = new IntegerField()
+            var field = new IntegerField
             {
-                label = title,
+                label = label,
                 value = value
             };
             
@@ -167,11 +167,11 @@ namespace Editor.Agents.Nodes
             return field;
         }
         
-        private VisualElement CreateTextField(string title, string value, Action<string> callback)
+        private VisualElement CreateTextField(string label, string value, Action<string> callback)
         {
-            var field = new TextField()
+            var field = new TextField
             {
-                label = title,
+                label = label,
                 value = value
             };
             
@@ -180,12 +180,12 @@ namespace Editor.Agents.Nodes
             return field;
         }
         
-        private VisualElement CreateFloatField(string title, float value, Action<float> callback)
+        private VisualElement CreateFloatField(string label, float value, Action<float> callback)
         {
-            var field = new FloatField()
+            var field = new FloatField
             {
-                label = title,
-                value = value,
+                label = label,
+                value = value
             };
 
             field.RegisterValueChangedCallback(evt => callback?.Invoke(evt.newValue));
@@ -193,11 +193,11 @@ namespace Editor.Agents.Nodes
             return field;
         }
 
-        private VisualElement CreateBoolField(string title, bool value, Action<bool> callback)
+        private VisualElement CreateBoolField(string label, bool value, Action<bool> callback)
         {
-            var toggle = new Toggle()
+            var toggle = new Toggle
             {
-                label = title,
+                label = label,
                 value = value
             };
 

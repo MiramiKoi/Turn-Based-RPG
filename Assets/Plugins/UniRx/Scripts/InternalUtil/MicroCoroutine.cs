@@ -11,14 +11,14 @@ namespace UniRx.InternalUtil
     {
         const int InitialSize = 16;
 
-        readonly object runningAndQueueLock = new();
-        readonly object arrayLock = new();
+        readonly object runningAndQueueLock = new object();
+        readonly object arrayLock = new object();
         readonly Action<Exception> unhandledExceptionCallback;
 
         int tail = 0;
         bool running = false;
         IEnumerator[] coroutines = new IEnumerator[InitialSize];
-        readonly Queue<IEnumerator> waitQueue = new();
+        Queue<IEnumerator> waitQueue = new Queue<IEnumerator>();
 
         public MicroCoroutine(Action<Exception> unhandledExceptionCallback)
         {
@@ -60,7 +60,7 @@ namespace UniRx.InternalUtil
                 var j = tail - 1;
 
                 // eliminate array-bound check for i
-                for (var i = 0; i < coroutines.Length; i++)
+                for (int i = 0; i < coroutines.Length; i++)
                 {
                     var coroutine = coroutines[i];
                     if (coroutine != null)

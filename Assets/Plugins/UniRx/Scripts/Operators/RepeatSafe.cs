@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace UniRx.Operators
@@ -21,7 +22,7 @@ namespace UniRx.Operators
         class RepeatSafe : OperatorObserverBase<T, T>
         {
             readonly RepeatSafeObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             IEnumerator<IObservable<T>> e;
             SerialDisposable subscription;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
-using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -18,9 +17,9 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public virtual Dictionary<string, object> Serialize()
         {
-            return new Dictionary<string, object>()
+            return new Dictionary<string, object>
             {
-                {TypeKey, Type},
+                {TypeKey, Type}
             };
         }
 

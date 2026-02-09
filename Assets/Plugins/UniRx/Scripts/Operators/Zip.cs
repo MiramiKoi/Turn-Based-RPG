@@ -33,10 +33,10 @@ namespace UniRx.Operators
         {
             readonly ZipObservable<TLeft, TRight, TResult> parent;
 
-            readonly object gate = new();
-            readonly Queue<TLeft> leftQ = new();
+            readonly object gate = new object();
+            readonly Queue<TLeft> leftQ = new Queue<TLeft>();
             bool leftCompleted = false;
-            readonly Queue<TRight> rightQ = new();
+            readonly Queue<TRight> rightQ = new Queue<TRight>();
             bool rightCompleted = false;
 
             public Zip(ZipObservable<TLeft, TRight, TResult> parent, IObserver<TResult> observer, IDisposable cancel)
@@ -207,7 +207,7 @@ namespace UniRx.Operators
         class Zip : OperatorObserverBase<IList<T>, IList<T>>
         {
             readonly ZipObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             Queue<T>[] queues;
             bool[] isDone;
@@ -224,13 +224,13 @@ namespace UniRx.Operators
                 queues = new Queue<T>[length];
                 isDone = new bool[length];
 
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     queues[i] = new Queue<T>();
                 }
 
                 var disposables = new IDisposable[length + 1];
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     var source = parent.sources[i];
                     disposables[i] = source.Subscribe(new ZipObserver(this, i));
@@ -240,7 +240,7 @@ namespace UniRx.Operators
                 {
                     lock (gate)
                     {
-                        for (var i = 0; i < length; i++)
+                        for (int i = 0; i < length; i++)
                         {
                             var q = queues[i];
                             q.Clear();
@@ -255,7 +255,7 @@ namespace UniRx.Operators
             void Dequeue(int index)
             {
                 var allQueueHasValue = true;
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (queues[i].Count == 0)
                     {
@@ -267,7 +267,7 @@ namespace UniRx.Operators
                 if (!allQueueHasValue)
                 {
                     var allCompletedWithoutSelf = true;
-                    for (var i = 0; i < length; i++)
+                    for (int i = 0; i < length; i++)
                     {
                         if (i == index) continue;
                         if (!isDone[i])
@@ -290,7 +290,7 @@ namespace UniRx.Operators
                 }
 
                 var array = new T[length];
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     array[i] = queues[i].Dequeue();
                 }
@@ -349,7 +349,7 @@ namespace UniRx.Operators
                     {
                         parent.isDone[index] = true;
                         var allTrue = true;
-                        for (var i = 0; i < parent.length; i++)
+                        for (int i = 0; i < parent.length; i++)
                         {
                             if (!parent.isDone[i])
                             {
@@ -373,10 +373,10 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly ZipFunc<T1, T2, T3, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        ZipFunc<T1, T2, T3, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -403,10 +403,10 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, TR> parent;
-            readonly object gate = new();
-            readonly Queue<T1> q1 = new();
-            readonly Queue<T2> q2 = new();
-            readonly Queue<T3> q3 = new();
+            readonly object gate = new object();
+            readonly Queue<T1> q1 = new Queue<T1>();
+            readonly Queue<T2> q2 = new Queue<T2>();
+            readonly Queue<T3> q3 = new Queue<T3>();
 
             public Zip(ZipObservable<T1, T2, T3, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -457,11 +457,11 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly ZipFunc<T1, T2, T3, T4, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        ZipFunc<T1, T2, T3, T4, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -491,11 +491,11 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, TR> parent;
-            readonly object gate = new();
-            readonly Queue<T1> q1 = new();
-            readonly Queue<T2> q2 = new();
-            readonly Queue<T3> q3 = new();
-            readonly Queue<T4> q4 = new();
+            readonly object gate = new object();
+            readonly Queue<T1> q1 = new Queue<T1>();
+            readonly Queue<T2> q2 = new Queue<T2>();
+            readonly Queue<T3> q3 = new Queue<T3>();
+            readonly Queue<T4> q4 = new Queue<T4>();
 
             public Zip(ZipObservable<T1, T2, T3, T4, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -547,12 +547,12 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, T5, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly IObservable<T5> source5;
-        readonly ZipFunc<T1, T2, T3, T4, T5, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        IObservable<T5> source5;
+        ZipFunc<T1, T2, T3, T4, T5, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -585,12 +585,12 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, T5, TR> parent;
-            readonly object gate = new();
-            readonly Queue<T1> q1 = new();
-            readonly Queue<T2> q2 = new();
-            readonly Queue<T3> q3 = new();
-            readonly Queue<T4> q4 = new();
-            readonly Queue<T5> q5 = new();
+            readonly object gate = new object();
+            readonly Queue<T1> q1 = new Queue<T1>();
+            readonly Queue<T2> q2 = new Queue<T2>();
+            readonly Queue<T3> q3 = new Queue<T3>();
+            readonly Queue<T4> q4 = new Queue<T4>();
+            readonly Queue<T5> q5 = new Queue<T5>();
 
             public Zip(ZipObservable<T1, T2, T3, T4, T5, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -643,13 +643,13 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, T5, T6, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly IObservable<T5> source5;
-        readonly IObservable<T6> source6;
-        readonly ZipFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        IObservable<T5> source5;
+        IObservable<T6> source6;
+        ZipFunc<T1, T2, T3, T4, T5, T6, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -685,13 +685,13 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, T5, T6, TR> parent;
-            readonly object gate = new();
-            readonly Queue<T1> q1 = new();
-            readonly Queue<T2> q2 = new();
-            readonly Queue<T3> q3 = new();
-            readonly Queue<T4> q4 = new();
-            readonly Queue<T5> q5 = new();
-            readonly Queue<T6> q6 = new();
+            readonly object gate = new object();
+            readonly Queue<T1> q1 = new Queue<T1>();
+            readonly Queue<T2> q2 = new Queue<T2>();
+            readonly Queue<T3> q3 = new Queue<T3>();
+            readonly Queue<T4> q4 = new Queue<T4>();
+            readonly Queue<T5> q5 = new Queue<T5>();
+            readonly Queue<T6> q6 = new Queue<T6>();
 
             public Zip(ZipObservable<T1, T2, T3, T4, T5, T6, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -745,14 +745,14 @@ namespace UniRx.Operators
 
     internal class ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> : OperatorObservableBase<TR>
     {
-        readonly IObservable<T1> source1;
-        readonly IObservable<T2> source2;
-        readonly IObservable<T3> source3;
-        readonly IObservable<T4> source4;
-        readonly IObservable<T5> source5;
-        readonly IObservable<T6> source6;
-        readonly IObservable<T7> source7;
-        readonly ZipFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
+        IObservable<T1> source1;
+        IObservable<T2> source2;
+        IObservable<T3> source3;
+        IObservable<T4> source4;
+        IObservable<T5> source5;
+        IObservable<T6> source6;
+        IObservable<T7> source7;
+        ZipFunc<T1, T2, T3, T4, T5, T6, T7, TR> resultSelector;
 
         public ZipObservable(
             IObservable<T1> source1,
@@ -791,14 +791,14 @@ namespace UniRx.Operators
         class Zip : NthZipObserverBase<TR>
         {
             readonly ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent;
-            readonly object gate = new();
-            readonly Queue<T1> q1 = new();
-            readonly Queue<T2> q2 = new();
-            readonly Queue<T3> q3 = new();
-            readonly Queue<T4> q4 = new();
-            readonly Queue<T5> q5 = new();
-            readonly Queue<T6> q6 = new();
-            readonly Queue<T7> q7 = new();
+            readonly object gate = new object();
+            readonly Queue<T1> q1 = new Queue<T1>();
+            readonly Queue<T2> q2 = new Queue<T2>();
+            readonly Queue<T3> q3 = new Queue<T3>();
+            readonly Queue<T4> q4 = new Queue<T4>();
+            readonly Queue<T5> q5 = new Queue<T5>();
+            readonly Queue<T6> q6 = new Queue<T6>();
+            readonly Queue<T7> q7 = new Queue<T7>();
 
             public Zip(ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> parent, IObserver<TR> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -884,7 +884,7 @@ namespace UniRx.Operators
         public void Dequeue(int index)
         {
             var allQueueHasValue = true;
-            for (var i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 if (queues[i].Count == 0)
                 {
@@ -896,7 +896,7 @@ namespace UniRx.Operators
             if (!allQueueHasValue)
             {
                 var allCompletedWithoutSelf = true;
-                for (var i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (i == index) continue;
                     if (!isDone[i])
@@ -936,7 +936,7 @@ namespace UniRx.Operators
         {
             isDone[index] = true;
             var allTrue = true;
-            for (var i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 if (!isDone[i])
                 {

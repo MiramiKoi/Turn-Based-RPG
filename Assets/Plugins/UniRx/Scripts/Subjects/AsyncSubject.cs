@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UniRx.InternalUtil;
 
 #if (NET_4_6 || NET_STANDARD_2_0)
@@ -13,7 +14,7 @@ namespace UniRx
         , INotifyCompletion
 #endif
     {
-        readonly object observerLock = new();
+        object observerLock = new object();
 
         T lastValue;
         bool hasValue;
@@ -181,7 +182,7 @@ namespace UniRx
 
         class Subscription : IDisposable
         {
-            readonly object gate = new();
+            readonly object gate = new object();
             AsyncSubject<T> parent;
             IObserver<T> unsubscribeTarget;
 

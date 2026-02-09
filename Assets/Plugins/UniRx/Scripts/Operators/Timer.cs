@@ -29,7 +29,7 @@ namespace UniRx.Operators
         {
             var timerObserver = new Timer(observer, cancel);
 
-            var dueTime = dueTimeA != null
+            var dueTime = (dueTimeA != null)
                 ? dueTimeA.Value - scheduler.Now
                 : dueTimeB.Value;
 

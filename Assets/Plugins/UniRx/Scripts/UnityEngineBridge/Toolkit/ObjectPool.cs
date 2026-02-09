@@ -80,7 +80,7 @@ namespace UniRx.Toolkit
             if (isDisposed) throw new ObjectDisposedException("ObjectPool was already disposed.");
             if (q == null) q = new Queue<T>();
 
-            var instance = q.Count > 0
+            var instance = (q.Count > 0)
                 ? q.Dequeue()
                 : CreateInstance();
 
@@ -98,7 +98,7 @@ namespace UniRx.Toolkit
 
             if (q == null) q = new Queue<T>();
 
-            if (q.Count + 1 == MaxPoolCount)
+            if ((q.Count + 1) == MaxPoolCount)
             {
                 throw new InvalidOperationException("Reached Max PoolSize");
             }
@@ -189,7 +189,7 @@ namespace UniRx.Toolkit
 
                 var createCount = Math.Min(requireCount, threshold);
 
-                for (var i = 0; i < createCount; i++)
+                for (int i = 0; i < createCount; i++)
                 {
                     try
                     {
@@ -328,7 +328,7 @@ namespace UniRx.Toolkit
 
             if (q == null) q = new Queue<T>();
 
-            if (q.Count + 1 == MaxPoolCount)
+            if ((q.Count + 1) == MaxPoolCount)
             {
                 throw new InvalidOperationException("Reached Max PoolSize");
             }
@@ -420,7 +420,7 @@ namespace UniRx.Toolkit
                 var createCount = Math.Min(requireCount, threshold);
 
                 var loaders = new IObservable<Unit>[createCount];
-                for (var i = 0; i < createCount; i++)
+                for (int i = 0; i < createCount; i++)
                 {
                     var instanceFuture = CreateInstanceAsync();
                     loaders[i] = instanceFuture.ForEachAsync(x => Return(x));

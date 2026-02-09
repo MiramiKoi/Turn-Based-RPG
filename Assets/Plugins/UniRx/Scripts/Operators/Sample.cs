@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace UniRx.Operators
 {
@@ -24,7 +27,7 @@ namespace UniRx.Operators
         class Sample : OperatorObserverBase<T, T>
         {
             readonly SampleObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             T latestValue = default(T);
             bool isUpdated = false;
             bool isCompleted = false;
@@ -138,7 +141,7 @@ namespace UniRx.Operators
         class Sample : OperatorObserverBase<T, T>
         {
             readonly SampleObservable<T, T2> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             T latestValue = default(T);
             bool isUpdated = false;
             bool isCompleted = false;

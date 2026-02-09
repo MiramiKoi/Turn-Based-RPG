@@ -5,7 +5,7 @@ namespace UniRx
 {
     public sealed class BehaviorSubject<T> : ISubject<T>, IDisposable, IOptimizedObservable<T>
     {
-        readonly object observerLock = new();
+        object observerLock = new object();
 
         bool isStopped;
         bool isDisposed;
@@ -165,7 +165,7 @@ namespace UniRx
 
         class Subscription : IDisposable
         {
-            readonly object gate = new();
+            readonly object gate = new object();
             BehaviorSubject<T> parent;
             IObserver<T> unsubscribeTarget;
 

@@ -1,7 +1,9 @@
 ﻿#if !UNITY_METRO
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UniRx.InternalUtil;
 
 namespace UniRx
@@ -66,14 +68,14 @@ namespace UniRx
 
             sealed class Timer : IDisposable
             {
-                static readonly HashSet<System.Threading.Timer> s_timers = new();
+                static readonly HashSet<System.Threading.Timer> s_timers = new HashSet<System.Threading.Timer>();
 
                 private readonly SingleAssignmentDisposable _disposable;
 
                 private Action _action;
                 private System.Threading.Timer _timer;
 
-                private readonly bool _hasAdded;
+                private bool _hasAdded;
                 private bool _hasRemoved;
 
                 public Timer(TimeSpan dueTime, Action action)
@@ -142,7 +144,7 @@ namespace UniRx
 
             sealed class PeriodicTimer : IDisposable
             {
-                static readonly HashSet<System.Threading.Timer> s_timers = new();
+                static readonly HashSet<System.Threading.Timer> s_timers = new HashSet<System.Threading.Timer>();
 
                 private Action _action;
                 private System.Threading.Timer _timer;

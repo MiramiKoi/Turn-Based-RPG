@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 #if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
@@ -55,10 +56,10 @@ namespace UniRx
 
     public class ReactiveCommand<T> : IReactiveCommand<T>, IDisposable
     {
-        readonly Subject<T> trigger = new();
+        readonly Subject<T> trigger = new Subject<T>();
         readonly IDisposable canExecuteSubscription;
 
-        readonly ReactiveProperty<bool> canExecute;
+        ReactiveProperty<bool> canExecute;
         public IReadOnlyReactiveProperty<bool> CanExecute
         {
             get
@@ -174,7 +175,7 @@ namespace UniRx
     {
         UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>> asyncActions = UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>>.Empty;
 
-        readonly object gate = new();
+        readonly object gate = new object();
         readonly IReactiveProperty<bool> canExecuteSource;
         readonly IReadOnlyReactiveProperty<bool> canExecute;
 
@@ -241,7 +242,7 @@ namespace UniRx
                     var xs = new IObservable<Unit>[a.Length];
                     try
                     {
-                        for (var i = 0; i < a.Length; i++)
+                        for (int i = 0; i < a.Length; i++)
                         {
                             xs[i] = a[i].Invoke(parameter) ?? Observable.ReturnUnit();
                         }

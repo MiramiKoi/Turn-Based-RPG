@@ -20,7 +20,7 @@ namespace UniRx.Operators
 
         class ToList : OperatorObserverBase<TSource, IList<TSource>>
         {
-            readonly List<TSource> list = new();
+            readonly List<TSource> list = new List<TSource>();
 
             public ToList(IObserver<IList<TSource>> observer, IDisposable cancel)
                 : base(observer, cancel)
@@ -48,7 +48,7 @@ namespace UniRx.Operators
             public override void OnCompleted()
             {
                 base.observer.OnNext(list);
-                try { observer.OnCompleted(); } finally { Dispose(); }
+                try { observer.OnCompleted(); } finally { Dispose(); };
             }
         }
     }

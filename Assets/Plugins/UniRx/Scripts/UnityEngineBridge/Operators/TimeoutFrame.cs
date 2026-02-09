@@ -29,7 +29,7 @@ namespace UniRx.Operators
         class TimeoutFrame : OperatorObserverBase<T, T>
         {
             readonly TimeoutFrameObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
             ulong objectId = 0ul;
             bool isTimeout = false;
             SingleAssignmentDisposable sourceSubscription;

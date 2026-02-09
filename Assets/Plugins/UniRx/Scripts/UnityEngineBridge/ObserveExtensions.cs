@@ -188,7 +188,7 @@ namespace UniRx
                 {
                     var isDestroyed = destroyTrigger.IsActivated
                         ? !destroyTrigger.IsCalledOnDestroy
-                        : unityObject != null;
+                        : (unityObject != null);
 
                     if (isDestroyed)
                     {

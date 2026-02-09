@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace UniRx.InternalUtil
 {
@@ -14,7 +16,7 @@ namespace UniRx.InternalUtil
         public void OnCompleted()
         {
             var targetObservers = _observers.Data;
-            for (var i = 0; i < targetObservers.Length; i++)
+            for (int i = 0; i < targetObservers.Length; i++)
             {
                 targetObservers[i].OnCompleted();
             }
@@ -23,7 +25,7 @@ namespace UniRx.InternalUtil
         public void OnError(Exception error)
         {
             var targetObservers = _observers.Data;
-            for (var i = 0; i < targetObservers.Length; i++)
+            for (int i = 0; i < targetObservers.Length; i++)
             {
                 targetObservers[i].OnError(error);
             }
@@ -32,7 +34,7 @@ namespace UniRx.InternalUtil
         public void OnNext(T value)
         {
             var targetObservers = _observers.Data;
-            for (var i = 0; i < targetObservers.Length; i++)
+            for (int i = 0; i < targetObservers.Length; i++)
             {
                 targetObservers[i].OnNext(value);
             }
@@ -62,7 +64,7 @@ namespace UniRx.InternalUtil
 
     public class EmptyObserver<T> : IObserver<T>
     {
-        public static readonly EmptyObserver<T> Instance = new();
+        public static readonly EmptyObserver<T> Instance = new EmptyObserver<T>();
 
         EmptyObserver()
         {
@@ -84,7 +86,7 @@ namespace UniRx.InternalUtil
 
     public class ThrowObserver<T> : IObserver<T>
     {
-        public static readonly ThrowObserver<T> Instance = new();
+        public static readonly ThrowObserver<T> Instance = new ThrowObserver<T>();
 
         ThrowObserver()
         {
@@ -107,7 +109,7 @@ namespace UniRx.InternalUtil
 
     public class DisposedObserver<T> : IObserver<T>
     {
-        public static readonly DisposedObserver<T> Instance = new();
+        public static readonly DisposedObserver<T> Instance = new DisposedObserver<T>();
 
         DisposedObserver()
         {

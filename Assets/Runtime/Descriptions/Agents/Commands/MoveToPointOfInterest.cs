@@ -15,7 +15,7 @@ namespace Runtime.Descriptions.Agents.Commands
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var targetPosition = controllable.GetPointOfInterest(PointOfInterest);
-            var unit = controllable as UnitModel;
+            var unit = (UnitModel)controllable;
 
             if (unit.IsDead)
             {

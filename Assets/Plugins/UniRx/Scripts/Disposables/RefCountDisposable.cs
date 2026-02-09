@@ -3,6 +3,9 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 
 namespace UniRx
 {
@@ -11,7 +14,7 @@ namespace UniRx
     /// </summary>
     public sealed class RefCountDisposable : ICancelable
     {
-        private readonly object _gate = new();
+        private readonly object _gate = new object();
         private IDisposable _disposable;
         private bool _isPrimaryDisposed;
         private int _count;
@@ -114,7 +117,7 @@ namespace UniRx
         sealed class InnerDisposable : IDisposable
         {
             private RefCountDisposable _parent;
-            readonly object parentLock = new();
+            object parentLock = new object();
 
             public InnerDisposable(RefCountDisposable parent)
             {

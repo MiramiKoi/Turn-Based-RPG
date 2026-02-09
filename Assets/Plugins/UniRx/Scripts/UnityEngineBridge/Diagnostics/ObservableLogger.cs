@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
 
 namespace UniRx.Diagnostics
 {
     public class ObservableLogger : IObservable<LogEntry>
     {
-        static readonly Subject<LogEntry> logPublisher = new();
+        static readonly Subject<LogEntry> logPublisher = new Subject<LogEntry>();
 
-        public static readonly ObservableLogger Listener = new();
+        public static readonly ObservableLogger Listener = new ObservableLogger();
 
         private ObservableLogger()
         {

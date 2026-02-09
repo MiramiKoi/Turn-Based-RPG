@@ -20,7 +20,7 @@ namespace UniRx
     {
         Update,
         FixedUpdate,
-        EndOfFrame
+        EndOfFrame,
     }
 
     public enum MainThreadDispatchType
@@ -30,7 +30,7 @@ namespace UniRx
         FixedUpdate,
         EndOfFrame,
         GameObjectUpdate,
-        LateUpdate
+        LateUpdate,
     }
 
     public static class FrameCountTypeExtensions
@@ -113,7 +113,7 @@ namespace UniRx
         {
             get
             {
-                return HasResult || HasError || cancel.IsCancellationRequested;
+                return HasResult || HasError || (cancel.IsCancellationRequested);
             }
         }
 
@@ -227,7 +227,7 @@ namespace UniRx
     public static partial class Observable
 #endif
     {
-        readonly static HashSet<Type> YieldInstructionTypes = new()
+        readonly static HashSet<Type> YieldInstructionTypes = new HashSet<Type>
         {
             #if UNITY_2018_3_OR_NEWER
 #pragma warning disable CS0618
@@ -1074,7 +1074,7 @@ namespace UniRx
 
         public static IObservable<T> RepeatUntilDestroy<T>(this IObservable<T> source, Component target)
         {
-            return RepeatUntilCore(RepeatInfinite(source), target.OnDestroyAsObservable(), target != null ? target.gameObject : null);
+            return RepeatUntilCore(RepeatInfinite(source), target.OnDestroyAsObservable(), (target != null) ? target.gameObject : null);
         }
 
         public static IObservable<T> RepeatUntilDisable<T>(this IObservable<T> source, GameObject target)
@@ -1084,7 +1084,7 @@ namespace UniRx
 
         public static IObservable<T> RepeatUntilDisable<T>(this IObservable<T> source, Component target)
         {
-            return RepeatUntilCore(RepeatInfinite(source), target.OnDisableAsObservable(), target != null ? target.gameObject : null);
+            return RepeatUntilCore(RepeatInfinite(source), target.OnDisableAsObservable(), (target != null) ? target.gameObject : null);
         }
 
         static IObservable<T> RepeatUntilCore<T>(this IEnumerable<IObservable<T>> sources, IObservable<Unit> trigger, GameObject lifeTimeChecker)

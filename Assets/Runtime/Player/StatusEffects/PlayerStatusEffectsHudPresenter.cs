@@ -15,7 +15,6 @@ namespace Runtime.Player.StatusEffects
     {
         private readonly StatusEffectModelCollection _collection;
         private readonly PlayerStatusEffectHudView _view;
-        private readonly UnitModel _unit;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
@@ -29,7 +28,6 @@ namespace Runtime.Player.StatusEffects
         {
             _collection = collection;
             _view = view;
-            _unit = unit;
             _world = world;
             _viewDescriptions = viewDescriptions;
             _uiContent = uiContent;

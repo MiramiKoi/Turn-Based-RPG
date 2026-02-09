@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx.Operators;
 
 namespace UniRx.Operators
 {
@@ -33,7 +34,7 @@ namespace UniRx.Operators
             // xs.Take(5).Take(3) = 3 | xs.Take(3).Take(5) = 3
 
             // use minimum one
-            return this.count <= count
+            return (this.count <= count)
                 ? this
                 : new TakeObservable<T>(source, count);
         }
@@ -45,7 +46,7 @@ namespace UniRx.Operators
             // xs.Take(5s).Take(3s) = 3s | xs.Take(3s).Take(5s) = 3s
 
             // use minimum one
-            return this.duration <= duration
+            return (this.duration <= duration)
                 ? this
                 : new TakeObservable<T>(source, duration, scheduler);
         }
@@ -79,7 +80,7 @@ namespace UniRx.Operators
                     base.observer.OnNext(value);
                     if (rest == 0)
                     {
-                        try { observer.OnCompleted(); } finally { Dispose(); }
+                        try { observer.OnCompleted(); } finally { Dispose(); };
                     }
                 }
             }
@@ -98,7 +99,7 @@ namespace UniRx.Operators
         class Take_ : OperatorObserverBase<T, T>
         {
             readonly TakeObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             public Take_(TakeObservable<T> parent, IObserver<T> observer, IDisposable cancel) : base(observer, cancel)
             {
@@ -117,7 +118,7 @@ namespace UniRx.Operators
             {
                 lock (gate)
                 {
-                    try { observer.OnCompleted(); } finally { Dispose(); }
+                    try { observer.OnCompleted(); } finally { Dispose(); };
                 }
             }
 
@@ -133,7 +134,7 @@ namespace UniRx.Operators
             {
                 lock (gate)
                 {
-                    try { observer.OnError(error); } finally { Dispose(); }
+                    try { observer.OnError(error); } finally { Dispose(); };
                 }
             }
 
@@ -141,7 +142,7 @@ namespace UniRx.Operators
             {
                 lock (gate)
                 {
-                    try { observer.OnCompleted(); } finally { Dispose(); }
+                    try { observer.OnCompleted(); } finally { Dispose(); };
                 }
             }
         }

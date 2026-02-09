@@ -52,7 +52,7 @@ namespace UniRx.Operators
             }
 
             readonly ObserveOnObservable<T> parent;
-            readonly LinkedList<SchedulableAction> actions = new();
+            readonly LinkedList<SchedulableAction> actions = new LinkedList<SchedulableAction>();
             bool isDisposed;
 
             public ObserveOn(ObserveOnObservable<T> parent, IObserver<T> observer, IDisposable cancel) : base(observer, cancel)
@@ -183,12 +183,12 @@ namespace UniRx.Operators
 
             void OnError_(Exception error)
             {
-                try { observer.OnError(error); } finally { Dispose(); }
+                try { observer.OnError(error); } finally { Dispose(); };
             }
 
             void OnCompleted_(Unit _)
             {
-                try { observer.OnCompleted(); } finally { Dispose(); }
+                try { observer.OnCompleted(); } finally { Dispose(); };
             }
 
             public override void OnNext(T value)

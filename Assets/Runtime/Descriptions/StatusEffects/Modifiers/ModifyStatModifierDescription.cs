@@ -42,7 +42,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
 
                 case StatModifyMode.MultiplyPercent:
                 {
-                    var factor = 1f + (Value / 100f);
+                    var factor = 1f + Value / 100f;
                     statModel.MultiplyValue(factor);
                     break;
                 }

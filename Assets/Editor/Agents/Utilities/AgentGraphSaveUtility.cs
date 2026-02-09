@@ -78,12 +78,7 @@ namespace Editor.Agents.Utilities
         {
             var rootNodeView = Nodes.FirstOrDefault(nv => nv.Data.Node is AgentDecisionDescription);
 
-            if (rootNodeView == null)
-            {
-                throw new KeyNotFoundException("Root node not found");
-            }
-
-            return rootNodeView;
+            return rootNodeView ?? throw new KeyNotFoundException("Root node not found");
         }
     }
 }

@@ -40,7 +40,7 @@ namespace UniRx.Operators
         class Concat : OperatorObserverBase<T, T>
         {
             readonly ConcatObservable<T> parent;
-            readonly object gate = new();
+            readonly object gate = new object();
 
             bool isDisposed;
             IEnumerator<IObservable<T>> e;

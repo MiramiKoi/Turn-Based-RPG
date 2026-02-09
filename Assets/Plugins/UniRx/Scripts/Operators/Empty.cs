@@ -62,7 +62,7 @@ namespace UniRx.Operators
 
     internal class ImmutableEmptyObservable<T> : IObservable<T>, IOptimizedObservable<T>
     {
-        internal static readonly ImmutableEmptyObservable<T> Instance = new();
+        internal static ImmutableEmptyObservable<T> Instance = new ImmutableEmptyObservable<T>();
 
         ImmutableEmptyObservable()
         {
