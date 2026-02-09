@@ -1,0 +1,20 @@
+﻿{
+  "burn": {
+    "category": "damage_over_time",
+    "polarity": "debuff",
+    "view_id": "burn",
+    "lua_script": "burn",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 5
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    },
+    "flags": [
+      "physical",
+      "dot"
+    ]
+  }
+}
