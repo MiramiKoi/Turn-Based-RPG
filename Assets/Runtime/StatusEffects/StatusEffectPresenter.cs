@@ -1,59 +1,78 @@
-﻿using Runtime.AsyncLoad;
+﻿using MoonSharp.Interpreter;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Descriptions.StatusEffects.Enums;
-using Runtime.ViewDescriptions.StatusEffects;
-using UniRx;
-using UnityEngine;
+using Runtime.Units;
 
 namespace Runtime.StatusEffects
 {
     public class StatusEffectPresenter : IPresenter
     {
+        public bool IsExpired => _model.IsExpired;
+
         private readonly StatusEffectModel _model;
-        private readonly StatusEffectView _view;
         private readonly World _world;
-        private readonly StatusEffectViewDescription _viewDescription;
+        private readonly Table _module;
+        private readonly Table _context;
+        private readonly Table _effectTable;
 
-        private readonly CompositeDisposable _disposables = new();
-        private LoadModel<Sprite> _loadModel;
-
-        public StatusEffectPresenter(StatusEffectModel model, StatusEffectView view, World world,
-            StatusEffectViewDescription viewDescription)
+        public StatusEffectPresenter(StatusEffectModel model, UnitModel unit, World world)
         {
             _model = model;
-            _view = view;
             _world = world;
-            _viewDescription = viewDescription;
-        }
 
-        public async void Enable()
+            _module = LuaRuntime.Instance.GetModuleAsync(model.Description.LuaScript);
+            _context = new Table(LuaRuntime.Instance.LuaScript);
+            _effectTable = new Table(LuaRuntime.Instance.LuaScript);
+
+            _context["unit"] = UserData.Create(unit);
+            _context["world"] = UserData.Create(world);
+            _context["effect"] = _effectTable;
+        }
+        
+        public void Enable()
         {
-            var key = $"{_viewDescription.Icons.AssetGUID}[{_viewDescription.Icons.SubObjectName}]";
-            _loadModel = _world.AddressableModel.Load<Sprite>(key);
-            await _loadModel.LoadAwaiter;
-            _view.Icon.sprite = _loadModel.Result;
-            _model.RemainingTurns.Subscribe(HandleRemainingTurnsChanged).AddTo(_disposables);
-            _model.CurrentStacks.Subscribe(HandleStacksChanged).AddTo(_disposables);
+            if (CanApply())
+            {
+                Call("OnApply");
+            }
+            
+            _world.TurnBaseModel.OnWorldStepFinished += Tick;
         }
 
         public void Disable()
         {
-            _world.AddressableModel.Unload(_loadModel);
-            _disposables.Dispose();
+            Call("OnRemove");
+            
+            _world.TurnBaseModel.OnWorldStepFinished -= Tick;
         }
 
-        private void HandleRemainingTurnsChanged(int remainingTurns)
+        public void Tick()
         {
-            if (_model.Description.Duration.Type == DurationType.TurnBased)
-            {
-                _view.TurnsCounter.text = remainingTurns.ToString();
-            }
+            
         }
 
-        private void HandleStacksChanged(int stacks)
+        private void Call(string functionName)
         {
-            _view.StackCounter.text = stacks + "X";
+            var function = _module.Get(functionName);
+            
+            RefreshEffectTable();
+            LuaRuntime.Instance.LuaScript.Call(function, _context);
+        }
+
+        private void RefreshEffectTable()
+        {
+            _effectTable["stacks"] = _model.CurrentStacks.Value;
+            _effectTable["remaining_turns"] = _model.RemainingTurns.Value;
+        }
+        
+        private bool CanApply()
+        {
+            var function = _module.Get("CanApply");
+
+            RefreshEffectTable();
+            var result = LuaRuntime.Instance.LuaScript.Call(function, _context);
+
+            return result.Boolean;
         }
     }
 }

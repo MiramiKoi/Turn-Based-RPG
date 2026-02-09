@@ -19,7 +19,7 @@ namespace Runtime.Player.StatusEffects
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
 
-        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
+        private readonly Dictionary<string, StatusEffectViewPresenter> _presenters = new();
         private readonly Dictionary<string, StatusEffectView> _views = new();
         private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
 
@@ -78,7 +78,7 @@ namespace Runtime.Player.StatusEffects
             _views[id] = view;
             _view.Root.Add(view.Root);
 
-            var presenter = new StatusEffectPresenter(model, view, _world, viewDescription);
+            var presenter = new StatusEffectViewPresenter(model, view, _world, viewDescription);
             _presenters[id] = presenter;
             presenter.Enable();
         }

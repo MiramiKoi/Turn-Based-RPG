@@ -11,7 +11,7 @@ namespace Runtime.StatusEffects.Collection
         private readonly UnitModel _unit;
         private readonly World _world;
 
-        private readonly Dictionary<string, StatusEffectSystem> _systems = new();
+        private readonly Dictionary<string, StatusEffectPresenter> _systems = new();
 
         public StatusEffectCollectionPresenter(UnitModel unit, World world)
         {
@@ -38,6 +38,10 @@ namespace Runtime.StatusEffects.Collection
             _modelCollection.OnAdded -= HandleAdded;
             _modelCollection.OnRemoved -= HandleRemoved;
 
+            foreach (var pair in _systems)
+            {
+                pair.Value.Disable();
+            }
             _systems.Clear();
         }
 
@@ -64,9 +68,15 @@ namespace Runtime.StatusEffects.Collection
         private void AddSystem(StatusEffectModel model)
         {
             var id = model.Id;
-            var presenter = new StatusEffectSystem(model, _unit, _world);
+            var presenter = new StatusEffectPresenter(model, _unit, _world);
             _systems[id] = presenter;
-            presenter.Apply();
+            presenter.Enable();
+        }
+
+        private void RemoveSystem(string id)
+        {
+            _systems[id].Disable();
+            _systems.Remove(id);
         }
 
         private void HandleAdded(StatusEffectModel model)
@@ -76,7 +86,7 @@ namespace Runtime.StatusEffects.Collection
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            _systems.Remove(model.Id);
+            RemoveSystem(model.Id);
         }
     }
 }
