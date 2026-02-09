@@ -1,15 +1,13 @@
 using System.Collections.Generic;
-using System.Linq;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
 
 namespace Runtime.StatusEffects.Collection
 {
     public class StatusEffectCollectionPresenter : IPresenter
     {
-        private readonly StatusEffectModelCollection _collection;
+        private readonly StatusEffectModelCollection _modelCollection;
         private readonly UnitModel _unit;
         private readonly World _world;
 
@@ -17,7 +15,7 @@ namespace Runtime.StatusEffects.Collection
 
         public StatusEffectCollectionPresenter(UnitModel unit, World world)
         {
-            _collection = unit.ActiveEffects;
+            _modelCollection = unit.ActiveEffects;
             _unit = unit;
             _world = world;
         }
@@ -25,10 +23,10 @@ namespace Runtime.StatusEffects.Collection
         public void Enable()
         {
             _world.TurnBaseModel.OnWorldStepFinished += Tick;
-            _collection.OnAdded += HandleAdded;
-            _collection.OnRemoved += HandleRemoved;
+            _modelCollection.OnAdded += HandleAdded;
+            _modelCollection.OnRemoved += HandleRemoved;
 
-            foreach (var model in _collection.Models.Values)
+            foreach (var model in _modelCollection.Models.Values)
             {
                 AddSystem(model);
             }
@@ -37,8 +35,8 @@ namespace Runtime.StatusEffects.Collection
         public void Disable()
         {
             _world.TurnBaseModel.OnWorldStepFinished -= Tick;
-            _collection.OnAdded -= HandleAdded;
-            _collection.OnRemoved -= HandleRemoved;
+            _modelCollection.OnAdded -= HandleAdded;
+            _modelCollection.OnRemoved -= HandleRemoved;
 
             _systems.Clear();
         }
@@ -54,12 +52,12 @@ namespace Runtime.StatusEffects.Collection
                 pair.Value.Tick();
 
                 if (pair.Value.IsExpired)
-                    expired.Add(_collection.Get(pair.Key));
+                    expired.Add(_modelCollection.Get(pair.Key));
             }
 
             foreach (var model in expired)
             {
-                _collection.Remove(model.Id);
+                _modelCollection.Remove(model.Id);
             }
         }
 
