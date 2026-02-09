@@ -68,14 +68,7 @@ namespace Runtime.StatusEffects.Collection
             var id = model.Id;
             var presenter = new StatusEffectSystem(model, _unit, _world);
             _systems[id] = presenter;
-
-            var stacks = model.CurrentStacks.Value;
-            var immediateModifiers = model.Description.Modifiers.Where(modifier =>
-                modifier.Type is ModifierExecutionTime.Immediate or ModifierExecutionTime.ImmediateWhileActive);
-            foreach (var modifier in immediateModifiers)
-            {
-                modifier.Tick(_unit, _world, stacks);
-            }
+            presenter.Apply();
         }
 
         private void HandleAdded(StatusEffectModel model)

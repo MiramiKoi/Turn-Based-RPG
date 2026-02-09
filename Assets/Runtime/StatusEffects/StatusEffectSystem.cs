@@ -1,6 +1,6 @@
-using System.Linq;
+using MoonSharp.Interpreter;
+using Runtime.Common;
 using Runtime.Core;
-using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
 
 namespace Runtime.StatusEffects
@@ -10,51 +10,64 @@ namespace Runtime.StatusEffects
         public bool IsExpired => _model.IsExpired;
 
         private readonly StatusEffectModel _model;
-        private readonly UnitModel _unit;
-        private readonly World _world;
+        private readonly Table _module;
+        private readonly Table _context;
+        private readonly Table _effectTable;
 
         public StatusEffectSystem(StatusEffectModel model, UnitModel unit, World world)
         {
             _model = model;
-            _unit = unit;
-            _world = world;
+
+            _module = LuaRuntime.Instance.GetModuleAsync(model.Description.LuaScript);
+            _context = new Table(LuaRuntime.Instance.LuaScript);
+            _effectTable = new Table(LuaRuntime.Instance.LuaScript);
+
+            _context["unit"] = UserData.Create(unit);
+            _context["world"] = UserData.Create(world);
+            _context["effect"] = _effectTable;
         }
 
         public void Tick()
         {
             if (CanApply())
             {
-                var stacks = _model.CurrentStacks.Value;
-
-                foreach (var modifier in _model.Description.Modifiers.Where(modifier =>
-                             modifier.Type is ModifierExecutionTime.WhileActive))
-                {
-                    modifier.Tick(_unit, _world, stacks);
-                }
-
-                if (_model.Description.Duration.Type == DurationType.TurnBased)
-                    _model.DecrementRemainingTurns();
-
-                foreach (var modifier in _model.Description.Modifiers.Where(modifier =>
-                             modifier.Type is ModifierExecutionTime.ImmediateWhileActive))
-                {
-                    if (!IsExpired)
-                    {
-                        modifier.Tick(_unit, _world, stacks);
-                    }
-                }
+                Call("OnTick");
             }
         }
 
-        private bool CanApply()
+        public void Apply()
         {
-            foreach (var constraint in _model.Description.Constraint)
-            {
-                if (constraint.Check(_unit, _world)) continue;
-                return false;
-            }
+            if (CanApply())
+                Call("OnApply");
+        }
 
-            return true;
+        public void Remove()
+        {
+            Call("OnRemove");
+        }
+
+        private void Call(string functionName)
+        {
+            var function = _module.Get(functionName);
+            
+            RefreshEffectTable();
+            LuaRuntime.Instance.LuaScript.Call(function, _context);
+        }
+
+        private void RefreshEffectTable()
+        {
+            _effectTable["stacks"] = _model.CurrentStacks.Value;
+            _effectTable["remaining_turns"] = _model.RemainingTurns.Value;
+        }
+        
+        public bool CanApply()
+        {
+            var function = _module.Get("CanApply");
+
+            RefreshEffectTable();
+            var result = LuaRuntime.Instance.LuaScript.Call(function, _context);
+
+            return result.Boolean;
         }
     }
 }
