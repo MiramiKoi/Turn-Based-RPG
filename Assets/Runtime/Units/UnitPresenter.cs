@@ -126,7 +126,7 @@ namespace Runtime.Units
         private async Task PlayAnimation(int animationId)
         {
             _view.Animator.SetBool(animationId, true);
-            var scheduleAwaiter = new ScheduleAwaiter(_view.Animator.GetCurrentAnimatorStateInfo(0).length, _world.Scheduler);
+            var scheduleAwaiter = new ScheduleAwaiter(_view.Animator.GetCurrentAnimatorStateInfo(0).length);
             scheduleAwaiter.Start();
             await scheduleAwaiter;
             _view.Animator.SetBool(animationId, false);
@@ -135,7 +135,7 @@ namespace Runtime.Units
         private async Task PlayAnimation(int animationId, float duration)
         {
             _view.Animator.SetBool(animationId, true);
-            var scheduleAwaiter = new ScheduleAwaiter(duration, _world.Scheduler);
+            var scheduleAwaiter = new ScheduleAwaiter(duration);
             scheduleAwaiter.Start();
             await scheduleAwaiter;
             _view.Animator.SetBool(animationId, false);

@@ -79,7 +79,6 @@ namespace Runtime.Core
         private void Update()
         {
             _world.GameSystems?.Update(Time.deltaTime);
-            _world.Scheduler?.Update(Time.deltaTime);
         }
 
         private async Task CreateControllableUnit()

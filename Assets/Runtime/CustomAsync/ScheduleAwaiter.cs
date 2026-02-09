@@ -9,22 +9,20 @@ namespace Runtime.CustomAsync
         public bool IsCompleted { get; private set; }
 
         private float _awaitTime;
-        private Scheduler _scheduler;
 
-        public ScheduleAwaiter(float awaitTime, Scheduler scheduler)
+        public ScheduleAwaiter(float awaitTime)
         {
             _awaitTime = awaitTime;
-            _scheduler = scheduler;
         }
         
         public void Start()
         {
-            _scheduler.OnTick += OnTick;
+            Scheduler.Instance.OnTick += OnTick;
         }
 
         public void Stop()
         {
-            _scheduler.OnTick -= OnTick;
+            Scheduler.Instance.OnTick -= OnTick;
             
             IsCompleted = true;
             _continuations?.Invoke();

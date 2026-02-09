@@ -29,7 +29,6 @@ namespace Runtime.Core
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
         public AgentModelCollection AgentCollection { get; private set; }
-        public Scheduler Scheduler { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls, WorldDescription worldDescription)
         {
@@ -52,8 +51,6 @@ namespace Runtime.Core
             AgentCollection = new AgentModelCollection();
 
             InventoryModel = new InventoryModel(16);
-            
-            Scheduler = new Scheduler();
         }
     }
 }
