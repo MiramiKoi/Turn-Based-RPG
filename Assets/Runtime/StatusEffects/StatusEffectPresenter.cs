@@ -7,8 +7,6 @@ namespace Runtime.StatusEffects
 {
     public class StatusEffectPresenter : IPresenter
     {
-        public bool IsExpired => _model.IsExpired;
-
         private readonly StatusEffectModel _model;
         private readonly World _world;
         private readonly Table _module;
@@ -36,27 +34,25 @@ namespace Runtime.StatusEffects
                 Call("OnApply");
             }
             
-            _world.TurnBaseModel.OnWorldStepFinished += Tick;
+            _world.TurnBaseModel.OnWorldStepFinished += HandleTick;
         }
 
         public void Disable()
         {
             Call("OnRemove");
             
-            _world.TurnBaseModel.OnWorldStepFinished -= Tick;
-        }
-
-        public void Tick()
-        {
-            
+            _world.TurnBaseModel.OnWorldStepFinished -= HandleTick;
         }
 
         private void Call(string functionName)
         {
             var function = _module.Get(functionName);
             
-            RefreshEffectTable();
-            LuaRuntime.Instance.LuaScript.Call(function, _context);
+            if (!function.IsNil())
+            {
+                RefreshEffectTable();
+                LuaRuntime.Instance.LuaScript.Call(function, _context);
+            }
         }
 
         private void RefreshEffectTable()
@@ -78,6 +74,14 @@ namespace Runtime.StatusEffects
             }
 
             return true;
+        }
+        
+        private void HandleTick()
+        {
+            if (!_model.IsExpired)
+            {
+                Call("OnTick");
+            }
         }
     }
 }

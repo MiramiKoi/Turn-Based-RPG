@@ -51,10 +51,13 @@ namespace Runtime.StatusEffects.Collection
 
             var expired = new List<StatusEffectModel>();
 
-            foreach (var presenter in _presenters)
+            foreach (var model in _modelCollection.Models)
             {
-                if (presenter.Value.IsExpired)
-                    expired.Add(_modelCollection.Get(presenter.Key));
+                model.Value.DecrementRemainingTurns();
+                if (model.Value.IsExpired)
+                {
+                    expired.Add(_modelCollection.Get(model.Key));
+                }
             }
 
             foreach (var model in expired)

@@ -11,10 +11,11 @@ namespace Runtime.StatusEffects
     public class StatusEffectModel : ISerializable, IDeserializable
     {
         public string Id { get; }
+        public bool IsExpired => RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased;
         public StatusEffectDescription Description { get; }
-        public ReactiveProperty<int> CurrentStacks { get; } = new();
-        public ReactiveProperty<int> RemainingTurns { get; } = new();
-
+        public ReactiveProperty<int> CurrentStacks { get; private set; } = new();
+        public ReactiveProperty<int> RemainingTurns { get; private set; } = new();
+        
         public StatusEffectModel(string id, StatusEffectDescription description)
         {
             Id = id;
@@ -32,8 +33,7 @@ namespace Runtime.StatusEffects
                     var before = CurrentStacks.Value;
                     CurrentStacks.Value = Math.Min(CurrentStacks.Value + 1, Description.Stacking.MaxStacks);
 
-                    if (CurrentStacks.Value == Description.Stacking.MaxStacks &&
-                        before == Description.Stacking.MaxStacks)
+                    if (CurrentStacks.Value == Description.Stacking.MaxStacks && before == Description.Stacking.MaxStacks)
                         RemainingTurns.Value = Description.Duration.Turns;
 
                     break;
@@ -52,8 +52,6 @@ namespace Runtime.StatusEffects
         {
             RemainingTurns.Value--;
         }
-
-        public bool IsExpired => RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased;
 
         public Dictionary<string, object> Serialize()
         {
