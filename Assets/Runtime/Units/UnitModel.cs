@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.CustomAsync;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
@@ -36,8 +36,6 @@ namespace Runtime.Units
         public int Health => (int)Stats["health"].Value;
         
         public bool IsDead => (int)Stats["health"].Value <= 0;
-        
-        public CustomAwaiter Awaiter { get; private set; }
 
         private readonly Dictionary<string, bool> _flags = new();
 
@@ -57,8 +55,6 @@ namespace Runtime.Units
         {
             if (CanMove())
             {
-                Awaiter = new CustomAwaiter();
-
                 var current = Position.Value;
 
                 if (position.x != current.x)
@@ -95,7 +91,6 @@ namespace Runtime.Units
         
         public float GetDamage()
         {
-            Awaiter = new CustomAwaiter();
             OnAttacked?.Invoke();
             
             return Stats["attack_damage"].Value;
@@ -117,15 +112,9 @@ namespace Runtime.Units
 
         public void TakeDamage(float damage)
         {
-            Awaiter = new CustomAwaiter();
             OnDamaging?.Invoke();
             
             Stats["health"].ChangeValue(-damage);
-        }
-
-        public void Await()
-        {
-            Awaiter = new CustomAwaiter();
         }
         
         public void SetActionDisabled(UnitActionType action, bool disabled)

@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Runtime.AsyncLoad
+namespace Runtime.CustomAsync
 {
     public class CustomAwaiter : INotifyCompletion
     {

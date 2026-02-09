@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.CustomAsync;
 
 namespace Runtime.TurnBase
 {
@@ -57,15 +57,15 @@ namespace Runtime.TurnBase
         {
             if (stepModel.StepType == StepType.Parallel)
             {
-                stepModel.StepAction.Invoke();
-                _parallelAwaiters.Add(stepModel.Awaiter);
+                stepModel.AllowedAwaiter.Complete();
+                _parallelAwaiters.Add(stepModel.CompletedAwaiter);
             }
             else
             {
-                stepModel.StepAction.Invoke();
+                stepModel.AllowedAwaiter.Complete();
                 
                 await WaitParallelSteps();
-                await stepModel.Awaiter;
+                await stepModel.CompletedAwaiter;
             }
         }
         
