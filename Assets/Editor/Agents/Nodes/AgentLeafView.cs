@@ -45,7 +45,8 @@ namespace Editor.Agents.Nodes
                     "distance_point_of_interest",
                     "move_to_point_of_interest",
                     "has_unit_with_fraction",
-                    "set_point_of_interest_with_fraction"
+                    "set_point_of_interest_with_fraction",
+                    "can_place_point_of_interest",
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -92,7 +93,7 @@ namespace Editor.Agents.Nodes
                     SetupFields<HasFlagCommand>();
                     break;
                 case  "has_point_of_interest":
-                    SetupFields<HasPointOfInterestCommand>();
+                    SetupFields<HasPointOfInterest>();
                     break;
                 case  "set_random_point_of_interest":
                     SetupFields<SetRandomPointOfInterest>();
@@ -108,6 +109,9 @@ namespace Editor.Agents.Nodes
                     break;
                 case "set_point_of_interest_with_fraction":
                     SetupFields<SetPointOfInterestWithFraction>();
+                    break;
+                case "can_place_point_of_interest":
+                    SetupFields<CanPlacePointOfInterest>();
                     break;
             }
         }

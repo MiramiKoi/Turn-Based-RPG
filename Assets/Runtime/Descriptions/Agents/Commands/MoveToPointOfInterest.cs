@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -14,9 +15,12 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var targetPosition = controllable.GetPointOfInterest(PointOfInterest);
             var unit = (UnitModel)controllable;
-
+            
+            var pointOfInterest = unit.GetPointOfInterest(PointOfInterest);
+            
+            var targetPosition = GetPosition(context, unit, pointOfInterest);
+            
             if (unit.IsDead)
             {
                 return NodeStatus.Failure;
@@ -42,6 +46,37 @@ namespace Runtime.Descriptions.Agents.Commands
         public override void Deserialize(Dictionary<string, object> data)
         {
             PointOfInterest = data.GetString(PointOfInterestKey);
+        }
+
+        private Vector2Int GetPosition(IWorldContext context, UnitModel unit, Vector2Int endPosition)
+        {
+            var currentPosition = unit.Position.Value;
+            var bestPosition = currentPosition;
+            var currentDistance = Vector2Int.Distance(currentPosition, endPosition);
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+
+                    var candidate = currentPosition + new Vector2Int(x, y);
+
+                    if (!context.GridModel.CanPlace(candidate))
+                        continue;
+
+                    var candidateDistance = Vector2Int.Distance(candidate, endPosition);
+
+                    if (candidateDistance < currentDistance)
+                    {
+                        currentDistance = candidateDistance;
+                        bestPosition = candidate;
+                    }
+                }
+            }
+
+            return bestPosition;
         }
     }
 }
