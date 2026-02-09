@@ -27,10 +27,6 @@ namespace Runtime.LoadSteps
             foreach (var statusEffectDescription in _descriptions.StatusEffectCollection.Effects.Values)
             {
                 var luaKey = statusEffectDescription.LuaScript;
-                if (string.IsNullOrWhiteSpace(luaKey))
-                    continue;
-                if (LuaRuntime.Instance.TryGetModule(luaKey, out _))
-                    continue;
 
                 var loadModel = _addressableModel.Load<TextAsset>(luaKey);
                 await loadModel.LoadAwaiter;
