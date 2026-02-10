@@ -11,10 +11,17 @@ namespace Runtime.StatusEffects
     public class StatusEffectModel : ISerializable, IDeserializable
     {
         public string Id { get; }
-        public bool IsExpired => RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased;
+        public bool IsExpired
+        {
+            get => _isExpired || (RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased);
+            set => _isExpired = value;
+        }
+
         public StatusEffectDescription Description { get; }
         public ReactiveProperty<int> CurrentStacks { get; } = new();
         public ReactiveProperty<int> RemainingTurns { get; } = new();
+        
+        private bool _isExpired;
 
         public StatusEffectModel(string id, StatusEffectDescription description)
         {

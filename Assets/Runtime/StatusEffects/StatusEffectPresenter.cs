@@ -29,7 +29,7 @@ namespace Runtime.StatusEffects
 
         public void Enable()
         {
-            if (CanApply())
+            if (CallBool("CanApply"))
             {
                 Call("OnApply");
             }
@@ -54,16 +54,10 @@ namespace Runtime.StatusEffects
                 LuaRuntime.Instance.LuaScript.Call(function, _context);
             }
         }
-
-        private void RefreshEffectTable()
+        
+        private bool CallBool(string functionName)
         {
-            _effectTable["stacks"] = _model.CurrentStacks.Value;
-            _effectTable["remaining_turns"] = _model.RemainingTurns.Value;
-        }
-
-        private bool CanApply()
-        {
-            var function = _module.Get("CanApply");
+            var function = _module.Get(functionName);
 
             if (!function.IsNil())
             {
@@ -76,9 +70,20 @@ namespace Runtime.StatusEffects
             return true;
         }
 
+        private void RefreshEffectTable()
+        {
+            _effectTable["stacks"] = _model.CurrentStacks.Value;
+            _effectTable["remaining_turns"] = _model.RemainingTurns.Value;
+        }
+
         private void HandleTick()
         {
             Call("OnTick");
+            
+            if (!CallBool("CanTick"))
+            {
+                _model.IsExpired = true;
+            }
         }
     }
 }
