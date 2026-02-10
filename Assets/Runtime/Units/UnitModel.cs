@@ -6,6 +6,7 @@ using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
 using Runtime.StatusEffects.Collection;
+using Runtime.UI.Inventory;
 using UniRx;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace Runtime.Units
         public int Health => (int)Stats["health"].Value;
 
         public bool IsDead => (int)Stats["health"].Value <= 0;
+        public InventoryModel InventoryModel { get; private set; }
 
         private readonly Dictionary<string, bool> _flags = new();
 
@@ -46,6 +48,8 @@ namespace Runtime.Units
             Id = id;
             Stats = new StatModelCollection(Description.Stats);
             ActiveEffects = new StatusEffectModelCollection(worldDescription.StatusEffectCollection);
+
+            InventoryModel = new InventoryModel(Description.InventorySize);
 
             MoveTo(position);
         }
