@@ -7,7 +7,8 @@
       "visibility_radius": 4
     },
     "fraction": "player",
-    "view_id": "Warrior"
+    "view_id": "Warrior",
+    "inventory_size": 16
   },
   "bear": {
     "stats": {
@@ -17,6 +18,7 @@
       "visibility_radius": 4
     },
     "fraction": "animal",
-    "view_id": "Bear"
+    "view_id": "Bear",
+    "inventory_size": 8
   }
 }
