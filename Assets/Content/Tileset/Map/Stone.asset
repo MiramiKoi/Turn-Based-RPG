@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.RuleTile
-  m_DefaultSprite: {fileID: -2994877863233710035, guid: e434ea2447ea56b419e087c63609c5ea, type: 3}
+  m_DefaultSprite: {fileID: -5114542402921555521, guid: 65750e7f74c9507468349baca0fcb67b, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
