@@ -60,5 +60,18 @@
       "type": "turn_based",
       "turns": 4
     }
+  },
+  "healing": {
+    "polarity": "buff",
+    "view_id": "healing",
+    "lua_script": "healing",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 3
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 5
+    }
   }
 }
