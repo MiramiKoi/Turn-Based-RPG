@@ -35,5 +35,18 @@
       "type": "turn_based",
       "turns": 6
     }
+  },
+  "burn": {
+    "polarity": "debuff",
+    "view_id": "burn",
+    "lua_script": "burn",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 5
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    }
   }
 }
