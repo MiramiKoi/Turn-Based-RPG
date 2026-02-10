@@ -4,6 +4,7 @@ using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.CustomAsync;
+using Runtime.Player;
 using Runtime.Stats;
 using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
@@ -30,6 +31,8 @@ namespace Runtime.Units
         private StatusEffectCollectionPresenter _statusEffectsPresenter;
 
         private LoadModel<VisualTreeAsset> _statusEffectsLoadModel;
+        
+        private UnitVisiblePresenter _unitVisiblePresenter;
 
         public UnitPresenter(UnitModel unit, UnitView view, World world, WorldViewDescriptions viewDescriptions)
         {
@@ -47,6 +50,9 @@ namespace Runtime.Units
                 statPresenter.Enable();
             }
 
+            _unitVisiblePresenter = new UnitVisiblePresenter(_unit, _view);
+            _unitVisiblePresenter.Enable();
+            
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
             _unit.OnAttacked += OnAttacked;
@@ -70,6 +76,9 @@ namespace Runtime.Units
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
             _statusEffectsPresenter.Disable();
             _statusEffectsPresenter = null;
+
+            _unitVisiblePresenter.Disable();
+            _unitVisiblePresenter = null;
         }
 
         private void OnRotationChanged(UnitDirection direction)

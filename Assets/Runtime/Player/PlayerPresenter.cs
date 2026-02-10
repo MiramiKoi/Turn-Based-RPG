@@ -9,6 +9,8 @@ namespace Runtime.Player
         private readonly PlayerModel _model;
         private readonly World _world;
 
+        private PlayerVisionPresenter _visionPresenter;
+        
         public PlayerPresenter(PlayerModel model, World world)
         {
             _model = model;
@@ -20,6 +22,8 @@ namespace Runtime.Player
             _world.GridInteractionModel.OnCurrentCellChanged += HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
             _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
+            _visionPresenter = new PlayerVisionPresenter(_world.GridModel, _world.UnitCollection, _model.Model);
+            _visionPresenter.Enable();
         }
 
         public void Disable()
@@ -27,6 +31,9 @@ namespace Runtime.Player
             _world.GridInteractionModel.OnCurrentCellChanged -= HandleInteractionCellChanged;
             _world.PlayerControls.Gameplay.Attack.performed -= HandleAttackPerformed;
             _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
+            
+            _visionPresenter.Disable();
+            _visionPresenter = null;
         }
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)

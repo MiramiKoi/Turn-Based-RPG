@@ -10,6 +10,8 @@ namespace Runtime.Player
 {
     public class PlayerModel
     {
+        public UnitModel Model => _model;
+        
         private readonly UnitModel _model;
         private readonly GridModel _grid;
 
