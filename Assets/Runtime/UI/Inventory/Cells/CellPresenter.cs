@@ -35,12 +35,7 @@ namespace Runtime.UI.Inventory.Cells
 
         private async void Update()
         {
-            if (_model.Amount <= 0)
-            {
-                _view.Amount.style.display = DisplayStyle.None;
-                _view.Icon.style.backgroundImage = null;
-            }
-            else
+            if (_model.Amount > 0)
             {
                 _view.Amount.style.display = DisplayStyle.Flex;
 
@@ -51,6 +46,11 @@ namespace Runtime.UI.Inventory.Cells
                 await loadModel.LoadAwaiter;
 
                 _view.Icon.style.backgroundImage = loadModel.Result.texture;
+            }
+            else
+            {
+                _view.Amount.style.display = DisplayStyle.None;
+                _view.Icon.style.backgroundImage = null;
             }
         }
     }
