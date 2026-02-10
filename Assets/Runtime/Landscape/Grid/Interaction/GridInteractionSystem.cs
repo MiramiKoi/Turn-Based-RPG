@@ -24,6 +24,7 @@ namespace Runtime.Landscape.Grid.Interaction
         {
             if (!_model.IsActive.Value || _world.UIBlocker.IsPointerOverUI)
             {
+                _view.IndicationTilemap.ClearAllTiles();
                 return;
             }
             
