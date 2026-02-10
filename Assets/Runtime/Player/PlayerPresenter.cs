@@ -31,13 +31,21 @@ namespace Runtime.Player
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (_model.IsExecutingRoute)
+            if (_model.IsExecutingRoute || _world.UIBlocker.IsPointerOverUI)
             {
                 return;
             }
-
+            
             var currentCell = _world.GridInteractionModel.CurrentCell;
-            if (currentCell != null && _model.CanAttack(currentCell.Position))
+
+            if (currentCell == null)
+            {
+                return;
+            }
+            
+            var isDeadUnitCell = currentCell.Unit is { IsDead: true };
+            
+            if (_model.CanAttack(currentCell.Position))
             {
                 MakeStep();
                 _model.Attack(currentCell.Position);
@@ -49,7 +57,16 @@ namespace Runtime.Player
                 MakeStep();
                 _model.ExecuteNextStep();
 
+                if (isDeadUnitCell)
+                {
+                    _world.LootModel.PendingLootCell = currentCell;
+                }
+
                 _world.TurnBaseModel.PlayerStep();
+            }
+            else if (isDeadUnitCell)
+            {
+                _world.LootModel.RequestLoot(currentCell.Unit);
             }
         }
 
@@ -82,6 +99,12 @@ namespace Runtime.Player
             }
             else
             {
+                if (_world.LootModel.PendingLootCell?.Unit != null)
+                {
+                    _world.LootModel.RequestLoot(_world.LootModel.PendingLootCell.Unit);
+                    _world.LootModel.PendingLootCell = null;
+                }
+                
                 _world.GridInteractionModel.IsActive.Value = true;
                 _world.CameraControlModel.IsActive.Value = true;
             }
