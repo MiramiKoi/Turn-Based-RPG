@@ -1,6 +1,7 @@
 ﻿using MoonSharp.Interpreter;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
 
 namespace Runtime.StatusEffects
@@ -34,14 +35,36 @@ namespace Runtime.StatusEffects
                 Call("OnApply");
             }
 
-            _world.TurnBaseModel.OnWorldStepFinished += HandleTick;
+            switch (_model.Description.Polarity)
+            {
+                case Polarity.Buff:
+                    _world.TurnBaseModel.OnBuffTick += HandleTick;
+                    break;
+                case Polarity.Debuff:
+                    _world.TurnBaseModel.OnDebuffTick += HandleTick;
+                    break;
+                case Polarity.Mixed:
+                    _world.TurnBaseModel.OnMixedBuffTick += HandleTick;
+                    break;
+            }
         }
 
         public void Disable()
         {
             Call("OnRemove");
-
-            _world.TurnBaseModel.OnWorldStepFinished -= HandleTick;
+            
+            switch (_model.Description.Polarity)
+            {
+                case Polarity.Buff:
+                    _world.TurnBaseModel.OnBuffTick -= HandleTick;
+                    break;
+                case Polarity.Debuff:
+                    _world.TurnBaseModel.OnDebuffTick -= HandleTick;
+                    break;
+                case Polarity.Mixed:
+                    _world.TurnBaseModel.OnMixedBuffTick -= HandleTick;
+                    break;
+            }
         }
 
         private void Call(string functionName)
