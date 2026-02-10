@@ -53,6 +53,14 @@ namespace Runtime.StatusEffects
 
         private void HandleStacksChanged(int stacks)
         {
+            if (stacks <= 1)
+            {
+                _view.StackCounter.text = "";
+                _view.StackCounter.visible = false;
+                return;
+            }
+
+            _view.StackCounter.visible = true;
             _view.StackCounter.text = stacks + "X";
         }
     }
