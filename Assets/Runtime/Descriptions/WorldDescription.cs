@@ -22,9 +22,9 @@ namespace Runtime.Descriptions
         public AgentDecisionDescription BearAgentDecisionDescription { get; private set; }
 
         public AgentDecisionDescription PandaAgentDecisionDescription { get; private set; }
-        
+
         public AgentDecisionDescription TraderAgentDecisionDescription { get; private set; }
-        
+
         public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
         public void SetData(Dictionary<string, object> data)
