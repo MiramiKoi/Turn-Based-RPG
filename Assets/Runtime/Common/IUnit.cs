@@ -4,5 +4,6 @@ namespace Runtime.Common
     {
         string Id { get; }
         int Health { get; }
+        bool IsDead { get; }
     }
 }
