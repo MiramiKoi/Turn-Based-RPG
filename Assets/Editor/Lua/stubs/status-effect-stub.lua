@@ -76,6 +76,7 @@
 --------------------------------------------------
 
 ---@class StatusEffect
+---@field CanTick fun(ctx:StatusEffectContext):boolean
 ---@field CanApply fun(ctx:StatusEffectContext):boolean
 ---@field OnTick fun(ctx:StatusEffectContext)
 ---@field OnApply fun(ctx:StatusEffectContext)
