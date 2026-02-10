@@ -18,6 +18,7 @@ namespace Runtime.Units
         public event Action OnDamaging;
 
         public UnitDescription Description { get; }
+        public InventoryModel InventoryModel { get; private set; }
 
         private readonly ReactiveProperty<Vector2Int> _position = new();
         public IReadOnlyReactiveProperty<Vector2Int> Position => _position;
@@ -36,7 +37,6 @@ namespace Runtime.Units
         public int Health => (int)Stats["health"].Value;
 
         public bool IsDead => (int)Stats["health"].Value <= 0;
-        public InventoryModel InventoryModel { get; private set; }
 
         private readonly Dictionary<string, bool> _flags = new();
 
@@ -50,6 +50,11 @@ namespace Runtime.Units
             ActiveEffects = new StatusEffectModelCollection(worldDescription.StatusEffectCollection);
 
             InventoryModel = new InventoryModel(Description.InventorySize);
+            foreach (var (itemId, amount) in description.Loot)
+            {
+                worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
+                InventoryModel.TryPutItem(item, amount);
+            }
 
             MoveTo(position);
         }

@@ -8,7 +8,10 @@
     },
     "fraction": "player",
     "view_id": "Warrior",
-    "inventory_size": 16
+    "inventory_size": 16,
+    "loot": {
+      "bear_meat": 1
+    }
   },
   "bear": {
     "stats": {
@@ -19,6 +22,10 @@
     },
     "fraction": "animal",
     "view_id": "Bear",
-    "inventory_size": 8
+    "inventory_size": 8,
+    "loot": {
+      "bear_meat": 5,
+      "bear_fur": 10
+    }
   }
 }

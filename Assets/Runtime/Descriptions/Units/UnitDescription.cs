@@ -7,11 +7,10 @@ namespace Runtime.Descriptions.Units
     public class UnitDescription : Description
     {
         public StatDescriptionCollection Stats { get; }
-        
         public string Fraction { get; }
-        
         public string ViewId { get; }
         public int InventorySize { get; }
+        public Dictionary<string, int> Loot { get; }
         
         public UnitDescription(string id, Dictionary<string, object> data) : base(id)
         {
@@ -19,6 +18,7 @@ namespace Runtime.Descriptions.Units
             ViewId = data.GetString("view_id");
             Fraction = data.GetString("fraction");
             InventorySize = data.GetInt("inventory_size");
+            Loot = data.GetDictionary<string, int>("loot");
         }
     }
 }
