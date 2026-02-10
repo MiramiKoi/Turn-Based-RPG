@@ -15,7 +15,7 @@ namespace Runtime.Descriptions.StatusEffects
         public DurationDescription(Dictionary<string, object> data)
         {
             Type = data.GetEnum<DurationType>(TypeKey);
-            Turns = data.ContainsKey(TurnsKey) ? data.GetInt(TurnsKey) : 0;
+            Turns = data.ContainsKey(TurnsKey) ? data.GetInt(TurnsKey) : 1;
         }
     }
 }
