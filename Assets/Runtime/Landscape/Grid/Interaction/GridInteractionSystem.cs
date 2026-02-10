@@ -8,7 +8,7 @@ namespace Runtime.Landscape.Grid.Interaction
     public class GridInteractionSystem : IGameSystem
     {
         public string Id => "grid-interaction-system";
-        
+
         private readonly GridInteractionModel _model;
         private readonly GridView _view;
         private readonly World _world;
@@ -29,7 +29,8 @@ namespace Runtime.Landscape.Grid.Interaction
                 var worldPosition =
                     _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
                 var nextCellPosition = _view.IndicationTilemap.WorldToCell(worldPosition);
-                if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and { x: >= 0, y: >= 0 })
+                if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and
+                    { x: >= 0, y: >= 0 })
                 {
                     var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
 

@@ -8,11 +8,11 @@ namespace Runtime.Agents
     public class AgentPresenter : IPresenter
     {
         private readonly AgentDecisionDescription _decisionDescription;
-        
+
         private readonly UnitModel _unitModel;
 
         private readonly World _world;
-        
+
         public AgentPresenter(UnitModel unitModel, AgentDecisionDescription decisionDescription, World world)
         {
             _unitModel = unitModel;

@@ -25,7 +25,7 @@ namespace Runtime.Core
         [SerializeField] private CameraControlView _cameraControlView;
         [SerializeField] private GridView _gridView;
         [SerializeField] private UIDocument _gameplayDocument;
-        
+
         private readonly World _world = new();
         private readonly WorldDescription _worldDescription = new();
         private readonly WorldViewDescriptions _worldViewDescriptions = new();
@@ -92,10 +92,12 @@ namespace Runtime.Core
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModelPrefab);
 
-            var loadModelUiAsset = _addressableModel.Load<VisualTreeAsset>(_worldViewDescriptions.StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
+            var loadModelUiAsset = _addressableModel.Load<VisualTreeAsset>(_worldViewDescriptions
+                .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await loadModelUiAsset.LoadAwaiter;
             var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
-            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel.ActiveEffects, statusEffectsView, unitModel, _world, _worldViewDescriptions, _uiContent);
+            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel.ActiveEffects, statusEffectsView,
+                unitModel, _world, _worldViewDescriptions, _uiContent);
 
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
 
@@ -124,9 +126,9 @@ namespace Runtime.Core
 
             var agentModel = new AgentModel(unitModel, _worldDescription.AgentDecisionDescription, _world);
             _world.AgentCollection.Add(unitModel.Id, agentModel);
-            
+
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
-            
+
             unitPresenter.Enable();
             //agentPresenter.Enable();
         }

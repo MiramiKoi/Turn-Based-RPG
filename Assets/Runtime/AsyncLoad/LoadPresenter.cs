@@ -34,6 +34,7 @@ namespace Runtime.AsyncLoad
             {
                 throw new Exception($"Failed to load {_loadModel.Key}: {handle.OperationException}");
             }
+
             _loadModel.Result = handle.Result;
             _loadModel.CompleteLoad();
         }

@@ -41,14 +41,14 @@ namespace Runtime.Player
             {
                 MakeStep();
                 _model.Attack(currentCell.Position);
-                
+
                 _world.TurnBaseModel.PlayerStep();
             }
             else if (_model.HasPath())
             {
                 MakeStep();
                 _model.ExecuteNextStep();
-                
+
                 _world.TurnBaseModel.PlayerStep();
             }
         }
@@ -56,11 +56,11 @@ namespace Runtime.Player
         private void MakeStep()
         {
             _world.GridInteractionModel.IsActive.Value = false;
-                
+
             _world.CameraControlModel.IsActive.Value = false;
             _world.CameraControlModel.ResetCameraPosition();
         }
-        
+
         private void HandleInteractionCellChanged()
         {
             if (!_model.IsExecutingRoute && _world.GridInteractionModel.CurrentCell != null)
@@ -68,14 +68,14 @@ namespace Runtime.Player
                 _model.FindPath(_world.GridInteractionModel.CurrentCell.Position);
             }
         }
-        
+
         private void HandleTurnFinished()
         {
             if (_model.IsExecutingRoute)
             {
                 _model.ExecuteNextStep();
             }
-            
+
             if (_model.IsExecutingRoute)
             {
                 _world.TurnBaseModel.PlayerStep();

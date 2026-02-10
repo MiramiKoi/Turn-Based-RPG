@@ -52,7 +52,8 @@ namespace Runtime.LoadSteps
                 },
                 {
                     "EnvironmentViewDescriptionCollection",
-                    obj => worldViewDescriptions.EnvironmentViewDescriptions = obj as EnvironmentViewDescriptionCollection
+                    obj => worldViewDescriptions.EnvironmentViewDescriptions =
+                        obj as EnvironmentViewDescriptionCollection
                 }
             };
         }

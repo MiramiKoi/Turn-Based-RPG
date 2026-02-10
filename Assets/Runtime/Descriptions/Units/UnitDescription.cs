@@ -7,11 +7,11 @@ namespace Runtime.Descriptions.Units
     public class UnitDescription : Description
     {
         public StatDescriptionCollection Stats { get; }
-        
+
         public string Fraction { get; }
-        
+
         public string ViewId { get; }
-        
+
         public UnitDescription(string id, Dictionary<string, object> data) : base(id)
         {
             Stats = new StatDescriptionCollection(data.GetNode("stats"));

@@ -6,7 +6,7 @@ namespace Runtime.UI.Inventory
     {
         public VisualElement Root { get; }
         public VisualElement CellsContainer { get; }
-        
+
         public InventoryView(VisualTreeAsset asset)
         {
             Root = asset.CloneTree().Q<VisualElement>("inventory-panel");

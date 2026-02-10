@@ -16,7 +16,8 @@ namespace Runtime.Descriptions.Environment
         private readonly int _maxClusterSize;
         private readonly float _clusterSpawnProbability;
 
-        public EnvironmentGenerationDescription(Dictionary<string, object> environmentGenerationData, Dictionary<string, object> environmentData)
+        public EnvironmentGenerationDescription(Dictionary<string, object> environmentGenerationData,
+            Dictionary<string, object> environmentData)
         {
             _random = new Random();
             _environmentElementsWithProbabilities = new Dictionary<int, float>();
@@ -71,6 +72,7 @@ namespace Runtime.Descriptions.Environment
                     }
                 }
             }
+
             return environmentMatrix;
         }
 
@@ -97,6 +99,7 @@ namespace Runtime.Descriptions.Environment
                     return randomEnvironmentElement;
                 }
             }
+
             return randomEnvironmentElement;
         }
 

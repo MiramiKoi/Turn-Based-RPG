@@ -7,7 +7,7 @@ namespace Runtime.Common.Movement
     {
         public bool HasSteps => _steps.Count > 0;
         public IReadOnlyCollection<Vector2Int> Steps => _steps;
-            
+
         private readonly Queue<Vector2Int> _steps = new();
 
         public void SetPath(IReadOnlyList<Vector2Int> path)
@@ -20,17 +20,19 @@ namespace Runtime.Common.Movement
                 _steps.Enqueue(path[i]);
         }
 
-        public void Clear() => _steps.Clear();
+        public void Clear()
+        {
+            _steps.Clear();
+        }
 
         public bool TryDequeue(out Vector2Int result)
         {
             result = Vector2Int.zero;
-            if (_steps.Count <= 0) 
+            if (_steps.Count <= 0)
                 return false;
-            
+
             result = _steps.Dequeue();
             return true;
-
         }
     }
 }

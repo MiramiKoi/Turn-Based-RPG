@@ -5,28 +5,31 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class SetRandomPointOfInterestCommand :  CommandDescription
+    public class SetRandomPointOfInterestCommand : CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
 
         private const string RadiusKey = "radius";
-        
+
         private const string NearWithPointOfInterestKey = "near_with_point_of_interest";
-        
+
         private const string TargetNearPointOfInterestKey = "target_near_point_of_interest";
-        
+
         public string PointOfInterest { get; private set; } = string.Empty;
-        
+
         public int Radius { get; private set; }
 
         public bool NearWithPointOfInterest { get; private set; }
-        
+
         public string TargetNearPointOfInterest { get; private set; } = string.Empty;
 
         public override string Type => "set_random_point_of_interest";
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var center = NearWithPointOfInterest ? controllable.GetPointOfInterest(TargetNearPointOfInterest) : controllable.Position.Value;
+            var center = NearWithPointOfInterest
+                ? controllable.GetPointOfInterest(TargetNearPointOfInterest)
+                : controllable.Position.Value;
 
             Vector2Int pointOfInterest;
             Vector2 offset;
@@ -35,16 +38,16 @@ namespace Runtime.Descriptions.Agents.Commands
             {
                 offset = Random.insideUnitCircle * Radius;
                 var randomOffset = new Vector2Int(Mathf.RoundToInt(offset.x), Mathf.RoundToInt(offset.y));
-                pointOfInterest = center + randomOffset; 
+                pointOfInterest = center + randomOffset;
                 tryCounter--;
-            }
-            while (offset.sqrMagnitude > Radius * Radius && context.GridModel.CanPlace(pointOfInterest) && tryCounter <= 0);
+            } while (offset.sqrMagnitude > Radius * Radius && context.GridModel.CanPlace(pointOfInterest) &&
+                     tryCounter <= 0);
 
             if (tryCounter <= 0)
             {
                 return NodeStatus.Failure;
             }
-            
+
             controllable.SetPointOfInterest(PointOfInterest, pointOfInterest);
 
             return NodeStatus.Success;

@@ -26,7 +26,7 @@ namespace Runtime.UI.Inventory
             {
                 return false;
             }
-            
+
             var remaining = amount;
 
             foreach (var (cell, free) in targets)
@@ -44,14 +44,14 @@ namespace Runtime.UI.Inventory
 
             return false;
         }
-        
+
         public bool TryTakeItem(IItemDescription item, int amount)
         {
             if (!CanExtract(item, amount, out var targets))
             {
                 return false;
             }
-            
+
             var remaining = amount;
 
             foreach (var (cell, free) in targets)
@@ -60,11 +60,11 @@ namespace Runtime.UI.Inventory
                 cell.TryTake(toRemove);
                 remaining -= toRemove;
             }
-            
+
             OnRemoveItem?.Invoke();
             return true;
         }
-        
+
         public bool CanExtract(IItemDescription item, int amount, out List<(CellModel cell, int amount)> targets)
         {
             targets = new List<(CellModel, int)>();
@@ -117,6 +117,7 @@ namespace Runtime.UI.Inventory
                     }
                 }
             }
+
             foreach (var cell in Cells)
             {
                 if (cell.ItemDescription == null)

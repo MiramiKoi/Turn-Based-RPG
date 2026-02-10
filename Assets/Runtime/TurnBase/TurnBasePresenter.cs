@@ -32,15 +32,15 @@ namespace Runtime.TurnBase
         private async void OnPlayerMadeStep()
         {
             await ProcessAllSteps();
-            
+
             foreach (var agent in _world.AgentCollection.Models.Values)
             {
                 agent.MakeStep();
                 await ProcessAllSteps();
             }
-            
+
             await WaitParallelSteps();
-            
+
             _model.WorldStep();
         }
 
@@ -52,7 +52,7 @@ namespace Runtime.TurnBase
                 await ProcessStep(step);
             }
         }
-        
+
         private async Task ProcessStep(StepModel stepModel)
         {
             if (stepModel.StepType == StepType.Parallel)
@@ -63,18 +63,19 @@ namespace Runtime.TurnBase
             else
             {
                 stepModel.AllowedAwaiter.Complete();
-                
+
                 await WaitParallelSteps();
                 await stepModel.CompletedAwaiter;
             }
         }
-        
+
         private async Task WaitParallelSteps()
         {
             foreach (var awaiter in _parallelAwaiters)
             {
                 await awaiter;
             }
+
             _parallelAwaiters.Clear();
         }
     }

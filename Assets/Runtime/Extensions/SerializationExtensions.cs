@@ -23,7 +23,7 @@ namespace Runtime.Extensions
         {
             return Convert.ToSingle(dictionary[key]);
         }
-        
+
         public static long GetLong(this Dictionary<string, object> dictionary, string key)
         {
             return Convert.ToInt64(dictionary[key]);
@@ -33,7 +33,7 @@ namespace Runtime.Extensions
         {
             return Convert.ToBoolean(dictionary[key]);
         }
-        
+
         public static List<T> GetList<T>(this Dictionary<string, object> dictionary, string key)
         {
             return dictionary.GetList(key).Select(obj => (T)Convert.ChangeType(obj, typeof(T))).ToList();
@@ -57,9 +57,9 @@ namespace Runtime.Extensions
                     return (T)field.GetValue(null);
             }
 
-            return (T)Enum.Parse(type, ToPascalCase(value), ignoreCase: true);
+            return (T)Enum.Parse(type, ToPascalCase(value), true);
         }
-        
+
         public static T GetFlags<T>(this Dictionary<string, object> dictionary, string key) where T : Enum
         {
             var type = typeof(T);
@@ -83,7 +83,8 @@ namespace Runtime.Extensions
             return (T)Enum.ToObject(type, combinedValue);
         }
 
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this Dictionary<string, object> dictionary, string key)
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this Dictionary<string, object> dictionary,
+            string key)
         {
             var result = new Dictionary<TKey, TValue>();
 
@@ -111,7 +112,7 @@ namespace Runtime.Extensions
                 Convert.ToSingle(list[1])
             );
         }
-        
+
         public static Vector2Int GetVector2Int(this Dictionary<string, object> dictionary, string key)
         {
             var list = (List<object>)dictionary[key];
@@ -130,7 +131,7 @@ namespace Runtime.Extensions
                 Convert.ToSingle(list[2])
             );
         }
-        
+
         public static Dictionary<string, object> ToJson<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
         {
             var result = new Dictionary<string, object>();
@@ -138,6 +139,7 @@ namespace Runtime.Extensions
             {
                 result[kv.Key.ToString()] = kv.Value;
             }
+
             return result;
         }
 
@@ -150,7 +152,7 @@ namespace Runtime.Extensions
         {
             return new List<object> { vector.x, vector.y };
         }
-        
+
         public static List<object> ToList(this Vector2Int vector)
         {
             return new List<object> { vector.x, vector.y };
@@ -160,12 +162,12 @@ namespace Runtime.Extensions
         {
             return new List<object> { vector.x, vector.y, vector.z };
         }
-        
+
         public static List<object> GetList(this Dictionary<string, object> dictionary, string key)
         {
             return (List<object>)dictionary[key];
         }
-        
+
         private static string ToPascalCase(string value)
         {
             return string.Concat(value.Split('_', '-').Select(s => char.ToUpperInvariant(s[0]) + s[1..]));

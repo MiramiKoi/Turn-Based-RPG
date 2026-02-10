@@ -30,12 +30,12 @@ namespace Runtime.LoadSteps
             var gridPresenter = new GridPresenter(_world.GridModel, _gridView, _world, _viewDescriptions);
             gridPresenter.Enable();
             _presenters.Add(gridPresenter);
-            
+
             var gridInteractionPresenter = new GridInteractionPresenter(_world.GridInteractionModel, _gridView, _world);
             gridInteractionPresenter.Enable();
             _presenters.Add(gridInteractionPresenter);
-            
-            var gridIndicationPresenter = new GridIndicationPresenter(_gridView, _world,  _viewDescriptions);
+
+            var gridIndicationPresenter = new GridIndicationPresenter(_gridView, _world, _viewDescriptions);
             gridIndicationPresenter.Enable();
             _presenters.Add(gridIndicationPresenter);
 

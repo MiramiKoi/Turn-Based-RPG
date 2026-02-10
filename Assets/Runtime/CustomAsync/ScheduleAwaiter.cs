@@ -14,7 +14,7 @@ namespace Runtime.CustomAsync
         {
             _awaitTime = awaitTime;
         }
-        
+
         public void Start()
         {
             Scheduler.Instance.OnTick += OnTick;
@@ -23,12 +23,12 @@ namespace Runtime.CustomAsync
         public void Stop()
         {
             Scheduler.Instance.OnTick -= OnTick;
-            
+
             IsCompleted = true;
             _continuations?.Invoke();
             _continuations = null;
         }
-        
+
         private void OnTick(float deltaTime)
         {
             _awaitTime -= deltaTime;
@@ -37,7 +37,7 @@ namespace Runtime.CustomAsync
                 Stop();
             }
         }
-        
+
         public void OnCompleted(Action continuation)
         {
             _continuations += continuation;
@@ -47,6 +47,9 @@ namespace Runtime.CustomAsync
         {
         }
 
-        public ScheduleAwaiter GetAwaiter() => this;
+        public ScheduleAwaiter GetAwaiter()
+        {
+            return this;
+        }
     }
 }

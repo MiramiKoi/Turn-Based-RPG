@@ -8,15 +8,15 @@ namespace Runtime.Descriptions.Agents.Commands
     public class AttackPointOfInterestCommand : CommandDescription
     {
         public override string Type => "attack_point_of_interest";
-        
+
         private const string PointOfInterestKey = "point_of_interest";
 
         public string PointOfInterest { get; private set; } = string.Empty;
-        
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var pointOfInterestPosition = controllable.GetPointOfInterest(PointOfInterest);
-            
+
             var targetCell = context.GridModel.GetCell(pointOfInterestPosition);
 
             var targetUnit = targetCell.Unit as UnitModel;
@@ -26,7 +26,7 @@ namespace Runtime.Descriptions.Agents.Commands
             {
                 return NodeStatus.Failure;
             }
-            
+
             targetUnit.TakeDamage(controllableUnit.GetDamage());
 
             return NodeStatus.Success;
@@ -35,9 +35,9 @@ namespace Runtime.Descriptions.Agents.Commands
         public override Dictionary<string, object> Serialize()
         {
             var dictionary = base.Serialize();
-            
+
             dictionary[PointOfInterestKey] = PointOfInterest;
-            
+
             return dictionary;
         }
 

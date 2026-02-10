@@ -7,7 +7,7 @@ namespace Runtime.Stats
     public class StatModelCollection : IEnumerable<StatModel>
     {
         public Dictionary<string, StatModel> Stats { get; }
-        
+
         public StatModelCollection(StatDescriptionCollection descriptionCollection)
         {
             Stats = new Dictionary<string, StatModel>();

@@ -13,7 +13,8 @@ namespace Runtime.LoadSteps
         private readonly World _world;
         private readonly WorldDescription _worldDescription;
 
-        public WorldLoadStep(World world, AddressableModel addressableModel, PlayerControls playerControls, WorldDescription worldDescription)
+        public WorldLoadStep(World world, AddressableModel addressableModel, PlayerControls playerControls,
+            WorldDescription worldDescription)
         {
             _addressableModel = addressableModel;
             _playerControls = playerControls;

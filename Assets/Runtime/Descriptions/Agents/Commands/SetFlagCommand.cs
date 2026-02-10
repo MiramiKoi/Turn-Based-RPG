@@ -12,23 +12,23 @@ namespace Runtime.Descriptions.Agents.Commands
         public override string Type => "set_flag";
 
         public string Flag { get; private set; } = string.Empty;
-        
+
         public bool Value { get; private set; }
-        
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             controllable.SetFlag(Flag, Value);
-            
+
             return NodeStatus.Success;
         }
 
         public override Dictionary<string, object> Serialize()
         {
             var dictionary = base.Serialize();
-            
+
             dictionary[FlagKey] = Flag;
             dictionary[ValueKey] = Value;
-            
+
             return dictionary;
         }
 

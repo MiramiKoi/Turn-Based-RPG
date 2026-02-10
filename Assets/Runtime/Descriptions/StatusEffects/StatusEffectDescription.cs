@@ -31,7 +31,7 @@ namespace Runtime.Descriptions.StatusEffects
         public StatusEffectDescription(string id, Dictionary<string, object> data) : base(id)
         {
             ViewId = data.GetString("view_id");
-            
+
             Category = data.GetEnum<StatusCategory>(CategoryKey);
             Polarity = data.GetEnum<Polarity>(PolarityKey);
 
@@ -43,19 +43,19 @@ namespace Runtime.Descriptions.StatusEffects
             foreach (var modifier in modifierData)
             {
                 var modifierDictionary = (Dictionary<string, object>)modifier.Value;
-                
+
                 Modifiers.Add(modifierDictionary.ToModifierDescription(modifier.Key));
             }
 
             var constraintData = data.GetNode(ConstraintsKey);
-            
+
             foreach (var constraint in constraintData)
             {
                 var constraintDictionary = (Dictionary<string, object>)constraint.Value;
-                
+
                 Constraint.Add(constraintDictionary.ToConstraintDescription(constraint.Key));
             }
-            
+
             Flags = data.GetFlags<StatusFlag>(FlagsKey);
         }
     }

@@ -8,14 +8,13 @@ namespace Runtime.Descriptions.Agents.Nodes
 
         public AgentDecisionDescription()
         {
-            
         }
-        
+
         public AgentDecisionDescription(Dictionary<string, object> data)
         {
             Deserialize(data);
         }
-        
+
         public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
             foreach (var child in Children)
@@ -27,7 +26,7 @@ namespace Runtime.Descriptions.Agents.Nodes
                     return NodeStatus.Success;
                 }
             }
-            
+
             return NodeStatus.Failure;
         }
     }

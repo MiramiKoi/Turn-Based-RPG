@@ -29,23 +29,24 @@ namespace Runtime.Core
         public UnitModelCollection UnitCollection { get; private set; }
         public AgentModelCollection AgentCollection { get; private set; }
 
-        public void SetData(AddressableModel addressableModel, PlayerControls playerControls, WorldDescription worldDescription)
+        public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
+            WorldDescription worldDescription)
         {
             WorldDescription = worldDescription;
-            
+
             AddressableModel = addressableModel;
 
             TurnBaseModel = new TurnBaseModel();
             PlayerControls = playerControls;
-            
+
             GridModel = new GridModel(WorldDescription);
             GridInteractionModel = new GridInteractionModel();
 
             MainCamera = Camera.main;
             CameraControlModel = new CameraControlModel();
-            
+
             GameSystems = new GameSystemCollection();
-            
+
             UnitCollection = new UnitModelCollection();
             AgentCollection = new AgentModelCollection();
 

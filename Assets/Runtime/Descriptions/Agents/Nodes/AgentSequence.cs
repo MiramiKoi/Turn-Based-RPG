@@ -10,7 +10,7 @@ namespace Runtime.Descriptions.Agents.Nodes
             {
                 if (child.Process(context, controllable) != NodeStatus.Success)
                 {
-                        return NodeStatus.Failure;
+                    return NodeStatus.Failure;
                 }
             }
 

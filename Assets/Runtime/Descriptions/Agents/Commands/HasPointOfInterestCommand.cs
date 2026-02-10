@@ -11,7 +11,7 @@ namespace Runtime.Descriptions.Agents.Commands
         public override string Type => "has_point_of_interest";
 
         public string PointOfInterest { get; private set; } = string.Empty;
-        
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var hasPointOfInterest = controllable.PointOfInterest.ContainsKey(PointOfInterest);
@@ -22,7 +22,7 @@ namespace Runtime.Descriptions.Agents.Commands
         public override Dictionary<string, object> Serialize()
         {
             var dictionary = base.Serialize();
-            
+
             dictionary[PointOfInterestKey] = PointOfInterest;
 
             return dictionary;

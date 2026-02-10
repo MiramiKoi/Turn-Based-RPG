@@ -12,7 +12,8 @@ namespace Runtime.Descriptions.Environment
 
             foreach (var description in data)
             {
-                Environment.Add(description.Key, new EnvironmentDescription(description.Key, (Dictionary<string, object>)description.Value));
+                Environment.Add(description.Key,
+                    new EnvironmentDescription(description.Key, (Dictionary<string, object>)description.Value));
             }
         }
     }

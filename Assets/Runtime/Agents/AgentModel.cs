@@ -7,11 +7,11 @@ namespace Runtime.Agents
     public class AgentModel
     {
         private readonly UnitModel _unitModel;
-        
+
         private readonly AgentDecisionDescription _decisionDescription;
 
         private readonly World _world;
-        
+
         public AgentModel(UnitModel unitModel, AgentDecisionDescription decisionDescription, World world)
         {
             _unitModel = unitModel;

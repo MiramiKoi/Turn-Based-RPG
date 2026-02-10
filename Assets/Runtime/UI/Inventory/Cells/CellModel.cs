@@ -19,15 +19,15 @@ namespace Runtime.UI.Inventory.Cells
 
                 ItemDescription = itemDescription;
             }
-            
+
             if (Amount + amount > itemDescription.StackSize)
             {
                 return false;
             }
-            
+
             Amount += amount;
             OnChanged?.Invoke();
-            
+
             return true;
         }
 
@@ -44,12 +44,12 @@ namespace Runtime.UI.Inventory.Cells
             {
                 Clear();
             }
-            
+
             OnChanged?.Invoke();
 
             return true;
         }
-        
+
         private void Clear()
         {
             ItemDescription = null;

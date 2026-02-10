@@ -12,7 +12,8 @@ namespace Runtime.Descriptions.Surface
 
             foreach (var description in data)
             {
-                Surfaces.Add(description.Key, new SurfaceDescription(description.Key, (Dictionary<string, object>)description.Value));
+                Surfaces.Add(description.Key,
+                    new SurfaceDescription(description.Key, (Dictionary<string, object>)description.Value));
             }
         }
     }

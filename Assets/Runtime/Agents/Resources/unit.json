@@ -1,82 +1,77 @@
 {
-   "type" : "root",
-   "children" : [
-      {
-         "type" : "sequence",
-         "children" : [
-            {
-               "type" : "leaf",
-               "children" : [
-                  
-               ],
-               "position" : [
-                  -407.3333,
-                  277.3333
-               ],
-               "command" : "has_flag"
-            },
-            {
-               "type" : "leaf",
-               "children" : [
-                  
-               ],
-               "position" : [
-                  -236,
-                  277.3333
-               ],
-               "command" : "move_right"
-            },
-            {
-               "type" : "leaf",
-               "children" : [
-                  
-               ],
-               "position" : [
-                  -64.66666,
-                  277.3333
-               ],
-               "command" : "set_false_flag"
-            }
-         ],
-         "position" : [
-            -135.3333,
-            132
-         ]
-      },
-      {
-         "type" : "sequence",
-         "children" : [
-            {
-               "type" : "leaf",
-               "children" : [
-                  
-               ],
-               "position" : [
-                  180.6667,
-                  298.6667
-               ],
-               "command" : "move_left"
-            },
-            {
-               "type" : "leaf",
-               "children" : [
-                  
-               ],
-               "position" : [
-                  390,
-                  298.6667
-               ],
-               "command" : "set_true_flag"
-            }
-         ],
-         "position" : [
-            228.6667,
-            132
-         ]
-      }
-   ],
-   "position" : [
-      0,
-      -78.66667
-   ]
+  "type": "root",
+  "children": [
+    {
+      "type": "sequence",
+      "children": [
+        {
+          "type": "leaf",
+          "children": [
+          ],
+          "position": [
+            -407.3333,
+            277.3333
+          ],
+          "command": "has_flag"
+        },
+        {
+          "type": "leaf",
+          "children": [
+          ],
+          "position": [
+            -236,
+            277.3333
+          ],
+          "command": "move_right"
+        },
+        {
+          "type": "leaf",
+          "children": [
+          ],
+          "position": [
+            -64.66666,
+            277.3333
+          ],
+          "command": "set_false_flag"
+        }
+      ],
+      "position": [
+        -135.3333,
+        132
+      ]
+    },
+    {
+      "type": "sequence",
+      "children": [
+        {
+          "type": "leaf",
+          "children": [
+          ],
+          "position": [
+            180.6667,
+            298.6667
+          ],
+          "command": "move_left"
+        },
+        {
+          "type": "leaf",
+          "children": [
+          ],
+          "position": [
+            390,
+            298.6667
+          ],
+          "command": "set_true_flag"
+        }
+      ],
+      "position": [
+        228.6667,
+        132
+      ]
+    }
+  ],
+  "position": [
+    0,
+    -78.66667
+  ]
 }
