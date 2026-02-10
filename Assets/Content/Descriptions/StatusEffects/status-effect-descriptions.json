@@ -1,8 +1,8 @@
 ﻿{
-  "burn": {
+  "bleeding": {
     "polarity": "debuff",
-    "view_id": "burn",
-    "lua_script": "burn",
+    "view_id": "bleeding",
+    "lua_script": "bleeding",
     "stacking": {
       "mode": "additive",
       "max_stacks": 5

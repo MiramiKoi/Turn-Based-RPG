@@ -26,9 +26,3 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   _descriptions:
   - {fileID: 11400000, guid: 7d46197e46529d5428cd5f71d821bfc4, type: 2}
-  - {fileID: 11400000, guid: 0fc2f509fa44fcc48a6db50c9e2b5ba3, type: 2}
-  - {fileID: 11400000, guid: ca59f00f09b7adc43b62130c79a7e8f7, type: 2}
-  - {fileID: 11400000, guid: 706a9299c28ed1f46a32eb1cd3ffa657, type: 2}
-  - {fileID: 11400000, guid: 64a78e76011e66a47822fc5e2fa136bd, type: 2}
-  - {fileID: 11400000, guid: c74d833092399c642974e8fef982bb3b, type: 2}
-  - {fileID: 11400000, guid: 72dc6f4ee17df0244b09476ab429fb1b, type: 2}
