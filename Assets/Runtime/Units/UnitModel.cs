@@ -21,6 +21,8 @@ namespace Runtime.Units
         private readonly ReactiveProperty<Vector2Int> _position = new();
         public IReadOnlyReactiveProperty<Vector2Int> Position => _position;
 
+        public readonly ReactiveProperty<bool> Visible = new ReactiveProperty<bool>(true);
+        
         private readonly ReactiveProperty<UnitDirection> _direction = new();
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
 
