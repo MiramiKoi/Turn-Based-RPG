@@ -22,30 +22,33 @@ namespace Runtime.Landscape.Grid.Interaction
 
         public void Update(float deltaTime)
         {
-            if (_model.IsActive.Value)
+            if (!_model.IsActive.Value || _world.UIBlocker.IsPointerOverUI)
             {
-                var mousePosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
+                return;
+            }
+            
+            var mousePosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
+            
+            var worldPosition =
+                _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
+            var nextCellPosition = _view.IndicationTilemap.WorldToCell(worldPosition);
+            
+            if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and
+                { x: >= 0, y: >= 0 })
+            {
+                var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
 
-                var worldPosition =
-                    _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
-                var nextCellPosition = _view.IndicationTilemap.WorldToCell(worldPosition);
-                if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and
-                    { x: >= 0, y: >= 0 })
+                if (cell != _model.CurrentCell)
                 {
-                    var cell = _world.GridModel.GetCell(new Vector2Int(nextCellPosition.x, nextCellPosition.y));
-
-                    if (cell != _model.CurrentCell)
+                    if (_model.CurrentCell != null)
                     {
-                        if (_model.CurrentCell != null)
-                        {
-                            _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y]
-                                .SetIndication(IndicationType.Null);
-                        }
-
-                        _model.SetCell(cell);
-                        _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y]
-                            .SetIndication(IndicationType.Cursor);
+                        _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y]
+                            .SetIndication(IndicationType.Null);
                     }
+
+                    _model.SetCell(cell);
+                    _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y]
+                        .SetIndication(IndicationType.Cursor);
                 }
             }
         }
