@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class DistancePointOfInterest : CommandDescription
+    public class DistancePointOfInterestCommand : CommandDescription
     {
         private const string PointOfInterestKey = "point_of_interest";
         private const string DistanceKey = "distance";
@@ -25,15 +25,15 @@ namespace Runtime.Descriptions.Agents.Commands
             
             var target = controllable.GetPointOfInterest(PointOfInterest);
             
-            var distance = Mathf.RoundToInt(Vector2Int.Distance(position, target));
+            var currentDistance = Mathf.RoundToInt(Vector2Int.Distance(position, target));
 
             return Operation switch
             {
-                "=" => distance == Distance ? NodeStatus.Success : NodeStatus.Failure,
-                ">" => distance > Distance ? NodeStatus.Success : NodeStatus.Failure,
-                "<" => distance < Distance ? NodeStatus.Success : NodeStatus.Failure,
-                "<=" => distance <= Distance ? NodeStatus.Success : NodeStatus.Failure,
-                ">=" => distance >= Distance ? NodeStatus.Success : NodeStatus.Failure,
+                "=" => currentDistance == Distance ? NodeStatus.Success : NodeStatus.Failure,
+                ">" => currentDistance > Distance ? NodeStatus.Success : NodeStatus.Failure,
+                "<" => currentDistance < Distance ? NodeStatus.Success : NodeStatus.Failure,
+                "<=" => currentDistance <= Distance ? NodeStatus.Success : NodeStatus.Failure,
+                ">=" => currentDistance >= Distance ? NodeStatus.Success : NodeStatus.Failure,
                 _ => NodeStatus.Failure
             };
         }

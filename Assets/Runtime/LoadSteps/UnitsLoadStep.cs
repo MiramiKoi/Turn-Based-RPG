@@ -28,7 +28,7 @@ namespace Runtime.LoadSteps
             var bearModel = new UnitModel
             (
                 "bear_0", 
-                new Vector2Int(50, 70), _world.WorldDescription.UnitCollection.Last(), _world.WorldDescription);
+                new Vector2Int(50, 50), _world.WorldDescription.UnitCollection.Last(), _world.WorldDescription);
             
             _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);
             _world.UnitCollection.Add(bearModel.Id, bearModel);

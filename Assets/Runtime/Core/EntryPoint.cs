@@ -65,7 +65,6 @@ namespace Runtime.Core
 
             await CreateControllableUnit();
             await CreateUnit("bear_0");
-            await CreateUnit("bear_1");
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class CanPlacePointOfInterest : CommandDescription
+    public class CanPlacePointOfInterestCommand : CommandDescription
     {
         public override string Type => "can_place_point_of_interest";
         
