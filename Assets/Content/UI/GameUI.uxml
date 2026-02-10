@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
          noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Content/UI/StatusEffects/status-effect-collection-style.uss?fileID=7433441132597879392&amp;guid=e62c665fc71438b4981488beed9dd1ca&amp;type=3#status-effect-collection-style"/>
     <ui:VisualElement name="content" style="flex-grow: 1; display: flex;"/>
