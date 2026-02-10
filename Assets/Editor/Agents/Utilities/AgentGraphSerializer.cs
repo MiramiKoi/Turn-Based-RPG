@@ -9,17 +9,17 @@ namespace Editor.Agents.Utilities
     public class AgentGraphSerializer
     {
         private const string ChildrenKey = "children";
-        
+
         private const string PositionKey = "position";
 
         private const string EditorKey = "_editor";
-        
+
         public Dictionary<string, object> Serialize(AgentNodeEditorWrapper wrapper)
         {
             wrapper.SortChildrenByPositionX();
-            
+
             var dict = wrapper.Node.Serialize();
-            
+
             dict[EditorKey] = new Dictionary<string, object>
             {
                 { PositionKey, wrapper.Position.ToList() }
@@ -36,9 +36,9 @@ namespace Editor.Agents.Utilities
 
         public AgentNodeEditorWrapper Deserialize(Dictionary<string, object> data)
         {
-            var node = AgentNode.CreateNodeFromData(data); 
+            var node = AgentNode.CreateNodeFromData(data);
             node.Deserialize(data);
-            
+
             var wrapper = new AgentNodeEditorWrapper(node);
             wrapper.Deserialize(data);
 
@@ -51,7 +51,7 @@ namespace Editor.Agents.Utilities
 
                     wrapper.AddChild(childWrapper);
                 }
-                
+
                 wrapper.SortChildrenByPositionX();
             }
 

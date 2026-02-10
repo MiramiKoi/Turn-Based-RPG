@@ -11,13 +11,13 @@ namespace Editor.Agents.Nodes
     {
         private const string PositionKey = "position";
         private const string EditorKey = "_editor";
-        
+
         public Vector2 Position { get; set; }
-        
-        public AgentNode Node { get; private set; }
+
+        public AgentNode Node { get; }
 
         public readonly List<AgentNodeEditorWrapper> ChildWrappers = new();
-        
+
         public AgentNodeEditorWrapper(AgentNode node)
         {
             Node = node;
@@ -28,7 +28,7 @@ namespace Editor.Agents.Nodes
             if (data.TryGetValue(EditorKey, out var founded))
             {
                 var editor = founded as Dictionary<string, object>;
-                
+
                 Position = editor.GetVector2(PositionKey);
             }
         }

@@ -6,12 +6,10 @@ namespace Editor.Agents.Nodes
     {
         public AgentSelectorView(AgentNodeEditorWrapper wrapper) : base(wrapper)
         {
-            
         }
-        
+
         public AgentSelectorView(AgentSelector data) : base(data)
         {
-            
         }
     }
 }

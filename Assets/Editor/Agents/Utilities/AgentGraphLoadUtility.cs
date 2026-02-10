@@ -18,23 +18,23 @@ namespace Editor.Agents.Utilities
             _graphView = graphView;
             _serializer = serializer;
         }
-        
+
         public void Load()
         {
             _graphView.ClearGraph();
-            
+
             var path = EditorUtility.OpenFilePanel
-            ("Load Controllable Behavior", 
-                Application.dataPath, 
+            ("Load Controllable Behavior",
+                Application.dataPath,
                 "json");
 
             var json = File.ReadAllText(path);
 
             var agentWrapper = _serializer.Deserialize(JSON.ToObject<Dictionary<string, object>>(json));
-            
+
             BuildGraphViewRecursive(agentWrapper);
         }
-        
+
         private void BuildGraphViewRecursive(AgentNodeEditorWrapper wrapper)
         {
             var nodeView = _graphView.AddAgentNode(wrapper);

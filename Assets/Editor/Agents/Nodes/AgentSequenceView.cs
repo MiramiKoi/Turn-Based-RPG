@@ -6,9 +6,8 @@ namespace Editor.Agents.Nodes
     {
         public AgentSequenceView(AgentNodeEditorWrapper wrapper) : base(wrapper)
         {
-            
         }
-        
+
         public AgentSequenceView(AgentSequence data) : base(data)
         {
         }
