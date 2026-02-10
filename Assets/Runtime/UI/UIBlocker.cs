@@ -19,8 +19,10 @@ namespace Runtime.UI
         {
             get
             {
-                var pos = _playerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
-                return _root.panel.Pick(pos) != null;
+                var pointerPosition = _playerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
+                var invertPosition = new Vector2(pointerPosition.x, Screen.height - pointerPosition.y);
+
+                return _root.panel.Pick(invertPosition) != null;
             }
         }
     }
