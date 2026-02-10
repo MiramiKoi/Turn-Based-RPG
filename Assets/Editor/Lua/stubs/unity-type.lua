@@ -1,0 +1,3 @@
+﻿---@class Vector2Int
+---@field x number
+---@field y number

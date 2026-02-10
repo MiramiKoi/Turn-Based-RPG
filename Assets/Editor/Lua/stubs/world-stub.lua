@@ -1,0 +1,28 @@
+﻿---@class World
+---@field AddressableModel any
+---@field MainCamera any
+---@field CameraControlModel any
+---@field TurnBaseModel any
+---@field PlayerControls any
+---@field GridModel GridModel
+---@field InventoryModel any
+---@field GridInteractionModel any
+---@field WorldDescription any
+---@field GameSystems any
+---@field UnitCollection any
+---@field AgentCollection any
+
+---@class GridModel
+---@field Cells CellModel[][]
+---@field GetCell fun(self:GridModel, position:Vector2Int):CellModel
+---@field CanPlace fun(self:GridModel, position:Vector2Int):boolean
+---@field TryPlace fun(self:GridModel, unit:UnitModel, position:Vector2Int):boolean
+---@field ReleaseCell fun(self:GridModel, position:Vector2Int)
+---@field IsInsideGrid fun(self:GridModel, position:Vector2Int):boolean
+
+---@class CellModel
+---@field Position Vector2Int
+---@field Unit UnitModel|nil
+---@field IsOccupied boolean
+---@field Occupied fun(self:CellModel, unit:UnitModel)
+---@field Release fun(self:CellModel)
