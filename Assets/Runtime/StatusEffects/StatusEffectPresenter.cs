@@ -78,10 +78,7 @@ namespace Runtime.StatusEffects
 
         private void HandleTick()
         {
-            if (!_model.IsExpired)
-            {
-                Call("OnTick");
-            }
+            Call("OnTick");
         }
     }
 }
