@@ -11,5 +11,17 @@
       "type": "turn_based",
       "turns": 6
     }
+  },
+  "bless": {
+    "polarity": "buff",
+    "view_id": "bless",
+    "lua_script": "bless",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 8
+    }
   }
 }
