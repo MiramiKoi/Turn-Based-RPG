@@ -6,7 +6,7 @@
 ---@field Direction number
 ---@field Flags table<string, boolean>
 ---@field PointOfInterest table<string, Vector2Int>
----@field ActiveEffects any
+---@field ActiveEffects ActiveEffects
 ---@field Stats StatModelCollection
 ---@field Description any
 ---@field OnAttacked fun()

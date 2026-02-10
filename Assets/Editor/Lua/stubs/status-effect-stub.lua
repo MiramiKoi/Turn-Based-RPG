@@ -13,3 +13,8 @@
 ---@field OnTick fun(ctx:StatusEffectContext)
 ---@field OnApply fun(ctx:StatusEffectContext)
 ---@field OnRemove fun(ctx:StatusEffectContext)
+
+---@class ActiveEffects
+---@field TryApply fun(self:ActiveEffects, descriptionKey:string)
+---@field TryRemove fun(self:ActiveEffects, id:string)
+---@field HasStatusEffect fun(self:ActiveEffects, descriptionKey:string):boolean
