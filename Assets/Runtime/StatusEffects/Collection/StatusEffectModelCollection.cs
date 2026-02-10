@@ -25,7 +25,7 @@ namespace Runtime.StatusEffects.Collection
             var description = _descriptions.Get(effectId);
             return CreateInternal(description, effectId);
         }
-        
+
         private StatusEffectModel CreateInternal(StatusEffectDescription description, string effectId)
         {
             if (description.Stacking.Mode == StackingMode.Independent)

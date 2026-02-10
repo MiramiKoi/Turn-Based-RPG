@@ -42,6 +42,7 @@ namespace Runtime.StatusEffects.Collection
             {
                 presenter.Disable();
             }
+
             _presenters.Clear();
         }
 

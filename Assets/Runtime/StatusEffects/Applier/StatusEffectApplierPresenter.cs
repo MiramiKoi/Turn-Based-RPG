@@ -56,7 +56,7 @@ namespace Runtime.StatusEffects.Applier
 
             return true;
         }
-        
+
         private string HandleApplyRequested(string effectId)
         {
             var description = _world.WorldDescription.StatusEffectCollection.Get(effectId);

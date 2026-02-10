@@ -23,7 +23,8 @@ namespace Runtime.Player.StatusEffects
         private readonly Dictionary<string, StatusEffectView> _views = new();
         private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
 
-        public PlayerStatusEffectsHudPresenter(UnitModel unit, PlayerStatusEffectHudView view, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public PlayerStatusEffectsHudPresenter(UnitModel unit, PlayerStatusEffectHudView view, World world,
+            WorldViewDescriptions viewDescriptions, UIContent uiContent)
         {
             _modelCollection = unit.ActiveEffects.Collection;
             _view = view;

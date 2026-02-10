@@ -26,28 +26,28 @@ namespace Runtime.StatusEffects
             _context["world"] = UserData.Create(world);
             _context["effect"] = _effectTable;
         }
-        
+
         public void Enable()
         {
             if (CanApply())
             {
                 Call("OnApply");
             }
-            
+
             _world.TurnBaseModel.OnWorldStepFinished += HandleTick;
         }
 
         public void Disable()
         {
             Call("OnRemove");
-            
+
             _world.TurnBaseModel.OnWorldStepFinished -= HandleTick;
         }
 
         private void Call(string functionName)
         {
             var function = _module.Get(functionName);
-            
+
             if (!function.IsNil())
             {
                 RefreshEffectTable();
@@ -60,7 +60,7 @@ namespace Runtime.StatusEffects
             _effectTable["stacks"] = _model.CurrentStacks.Value;
             _effectTable["remaining_turns"] = _model.RemainingTurns.Value;
         }
-        
+
         private bool CanApply()
         {
             var function = _module.Get("CanApply");
@@ -75,7 +75,7 @@ namespace Runtime.StatusEffects
 
             return true;
         }
-        
+
         private void HandleTick()
         {
             if (!_model.IsExpired)

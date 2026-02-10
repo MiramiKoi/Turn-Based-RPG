@@ -17,8 +17,9 @@ namespace Runtime.StatusEffects
 
         private readonly CompositeDisposable _disposables = new();
         private LoadModel<Sprite> _loadModel;
-        
-        public StatusEffectViewPresenter(StatusEffectModel model, StatusEffectView view, World world, StatusEffectViewDescription viewDescription)
+
+        public StatusEffectViewPresenter(StatusEffectModel model, StatusEffectView view, World world,
+            StatusEffectViewDescription viewDescription)
         {
             _model = model;
             _view = view;
@@ -49,7 +50,7 @@ namespace Runtime.StatusEffects
                 _view.TurnsCounter.text = remainingTurns.ToString();
             }
         }
-        
+
         private void HandleStacksChanged(int stacks)
         {
             _view.StackCounter.text = stacks + "X";

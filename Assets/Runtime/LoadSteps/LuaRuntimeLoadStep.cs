@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MoonSharp.Interpreter;
 using Runtime.AsyncLoad;
@@ -32,7 +33,7 @@ namespace Runtime.LoadSteps
                 await loadModel.LoadAwaiter;
 
                 var env = new Table(LuaRuntime.Instance.LuaScript);
-                
+
                 var meta = new Table(LuaRuntime.Instance.LuaScript)
                 {
                     ["__index"] = LuaRuntime.Instance.LuaScript.Globals
@@ -54,7 +55,7 @@ namespace Runtime.LoadSteps
             RegisterTypeIfMissing(typeof(World));
         }
 
-        private static void RegisterTypeIfMissing(System.Type type)
+        private static void RegisterTypeIfMissing(Type type)
         {
             UserData.RegisterType(type);
         }
