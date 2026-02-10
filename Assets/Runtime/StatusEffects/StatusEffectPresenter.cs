@@ -84,6 +84,8 @@ namespace Runtime.StatusEffects
             {
                 _model.IsExpired = true;
             }
+            
+            _model.DecrementRemainingTurns();
         }
     }
 }

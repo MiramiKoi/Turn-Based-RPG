@@ -10,13 +10,23 @@ namespace Runtime.StatusEffects
 {
     public class StatusEffectModel : ISerializable, IDeserializable
     {
+        public event Action<StatusEffectModel> OnExpired;
+
         public string Id { get; }
+
         public bool IsExpired
         {
-            get => _isExpired || (RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased);
-            set => _isExpired = value;
+            get => _isExpired;
+            set
+            {
+                _isExpired = value;
+                if (_isExpired)
+                {
+                    OnExpired?.Invoke(this);
+                }
+            }
         }
-
+        
         public StatusEffectDescription Description { get; }
         public ReactiveProperty<int> CurrentStacks { get; } = new();
         public ReactiveProperty<int> RemainingTurns { get; } = new();
@@ -59,6 +69,11 @@ namespace Runtime.StatusEffects
         public void DecrementRemainingTurns()
         {
             RemainingTurns.Value--;
+
+            if (RemainingTurns.Value <= 0 && Description.Duration.Type == DurationType.TurnBased)
+            {
+                IsExpired = true;
+            }
         }
 
         public Dictionary<string, object> Serialize()

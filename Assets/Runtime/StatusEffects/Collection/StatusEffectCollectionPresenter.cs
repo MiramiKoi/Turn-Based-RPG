@@ -22,7 +22,6 @@ namespace Runtime.StatusEffects.Collection
 
         public void Enable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished += Tick;
             _modelCollection.OnAdded += HandleAdded;
             _modelCollection.OnRemoved += HandleRemoved;
 
@@ -34,7 +33,6 @@ namespace Runtime.StatusEffects.Collection
 
         public void Disable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished -= Tick;
             _modelCollection.OnAdded -= HandleAdded;
             _modelCollection.OnRemoved -= HandleRemoved;
 
@@ -46,39 +44,25 @@ namespace Runtime.StatusEffects.Collection
             _presenters.Clear();
         }
 
-        private void Tick()
-        {
-            _unit.ResetActionDisables();
-
-            var expired = new List<StatusEffectModel>();
-
-            foreach (var model in _modelCollection.Models)
-            {
-                model.Value.DecrementRemainingTurns();
-                if (model.Value.IsExpired)
-                {
-                    expired.Add(_modelCollection.Get(model.Key));
-                }
-            }
-
-            foreach (var model in expired)
-            {
-                _modelCollection.Remove(model.Id);
-            }
-        }
-
         private void AddPresenter(StatusEffectModel model)
         {
+            model.OnExpired += HandleChangeExpired;
+            
             var id = model.Id;
             var presenter = new StatusEffectPresenter(model, _unit, _world);
             _presenters[id] = presenter;
             presenter.Enable();
         }
 
-        private void RemoveSystem(string id)
+        private void RemovePresenter(string id)
         {
             _presenters[id].Disable();
             _presenters.Remove(id);
+        }
+        
+        private void HandleChangeExpired(StatusEffectModel statusEffectModel)
+        {
+            _modelCollection.Remove(statusEffectModel.Id);
         }
 
         private void HandleAdded(StatusEffectModel model)
@@ -88,7 +72,8 @@ namespace Runtime.StatusEffects.Collection
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            RemoveSystem(model.Id);
+            model.OnExpired -= HandleChangeExpired;
+            RemovePresenter(model.Id);
         }
     }
 }
