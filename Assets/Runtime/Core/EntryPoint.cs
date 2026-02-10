@@ -5,6 +5,7 @@ using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
+using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
 using Runtime.Items;
 using Runtime.Landscape.Grid;
@@ -64,8 +65,8 @@ namespace Runtime.Core
             _uiController.Enable();
 
             await CreateControllableUnit();
-            await CreateUnit("bear_0");
-            await CreateUnit("panda_0");
+            await CreateUnit("bear_0", _worldDescription.BearAgentDecisionDescription);
+            await CreateUnit("panda_0", _worldDescription.PandaAgentDecisionDescription);
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
@@ -112,7 +113,7 @@ namespace Runtime.Core
             unitModel.ActiveEffects.Create("bleed");
         }
 
-        private async Task CreateUnit(string id)
+        private async Task CreateUnit(string id, AgentDecisionDescription description)
         {
             var unitModel = _world.UnitCollection.Get(id);
 
@@ -123,9 +124,9 @@ namespace Runtime.Core
             var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
             _addressableModel.Unload(loadModel);
 
-            //var agentPresenter = new AgentPresenter(unitModel, _worldDescription.AgentDecisionDescription, _world);
+            //var agentPresenter = new AgentPresenter(unitModel, _worldDescription.BearAgentDecisionDescription, _world);
 
-            var agentModel = new AgentModel(unitModel, _worldDescription.AgentDecisionDescription, _world);
+            var agentModel = new AgentModel(unitModel, description, _world);
             _world.AgentCollection.Add(unitModel.Id, agentModel);
 
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
