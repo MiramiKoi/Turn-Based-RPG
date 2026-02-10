@@ -5,6 +5,7 @@ using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Descriptions;
+using Runtime.Stats;
 using Runtime.Units;
 using UnityEngine;
 
@@ -52,6 +53,8 @@ namespace Runtime.LoadSteps
         private static void RegisterUserDataTypes()
         {
             RegisterTypeIfMissing(typeof(UnitModel));
+            RegisterTypeIfMissing(typeof(StatModelCollection));
+            RegisterTypeIfMissing(typeof(StatModel));
             RegisterTypeIfMissing(typeof(World));
         }
 
