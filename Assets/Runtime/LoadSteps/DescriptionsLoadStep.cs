@@ -21,6 +21,7 @@ namespace Runtime.LoadSteps
             { "units", "unit-description" },
             { "items", "items-description" },
             { "bear", "bear-description" },
+            {"panda", "panda-description" },
             { "environment_generation", "environment-generation-description" },
             { "environment", "environment-description" },
             { "status_effects", "status-effect-descriptions" }
