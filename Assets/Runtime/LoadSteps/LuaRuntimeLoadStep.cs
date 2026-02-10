@@ -6,6 +6,7 @@ using Runtime.Common;
 using Runtime.Core;
 using Runtime.Descriptions;
 using Runtime.Stats;
+using Runtime.StatusEffects.Applier;
 using Runtime.Units;
 using UnityEngine;
 
@@ -55,6 +56,7 @@ namespace Runtime.LoadSteps
             RegisterTypeIfMissing(typeof(UnitModel));
             RegisterTypeIfMissing(typeof(StatModelCollection));
             RegisterTypeIfMissing(typeof(StatModel));
+            RegisterTypeIfMissing(typeof(StatusEffectApplierModel));
             RegisterTypeIfMissing(typeof(World));
         }
 
