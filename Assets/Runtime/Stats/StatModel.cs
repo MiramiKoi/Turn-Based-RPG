@@ -18,7 +18,7 @@ namespace Runtime.Stats
 
         public void ChangeValue(float delta)
         {
-            Value += delta;
+            Value = Math.Clamp(Value + delta, 0, Description.MaxValue);
             ValueChanged?.Invoke(Value);
         }
 
