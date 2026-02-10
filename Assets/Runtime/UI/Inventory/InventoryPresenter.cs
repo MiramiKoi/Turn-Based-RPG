@@ -15,7 +15,8 @@ namespace Runtime.UI.Inventory
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
 
-        public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions, UIContent uiContent, World world)
+        public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions,
+            UIContent uiContent, World world)
         {
             _model = model;
             _view = view;
@@ -28,15 +29,15 @@ namespace Runtime.UI.Inventory
         {
             _uiContent.GameplayContent.Add(_view.Root);
             var cellAsset = _viewDescriptions.InventoryViewDescription.CellAsset;
-            
+
             foreach (var cellModel in _model.Cells)
             {
                 var cellView = new CellView(cellAsset);
                 _view.CellsContainer.Add(cellView.Root);
-                
+
                 var cellPresenter = new CellPresenter(cellModel, cellView, _viewDescriptions, _world);
                 cellPresenter.Enable();
-                
+
                 _cellsPresenters.Add(cellPresenter);
             }
 
@@ -49,10 +50,10 @@ namespace Runtime.UI.Inventory
             {
                 cellPresenter.Disable();
             }
-            
+
             _cellsPresenters.Clear();
             _view.CellsContainer.Clear();
-            
+
             _view.Root.RemoveFromHierarchy();
 
             _model.Enabled = false;

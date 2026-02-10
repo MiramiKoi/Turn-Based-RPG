@@ -17,11 +17,11 @@ namespace Editor.Agents
         private const string Title = "Controllable Behavior Tree Editor";
 
         private AgentGraphView _graphView;
-        
+
         private AgentGraphSaveUtility _saveUtility;
-        
+
         private AgentGraphLoadUtility _loadUtility;
-        
+
         private AgentGraphSerializer _serializer;
 
         private void OnEnable()
@@ -31,11 +31,11 @@ namespace Editor.Agents
             _graphView = new AgentGraphView();
 
             _serializer = new AgentGraphSerializer();
-            
+
             _saveUtility = new AgentGraphSaveUtility(_graphView, _serializer);
-            
+
             _loadUtility = new AgentGraphLoadUtility(_graphView, _serializer);
-            
+
             _graphView.StretchToParentSize();
 
             rootVisualElement.Add(_graphView);
@@ -95,7 +95,6 @@ namespace Editor.Agents
         private GraphViewChange OnGraphElementChanged(GraphViewChange graphViewChange)
         {
             if (graphViewChange.edgesToCreate != null)
-            {
                 foreach (var edge in graphViewChange.edgesToCreate)
                 {
                     if (edge.output.node is not AgentBaseNodeView outputNodeView ||
@@ -104,10 +103,8 @@ namespace Editor.Agents
 
                     outputNodeView.Data.AddChild(inputNodeView.Data);
                 }
-            }
 
             if (graphViewChange.elementsToRemove != null)
-            {
                 foreach (var edge in graphViewChange.elementsToRemove.OfType<Edge>())
                 {
                     if (edge.output.node is not AgentBaseNodeView outputNodeView ||
@@ -116,7 +113,6 @@ namespace Editor.Agents
 
                     outputNodeView.Data.RemoveChild(inputNodeView.Data);
                 }
-            }
 
             return graphViewChange;
         }

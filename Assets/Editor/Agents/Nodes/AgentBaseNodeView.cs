@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace Editor.Agents.Nodes
 {
-    public class AgentBaseNodeView : Node 
+    public class AgentBaseNodeView : Node
     {
         public AgentNodeEditorWrapper Data { get; set; }
 
@@ -29,7 +29,7 @@ namespace Editor.Agents.Nodes
         protected AgentBaseNodeView(AgentNode data)
         {
             Data = new AgentNodeEditorWrapper(data);
-            
+
             Setup();
         }
 
@@ -42,28 +42,25 @@ namespace Editor.Agents.Nodes
         {
             Title = Data.Node.Type;
 
-            var nameField = new TextField()
+            var nameField = new TextField
             {
-                value = Data.Node.Name,
+                value = Data.Node.Name
             };
 
-            nameField.RegisterValueChangedCallback(evt =>
-            {
-                Data.Node.Name = evt.newValue;
-            });
-            
+            nameField.RegisterValueChangedCallback(evt => { Data.Node.Name = evt.newValue; });
+
             titleContainer.Add(nameField);
-            
-            
+
+
             InputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(float));
             inputContainer.Add(InputPort);
 
             OutputPort = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Multi, typeof(float));
             outputContainer.Add(OutputPort);
-            
+
             RefreshExpandedState();
             RefreshPorts();
-            
+
             SetPosition(new Rect(Data.Position, new Vector2(100, 100)));
         }
     }

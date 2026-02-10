@@ -12,8 +12,8 @@ namespace Runtime.StatusEffects
     {
         public string Id { get; }
         public StatusEffectDescription Description { get; }
-        public ReactiveProperty<int> CurrentStacks { get; private set; } = new();
-        public ReactiveProperty<int> RemainingTurns { get; private set; } = new();
+        public ReactiveProperty<int> CurrentStacks { get; } = new();
+        public ReactiveProperty<int> RemainingTurns { get; } = new();
 
         public StatusEffectModel(string id, StatusEffectDescription description)
         {
@@ -32,7 +32,8 @@ namespace Runtime.StatusEffects
                     var before = CurrentStacks.Value;
                     CurrentStacks.Value = Math.Min(CurrentStacks.Value + 1, Description.Stacking.MaxStacks);
 
-                    if (CurrentStacks.Value == Description.Stacking.MaxStacks && before == Description.Stacking.MaxStacks)
+                    if (CurrentStacks.Value == Description.Stacking.MaxStacks &&
+                        before == Description.Stacking.MaxStacks)
                         RemainingTurns.Value = Description.Duration.Turns;
 
                     break;

@@ -13,13 +13,15 @@ namespace Runtime.UI
 
         private readonly PlayerControls _playerControls;
 
-        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions,
+            UIContent uiContent)
         {
             _world = world;
             _playerControls = playerControls;
 
             var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
-            _inventoryPresenter = new InventoryPresenter(_world.InventoryModel, inventoryView, viewDescriptions, uiContent, _world);
+            _inventoryPresenter = new InventoryPresenter(_world.InventoryModel, inventoryView, viewDescriptions,
+                uiContent, _world);
         }
 
         public void Enable()

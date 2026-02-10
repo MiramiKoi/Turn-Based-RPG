@@ -17,7 +17,7 @@ namespace Editor.Agents.Utilities
         private readonly GraphView _graphView;
 
         private readonly AgentGraphSerializer _serializer;
-        
+
         public AgentGraphSaveUtility(GraphView graphView, AgentGraphSerializer serializer)
         {
             _graphView = graphView;
@@ -31,11 +31,8 @@ namespace Editor.Agents.Utilities
 
         public void Save()
         {
-            Nodes.ForEach(nv =>
-            {
-                nv.SaveData();
-            });
-            
+            Nodes.ForEach(nv => { nv.SaveData(); });
+
             Save(GetRoot().Data, GetPath());
         }
 
@@ -46,7 +43,7 @@ namespace Editor.Agents.Utilities
 
         private void Save(AgentNodeEditorWrapper wrapper, string path)
         {
-            Save(_serializer.Serialize(wrapper), path);     
+            Save(_serializer.Serialize(wrapper), path);
         }
 
         private void Save(Dictionary<string, object> dictionary, string path)

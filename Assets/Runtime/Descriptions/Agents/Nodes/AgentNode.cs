@@ -2,30 +2,29 @@ using System;
 using System.Collections.Generic;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
-using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {
     public abstract class AgentNode : ISerializable, IDeserializable
     {
         private const string TypeKey = "type";
-        
+
         private const string ChildrenKey = "children";
 
         private const string NameKey = "name";
 
         public event Action OnAddChild;
-        
+
         public abstract string Type { get; }
 
         public string Name { get; set; } = string.Empty;
-        
+
         public List<AgentNode> Children { get; set; } = new();
 
         public void AddChild(AgentNode child)
         {
             Children.Add(child);
-            
+
             OnAddChild?.Invoke();
         }
 
@@ -39,12 +38,12 @@ namespace Runtime.Descriptions.Agents.Nodes
             {
                 children.Add(child.Serialize());
             }
-            
+
             return new Dictionary<string, object>
             {
-                {TypeKey, Type},
-                {ChildrenKey, children},
-                {NameKey, Name},
+                { TypeKey, Type },
+                { ChildrenKey, children },
+                { NameKey, Name }
             };
         }
 
@@ -85,7 +84,7 @@ namespace Runtime.Descriptions.Agents.Nodes
                 "root" => new AgentDecisionDescription(),
                 _ => throw new Exception()
             };
-            
+
             return node;
         }
     }

@@ -13,13 +13,13 @@ namespace Editor.Agents
         public AgentGraphView()
         {
             AddStyles();
-            
+
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
-            
+
             SetupManipulators();
 
             SetupGridBackground();
-            
+
             ClearGraph();
         }
 
@@ -38,12 +38,12 @@ namespace Editor.Agents
                 AgentLeaf => new AgentLeafView(wrapper),
                 _ => throw new SystemException()
             };
-            
+
             AddElement(agentNodeView);
-            
+
             return agentNodeView;
         }
-        
+
         public AgentBaseNodeView AddAgentNode(AgentNode data)
         {
             AgentBaseNodeView agentNodeView = data switch
@@ -54,24 +54,24 @@ namespace Editor.Agents
                 AgentLeaf agentLeaf => new AgentLeafView(agentLeaf),
                 _ => throw new SystemException()
             };
-            
+
             AddElement(agentNodeView);
 
             return agentNodeView;
         }
-        
+
         public void AddAgentNode<TData>() where TData : AgentNode, new()
         {
             var data = new TData();
 
             AddAgentNode(data);
         }
-        
+
         public void ClearGraph()
         {
             graphElements.ForEach(RemoveElement);
         }
-        
+
         private void SetupManipulators()
         {
             this.AddManipulator(new ContentDragger());
@@ -79,9 +79,8 @@ namespace Editor.Agents
             this.AddManipulator(new SelectionDragger());
 
             this.AddManipulator(new RectangleSelector());
-            
-            this.AddManipulator(new FreehandSelector());
 
+            this.AddManipulator(new FreehandSelector());
         }
 
         private void SetupGridBackground()

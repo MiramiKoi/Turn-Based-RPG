@@ -18,7 +18,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
             Stat = data.GetString("stat");
             Mode = data.GetEnum<StatModifyMode>("mode");
         }
-        
+
         public override void Tick(UnitModel unit, World world)
         {
             var statModel = unit.Stats[Stat];
@@ -52,7 +52,7 @@ namespace Runtime.Descriptions.StatusEffects.Modifiers
                     break;
             }
         }
-        
+
         public override void Tick(UnitModel unit, World world, int stacks)
         {
             var k = stacks <= 0 ? 1 : stacks;

@@ -14,7 +14,7 @@ namespace Runtime.CameraControl
         public bool IsEdgeScrollEnabled => true;
 
         public Vector2 LastPointerPosition;
-        
+
         public void ResetCameraPosition()
         {
             OnResetCameraPosition?.Invoke();

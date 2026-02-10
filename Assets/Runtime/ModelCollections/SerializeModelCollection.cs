@@ -14,7 +14,7 @@ namespace Runtime.ModelCollections
             var data = new Dictionary<string, object>();
 
             var models = new Dictionary<string, object>();
-            
+
             foreach (var model in Models)
             {
                 models.Add(model.Key, model.Value.Serialize());
@@ -42,14 +42,14 @@ namespace Runtime.ModelCollections
             base.Add(key, model);
             Index++;
         }
-        
+
         protected string GetCurrentKey()
         {
             if (string.IsNullOrEmpty(DescriptionKey))
             {
                 return Index.ToString();
             }
-            
+
             return DescriptionKey + "_" + Index;
         }
     }

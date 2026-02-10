@@ -7,7 +7,7 @@ namespace Runtime.CameraControl
     {
         public CinemachineCamera Camera => _camera;
         public CinemachinePositionComposer PositionComposer => _positionComposer;
-        
+
         [SerializeField] private CinemachineCamera _camera;
 
         [SerializeField] private CinemachinePositionComposer _positionComposer;

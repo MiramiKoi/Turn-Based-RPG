@@ -26,7 +26,7 @@ namespace Runtime.Player
         public void FindPath(Vector2Int target)
         {
             ClearRouteIndication();
-            
+
             var start = _model.Position.Value;
             if (GridPathfinder.FindPath(_grid, start, target, out var path))
             {
@@ -37,8 +37,8 @@ namespace Runtime.Player
 
         public bool CanAttack(Vector2Int target)
         {
-            return _grid.GetCell(target).Unit is UnitModel unit && 
-                   unit != _model && 
+            return _grid.GetCell(target).Unit is UnitModel unit &&
+                   unit != _model &&
                    !unit.IsDead &&
                    _model.CanAttack(target);
         }
@@ -49,14 +49,17 @@ namespace Runtime.Player
             {
                 return;
             }
-            
+
             var enemy = (UnitModel)_grid.GetCell(target).Unit;
             var damage = _model.GetDamage();
             enemy.TakeDamage(damage);
         }
-        
-        public bool HasPath() => _movementQueueModel.HasSteps;
-        
+
+        public bool HasPath()
+        {
+            return _movementQueueModel.HasSteps;
+        }
+
         public void ExecuteNextStep()
         {
             if (!IsExecutingRoute)
@@ -64,7 +67,7 @@ namespace Runtime.Player
                 IsExecutingRoute = true;
                 DrawRoute(_movementQueueModel.Steps);
             }
-            
+
             if (_movementQueueModel.TryDequeue(out var nextCell) && _grid.CanPlace(nextCell) && _model.CanMove())
             {
                 _grid.ReleaseCell(_model.Position.Value);
@@ -91,7 +94,7 @@ namespace Runtime.Player
                 _grid.Cells[position.x, position.y].SetIndication(IndicationType.Null);
             }
         }
-        
+
         private void DrawRoute(IEnumerable<Vector2Int> path)
         {
             foreach (var position in path)

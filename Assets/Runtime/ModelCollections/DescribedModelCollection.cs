@@ -9,7 +9,7 @@
             var model = CreateModel(descriptionKey);
             Add(GetCurrentKey(), model);
         }
-        
+
         protected abstract T CreateModel(string descriptionKey);
     }
 }

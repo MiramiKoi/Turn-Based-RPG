@@ -22,7 +22,7 @@ namespace Runtime.AsyncLoad
             _loadModels.Add(key, model);
             return model;
         }
-        
+
         public void Unload<T>(LoadModel<T> loadModel)
         {
             loadModel.RefCount--;
@@ -36,5 +36,3 @@ namespace Runtime.AsyncLoad
         }
     }
 }
-
-

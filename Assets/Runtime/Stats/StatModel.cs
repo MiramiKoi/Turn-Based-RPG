@@ -6,7 +6,7 @@ namespace Runtime.Stats
     public class StatModel
     {
         public event Action<float> ValueChanged;
-        
+
         public StatDescription Description { get; }
         public float Value { get; private set; }
 
@@ -21,7 +21,7 @@ namespace Runtime.Stats
             Value += delta;
             ValueChanged?.Invoke(Value);
         }
-        
+
         public void SetValue(float value)
         {
             Value = value;

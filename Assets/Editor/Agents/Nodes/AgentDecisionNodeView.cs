@@ -4,11 +4,10 @@ namespace Editor.Agents.Nodes
 {
     public class AgentDecisionNodeView : AgentBaseNodeView
     {
-        public AgentDecisionNodeView(AgentNodeEditorWrapper wrapper) :  base(wrapper)
+        public AgentDecisionNodeView(AgentNodeEditorWrapper wrapper) : base(wrapper)
         {
-            
         }
-        
+
         public AgentDecisionNodeView(AgentDecisionDescription data) : base(data)
         {
         }
@@ -16,7 +15,7 @@ namespace Editor.Agents.Nodes
         protected override void Setup()
         {
             base.Setup();
-            
+
             inputContainer.Clear();
         }
     }

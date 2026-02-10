@@ -12,22 +12,22 @@ namespace Runtime.Descriptions.Agents.Commands
         public override string Type => "move_to_point_of_interest";
 
         public string PointOfInterest { get; private set; } = string.Empty;
-        
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var unit = (UnitModel)controllable;
-            
+
             var pointOfInterest = unit.GetPointOfInterest(PointOfInterest);
-            
+
             var targetPosition = GetPosition(context, unit, pointOfInterest);
-            
+
             if (context.GridModel.TryPlace(unit, targetPosition))
             {
                 context.GridModel.ReleaseCell(unit.Position.Value);
                 unit.MoveTo(targetPosition);
                 return NodeStatus.Success;
             }
-            
+
             return NodeStatus.Failure;
         }
 
@@ -49,9 +49,9 @@ namespace Runtime.Descriptions.Agents.Commands
             var bestPosition = currentPosition;
             var currentDistance = Vector2Int.Distance(currentPosition, endPosition);
 
-            for (int x = -1; x <= 1; x++)
+            for (var x = -1; x <= 1; x++)
             {
-                for (int y = -1; y <= 1; y++)
+                for (var y = -1; y <= 1; y++)
                 {
                     var candidate = currentPosition + new Vector2Int(x, y);
 

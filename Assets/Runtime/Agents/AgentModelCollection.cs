@@ -4,6 +4,5 @@ namespace Runtime.Agents
 {
     public class AgentModelCollection : ModelCollectionBase<string, AgentModel>
     {
-        
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using Runtime.Common;
-using Runtime.Descriptions.Surface;
 using Runtime.Descriptions.Environment;
+using Runtime.Descriptions.Surface;
 using Runtime.Landscape.Grid.Indication;
 using UnityEngine;
 
@@ -17,14 +17,15 @@ namespace Runtime.Landscape.Grid.Cell
         public EnvironmentDescription EnvironmentDescription { get; }
         public IndicationType IndicationType { get; private set; }
 
-        public CellModel(int x, int y, SurfaceDescription surfaceDescription, EnvironmentDescription environmentDescription)
+        public CellModel(int x, int y, SurfaceDescription surfaceDescription,
+            EnvironmentDescription environmentDescription)
         {
             Position = new Vector2Int(x, y);
             SurfaceDescription = surfaceDescription;
             EnvironmentDescription = environmentDescription;
             IsOccupied = !(surfaceDescription.IsWalkable && environmentDescription.IsWalkable);
         }
-        
+
         public void Occupied(IUnit unit)
         {
             Unit = unit;
@@ -38,7 +39,7 @@ namespace Runtime.Landscape.Grid.Cell
             IsOccupied = false;
             SetIndication(IndicationType.Null);
         }
-        
+
         public void SetIndication(IndicationType indicationType)
         {
             IndicationType = indicationType;

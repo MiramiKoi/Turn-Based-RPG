@@ -28,7 +28,14 @@ namespace Runtime.CustomAsync
         {
         }
 
-        public CustomAwaiter GetAwaiter() => this;
-        public void Dispose() => _continuations = null;
+        public CustomAwaiter GetAwaiter()
+        {
+            return this;
+        }
+
+        public void Dispose()
+        {
+            _continuations = null;
+        }
     }
 }

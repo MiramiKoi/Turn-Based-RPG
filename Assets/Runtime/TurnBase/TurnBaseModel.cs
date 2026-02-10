@@ -7,11 +7,11 @@ namespace Runtime.TurnBase
     {
         public event Action OnPlayerStepFinished;
         public event Action OnWorldStepFinished;
-        
+
         public int CurrentTurn { get; private set; }
 
         public Queue<StepModel> Steps { get; } = new();
-        
+
         public void PlayerStep()
         {
             CurrentTurn++;

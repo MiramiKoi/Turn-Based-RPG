@@ -7,7 +7,7 @@ namespace Runtime.GameSystems
         private readonly Dictionary<string, IGameSystem> _systems = new();
         private readonly List<IGameSystem> _pendingAdd = new();
         private readonly List<IGameSystem> _pendingRemove = new();
-        
+
         private bool _isUpdating;
 
         public IGameSystem Get(string id)
@@ -40,12 +40,12 @@ namespace Runtime.GameSystems
         public void Update(float deltaTime)
         {
             _isUpdating = true;
-            
+
             foreach (var system in _systems.Values)
             {
                 system.Update(deltaTime);
             }
-            
+
             _isUpdating = false;
 
             if (_pendingRemove.Count > 0)
@@ -68,7 +68,7 @@ namespace Runtime.GameSystems
                 _pendingAdd.Clear();
             }
         }
-        
+
         public void Clear()
         {
             _systems.Clear();

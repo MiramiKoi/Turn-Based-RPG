@@ -4,6 +4,5 @@ namespace Runtime.Units
 {
     public class UnitModelCollection : ModelCollectionBase<string, UnitModel>
     {
-        
     }
 }

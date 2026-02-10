@@ -14,17 +14,17 @@ namespace Runtime.Descriptions.Agents.Commands
         public override string Type => "distance_point_of_interest";
 
         public string PointOfInterest { get; private set; } = string.Empty;
-        
+
         public int Distance { get; private set; }
-        
+
         public string Operation { get; private set; } = string.Empty;
-        
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             var position = controllable.Position.Value;
-            
+
             var target = controllable.GetPointOfInterest(PointOfInterest);
-            
+
             var currentDistance = Mathf.RoundToInt(Vector2Int.Distance(position, target));
 
             return Operation switch

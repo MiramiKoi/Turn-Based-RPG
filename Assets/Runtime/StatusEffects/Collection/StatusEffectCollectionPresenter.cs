@@ -46,7 +46,7 @@ namespace Runtime.StatusEffects.Collection
         private void Tick()
         {
             _unit.ResetActionDisables();
-            
+
             var expired = new List<StatusEffectModel>();
 
             foreach (var pair in _systems)

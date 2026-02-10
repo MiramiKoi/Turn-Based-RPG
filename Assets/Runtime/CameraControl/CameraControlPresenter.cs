@@ -24,15 +24,15 @@ namespace Runtime.CameraControl
             _world = world;
 
             _system = new CameraControlSystem(_model, _view, _world);
-        } 
-        
+        }
+
         public void Enable()
         {
             _model.Target.Subscribe(HandleTargetChanged).AddTo(_disposables);
-            
+
             _world.PlayerControls.Gameplay.CameraControl.started += HandleCameraControllingStarted;
             _world.PlayerControls.Gameplay.CameraControl.canceled += HandleCameraControllingCanceled;
-            
+
             _model.OnResetCameraPosition += HandleResetCameraPosition;
             _model.IsActive.SkipLatestValueOnSubscribe().Subscribe(HandleActiveChanged).AddTo(_disposables);
 
@@ -42,10 +42,10 @@ namespace Runtime.CameraControl
         public void Disable()
         {
             _disposables.Dispose();
-            
+
             _world.PlayerControls.Gameplay.CameraControl.started -= HandleCameraControllingStarted;
             _world.PlayerControls.Gameplay.CameraControl.canceled -= HandleCameraControllingCanceled;
-            
+
             _model.OnResetCameraPosition -= HandleResetCameraPosition;
 
             _world.GameSystems.Remove(_system);
@@ -55,7 +55,7 @@ namespace Runtime.CameraControl
         {
             _view.Camera.Follow = target;
         }
-        
+
         private void HandleCameraControllingStarted(InputAction.CallbackContext obj)
         {
             _model.IsManualControl = true;
@@ -66,17 +66,18 @@ namespace Runtime.CameraControl
             {
                 cellModel.SetIndication(IndicationType.Null);
             }
+
             _model.LastPointerPosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
         }
-        
+
         private void HandleCameraControllingCanceled(InputAction.CallbackContext obj)
         {
             _model.IsManualControl = false;
             _world.GridInteractionModel.IsActive.Value = true;
-            
+
             _view.PositionComposer.Damping = _damping;
         }
-        
+
         private void HandleResetCameraPosition()
         {
             _view.PositionComposer.TargetOffset = Vector3.zero;

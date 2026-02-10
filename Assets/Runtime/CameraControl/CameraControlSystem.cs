@@ -37,7 +37,7 @@ namespace Runtime.CameraControl
                 }
             }
         }
-        
+
         private bool TryApplyDrag(Vector2 pointerPosition)
         {
             if (_model.IsManualControl)
@@ -53,7 +53,7 @@ namespace Runtime.CameraControl
 
             return false;
         }
-        
+
         private Vector3 CalculateDrag(Vector2 pointerDelta)
         {
             var unitsPerPixel = _view.Camera.Lens.OrthographicSize / _screenSize.y;
@@ -63,7 +63,7 @@ namespace Runtime.CameraControl
 
             return drag;
         }
-        
+
         private void TryApplyEdgeScroll(Vector2 pointerPosition, float deltaTime)
         {
             if (_model.IsEdgeScrollEnabled)

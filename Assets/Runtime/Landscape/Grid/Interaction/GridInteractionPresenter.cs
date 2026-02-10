@@ -9,7 +9,7 @@ namespace Runtime.Landscape.Grid.Interaction
     {
         private readonly GridInteractionModel _model;
         private readonly World _world;
-        
+
         private readonly GridInteractionSystem _system;
         private readonly CompositeDisposable _disposable = new();
 
@@ -17,7 +17,7 @@ namespace Runtime.Landscape.Grid.Interaction
         {
             _model = model;
             _world = world;
-            _system = new GridInteractionSystem(model, view, world);                
+            _system = new GridInteractionSystem(model, view, world);
         }
 
         public void Enable()
@@ -36,7 +36,8 @@ namespace Runtime.Landscape.Grid.Interaction
         private void Clear()
         {
             if (_model.CurrentCell != null)
-                _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y].SetIndication(IndicationType.Null);
+                _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y]
+                    .SetIndication(IndicationType.Null);
             _model.SetCell(null);
         }
 

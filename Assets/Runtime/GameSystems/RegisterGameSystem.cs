@@ -6,7 +6,7 @@ namespace Runtime.GameSystems
     {
         public string Id { get; set; }
 
-        private readonly List<T> _items =  new();
+        private readonly List<T> _items = new();
 
         private readonly List<T> _itemsToRemove = new();
 
@@ -14,7 +14,7 @@ namespace Runtime.GameSystems
         {
             Id = id;
         }
-        
+
         public void Update(float deltaTime)
         {
             foreach (var item in _items)
@@ -26,7 +26,7 @@ namespace Runtime.GameSystems
             {
                 _items.Remove(item);
             }
-            
+
             _itemsToRemove.Clear();
         }
 

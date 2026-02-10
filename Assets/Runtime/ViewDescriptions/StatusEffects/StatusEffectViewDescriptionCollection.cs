@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 namespace Runtime.ViewDescriptions.StatusEffects
 {
-    [CreateAssetMenu(fileName = "StatusEffectViewDescriptionCollection", menuName = "ViewDescription/StatusEffects/StatusEffect Collection")]
+    [CreateAssetMenu(fileName = "StatusEffectViewDescriptionCollection",
+        menuName = "ViewDescription/StatusEffects/StatusEffect Collection")]
     public class StatusEffectViewDescriptionCollection : ScriptableObject
     {
         public AssetReferenceT<VisualTreeAsset> StatusEffectContainerAsset;

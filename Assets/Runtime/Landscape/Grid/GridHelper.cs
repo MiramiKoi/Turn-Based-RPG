@@ -9,7 +9,7 @@ namespace Runtime.Landscape.Grid
         {
             return new Vector3Int(cell.Position.x, cell.Position.y, 0);
         }
-        
+
         public static Vector3Int ToCellPos(Vector2Int cellPos)
         {
             return new Vector3Int(cellPos.x, cellPos.y, 0);

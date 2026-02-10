@@ -4,6 +4,6 @@
     {
         All,
         Move,
-        Attack 
+        Attack
     }
 }

@@ -13,12 +13,13 @@ namespace Runtime.Descriptions.Units
 
             foreach (var description in data)
             {
-                _descriptions.Add(description.Key, new UnitDescription(description.Key, (Dictionary<string, object>)description.Value));
+                _descriptions.Add(description.Key,
+                    new UnitDescription(description.Key, (Dictionary<string, object>)description.Value));
             }
         }
-        
+
         public UnitDescription this[string id] => _descriptions[id];
-        
+
         public IEnumerator<UnitDescription> GetEnumerator()
         {
             return _descriptions.Values.GetEnumerator();

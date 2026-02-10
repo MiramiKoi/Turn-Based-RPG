@@ -24,13 +24,17 @@ namespace Runtime.Landscape.Grid
                     var environment = environmentMatrix[x, y].ToString();
 
                     worldDescription.SurfaceCollection.Surfaces.TryGetValue(surface, out var surfaceDescription);
-                    worldDescription.EnvironmentCollection.Environment.TryGetValue(environment, out var environmentDescription);
+                    worldDescription.EnvironmentCollection.Environment.TryGetValue(environment,
+                        out var environmentDescription);
                     Cells[x, y] = new CellModel(x, y, surfaceDescription, environmentDescription);
                 }
             }
         }
 
-        public CellModel GetCell(Vector2Int position) => Cells[position.x, position.y];
+        public CellModel GetCell(Vector2Int position)
+        {
+            return Cells[position.x, position.y];
+        }
 
         public bool CanPlace(Vector2Int position)
         {

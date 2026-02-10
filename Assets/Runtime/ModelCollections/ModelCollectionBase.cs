@@ -9,7 +9,7 @@ namespace Runtime.ModelCollections
         public event Action<TValue> OnRemoved;
 
         public Dictionary<TKey, TValue> Models { get; } = new();
-        
+
         public void Remove(TKey id)
         {
             var model = Models[id];
@@ -26,11 +26,11 @@ namespace Runtime.ModelCollections
         {
             return Models.TryGetValue(id, out value);
         }
-        
+
         public virtual void Add(TKey key, TValue model)
         {
             Models.Add(key, model);
-            
+
             OnAdded?.Invoke(model);
         }
 

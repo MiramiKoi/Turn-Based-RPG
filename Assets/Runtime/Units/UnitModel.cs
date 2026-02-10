@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Common;
-using Runtime.CustomAsync;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
@@ -16,15 +15,15 @@ namespace Runtime.Units
     {
         public event Action OnAttacked;
         public event Action OnDamaging;
-        
+
         public UnitDescription Description { get; }
-        
-        private readonly ReactiveProperty<Vector2Int> _position = new ();
+
+        private readonly ReactiveProperty<Vector2Int> _position = new();
         public IReadOnlyReactiveProperty<Vector2Int> Position => _position;
-        
-        private readonly ReactiveProperty<UnitDirection> _direction = new ();
+
+        private readonly ReactiveProperty<UnitDirection> _direction = new();
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
-        
+
         public StatModelCollection Stats { get; }
         public StatusEffectModelCollection ActiveEffects { get; }
 
@@ -34,13 +33,13 @@ namespace Runtime.Units
         public string Id { get; }
 
         public int Health => (int)Stats["health"].Value;
-        
+
         public bool IsDead => (int)Stats["health"].Value <= 0;
 
         private readonly Dictionary<string, bool> _flags = new();
 
         private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
-                
+
         public UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
         {
             Description = description;
@@ -88,11 +87,11 @@ namespace Runtime.Units
         {
             _direction.Value = direction;
         }
-        
+
         public float GetDamage()
         {
             OnAttacked?.Invoke();
-            
+
             return Stats["attack_damage"].Value;
         }
 
@@ -103,20 +102,21 @@ namespace Runtime.Units
                 var current = Position.Value;
                 if (position.x != current.x)
                     Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
-            
+
                 return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
                        Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
             }
+
             return false;
         }
 
         public void TakeDamage(float damage)
         {
             OnDamaging?.Invoke();
-            
+
             Stats["health"].ChangeValue(-damage);
         }
-        
+
         public void SetActionDisabled(UnitActionType action, bool disabled)
         {
             if (action == UnitActionType.All)

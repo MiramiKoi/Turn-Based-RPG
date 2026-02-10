@@ -46,7 +46,10 @@
       }
     },
     "constraints": {},
-    "flags": ["poison", "dot"]
+    "flags": [
+      "poison",
+      "dot"
+    ]
   },
   "burn": {
     "category": "damage_over_time",
@@ -69,7 +72,10 @@
       }
     },
     "constraints": {},
-    "flags": ["fire", "dot"]
+    "flags": [
+      "fire",
+      "dot"
+    ]
   },
   "stun": {
     "category": "control",
@@ -90,7 +96,9 @@
       }
     },
     "constraints": {},
-    "flags": ["control"]
+    "flags": [
+      "control"
+    ]
   },
   "immobilize": {
     "category": "control",
@@ -111,7 +119,9 @@
       }
     },
     "constraints": {},
-    "flags": ["control"]
+    "flags": [
+      "control"
+    ]
   },
   "confusion": {
     "category": "behavior",
@@ -132,7 +142,9 @@
       }
     },
     "constraints": {},
-    "flags": ["mental"]
+    "flags": [
+      "mental"
+    ]
   },
   "bless": {
     "category": "combat",
@@ -155,6 +167,8 @@
       }
     },
     "constraints": {},
-    "flags": ["physical"]
+    "flags": [
+      "physical"
+    ]
   }
 }
