@@ -14,10 +14,14 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            if (!controllable.PointOfInterest.ContainsKey(PointOfInterest))
+            if (!controllable.PointOfInterest.TryGetValue(PointOfInterest, out var pointOfInterest) ||
+                pointOfInterest.x > context.GridModel.Cells.GetLength(0) ||
+                pointOfInterest.y > context.GridModel.Cells.GetLength(1) || pointOfInterest.x < 0 ||
+                pointOfInterest.y < 0)
             {
                 return NodeStatus.Failure;
             }
+
 
             var canPlace = context.GridModel.CanPlace(controllable.GetPointOfInterest(PointOfInterest));
 

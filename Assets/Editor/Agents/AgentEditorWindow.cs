@@ -70,6 +70,7 @@ namespace Editor.Agents
             toolbar.Add(CreateToolbarButton("Selector", _graphView.AddAgentNode<AgentSelector>));
             toolbar.Add(CreateToolbarButton("Sequence", _graphView.AddAgentNode<AgentSequence>));
             toolbar.Add(CreateToolbarButton("Leaf", _graphView.AddAgentNode<AgentLeaf>));
+            toolbar.Add(CreateToolbarButton("Inverse", _graphView.AddAgentNode<AgentInverse>));
             toolbar.Add(CreateToolbarButton("Root", _graphView.AddAgentNode<AgentDecisionDescription>));
 
             toolbar.Add(CreateToolbarButton("Save", _saveUtility.Save));

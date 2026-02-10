@@ -19,7 +19,12 @@ namespace Runtime.Descriptions
         public EnvironmentDescriptionCollection EnvironmentCollection { get; private set; }
         public UnitDescriptionCollection UnitCollection { get; private set; }
         public ItemDescriptionCollection ItemCollection { get; private set; }
-        public AgentDecisionDescription AgentDecisionDescription { get; private set; }
+        public AgentDecisionDescription BearAgentDecisionDescription { get; private set; }
+
+        public AgentDecisionDescription PandaAgentDecisionDescription { get; private set; }
+
+        public AgentDecisionDescription TraderAgentDecisionDescription { get; private set; }
+
         public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
         public void SetData(Dictionary<string, object> data)
@@ -34,7 +39,9 @@ namespace Runtime.Descriptions
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
             ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
             StatusEffectCollection = new StatusEffectDescriptionCollection(data.GetNode("status_effects"));
-            AgentDecisionDescription = new AgentDecisionDescription(data.GetNode("bear"));
+            BearAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("bear"));
+            PandaAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("panda"));
+            TraderAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("trader"));
         }
     }
 }
