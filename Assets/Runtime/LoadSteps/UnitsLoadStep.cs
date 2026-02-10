@@ -28,7 +28,7 @@ namespace Runtime.LoadSteps
             var bearModel = new UnitModel
             (
                 "bear_0",
-                new Vector2Int(50, 50), _world.WorldDescription.UnitCollection.Last(), _world.WorldDescription);
+                new Vector2Int(60, 50), _world.WorldDescription.UnitCollection["bear"], _world.WorldDescription);
 
             _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);
             _world.UnitCollection.Add(bearModel.Id, bearModel);
@@ -36,10 +36,16 @@ namespace Runtime.LoadSteps
             var bearModel1 = new UnitModel
             (
                 "bear_1",
-                new Vector2Int(48, 80), _world.WorldDescription.UnitCollection.Last(), _world.WorldDescription);
+                new Vector2Int(20, 80), _world.WorldDescription.UnitCollection["bear"], _world.WorldDescription);
 
             _world.GridModel.TryPlace(bearModel1, bearModel1.Position.Value);
             _world.UnitCollection.Add(bearModel1.Id, bearModel1);
+
+            var pandaModel = new UnitModel("panda_0", new Vector2Int(60, 80),
+                _world.WorldDescription.UnitCollection["panda"], _world.WorldDescription);
+
+            _world.GridModel.TryPlace(pandaModel, pandaModel.Position.Value);
+            _world.UnitCollection.Add(pandaModel.Id, pandaModel);
 
             return Task.CompletedTask;
         }

@@ -82,6 +82,7 @@ namespace Runtime.Descriptions.Agents.Nodes
                 "sequence" => new AgentSequence(),
                 "leaf" => new AgentLeaf(),
                 "root" => new AgentDecisionDescription(),
+                "inverse" => new AgentInverse(),
                 _ => throw new Exception()
             };
 

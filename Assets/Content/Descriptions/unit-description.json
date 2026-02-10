@@ -18,5 +18,15 @@
     },
     "fraction": "animal",
     "view_id": "Bear"
+  },
+  "panda": {
+    "stats": {
+      "health": 20,
+      "attack_damage": 20,
+      "attack_range": 1,
+      "visibility_radius": 4
+    },
+    "fraction": "boss",
+    "view_id": "Panda"
   }
 }

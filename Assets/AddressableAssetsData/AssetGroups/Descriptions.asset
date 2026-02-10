@@ -30,8 +30,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 702a800394f14420a9bfdab4b3e31f26
-    m_Address: behavior-tree-description
+  - m_GUID: 74ed32b1cf4033e4792fc3676089a22b
+    m_Address: panda-description
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -57,11 +57,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0694958cfa33474f8be470fc1abc820
     m_Address: environment-generation-description
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e4b5218ab3e14d94882eb9d072e47b80
-    m_Address: behavior-tree1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
