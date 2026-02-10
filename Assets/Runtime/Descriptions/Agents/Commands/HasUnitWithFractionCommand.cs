@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
-using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -34,7 +33,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 {
                     continue;
                 }
-               
+
                 var dx = unit.Position.Value.x - center.x;
                 var dy = unit.Position.Value.y - center.y;
 

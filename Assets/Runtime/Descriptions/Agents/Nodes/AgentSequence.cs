@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.Descriptions.Agents.Nodes
 {
     public class AgentSequence : AgentNode

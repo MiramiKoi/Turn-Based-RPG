@@ -20,9 +20,9 @@ namespace Runtime.Descriptions
         public UnitDescriptionCollection UnitCollection { get; private set; }
         public ItemDescriptionCollection ItemCollection { get; private set; }
         public AgentDecisionDescription BearAgentDecisionDescription { get; private set; }
-        
+
         public AgentDecisionDescription PandaAgentDecisionDescription { get; private set; }
-        
+
         public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
         public void SetData(Dictionary<string, object> data)

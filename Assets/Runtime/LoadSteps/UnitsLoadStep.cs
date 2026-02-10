@@ -43,10 +43,10 @@ namespace Runtime.LoadSteps
 
             var pandaModel = new UnitModel("panda_0", new Vector2Int(60, 80),
                 _world.WorldDescription.UnitCollection["panda"], _world.WorldDescription);
-            
+
             _world.GridModel.TryPlace(pandaModel, pandaModel.Position.Value);
             _world.UnitCollection.Add(pandaModel.Id, pandaModel);
-                
+
             return Task.CompletedTask;
         }
     }
