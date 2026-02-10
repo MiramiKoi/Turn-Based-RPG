@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Runtime.Descriptions;
 using Runtime.StatusEffects.Collection;
 
@@ -24,6 +25,11 @@ namespace Runtime.StatusEffects.Applier
         public void TryRemove(string statusEffectId)
         {
             OnRemoveRequested?.Invoke(statusEffectId);
+        }
+
+        public bool HasStatusEffect(string descriptionKey)
+        {
+            return Collection.Models.Values.Any(statusEffectModel => statusEffectModel.Description.Id == descriptionKey);
         }
     }
 }
