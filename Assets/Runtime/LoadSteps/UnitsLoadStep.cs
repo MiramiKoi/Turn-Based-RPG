@@ -47,6 +47,12 @@ namespace Runtime.LoadSteps
             _world.GridModel.TryPlace(pandaModel, pandaModel.Position.Value);
             _world.UnitCollection.Add(pandaModel.Id, pandaModel);
 
+            var traderModel = new UnitModel("trader_0", new Vector2Int(80, 50),
+                _world.WorldDescription.UnitCollection["trader"], _world.WorldDescription);
+
+            _world.GridModel.TryPlace(traderModel, traderModel.Position.Value);
+            _world.UnitCollection.Add(traderModel.Id, traderModel);
+
             return Task.CompletedTask;
         }
     }
