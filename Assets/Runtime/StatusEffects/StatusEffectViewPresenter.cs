@@ -49,6 +49,11 @@ namespace Runtime.StatusEffects
             {
                 _view.TurnsCounter.text = remainingTurns.ToString();
             }
+            else
+            {
+                _view.TurnsCounter.text = "";
+                _view.TurnsCounter.visible = false;
+            }
         }
 
         private void HandleStacksChanged(int stacks)
