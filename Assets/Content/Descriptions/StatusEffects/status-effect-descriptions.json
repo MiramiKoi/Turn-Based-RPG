@@ -48,5 +48,17 @@
       "type": "turn_based",
       "turns": 6
     }
+  },
+  "freezing": {
+    "polarity": "debuff",
+    "view_id": "freezing",
+    "lua_script": "freezing",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 4
+    }
   }
 }
