@@ -22,7 +22,9 @@ namespace Runtime.Descriptions
         public AgentDecisionDescription BearAgentDecisionDescription { get; private set; }
 
         public AgentDecisionDescription PandaAgentDecisionDescription { get; private set; }
-
+        
+        public AgentDecisionDescription TraderAgentDecisionDescription { get; private set; }
+        
         public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
         public void SetData(Dictionary<string, object> data)
@@ -39,6 +41,7 @@ namespace Runtime.Descriptions
             StatusEffectCollection = new StatusEffectDescriptionCollection(data.GetNode("status_effects"));
             BearAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("bear"));
             PandaAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("panda"));
+            TraderAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("trader"));
         }
     }
 }

@@ -67,6 +67,7 @@ namespace Runtime.Core
             await CreateControllableUnit();
             await CreateUnit("bear_0", _worldDescription.BearAgentDecisionDescription);
             await CreateUnit("panda_0", _worldDescription.PandaAgentDecisionDescription);
+            await CreateUnit("trader_0", _worldDescription.TraderAgentDecisionDescription);
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
