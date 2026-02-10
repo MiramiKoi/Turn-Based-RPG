@@ -1,0 +1,20 @@
+.loot-inventory {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    translate: -460px 300px;
+    max-height: 430px;
+    max-width: 230px;
+    margin-right: 0;
+    flex-grow: 1;
+}
+
+.player-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 430px;
+    max-height: 430px;
+    margin-right: 20px;
+    translate: 0 300px;
+}

@@ -16,8 +16,7 @@ namespace Runtime.LoadSteps
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly List<IPresenter> _presenters;
 
-        public GridLoadStep(List<IPresenter> presenters, World world, GridView gridView,
-            WorldViewDescriptions viewDescriptions)
+        public GridLoadStep(List<IPresenter> presenters, World world, GridView gridView, WorldViewDescriptions viewDescriptions)
         {
             _world = world;
             _gridView = gridView;

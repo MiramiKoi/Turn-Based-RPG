@@ -35,9 +35,12 @@ namespace Runtime.Landscape.Grid.Interaction
 
         private void Clear()
         {
-            if (_model.CurrentCell != null)
-                _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y]
-                    .SetIndication(IndicationType.Null);
+            if (_model.CurrentCell == null)
+            {
+                return;
+            }
+            
+            _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y].SetIndication(IndicationType.Null);
             _model.SetCell(null);
         }
 

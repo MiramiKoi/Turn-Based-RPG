@@ -6,6 +6,7 @@ using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
 using Runtime.StatusEffects.Collection;
+using Runtime.UI.Inventory;
 using UniRx;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Runtime.Units
         public event Action OnDamaging;
 
         public UnitDescription Description { get; }
+        public InventoryModel InventoryModel { get; private set; }
 
         private readonly ReactiveProperty<Vector2Int> _position = new();
         public IReadOnlyReactiveProperty<Vector2Int> Position => _position;
@@ -46,6 +48,13 @@ namespace Runtime.Units
             Id = id;
             Stats = new StatModelCollection(Description.Stats);
             ActiveEffects = new StatusEffectModelCollection(worldDescription.StatusEffectCollection);
+
+            InventoryModel = new InventoryModel(Description.InventorySize);
+            foreach (var (itemId, amount) in description.Loot)
+            {
+                worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
+                InventoryModel.TryPutItem(item, amount);
+            }
 
             MoveTo(position);
         }

@@ -1,12 +1,8 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
-         editor-extension-mode="False">
-    <ui:VisualElement name="inventory-panel" enabled="true"
-                      style="flex-grow: 0; position: absolute; width: 430px; height: 430px; right: 0; top: 0; bottom: 0; transform-origin: center; translate: -20px 300px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; -unity-background-scale-mode: stretch-to-fill; flex-shrink: 0; background-color: rgb(178, 150, 123); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-left-color: rgb(189, 162, 140); border-right-color: rgb(189, 162, 140); border-top-color: rgb(189, 162, 140); border-bottom-color: rgb(189, 162, 140); display: flex; overflow: hidden; align-items: center;">
-        <ui:ScrollView name="grid" vertical-scroller-visibility="Hidden" nested-interaction-kind="Default"
-                       mode="Vertical" horizontal-scroller-visibility="Hidden"
-                       style="padding-left: 5px; padding-right: 4px; padding-top: 5px; padding-bottom: 5px; flex-direction: column; flex-shrink: 1; overflow: visible; visibility: visible; flex-grow: 1;">
-            <ui:VisualElement name="cells-container"
-                              style="flex-grow: 1; flex-direction: row; flex-shrink: 1; flex-wrap: wrap; overflow: hidden;"/>
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Styles/Inventory-styles.uss?fileID=7433441132597879392&amp;guid=c1b2594e4eb72fe44a78f45c284d0e4f&amp;type=3#Inventory-styles"/>
+    <ui:VisualElement name="inventory-panel" enabled="true" style="flex-grow: 0; position: absolute; right: 0; top: 0; bottom: 0; transform-origin: center; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; -unity-background-scale-mode: stretch-to-fill; flex-shrink: 0; background-color: rgb(178, 150, 123); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-left-color: rgb(189, 162, 140); border-right-color: rgb(189, 162, 140); border-top-color: rgb(189, 162, 140); border-bottom-color: rgb(189, 162, 140); display: flex; overflow: hidden; align-items: center;">
+        <ui:ScrollView name="grid" vertical-scroller-visibility="Hidden" nested-interaction-kind="Default" mode="Vertical" horizontal-scroller-visibility="Hidden" style="padding-left: 5px; padding-right: 4px; padding-top: 5px; padding-bottom: 5px; flex-direction: column; flex-shrink: 1; overflow: visible; visibility: visible; flex-grow: 1;">
+            <ui:VisualElement name="cells-container" style="flex-grow: 1; flex-direction: row; flex-shrink: 1; flex-wrap: wrap; overflow: hidden;"/>
         </ui:ScrollView>
     </ui:VisualElement>
 </ui:UXML>

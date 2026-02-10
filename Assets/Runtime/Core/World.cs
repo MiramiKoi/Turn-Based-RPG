@@ -8,9 +8,11 @@ using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
-using Runtime.UI.Inventory;
+using Runtime.UI;
+using Runtime.UI.Loot;
 using Runtime.Units;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Runtime.Core
 {
@@ -22,15 +24,16 @@ namespace Runtime.Core
         public TurnBaseModel TurnBaseModel { get; private set; }
         public PlayerControls PlayerControls { get; private set; }
         public GridModel GridModel { get; private set; }
-        public InventoryModel InventoryModel { get; private set; }
         public GridInteractionModel GridInteractionModel { get; private set; }
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
         public AgentModelCollection AgentCollection { get; private set; }
+        public UIBlocker UIBlocker { get; private set; }
+        public LootModel LootModel { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
-            WorldDescription worldDescription)
+            WorldDescription worldDescription, VisualElement uiRoot)
         {
             WorldDescription = worldDescription;
 
@@ -50,7 +53,8 @@ namespace Runtime.Core
             UnitCollection = new UnitModelCollection();
             AgentCollection = new AgentModelCollection();
 
-            InventoryModel = new InventoryModel(16);
+            UIBlocker = new UIBlocker(uiRoot, playerControls);
+            LootModel = new LootModel();
         }
     }
 }

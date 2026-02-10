@@ -14,6 +14,7 @@ using Runtime.Player;
 using Runtime.Player.StatusEffects;
 using Runtime.TurnBase;
 using Runtime.UI;
+using Runtime.UI.Loot;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -36,6 +37,8 @@ namespace Runtime.Core
 
         private UIController _uiController;
         private UIContent _uiContent;
+        private UIBlocker _uiBlocker;
+        private ItemFactory _itemFactory;
 
         private PlayerControls _playerControls;
 
@@ -43,13 +46,15 @@ namespace Runtime.Core
         {
             _playerControls = new PlayerControls();
             _playerControls.Enable();
+            
+            _uiContent = new UIContent(_gameplayDocument);
 
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription, _uiContent.GameplayContent),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
                 new UnitsLoadStep(_world),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world)
@@ -59,23 +64,23 @@ namespace Runtime.Core
             {
                 await step.Run();
             }
-
-            _uiContent = new UIContent(_gameplayDocument);
-            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            _uiController.Enable();
-
+            
             await CreateControllableUnit();
+            
             await CreateUnit("bear_0", _worldDescription.BearAgentDecisionDescription);
             await CreateUnit("panda_0", _worldDescription.PandaAgentDecisionDescription);
             await CreateUnit("trader_0", _worldDescription.TraderAgentDecisionDescription);
 
+            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
+            _uiController.Enable();
+            
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
 
             turnBasePresenter.Enable();
-            var itemFactory = new ItemFactory(_world.WorldDescription.ItemCollection);
-            _world.InventoryModel.TryPutItem(itemFactory.Create("bear_meat").Description, 14);
-            _world.InventoryModel.TryPutItem(itemFactory.Create("bear_fur").Description, 28);
+            
+            var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
+            lootPresenter.Enable();
         }
 
         private void Update()
