@@ -64,7 +64,7 @@ namespace Runtime.StatusEffects.Applier
             if (CanApply(description))
             {
                 var model = _model.Collection.Create(effectId);
-                return model.Id;
+                return model?.Id;
             }
 
             return null;
