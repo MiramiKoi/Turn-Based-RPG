@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Runtime.Descriptions.Agents.Nodes
 {
     public class AgentSelector : AgentNode
@@ -9,7 +11,9 @@ namespace Runtime.Descriptions.Agents.Nodes
             foreach (var child in Children)
             {
                 if (child.Process(context, controllable) == NodeStatus.Success)
+                {
                     return NodeStatus.Success;
+                }
             }
 
             return NodeStatus.Failure;

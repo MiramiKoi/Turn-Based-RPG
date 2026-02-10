@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Units
   m_GUID: 228c0c324c22ffd4c88649ae788ca2b8
   m_SerializeEntries:
+  - m_GUID: 18691cb576ca1bc498d3f4b4d64853eb
+    m_Address: Panda
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1f177ce22deec9344872bac20cbb902c
     m_Address: Warrior
     m_ReadOnly: 0

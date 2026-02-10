@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: Descriptions
   m_GUID: 561ebd7700bca82478674b84911b6d21
   m_SerializeEntries:
-  - m_GUID: 18691cb576ca1bc498d3f4b4d64853eb
-    m_Address: Panda
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44c63747aeaf43108d0e60ae403a3f1e
     m_Address: surface-description
     m_ReadOnly: 0
