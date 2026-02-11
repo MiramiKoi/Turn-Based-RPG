@@ -86,5 +86,17 @@
       "type": "turn_based",
       "turns": 6
     }
+  },
+  "sleep": {
+    "polarity": "debuff",
+    "view_id": "sleep",
+    "lua_script": "sleep",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 3
+    }
   }
 }
