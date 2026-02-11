@@ -3,6 +3,7 @@ using Runtime.Common;
 using Runtime.Core;
 using Runtime.UI.Inventory.Cells;
 using Runtime.ViewDescriptions;
+using UnityEngine.UIElements;
 
 namespace Runtime.UI.Inventory
 {
@@ -14,6 +15,7 @@ namespace Runtime.UI.Inventory
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
+        private readonly List<(VisualElement root, EventCallback<ClickEvent> callback)> _callbacks = new();
 
         public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions,
             UIContent uiContent, World world)
@@ -38,6 +40,10 @@ namespace Runtime.UI.Inventory
                 var cellPresenter = new CellPresenter(cellModel, cellView, _viewDescriptions, _world);
                 cellPresenter.Enable();
 
+                var callback = new EventCallback<ClickEvent>(_ => CellClicked(cellModel));
+                cellView.Root.RegisterCallback(callback);
+
+                _callbacks.Add((cellView.Root, callback));
                 _cellsPresenters.Add(cellPresenter);
             }
 
@@ -56,7 +62,30 @@ namespace Runtime.UI.Inventory
 
             _view.Root.RemoveFromHierarchy();
 
+            foreach (var (root, callback) in _callbacks)
+            {
+                root.UnregisterCallback(callback);
+            }
+
+            _callbacks.Clear();
+
             _model.Enabled = false;
+        }
+
+        private void CellClicked(CellModel cell)
+        {
+            if (_world.TransferModel.TrySetCell(cell))
+            {
+                return;
+            }
+
+            if (_world.TransferModel.SourceCell == null)
+            {
+                return;
+            }
+            
+            _world.TransferModel.TargetCell = cell;
+            _world.TransferModel.Transfer();
         }
     }
 }

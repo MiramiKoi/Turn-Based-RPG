@@ -7,7 +7,7 @@ using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
-using Runtime.Items;
+using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
@@ -38,7 +38,6 @@ namespace Runtime.Core
         private UIController _uiController;
         private UIContent _uiContent;
         private UIBlocker _uiBlocker;
-        private ItemFactory _itemFactory;
 
         private PlayerControls _playerControls;
 
@@ -83,6 +82,9 @@ namespace Runtime.Core
 
             var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
             lootPresenter.Enable();
+
+            var transferPresenter = new TransferPresenter(_world.TransferModel);
+            transferPresenter.Enable();
         }
 
         private void Update()

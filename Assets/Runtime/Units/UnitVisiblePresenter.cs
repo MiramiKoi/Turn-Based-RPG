@@ -1,9 +1,8 @@
 using System;
 using Runtime.Common;
-using Runtime.Units;
 using UniRx;
 
-namespace Runtime.Player
+namespace Runtime.Units
 {
     public class UnitVisiblePresenter : IPresenter
     {

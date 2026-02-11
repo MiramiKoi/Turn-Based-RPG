@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Runtime.Descriptions.Items;
 using Runtime.UI.Inventory.Cells;
 
 namespace Runtime.UI.Inventory
 {
     public class InventoryModel
     {
-        public event Action OnRemoveItem;
         public bool Enabled;
         public readonly List<CellModel> Cells = new();
 
@@ -20,121 +19,83 @@ namespace Runtime.UI.Inventory
             }
         }
 
-        public bool TryPutItem(IItemDescription item, int amount)
+        public int TryPutItem(ItemDescription item, int amount)
         {
-            if (!CanFit(item, amount, out var targets))
+            if (amount <= 0)
             {
-                return false;
+                return 0;
             }
 
             var remaining = amount;
-
-            foreach (var (cell, free) in targets)
+            
+            foreach (var cell in Cells)
             {
-                var toAdd = Math.Min(free, remaining);
-                cell.TryPut(item, toAdd);
-
-                remaining -= toAdd;
+                if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
+                {
+                    continue;
+                }
+                
+                var put = cell.TryPut(item, remaining);
+                remaining -= put;
 
                 if (remaining == 0)
                 {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool TryTakeItem(IItemDescription item, int amount)
-        {
-            if (!CanExtract(item, amount, out var targets))
-            {
-                return false;
-            }
-
-            var remaining = amount;
-
-            foreach (var (cell, free) in targets)
-            {
-                var toRemove = Math.Min(free, remaining);
-                cell.TryTake(toRemove);
-                remaining -= toRemove;
-            }
-
-            OnRemoveItem?.Invoke();
-            return true;
-        }
-
-        public bool CanExtract(IItemDescription item, int amount, out List<(CellModel cell, int amount)> targets)
-        {
-            targets = new List<(CellModel, int)>();
-            var remaining = amount;
-
-            for (var i = Cells.Count - 1; i >= 0; i--)
-            {
-                var cell = Cells.ElementAt(i);
-
-                if (cell.ItemDescription != null && IsSameItem(cell.ItemDescription, item))
-                {
-                    var toRemove = Math.Min(cell.Amount, remaining);
-
-                    if (toRemove > 0)
-                    {
-                        targets.Add((cell, toRemove));
-                        remaining -= toRemove;
-
-                        if (remaining == 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        public bool CanFit(IItemDescription item, int amount, out List<(CellModel cell, int free)> targets)
-        {
-            targets = new List<(CellModel, int)>();
-            var remaining = amount;
-
-            foreach (var cell in Cells)
-            {
-                if (cell.ItemDescription != null && IsSameItem(cell.ItemDescription, item))
-                {
-                    var free = cell.ItemDescription.StackSize - cell.Amount;
-
-                    if (free > 0)
-                    {
-                        targets.Add((cell, free));
-                        remaining -= Math.Min(free, remaining);
-
-                        if (remaining <= 0)
-                        {
-                            return true;
-                        }
-                    }
+                    return amount;
                 }
             }
 
             foreach (var cell in Cells)
             {
-                if (cell.ItemDescription == null)
+                if (cell.ItemDescription != null)
                 {
-                    var free = item.StackSize;
-                    targets.Add((cell, free));
+                    continue;
+                }
+                
+                var put = cell.TryPut(item, remaining);
+                remaining -= put;
 
-                    remaining -= Math.Min(free, remaining);
-
-                    if (remaining <= 0)
-                    {
-                        return true;
-                    }
+                if (remaining == 0)
+                {
+                    return amount;
                 }
             }
 
-            return false;
+            return amount - remaining;
+        }
+
+
+        public int TryTakeItem(ItemDescription item, int amount)
+        {
+            if (amount <= 0)
+            {
+                return 0;
+            }
+
+            var remaining = amount;
+
+            foreach (var cell in Cells)
+            {
+                if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
+                {
+                    continue;
+                }
+                
+                var take = Math.Min(cell.Amount, remaining);
+
+                if (cell.TryTake(take))
+                {
+                    remaining -= take;
+                }
+
+                if (remaining == 0)
+                {
+                    break;
+                }
+            }
+
+            var taken = amount - remaining;
+
+            return taken;
         }
 
         private bool IsSameItem(IItemDescription itemA, IItemDescription itemB)
