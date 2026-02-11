@@ -26,11 +26,11 @@ namespace Runtime.StatusEffects
                 }
             }
         }
-        
+
         public StatusEffectDescription Description { get; }
         public ReactiveProperty<int> CurrentStacks { get; } = new();
         public ReactiveProperty<int> RemainingTurns { get; } = new();
-        
+
         private bool _isExpired;
 
         public StatusEffectModel(string id, StatusEffectDescription description)

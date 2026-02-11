@@ -11,8 +11,9 @@ namespace Runtime.Player
         public MovementQueueModel MovementQueueModel { get; } = new();
 
         public bool IsExecutingRoute { get; set; }
-        
-        public PlayerModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription) 
+
+        public PlayerModel(string id, Vector2Int position, UnitDescription description,
+            WorldDescription worldDescription)
             : base(id, position, description, worldDescription)
         {
         }

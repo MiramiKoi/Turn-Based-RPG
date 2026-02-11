@@ -6,7 +6,7 @@ using Runtime.Landscape.Grid.Indication;
 
 namespace Runtime.Player
 {
-    public class PlayerPathPresenter : IPresenter 
+    public class PlayerPathPresenter : IPresenter
     {
         private readonly PlayerModel _model;
         private readonly World _world;
@@ -39,7 +39,8 @@ namespace Runtime.Player
                         out var path))
                 {
                     _model.MovementQueueModel.SetPath(path);
-                    _world.GridModel.SetIndication(path.Where(position => _model.Position.Value != position), IndicationType.RoutePoint);
+                    _world.GridModel.SetIndication(path.Where(position => _model.Position.Value != position),
+                        IndicationType.RoutePoint);
                 }
             }
         }

@@ -2,7 +2,6 @@ using System;
 using Runtime.Common;
 using Runtime.Units;
 using UniRx;
-using UnityEngine;
 
 namespace Runtime.Player
 {
@@ -21,7 +20,7 @@ namespace Runtime.Player
         public void Enable()
         {
             _visibleSubscription = _model.Visible.Subscribe(OnVisibleChange);
-            
+
             OnVisibleChange(_model.Visible.Value);
         }
 

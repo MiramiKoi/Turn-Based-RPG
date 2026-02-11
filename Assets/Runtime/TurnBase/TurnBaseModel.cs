@@ -25,7 +25,7 @@ namespace Runtime.TurnBase
         {
             OnWorldStepFinished?.Invoke();
         }
-        
+
         public void StatusEffectTick()
         {
             OnBuffTick?.Invoke();

@@ -23,12 +23,13 @@ namespace Runtime.StatusEffects.Applier
 
         public void RemoveById(string statusEffectId)
         {
-           Collection.Remove(statusEffectId);
+            Collection.Remove(statusEffectId);
         }
 
         public void RemoveAllByDescriptionId(string descriptionKey)
         {
-            var statusEffectModels = Collection.Models.Values.Where(model => model.Description.Id == descriptionKey).ToList();
+            var statusEffectModels = Collection.Models.Values.Where(model => model.Description.Id == descriptionKey)
+                .ToList();
 
             foreach (var statusEffectModel in statusEffectModels)
             {
@@ -38,7 +39,8 @@ namespace Runtime.StatusEffects.Applier
 
         public bool HasStatusEffect(string descriptionKey)
         {
-            return Collection.Models.Values.Any(statusEffectModel => statusEffectModel.Description.Id == descriptionKey);
+            return Collection.Models.Values.Any(statusEffectModel =>
+                statusEffectModel.Description.Id == descriptionKey);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Runtime.UI.Loot
     {
         public event Action<IUnit> OnLootRequested;
         public CellModel PendingLootCell { get; set; }
-        
+
         public void RequestLoot(IUnit unit)
         {
             OnLootRequested?.Invoke(unit);

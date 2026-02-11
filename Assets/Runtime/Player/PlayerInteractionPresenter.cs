@@ -16,7 +16,7 @@ namespace Runtime.Player
             _model = model;
             _world = world;
         }
-        
+
         public void Enable()
         {
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
@@ -31,11 +31,12 @@ namespace Runtime.Player
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
         {
-            if (_model.IsDead || _model.IsExecutingRoute || _world.UIBlocker.IsPointerOverUI || _world.GridInteractionModel.CurrentCell == null)
+            if (_model.IsDead || _model.IsExecutingRoute || _world.UIBlocker.IsPointerOverUI ||
+                _world.GridInteractionModel.CurrentCell == null)
             {
                 return;
             }
-            
+
             StepStart();
             ExecuteNextStep();
             StepEnd();
@@ -47,7 +48,7 @@ namespace Runtime.Player
             {
                 _model.IsExecutingRoute = false;
             }
-            
+
             if (_model.IsExecutingRoute)
             {
                 ExecuteNextStep();
@@ -55,7 +56,7 @@ namespace Runtime.Player
 
             StepEnd();
         }
-        
+
         private void StepStart()
         {
             _world.GridInteractionModel.IsActive.Value = false;
@@ -76,7 +77,7 @@ namespace Runtime.Player
                 _world.CameraControlModel.IsActive.Value = true;
             }
         }
-        
+
         private void ExecuteNextStep()
         {
             if (!_model.IsExecutingRoute)
@@ -90,7 +91,7 @@ namespace Runtime.Player
                 StopRoute();
                 return;
             }
-            
+
             if (_model.CanMove() && _world.GridModel.TryPlace(_model, nextCell))
             {
                 _world.GridModel.ReleaseCell(_model.Position.Value);
@@ -98,7 +99,7 @@ namespace Runtime.Player
             }
             else if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
             {
-                if (unit.IsDead) 
+                if (unit.IsDead)
                 {
                     _world.LootModel.RequestLoot(unit);
                     StopRoute();
@@ -121,7 +122,7 @@ namespace Runtime.Player
             _model.IsExecutingRoute = true;
             _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.RoutePoint);
         }
-        
+
         private void StopRoute()
         {
             _model.IsExecutingRoute = false;

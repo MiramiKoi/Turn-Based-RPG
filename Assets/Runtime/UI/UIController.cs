@@ -14,17 +14,19 @@ namespace Runtime.UI
         private readonly PlayerControls _playerControls;
         private readonly World _world;
 
-        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions,
+            UIContent uiContent)
         {
             _world = world;
             _playerControls = playerControls;
-            
+
             _inventoryModel = world.UnitCollection.Get("character").InventoryModel;
 
             var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
             inventoryView.Root.AddToClassList("player-inventory");
 
-            _playerInventory = new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, uiContent, _world);
+            _playerInventory =
+                new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, uiContent, _world);
         }
 
         public void Enable()
@@ -57,7 +59,7 @@ namespace Runtime.UI
             {
                 return;
             }
-            
+
             _playerInventory.Enable();
         }
     }

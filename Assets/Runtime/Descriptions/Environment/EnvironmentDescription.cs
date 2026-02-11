@@ -9,7 +9,7 @@ namespace Runtime.Descriptions.Environment
         public bool IsWalkable { get; }
 
         public bool BlockVision { get; }
-        
+
         public EnvironmentDescription(string id, Dictionary<string, object> data) : base(id)
         {
             ViewId = data.GetString("view_id");

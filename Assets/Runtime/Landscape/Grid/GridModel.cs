@@ -72,7 +72,7 @@ namespace Runtime.Landscape.Grid
         {
             return pos is { x: >= 0 and < GridConstants.Width, y: >= 0 and < GridConstants.Height };
         }
-        
+
         public void SetIndication(IEnumerable<Vector2Int> cells, IndicationType indicationType)
         {
             foreach (var position in cells)

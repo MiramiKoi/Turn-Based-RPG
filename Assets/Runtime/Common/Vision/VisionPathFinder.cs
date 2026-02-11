@@ -13,12 +13,12 @@ namespace Runtime.Common.Vision
                 return false;
             }
 
-            bool steep = Math.Abs(to.y - from.y) > Math.Abs(to.x - from.x);
+            var steep = Math.Abs(to.y - from.y) > Math.Abs(to.x - from.x);
 
-            int x0 = from.x;
-            int y0 = from.y;
-            int x1 = to.x;
-            int y1 = to.y;
+            var x0 = from.x;
+            var y0 = from.y;
+            var x1 = to.x;
+            var y1 = to.y;
 
             if (steep)
             {
@@ -32,16 +32,16 @@ namespace Runtime.Common.Vision
                 Swap(ref y0, ref y1);
             }
 
-            int dx = x1 - x0;
-            int dy = Math.Abs(y1 - y0);
-            int error = dx / 2;
-            int yStep = (y0 < y1) ? 1 : -1;
-            int y = y0;
+            var dx = x1 - x0;
+            var dy = Math.Abs(y1 - y0);
+            var error = dx / 2;
+            var yStep = y0 < y1 ? 1 : -1;
+            var y = y0;
 
-            for (int x = x0; x <= x1; x++)
+            for (var x = x0; x <= x1; x++)
             {
-                int gridX = steep ? y : x;
-                int gridY = steep ? x : y;
+                var gridX = steep ? y : x;
+                var gridY = steep ? x : y;
 
                 if (!(gridX == from.x && gridY == from.y))
                 {

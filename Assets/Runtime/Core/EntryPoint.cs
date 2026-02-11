@@ -46,7 +46,7 @@ namespace Runtime.Core
         {
             _playerControls = new PlayerControls();
             _playerControls.Enable();
-            
+
             _uiContent = new UIContent(_gameplayDocument);
 
             IStep[] persistentLoadStep =
@@ -55,7 +55,8 @@ namespace Runtime.Core
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription, _uiContent.GameplayContent),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription,
+                    _uiContent.GameplayContent),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
                 new UnitsLoadStep(_world),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world)
@@ -65,21 +66,21 @@ namespace Runtime.Core
             {
                 await step.Run();
             }
-            
+
             await CreateControllableUnit();
-            
+
             await CreateUnit("bear_0", _worldDescription.BearAgentDecisionDescription);
             await CreateUnit("panda_0", _worldDescription.PandaAgentDecisionDescription);
             await CreateUnit("trader_0", _worldDescription.TraderAgentDecisionDescription);
 
             _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
             _uiController.Enable();
-            
+
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
 
             turnBasePresenter.Enable();
-            
+
             var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
             lootPresenter.Enable();
         }
@@ -109,7 +110,7 @@ namespace Runtime.Core
                 _worldViewDescriptions, _uiContent);
 
             var playerPresenter = new PlayerPresenter(unitModel, unitView, _world, _worldViewDescriptions);
-            
+
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
 

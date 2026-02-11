@@ -39,8 +39,9 @@ namespace Runtime.Landscape.Grid.Interaction
             {
                 return;
             }
-            
-            _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y].SetIndication(IndicationType.Null);
+
+            _world.GridModel.Cells[_model.CurrentCell.Position.x, _model.CurrentCell.Position.y]
+                .SetIndication(IndicationType.Null);
             _model.SetCell(null);
         }
 
