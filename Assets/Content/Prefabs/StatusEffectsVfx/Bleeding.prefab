@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5707813420336266865}
   - component: {fileID: 4444024288918598086}
   m_Layer: 0
-  m_Name: BleedingVFX
+  m_Name: Bleeding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
