@@ -19,8 +19,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 
     m_EditorAssetChanged: 1
-  StatusEffectViewAsset:
-    m_AssetGUID: 9738b0956bf1456c91793f1df789754c
+  View:
+    m_AssetGUID: 14f5cf132171e884a84ece24dc64d6d0
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
