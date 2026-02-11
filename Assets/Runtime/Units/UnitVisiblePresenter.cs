@@ -1,10 +1,8 @@
 using System;
 using Runtime.Common;
-using Runtime.Units;
 using UniRx;
-using UnityEngine;
 
-namespace Runtime.Player
+namespace Runtime.Units
 {
     public class UnitVisiblePresenter : IPresenter
     {
