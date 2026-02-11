@@ -11,10 +11,10 @@ using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
-using Runtime.Player.StatusEffects;
 using Runtime.TurnBase;
 using Runtime.UI;
 using Runtime.UI.Loot;
+using Runtime.UI.Player.StatusEffects;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -115,8 +115,6 @@ namespace Runtime.Core
 
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
-
-            unitModel.ActiveEffects.TryApply("burn");
         }
 
         private async Task CreateUnit(string id, AgentDecisionDescription description)

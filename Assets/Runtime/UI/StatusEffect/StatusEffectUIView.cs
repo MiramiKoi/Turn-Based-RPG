@@ -1,15 +1,15 @@
 ﻿using UnityEngine.UIElements;
 
-namespace Runtime.StatusEffects
+namespace Runtime.UI.StatusEffect
 {
-    public class StatusEffectView
+    public class StatusEffectUIView
     {
         public VisualElement Root { get; }
         public Label TurnsCounter { get; }
         public Label StackCounter { get; }
         public Image Icon { get; }
 
-        public StatusEffectView(VisualTreeAsset asset)
+        public StatusEffectUIView(VisualTreeAsset asset)
         {
             Root = asset.CloneTree().Q<VisualElement>("status-effect-root");
             Icon = Root.Q<Image>("icon");

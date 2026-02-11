@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UIElements;
 
-namespace Runtime.Player.StatusEffects
+namespace Runtime.UI.Player.StatusEffects
 {
     public class PlayerStatusEffectHudView
     {

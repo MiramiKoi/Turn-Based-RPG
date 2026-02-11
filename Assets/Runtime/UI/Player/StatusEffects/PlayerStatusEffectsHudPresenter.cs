@@ -4,12 +4,12 @@ using Runtime.Common;
 using Runtime.Core;
 using Runtime.StatusEffects;
 using Runtime.StatusEffects.Collection;
-using Runtime.UI;
+using Runtime.UI.StatusEffect;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine.UIElements;
 
-namespace Runtime.Player.StatusEffects
+namespace Runtime.UI.Player.StatusEffects
 {
     public class PlayerStatusEffectsHudPresenter : IPresenter
     {
@@ -19,8 +19,8 @@ namespace Runtime.Player.StatusEffects
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
 
-        private readonly Dictionary<string, StatusEffectViewPresenter> _presenters = new();
-        private readonly Dictionary<string, StatusEffectView> _views = new();
+        private readonly Dictionary<string, StatusEffectUIViewPresenter> _presenters = new();
+        private readonly Dictionary<string, StatusEffectUIView> _views = new();
         private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
 
         public PlayerStatusEffectsHudPresenter(UnitModel unit, PlayerStatusEffectHudView view, World world,
@@ -75,11 +75,11 @@ namespace Runtime.Player.StatusEffects
 
             await loadModel.LoadAwaiter;
 
-            var view = new StatusEffectView(loadModel.Result);
+            var view = new StatusEffectUIView(loadModel.Result);
             _views[id] = view;
             _view.Root.Add(view.Root);
 
-            var presenter = new StatusEffectViewPresenter(model, view, _world, viewDescription);
+            var presenter = new StatusEffectUIViewPresenter(model, view, _world, viewDescription);
             _presenters[id] = presenter;
             presenter.Enable();
         }

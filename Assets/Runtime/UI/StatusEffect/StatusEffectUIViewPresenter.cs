@@ -2,27 +2,28 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Descriptions.StatusEffects.Enums;
+using Runtime.StatusEffects;
 using Runtime.ViewDescriptions.StatusEffects;
 using UniRx;
 using UnityEngine;
 
-namespace Runtime.StatusEffects
+namespace Runtime.UI.StatusEffect
 {
-    public class StatusEffectViewPresenter : IPresenter
+    public class StatusEffectUIViewPresenter : IPresenter
     {
         private readonly StatusEffectModel _model;
-        private readonly StatusEffectView _view;
+        private readonly StatusEffectUIView _uiView;
         private readonly World _world;
         private readonly StatusEffectViewDescription _viewDescription;
 
         private readonly CompositeDisposable _disposables = new();
         private LoadModel<Sprite> _loadModel;
 
-        public StatusEffectViewPresenter(StatusEffectModel model, StatusEffectView view, World world,
+        public StatusEffectUIViewPresenter(StatusEffectModel model, StatusEffectUIView uiView, World world,
             StatusEffectViewDescription viewDescription)
         {
             _model = model;
-            _view = view;
+            _uiView = uiView;
             _world = world;
             _viewDescription = viewDescription;
         }
@@ -32,7 +33,7 @@ namespace Runtime.StatusEffects
             var key = $"{_viewDescription.Icons.AssetGUID}[{_viewDescription.Icons.SubObjectName}]";
             _loadModel = _world.AddressableModel.Load<Sprite>(key);
             await _loadModel.LoadAwaiter;
-            _view.Icon.sprite = _loadModel.Result;
+            _uiView.Icon.sprite = _loadModel.Result;
             _model.RemainingTurns.Subscribe(HandleRemainingTurnsChanged).AddTo(_disposables);
             _model.CurrentStacks.Subscribe(HandleStacksChanged).AddTo(_disposables);
         }
@@ -47,12 +48,12 @@ namespace Runtime.StatusEffects
         {
             if (_model.Description.Duration.Type == DurationType.TurnBased)
             {
-                _view.TurnsCounter.text = remainingTurns.ToString();
+                _uiView.TurnsCounter.text = remainingTurns.ToString();
             }
             else
             {
-                _view.TurnsCounter.text = "";
-                _view.TurnsCounter.visible = false;
+                _uiView.TurnsCounter.text = "";
+                _uiView.TurnsCounter.visible = false;
             }
         }
 
@@ -60,13 +61,13 @@ namespace Runtime.StatusEffects
         {
             if (stacks <= 1)
             {
-                _view.StackCounter.text = "";
-                _view.StackCounter.visible = false;
+                _uiView.StackCounter.text = "";
+                _uiView.StackCounter.visible = false;
                 return;
             }
 
-            _view.StackCounter.visible = true;
-            _view.StackCounter.text = stacks + "X";
+            _uiView.StackCounter.visible = true;
+            _uiView.StackCounter.text = stacks + "X";
         }
     }
 }
