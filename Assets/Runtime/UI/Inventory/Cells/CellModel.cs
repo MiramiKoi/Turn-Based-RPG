@@ -1,35 +1,44 @@
 using System;
+using Runtime.Descriptions.Items;
 
 namespace Runtime.UI.Inventory.Cells
 {
     public class CellModel
     {
         public event Action OnChanged;
-        public IItemDescription ItemDescription { get; private set; }
+        public ItemDescription ItemDescription { get; private set; }
         public int Amount { get; private set; }
 
-        public bool TryPut(IItemDescription itemDescription, int amount)
+        public int TryPut(ItemDescription item, int amount)
         {
+            if (amount <= 0)
+            {
+                return 0;
+            }
+
             if (Amount == 0)
             {
-                if (amount > itemDescription.StackSize)
-                {
-                    return false;
-                }
-
-                ItemDescription = itemDescription;
+                ItemDescription = item;
             }
 
-            if (Amount + amount > itemDescription.StackSize)
+            if (ItemDescription != item)
             {
-                return false;
+                return 0;
             }
 
-            Amount += amount;
-            OnChanged?.Invoke();
+            var free = item.StackSize - Amount;
+            var put = Math.Min(free, amount);
 
-            return true;
+            Amount += put;
+
+            if (put > 0)
+            {
+                OnChanged?.Invoke();
+            }
+
+            return put;
         }
+
 
         public bool TryTake(int amount)
         {
