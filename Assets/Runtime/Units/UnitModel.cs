@@ -28,6 +28,7 @@ namespace Runtime.Units
         public IReadOnlyDictionary<string, bool> Flags => _flags;
         public IReadOnlyDictionary<string, Vector2Int> PointOfInterest => _pointOfInterest;
         public StatusEffectApplierModel ActiveEffects { get; }
+        public readonly ReactiveProperty<bool> Visible = new(true);
         
         private readonly Dictionary<string, bool> _flags = new();
         private readonly ReactiveProperty<UnitDirection> _direction = new ();
