@@ -15,7 +15,8 @@ namespace Runtime.Descriptions.StatusEffects
         public StackingDescription(Dictionary<string, object> data)
         {
             Mode = data.GetEnum<StackingMode>(ModeKey);
-            MaxStacks = data.GetInt(MaxStacksKey);
+            
+            MaxStacks = data.ContainsKey(MaxStacksKey) ? data.GetInt(MaxStacksKey) : 1;
         }
     }
 }

@@ -53,6 +53,7 @@ namespace Runtime.Core
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
+                new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription, _uiContent.GameplayContent),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
@@ -104,8 +105,8 @@ namespace Runtime.Core
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await loadModelUiAsset.LoadAwaiter;
             var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
-            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel.ActiveEffects, statusEffectsView,
-                unitModel, _world, _worldViewDescriptions, _uiContent);
+            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel, statusEffectsView, _world,
+                _worldViewDescriptions, _uiContent);
 
             var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
 
@@ -116,7 +117,7 @@ namespace Runtime.Core
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
 
-            unitModel.ActiveEffects.Create("bleed");
+            unitModel.ActiveEffects.TryApply("burn");
         }
 
         private async Task CreateUnit(string id, AgentDecisionDescription description)

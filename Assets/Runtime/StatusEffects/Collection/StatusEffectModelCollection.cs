@@ -15,38 +15,46 @@ namespace Runtime.StatusEffects.Collection
             _descriptions = descriptions;
         }
 
-        public void Apply(string effectId)
+        public void Create(StatusEffectDescription description)
+        {
+            CreateInternal(description, description.Id);
+        }
+
+        public override StatusEffectModel Create(string effectId)
         {
             var description = _descriptions.Get(effectId);
+            return CreateInternal(description, effectId);
+        }
 
+        private StatusEffectModel CreateInternal(StatusEffectDescription description, string effectId)
+        {
             if (description.Stacking.Mode == StackingMode.Independent)
             {
-                Create(effectId);
-                return;
+                return base.Create(effectId);
             }
 
-            var existing = Models.Values.FirstOrDefault(model => model.Description.Id == effectId);
+            var existing = Models.Values
+                .FirstOrDefault(model => model.Description.Id == effectId);
 
             if (existing == null)
             {
-                Create(effectId);
-                return;
+                return base.Create(effectId);
             }
 
             switch (description.Stacking.Mode)
             {
                 case StackingMode.None:
-                    return;
+                    break;
 
                 case StackingMode.Refresh:
                 case StackingMode.Additive:
                     existing.AddStack();
-                    return;
-
+                    return existing;
                 case StackingMode.Independent:
-                default:
-                    return;
+                    break;
             }
+
+            return null;
         }
 
         protected override StatusEffectModel CreateModelFromData(string id, Dictionary<string, object> data)

@@ -2,11 +2,11 @@ namespace Runtime.Descriptions.Stats
 {
     public class StatDescription : Description
     {
-        public float Value { get; }
+        public float MaxValue { get; }
 
-        public StatDescription(string id, float value) : base(id)
+        public StatDescription(string id, float maxValue) : base(id)
         {
-            Value = value;
+            MaxValue = maxValue;
         }
     }
 }

@@ -13,22 +13,22 @@ namespace Runtime.Stats
         public StatModel(StatDescription description)
         {
             Description = description;
-            Value = description.Value;
+            Value = description.MaxValue;
         }
 
         public void ChangeValue(float delta)
         {
-            Value += delta;
+            Value = Math.Clamp(Value + delta, 0, Description.MaxValue);
             ValueChanged?.Invoke(Value);
         }
 
-        public void SetValue(float value)
+        public void Set(float value)
         {
             Value = value;
             ValueChanged?.Invoke(Value);
         }
 
-        public void MultiplyValue(float factor)
+        public void Multiply(float factor)
         {
             Value *= factor;
             ValueChanged?.Invoke(Value);

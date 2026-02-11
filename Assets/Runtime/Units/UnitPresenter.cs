@@ -6,6 +6,7 @@ using Runtime.Core;
 using Runtime.CustomAsync;
 using Runtime.Player;
 using Runtime.Stats;
+using Runtime.StatusEffects.Applier;
 using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
 using Runtime.ViewDescriptions;
@@ -29,6 +30,7 @@ namespace Runtime.Units
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private StatusEffectCollectionPresenter _statusEffectsPresenter;
+        private StatusEffectApplierPresenter _statusEffectApplierPresenter;
 
         private LoadModel<VisualTreeAsset> _statusEffectsLoadModel;
         
@@ -49,7 +51,7 @@ namespace Runtime.Units
                 var statPresenter = new StatPresenter(stat);
                 statPresenter.Enable();
             }
-
+            
             _unitVisiblePresenter = new UnitVisiblePresenter(_unit, _view);
             _unitVisiblePresenter.Enable();
             
@@ -64,7 +66,10 @@ namespace Runtime.Units
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
             _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, _world);
+            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_unit.ActiveEffects, _unit, _world);
+
             _statusEffectsPresenter.Enable();
+            _statusEffectApplierPresenter.Enable();
         }
 
         public void Disable()
@@ -75,7 +80,10 @@ namespace Runtime.Units
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
             _statusEffectsPresenter.Disable();
+            _statusEffectApplierPresenter.Disable();
+
             _statusEffectsPresenter = null;
+            _statusEffectApplierPresenter = null;
 
             _unitVisiblePresenter.Disable();
             _unitVisiblePresenter = null;

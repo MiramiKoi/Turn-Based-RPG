@@ -5,7 +5,7 @@ using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Stats;
-using Runtime.StatusEffects.Collection;
+using Runtime.StatusEffects.Applier;
 using Runtime.UI.Inventory;
 using UniRx;
 using UnityEngine;
@@ -17,31 +17,22 @@ namespace Runtime.Units
         public event Action OnAttacked;
         public event Action OnDamaging;
 
+        public string Id { get; }
         public UnitDescription Description { get; }
-        public InventoryModel InventoryModel { get; private set; }
-
-        private readonly ReactiveProperty<Vector2Int> _position = new();
+        public int Health => (int)Stats["health"].Value;
+        public bool IsDead => (int)Stats["health"].Value <= 0;
         public IReadOnlyReactiveProperty<Vector2Int> Position => _position;
-
-        public readonly ReactiveProperty<bool> Visible = new ReactiveProperty<bool>(true);
-        
-        private readonly ReactiveProperty<UnitDirection> _direction = new();
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
-
         public StatModelCollection Stats { get; }
-        public StatusEffectModelCollection ActiveEffects { get; }
-
+        public InventoryModel InventoryModel { get; }
         public IReadOnlyDictionary<string, bool> Flags => _flags;
         public IReadOnlyDictionary<string, Vector2Int> PointOfInterest => _pointOfInterest;
-
-        public string Id { get; }
-
-        public int Health => (int)Stats["health"].Value;
-
-        public bool IsDead => (int)Stats["health"].Value <= 0;
-
+        public StatusEffectApplierModel ActiveEffects { get; }
+        public readonly ReactiveProperty<bool> Visible = new(true);
+        
         private readonly Dictionary<string, bool> _flags = new();
-
+        private readonly ReactiveProperty<UnitDirection> _direction = new ();
+        private readonly ReactiveProperty<Vector2Int> _position = new ();
         private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
 
         public UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
@@ -49,7 +40,7 @@ namespace Runtime.Units
             Description = description;
             Id = id;
             Stats = new StatModelCollection(Description.Stats);
-            ActiveEffects = new StatusEffectModelCollection(worldDescription.StatusEffectCollection);
+            ActiveEffects = new StatusEffectApplierModel(worldDescription);
 
             InventoryModel = new InventoryModel(Description.InventorySize);
             foreach (var (itemId, amount) in description.Loot)
@@ -117,7 +108,6 @@ namespace Runtime.Units
                 return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
                        Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
             }
-
             return false;
         }
 

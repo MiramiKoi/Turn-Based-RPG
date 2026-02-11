@@ -1,0 +1,40 @@
+﻿---@class UnitModel
+---@field Id string
+---@field Health number
+---@field IsDead boolean
+---@field Position Vector2Int
+---@field Direction number
+---@field Flags table<string, boolean>
+---@field PointOfInterest table<string, Vector2Int>
+---@field ActiveEffects ActiveEffects
+---@field Stats StatModelCollection
+---@field Description any
+---@field OnAttacked fun()
+---@field OnDamaging fun()
+---@field MoveTo fun(self:UnitModel, position:Vector2Int)
+---@field CanMove fun(self:UnitModel):boolean
+---@field Rotate fun(self:UnitModel, direction:number)
+---@field GetDamage fun(self:UnitModel):number
+---@field CanAttack fun(self:UnitModel, position:Vector2Int):boolean
+---@field TakeDamage fun(self:UnitModel, damage:number)
+---@field SetFlag fun(self:UnitModel, key:string, value:boolean)
+---@field SetPointOfInterest fun(self:UnitModel, key:string, value:Vector2Int)
+---@field GetPointOfInterest fun(self:UnitModel, key:string):Vector2Int
+---@field SetActionDisabled fun(self:UnitModel, action:number, disabled:boolean)
+---@field IsActionDisabled fun(self:UnitModel, action:number):boolean
+---@field ResetActionDisables fun(self:UnitModel)
+
+---@class StatModelCollection : IEnumerable
+---@field Stats table<string, StatModel>
+---@field Get fun(self:StatModelCollection, key:string):StatModel
+
+---@class StatModel
+---@field Description StatDescription
+---@field Value number
+---@field ValueChanged fun(value:number)|nil
+---@field ChangeValue fun(self:StatModel, delta:number)
+---@field Set fun(self:StatModel, value:number)
+---@field Multiply fun(self:StatModel, factor:number)
+
+---@class StatDescription : Description
+---@field MaxValue number

@@ -1,0 +1,118 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "status_effect.schema.json",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/statusEffect"
+  },
+  "$defs": {
+    "statusEffect": {
+      "type": "object",
+      "required": [
+        "polarity",
+        "view_id",
+        "lua_script",
+        "duration"
+      ],
+      "properties": {
+        "polarity": {
+          "type": "string",
+          "enum": [
+            "buff",
+            "debuff"
+          ]
+        },
+        "view_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lua_script": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stacking": {
+          "$ref": "#/$defs/stacking"
+        },
+        "duration": {
+          "$ref": "#/$defs/duration"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stacking": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "additive",
+            "refresh",
+            "independent"
+          ]
+        },
+        "max_stacks": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "additive"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "max_stacks"
+            ]
+          }
+        }
+      ]
+    },
+    "duration": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "turn_based",
+            "permanent",
+            "conditional"
+          ]
+        },
+        "turns": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "turn_based"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "turns"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

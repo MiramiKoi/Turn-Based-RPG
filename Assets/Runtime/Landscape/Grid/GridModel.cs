@@ -38,8 +38,13 @@ namespace Runtime.Landscape.Grid
 
         public bool CanPlace(Vector2Int position)
         {
-            var cell = Cells[position.x, position.y];
-            return !cell.IsOccupied;
+            if (IsInsideGrid(position))
+            {
+                var cell = Cells[position.x, position.y];
+                return !cell.IsOccupied;
+            }
+
+            return false;
         }
 
         public bool TryPlace(IUnit unit, Vector2Int position)

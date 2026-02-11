@@ -1,91 +1,79 @@
 using System.Collections.Generic;
-using System.Linq;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
 
 namespace Runtime.StatusEffects.Collection
 {
     public class StatusEffectCollectionPresenter : IPresenter
     {
-        private readonly StatusEffectModelCollection _collection;
+        private readonly StatusEffectModelCollection _modelCollection;
         private readonly UnitModel _unit;
         private readonly World _world;
 
-        private readonly Dictionary<string, StatusEffectSystem> _systems = new();
+        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
         public StatusEffectCollectionPresenter(UnitModel unit, World world)
         {
-            _collection = unit.ActiveEffects;
+            _modelCollection = unit.ActiveEffects.Collection;
             _unit = unit;
             _world = world;
         }
 
         public void Enable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished += Tick;
-            _collection.OnAdded += HandleAdded;
-            _collection.OnRemoved += HandleRemoved;
+            _modelCollection.OnAdded += HandleAdded;
+            _modelCollection.OnRemoved += HandleRemoved;
 
-            foreach (var model in _collection.Models.Values)
+            foreach (var model in _modelCollection.Models.Values)
             {
-                AddSystem(model);
+                AddPresenter(model);
             }
         }
 
         public void Disable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished -= Tick;
-            _collection.OnAdded -= HandleAdded;
-            _collection.OnRemoved -= HandleRemoved;
+            _modelCollection.OnAdded -= HandleAdded;
+            _modelCollection.OnRemoved -= HandleRemoved;
 
-            _systems.Clear();
-        }
-
-        private void Tick()
-        {
-            _unit.ResetActionDisables();
-
-            var expired = new List<StatusEffectModel>();
-
-            foreach (var pair in _systems)
+            foreach (var presenter in _presenters.Values)
             {
-                pair.Value.Tick();
-
-                if (pair.Value.IsExpired)
-                    expired.Add(_collection.Get(pair.Key));
+                presenter.Disable();
             }
 
-            foreach (var model in expired)
-            {
-                _collection.Remove(model.Id);
-            }
+            _presenters.Clear();
         }
 
-        private void AddSystem(StatusEffectModel model)
+        private void AddPresenter(StatusEffectModel model)
         {
+            model.OnExpired += HandleChangeExpired;
+            
             var id = model.Id;
-            var presenter = new StatusEffectSystem(model, _unit, _world);
-            _systems[id] = presenter;
+            var presenter = new StatusEffectPresenter(model, _unit, _world);
+            _presenters[id] = presenter;
+            presenter.Enable();
+        }
 
-            var stacks = model.CurrentStacks.Value;
-            var immediateModifiers = model.Description.Modifiers.Where(modifier =>
-                modifier.Type is ModifierExecutionTime.Immediate or ModifierExecutionTime.ImmediateWhileActive);
-            foreach (var modifier in immediateModifiers)
-            {
-                modifier.Tick(_unit, _world, stacks);
-            }
+        private void RemovePresenter(string id)
+        {
+            _presenters[id].Disable();
+            _presenters.Remove(id);
+        }
+        
+        private void HandleChangeExpired(StatusEffectModel statusEffectModel)
+        {
+            _modelCollection.Remove(statusEffectModel.Id);
         }
 
         private void HandleAdded(StatusEffectModel model)
         {
-            AddSystem(model);
+            AddPresenter(model);
         }
 
         private void HandleRemoved(StatusEffectModel model)
         {
-            _systems.Remove(model.Id);
+            model.OnExpired -= HandleChangeExpired;
+            RemovePresenter(model.Id);
         }
     }
 }

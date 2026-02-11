@@ -3,11 +3,12 @@
     public abstract class DescribedModelCollection<T> : SerializeModelCollection<T>
         where T : ISerializable
     {
-        public void Create(string descriptionKey)
+        public virtual T Create(string descriptionKey)
         {
             DescriptionKey = descriptionKey;
             var model = CreateModel(descriptionKey);
             Add(GetCurrentKey(), model);
+            return model;
         }
 
         protected abstract T CreateModel(string descriptionKey);

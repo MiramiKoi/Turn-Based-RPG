@@ -7,6 +7,9 @@ namespace Runtime.TurnBase
     {
         public event Action OnPlayerStepFinished;
         public event Action OnWorldStepFinished;
+        public event Action OnBuffTick;
+        public event Action OnDebuffTick;
+        public event Action OnMixedBuffTick;
 
         public int CurrentTurn { get; private set; }
 
@@ -21,6 +24,9 @@ namespace Runtime.TurnBase
         public void WorldStep()
         {
             OnWorldStepFinished?.Invoke();
+            OnBuffTick?.Invoke();
+            OnDebuffTick?.Invoke();
+            OnMixedBuffTick?.Invoke();
         }
     }
 }

@@ -1,0 +1,126 @@
+﻿{
+  "bleeding": {
+    "polarity": "debuff",
+    "view_id": "bleeding",
+    "lua_script": "bleeding",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 5
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    }
+  },
+  "bless": {
+    "polarity": "buff",
+    "view_id": "bless",
+    "lua_script": "bless",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 8
+    }
+  },
+  "curse": {
+    "polarity": "debuff",
+    "view_id": "curse",
+    "lua_script": "curse",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    }
+  },
+  "burn": {
+    "polarity": "debuff",
+    "view_id": "burn",
+    "lua_script": "burn",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 5
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    }
+  },
+  "freezing": {
+    "polarity": "debuff",
+    "view_id": "freezing",
+    "lua_script": "freezing",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 4
+    }
+  },
+  "healing": {
+    "polarity": "buff",
+    "view_id": "healing",
+    "lua_script": "healing",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 3
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 5
+    }
+  },
+  "poison": {
+    "polarity": "debuff",
+    "view_id": "poison",
+    "lua_script": "poison",
+    "stacking": {
+      "mode": "additive",
+      "max_stacks": 5
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 6
+    }
+  },
+  "sleep": {
+    "polarity": "debuff",
+    "view_id": "sleep",
+    "lua_script": "sleep",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 3
+    }
+  },
+  "stun": {
+    "polarity": "debuff",
+    "view_id": "stun",
+    "lua_script": "stun",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 1
+    }
+  },
+  "thunder": {
+    "polarity": "debuff",
+    "view_id": "thunder",
+    "lua_script": "thunder",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 1
+    }
+  }
+}

@@ -3,7 +3,6 @@
     public enum DurationType
     {
         Permanent,
-        TurnBased,
-        Conditional
+        TurnBased
     }
 }
