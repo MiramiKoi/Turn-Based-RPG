@@ -24,6 +24,10 @@ namespace Runtime.TurnBase
         public void WorldStep()
         {
             OnWorldStepFinished?.Invoke();
+        }
+        
+        public void StatusEffectTick()
+        {
             OnBuffTick?.Invoke();
             OnDebuffTick?.Invoke();
             OnMixedBuffTick?.Invoke();

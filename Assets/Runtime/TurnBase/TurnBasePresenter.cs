@@ -32,15 +32,18 @@ namespace Runtime.TurnBase
         private async void OnPlayerMadeStep()
         {
             await ProcessAllSteps();
-
+            
             foreach (var agent in _world.AgentCollection.Models.Values)
             {
                 agent.MakeStep();
                 await ProcessAllSteps();
             }
-
+            
+            _model.StatusEffectTick();
+            await ProcessAllSteps();
+            
             await WaitParallelSteps();
-
+            
             _model.WorldStep();
         }
 
