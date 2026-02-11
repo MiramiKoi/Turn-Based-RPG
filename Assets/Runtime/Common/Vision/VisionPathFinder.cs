@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Runtime.Common.Vision
 {
-    public class VisionPathFinder
+    public static class VisionPathFinder
     {
         public static bool Trace(GridModel grid, Vector2Int from, Vector2Int to, int radius)
         {
