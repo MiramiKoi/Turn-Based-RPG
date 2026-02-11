@@ -73,9 +73,9 @@ namespace Runtime.Landscape.Grid
             return pos is { x: >= 0 and < GridConstants.Width, y: >= 0 and < GridConstants.Height };
         }
         
-        public void DrawRoute(IEnumerable<Vector2Int> path, IndicationType indicationType)
+        public void SetIndication(IEnumerable<Vector2Int> cells, IndicationType indicationType)
         {
-            foreach (var position in path)
+            foreach (var position in cells)
             {
                 Cells[position.x, position.y].SetIndication(indicationType);
             }

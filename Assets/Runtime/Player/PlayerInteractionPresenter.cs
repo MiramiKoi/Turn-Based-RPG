@@ -119,13 +119,13 @@ namespace Runtime.Player
         private void StartRoute()
         {
             _model.IsExecutingRoute = true;
-            _world.GridModel.DrawRoute(_model.MovementQueueModel.Steps, IndicationType.RoutePoint);
+            _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.RoutePoint);
         }
         
         private void StopRoute()
         {
             _model.IsExecutingRoute = false;
-            _world.GridModel.DrawRoute(_model.MovementQueueModel.Steps, IndicationType.Null);
+            _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.Null);
             _model.MovementQueueModel.Clear();
         }
     }

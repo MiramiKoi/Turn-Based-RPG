@@ -31,7 +31,7 @@ namespace Runtime.Player
         {
             if (!_model.IsDead && !_model.IsExecutingRoute && _world.GridInteractionModel.CurrentCell != null)
             {
-                _world.GridModel.DrawRoute(_model.MovementQueueModel.Steps, IndicationType.Null);
+                _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.Null);
                 _model.MovementQueueModel.Clear();
 
                 var start = _model.Position.Value;
@@ -39,7 +39,7 @@ namespace Runtime.Player
                         out var path))
                 {
                     _model.MovementQueueModel.SetPath(path);
-                    _world.GridModel.DrawRoute(path.Where(position => _model.Position.Value != position), IndicationType.RoutePoint);
+                    _world.GridModel.SetIndication(path.Where(position => _model.Position.Value != position), IndicationType.RoutePoint);
                 }
             }
         }
