@@ -17,7 +17,7 @@ namespace Runtime.Stats
                 Stats.Add(description.Id, new StatModel(description));
             }
         }
-        
+
         public StatModel Get(string id)
         {
             return Stats[id];

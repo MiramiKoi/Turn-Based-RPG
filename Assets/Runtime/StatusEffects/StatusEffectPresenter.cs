@@ -52,7 +52,7 @@ namespace Runtime.StatusEffects
         public void Disable()
         {
             Call("OnRemove");
-            
+
             switch (_model.Description.Polarity)
             {
                 case Polarity.Buff:
@@ -77,7 +77,7 @@ namespace Runtime.StatusEffects
                 LuaRuntime.Instance.LuaScript.Call(function, _context);
             }
         }
-        
+
         private bool CallBool(string functionName)
         {
             var function = _module.Get(functionName);
@@ -102,12 +102,12 @@ namespace Runtime.StatusEffects
         private void HandleTick()
         {
             Call("OnTick");
-            
+
             if (!CallBool("CanTick"))
             {
                 _model.IsExpired = true;
             }
-            
+
             _model.DecrementRemainingTurns();
         }
     }

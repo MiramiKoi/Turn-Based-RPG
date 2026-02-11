@@ -11,7 +11,7 @@ namespace Runtime.Descriptions.Units
         public string ViewId { get; }
         public int InventorySize { get; }
         public Dictionary<string, int> Loot { get; }
-        
+
         public UnitDescription(string id, Dictionary<string, object> data) : base(id)
         {
             Stats = new StatDescriptionCollection(data.GetNode("stats"));

@@ -33,7 +33,7 @@ namespace Runtime.Units
         private StatusEffectApplierPresenter _statusEffectApplierPresenter;
 
         private LoadModel<VisualTreeAsset> _statusEffectsLoadModel;
-        
+
         private UnitVisiblePresenter _unitVisiblePresenter;
 
         public UnitPresenter(UnitModel unit, UnitView view, World world, WorldViewDescriptions viewDescriptions)
@@ -44,17 +44,17 @@ namespace Runtime.Units
             _viewDescriptions = viewDescriptions;
         }
 
-        public async void Enable()
+        public virtual async void Enable()
         {
             foreach (var stat in _unit.Stats)
             {
                 var statPresenter = new StatPresenter(stat);
                 statPresenter.Enable();
             }
-            
+
             _unitVisiblePresenter = new UnitVisiblePresenter(_unit, _view);
             _unitVisiblePresenter.Enable();
-            
+
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
             _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
             _unit.OnAttacked += OnAttacked;
@@ -72,7 +72,7 @@ namespace Runtime.Units
             _statusEffectApplierPresenter.Enable();
         }
 
-        public void Disable()
+        public virtual void Disable()
         {
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;

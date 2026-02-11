@@ -19,7 +19,7 @@ namespace Runtime.Units
         public void Enable()
         {
             _visibleSubscription = _model.Visible.Subscribe(OnVisibleChange);
-            
+
             OnVisibleChange(_model.Visible.Value);
         }
 

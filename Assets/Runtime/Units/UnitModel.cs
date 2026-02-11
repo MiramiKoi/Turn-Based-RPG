@@ -29,10 +29,10 @@ namespace Runtime.Units
         public IReadOnlyDictionary<string, Vector2Int> PointOfInterest => _pointOfInterest;
         public StatusEffectApplierModel ActiveEffects { get; }
         public readonly ReactiveProperty<bool> Visible = new(true);
-        
+
         private readonly Dictionary<string, bool> _flags = new();
-        private readonly ReactiveProperty<UnitDirection> _direction = new ();
-        private readonly ReactiveProperty<Vector2Int> _position = new ();
+        private readonly ReactiveProperty<UnitDirection> _direction = new();
+        private readonly ReactiveProperty<Vector2Int> _position = new();
         private readonly Dictionary<string, Vector2Int> _pointOfInterest = new();
 
         public UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
@@ -108,6 +108,7 @@ namespace Runtime.Units
                 return Math.Abs(current.x - position.x) <= Stats["attack_range"].Value &&
                        Math.Abs(current.y - position.y) <= Stats["attack_range"].Value;
             }
+
             return false;
         }
 

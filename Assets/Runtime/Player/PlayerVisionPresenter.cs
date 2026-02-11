@@ -13,10 +13,10 @@ namespace Runtime.Player
         private readonly GridModel _grid;
         private readonly UnitModelCollection _units;
         private readonly UnitModel _model;
-        
+
         private IDisposable _positionSubscription;
-        
-        
+
+
         public PlayerVisionPresenter(GridModel grid, UnitModelCollection units, UnitModel model)
         {
             _grid = grid;
@@ -27,7 +27,7 @@ namespace Runtime.Player
         public void Enable()
         {
             _positionSubscription = _model.Position.Subscribe(OnPositionChange);
-            
+
             OnPositionChange(_model.Position.Value);
         }
 
@@ -44,9 +44,9 @@ namespace Runtime.Player
                 {
                     continue;
                 }
-                
+
                 var visibilityRadius = Mathf.RoundToInt(_model.Stats["visibility_radius"].Value);
-                
+
                 unit.Visible.Value = VisionPathFinder.Trace(_grid, position, unit.Position.Value, visibilityRadius);
             }
         }

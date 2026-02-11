@@ -47,7 +47,7 @@ namespace Runtime.StatusEffects.Collection
         private void AddPresenter(StatusEffectModel model)
         {
             model.OnExpired += HandleChangeExpired;
-            
+
             var id = model.Id;
             var presenter = new StatusEffectPresenter(model, _unit, _world);
             _presenters[id] = presenter;
@@ -59,7 +59,7 @@ namespace Runtime.StatusEffects.Collection
             _presenters[id].Disable();
             _presenters.Remove(id);
         }
-        
+
         private void HandleChangeExpired(StatusEffectModel statusEffectModel)
         {
             _modelCollection.Remove(statusEffectModel.Id);

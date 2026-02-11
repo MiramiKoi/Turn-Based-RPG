@@ -39,6 +39,9 @@ namespace Runtime.TurnBase
                 await ProcessAllSteps();
             }
 
+            _model.StatusEffectTick();
+            await ProcessAllSteps();
+
             await WaitParallelSteps();
 
             _model.WorldStep();

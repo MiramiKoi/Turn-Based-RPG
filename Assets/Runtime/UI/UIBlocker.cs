@@ -14,7 +14,7 @@ namespace Runtime.UI
             _root = root;
             _playerControls = playerControls;
         }
-        
+
         public bool IsPointerOverUI
         {
             get
