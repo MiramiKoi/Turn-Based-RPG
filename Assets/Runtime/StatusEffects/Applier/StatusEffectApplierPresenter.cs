@@ -22,13 +22,11 @@ namespace Runtime.StatusEffects.Applier
         public void Enable()
         {
             _model.OnApplyRequested += HandleApplyRequested;
-            _model.OnRemoveRequested += HandleRemoveRequested;
         }
 
         public void Disable()
         {
             _model.OnApplyRequested -= HandleApplyRequested;
-            _model.OnRemoveRequested -= HandleRemoveRequested;
         }
 
         private bool CanApply(StatusEffectDescription description)
@@ -68,11 +66,6 @@ namespace Runtime.StatusEffects.Applier
             }
 
             return null;
-        }
-
-        private void HandleRemoveRequested(string effectId)
-        {
-            _model.Collection.Remove(effectId);
         }
     }
 }

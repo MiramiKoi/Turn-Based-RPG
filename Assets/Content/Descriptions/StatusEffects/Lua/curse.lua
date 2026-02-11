@@ -6,7 +6,7 @@ local ATTACK_MULT = 0.8
 ---@param ctx StatusEffectContext
 function StatusEffect.OnApply(ctx)
     local unit = ctx.unit
-    
+    unit.ActiveEffects:RemoveAllByDescriptionId("healing")
     unit.Stats.Get("attack_damage"):Multiply(ATTACK_MULT)
 end
 

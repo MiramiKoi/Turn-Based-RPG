@@ -16,5 +16,6 @@
 
 ---@class ActiveEffects
 ---@field TryApply fun(self:ActiveEffects, descriptionKey:string)
----@field TryRemove fun(self:ActiveEffects, id:string)
+---@field RemoveById fun(self:ActiveEffects, id:string)
+---@field RemoveAllByDescriptionId fun(self:ActiveEffects, descriptionKey:string)
 ---@field HasStatusEffect fun(self:ActiveEffects, descriptionKey:string):boolean

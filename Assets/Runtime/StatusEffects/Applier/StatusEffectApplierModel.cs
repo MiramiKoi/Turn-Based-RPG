@@ -8,7 +8,6 @@ namespace Runtime.StatusEffects.Applier
     public class StatusEffectApplierModel
     {
         public event Func<string, string> OnApplyRequested;
-        public event Action<string> OnRemoveRequested;
 
         public StatusEffectModelCollection Collection { get; }
 
@@ -22,9 +21,19 @@ namespace Runtime.StatusEffects.Applier
             return OnApplyRequested?.Invoke(descriptionKey);
         }
 
-        public void TryRemove(string statusEffectId)
+        public void RemoveById(string statusEffectId)
         {
-            OnRemoveRequested?.Invoke(statusEffectId);
+           Collection.Remove(statusEffectId);
+        }
+
+        public void RemoveAllByDescriptionId(string descriptionKey)
+        {
+            var statusEffectModels = Collection.Models.Values.Where(model => model.Description.Id == descriptionKey).ToList();
+
+            foreach (var statusEffectModel in statusEffectModels)
+            {
+                Collection.Remove(statusEffectModel.Id);
+            }
         }
 
         public bool HasStatusEffect(string descriptionKey)
