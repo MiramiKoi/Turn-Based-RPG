@@ -110,5 +110,17 @@
       "type": "turn_based",
       "turns": 1
     }
+  },
+  "thunder": {
+    "polarity": "debuff",
+    "view_id": "thunder",
+    "lua_script": "thunder",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 1
+    }
   }
 }
