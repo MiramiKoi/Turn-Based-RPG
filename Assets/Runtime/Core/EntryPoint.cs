@@ -99,8 +99,8 @@ namespace Runtime.Core
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModelPrefab = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModelPrefab.LoadAwaiter;
-            var unitPrefab = loadModelPrefab.Result;
-            var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
+            var unitPrefab = loadModelPrefab.Result.GetComponent<UnitView>();
+            var unitView = (await InstantiateAsync(unitPrefab, Vector3.zero, Quaternion.identity))[0];
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModelPrefab);
 
@@ -115,6 +115,8 @@ namespace Runtime.Core
 
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
+
+            unitModel.ActiveEffects.TryApply("burn");
         }
 
         private async Task CreateUnit(string id, AgentDecisionDescription description)
@@ -124,8 +126,8 @@ namespace Runtime.Core
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModel.LoadAwaiter;
-            var unitPrefab = loadModel.Result;
-            var unitView = Instantiate(unitPrefab.GetComponent<UnitView>(), Vector3.zero, Quaternion.identity);
+            var unitPrefab = loadModel.Result.GetComponent<UnitView>();
+            var unitView = (await InstantiateAsync(unitPrefab, Vector3.zero, Quaternion.identity))[0];
             _addressableModel.Unload(loadModel);
 
             //var agentPresenter = new AgentPresenter(unitModel, _worldDescription.BearAgentDecisionDescription, _world);
