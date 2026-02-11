@@ -98,5 +98,17 @@
       "type": "turn_based",
       "turns": 3
     }
+  },
+  "stun": {
+    "polarity": "debuff",
+    "view_id": "stun",
+    "lua_script": "stun",
+    "stacking": {
+      "mode": "refresh"
+    },
+    "duration": {
+      "type": "turn_based",
+      "turns": 1
+    }
   }
 }
