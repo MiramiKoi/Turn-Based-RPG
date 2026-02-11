@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Runtime.Core;
+using Runtime.Player;
 using Runtime.Units;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Runtime.LoadSteps
 
         public Task Run()
         {
-            var characterModel = new UnitModel
+            var characterModel = new PlayerModel
             (
                 "character",
                 new Vector2Int(50, 49), _world.WorldDescription.UnitCollection.First(), _world.WorldDescription);

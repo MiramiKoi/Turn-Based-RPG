@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Landscape.Grid.Cell;
+using Runtime.Landscape.Grid.Indication;
 using UnityEngine;
 
 namespace Runtime.Landscape.Grid
@@ -69,6 +71,14 @@ namespace Runtime.Landscape.Grid
         public bool IsInsideGrid(Vector2Int pos)
         {
             return pos is { x: >= 0 and < GridConstants.Width, y: >= 0 and < GridConstants.Height };
+        }
+        
+        public void SetIndication(IEnumerable<Vector2Int> cells, IndicationType indicationType)
+        {
+            foreach (var position in cells)
+            {
+                Cells[position.x, position.y].SetIndication(indicationType);
+            }
         }
     }
 }
