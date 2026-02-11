@@ -8,9 +8,9 @@
     },
     "fraction": "player",
     "view_id": "Warrior",
-    "inventory_size": 16,
+    "inventory_size": 12,
     "loot": {
-      "bear_meat": 1
+      "bear_meat": 19
     }
   },
   "bear": {
@@ -22,7 +22,7 @@
     },
     "fraction": "animal",
     "view_id": "Bear",
-    "inventory_size": 8,
+    "inventory_size": 6,
     "loot": {
       "bear_meat": 5,
       "bear_fur": 10
@@ -37,7 +37,7 @@
     },
     "fraction": "boss",
     "view_id": "Panda",
-    "inventory_size": 8,
+    "inventory_size": 6,
     "loot": {
       "bear_meat": 3
     }
@@ -51,7 +51,7 @@
     },
     "fraction": "trader",
     "view_id": "Trader",
-    "inventory_size": 8,
+    "inventory_size": 6,
     "loot": {
       "bear_meat": 2
     }

@@ -2,8 +2,8 @@
     overflow: hidden;
     position: absolute;
     right: 0;
-    translate: -460px 300px;
-    max-height: 430px;
+    translate: -450px 500px;
+    max-height: 330px;
     max-width: 230px;
     margin-right: 0;
     flex-grow: 1;
@@ -14,7 +14,7 @@
     overflow: hidden;
     right: 0;
     max-width: 430px;
-    max-height: 430px;
+    max-height: 330px;
     margin-right: 20px;
-    translate: 0 300px;
+    translate: 0 500px;
 }
