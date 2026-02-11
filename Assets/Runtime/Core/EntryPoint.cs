@@ -91,7 +91,7 @@ namespace Runtime.Core
 
         private async Task CreateControllableUnit()
         {
-            var unitModel = _world.UnitCollection.Get("character");
+            var unitModel = (PlayerModel)_world.UnitCollection.Get("character");
 
             var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
             var loadModelPrefab = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
@@ -108,12 +108,8 @@ namespace Runtime.Core
             var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel, statusEffectsView, _world,
                 _worldViewDescriptions, _uiContent);
 
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
-
-            var playerModel = new PlayerModel(unitModel, _world.GridModel);
-            var playerPresenter = new PlayerPresenter(playerModel, _world);
-
-            unitPresenter.Enable();
+            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world, _worldViewDescriptions);
+            
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
 

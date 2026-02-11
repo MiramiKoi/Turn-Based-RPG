@@ -44,7 +44,7 @@ namespace Runtime.Units
             _viewDescriptions = viewDescriptions;
         }
 
-        public async void Enable()
+        public virtual async void Enable()
         {
             foreach (var stat in _unit.Stats)
             {
@@ -72,7 +72,7 @@ namespace Runtime.Units
             _statusEffectApplierPresenter.Enable();
         }
 
-        public void Disable()
+        public virtual void Disable()
         {
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
