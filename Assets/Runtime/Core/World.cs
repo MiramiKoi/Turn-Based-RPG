@@ -5,6 +5,7 @@ using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.GameSystems;
 using Runtime.Input;
+using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
@@ -31,6 +32,7 @@ namespace Runtime.Core
         public AgentModelCollection AgentCollection { get; private set; }
         public UIBlocker UIBlocker { get; private set; }
         public LootModel LootModel { get; private set; }
+        public TransferModel TransferModel { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
             WorldDescription worldDescription, VisualElement uiRoot)
@@ -55,6 +57,8 @@ namespace Runtime.Core
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);
             LootModel = new LootModel();
+
+            TransferModel = new TransferModel();
         }
     }
 }
