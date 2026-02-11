@@ -30,8 +30,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3ea3b7aef2648df8dca8d1a25106b4a
-    m_Address: burn
+  - m_GUID: a75317551b3f49f0a1a6ce61e9aabe9e
+    m_Address: Lua
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
