@@ -11,30 +11,32 @@ namespace Runtime.UI.Loot
     {
         private InventoryPresenter _currentInventory;
 
+        private readonly LootModel _model;
+        private readonly InventoryView _inventoryView;
         private readonly World _world;
         private readonly UIContent _uiContent;
-        private readonly InventoryView _inventoryView;
         private readonly WorldViewDescriptions _viewDescriptions;
 
-        public LootPresenter(World world, UIContent uiContent, WorldViewDescriptions viewDescriptions)
+        public LootPresenter(LootModel model, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
         {
+            _model = model;
             _world = world;
-            _uiContent = uiContent;
             _viewDescriptions = viewDescriptions;
+            _uiContent = uiContent;
 
             _inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
         }
 
         public void Enable()
         {
-            _world.LootModel.OnLootRequested += Show;
-            _world.LootModel.OnLootCanceled += Clear;
+            _model.OnLootRequested += Show;
+            _model.OnLootCanceled += Clear;
         }
 
         public void Disable()
         {
-            _world.LootModel.OnLootRequested -= Show;
-            _world.LootModel.OnLootCanceled -= Clear;
+            _model.OnLootRequested -= Show;
+            _model.OnLootCanceled -= Clear;
             Clear();
         }
 

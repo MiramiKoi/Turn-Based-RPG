@@ -70,7 +70,7 @@ namespace Runtime.Core
 
             turnBasePresenter.Enable();
 
-            var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
+            var lootPresenter = new LootPresenter(_world.LootModel, _world, _worldViewDescriptions, _uiContent);
             lootPresenter.Enable();
         }
 
