@@ -30,7 +30,9 @@ namespace Runtime.Descriptions.Surface
 
             const double centerX = (GridConstants.Width - 1) / 2.0;
             const double centerY = (GridConstants.Height - 1) / 2.0;
-            var maxIslandDistance = Math.Min(centerX, centerY) * _islandMaxSizeRatio;
+    
+            var maxDistanceX = centerX * _islandMaxSizeRatio;
+            var maxDistanceY = centerY * _islandMaxSizeRatio;
 
             for (var y = 0; y < GridConstants.Height; y++)
             {
@@ -38,15 +40,18 @@ namespace Runtime.Descriptions.Surface
                 {
                     var distanceX = x - centerX;
                     var distanceY = y - centerY;
-                    var distance = Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
+            
+                    var normalizedX = distanceX / maxDistanceX;
+                    var normalizedY = distanceY / maxDistanceY;
+            
+                    var normalizedDistance = Math.Sqrt(normalizedX * normalizedX + normalizedY * normalizedY);
 
-                    if (distance > maxIslandDistance)
+                    if (normalizedDistance > 1)
                     {
                         _landMatrix[y, x] = 0;
                         continue;
                     }
 
-                    var normalizedDistance = distance / maxIslandDistance;
                     var probability = CalculateProbability(normalizedDistance);
                     var isLand = _random.Next(0, 100) < probability ? 1 : 0;
                     _landMatrix[y, x] = isLand;

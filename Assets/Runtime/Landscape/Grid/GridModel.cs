@@ -22,8 +22,8 @@ namespace Runtime.Landscape.Grid
             {
                 for (var x = 0; x < GridConstants.Width; x++)
                 {
-                    var surface = surfaceMatrix[x, y].ToString();
-                    var environment = environmentMatrix[x, y].ToString();
+                    var surface = surfaceMatrix[y, x].ToString();
+                    var environment = environmentMatrix[y, x].ToString();
 
                     worldDescription.SurfaceCollection.Surfaces.TryGetValue(surface, out var surfaceDescription);
                     worldDescription.EnvironmentCollection.Environment.TryGetValue(environment,
