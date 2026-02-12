@@ -1,10 +1,7 @@
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.Items.Trade;
-using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
-using UniRx;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
@@ -13,8 +10,6 @@ namespace Runtime.Player
     {
         private readonly PlayerModel _model;
         private readonly World _world;
-        private TransferPresenter _transferPresenter;
-        private readonly CompositeDisposable _disposables = new();
 
         public PlayerInteractionPresenter(PlayerModel model, World world)
         {
@@ -26,14 +21,12 @@ namespace Runtime.Player
         {
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
             _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
-            StartTransfer(new TransferPresenter(_world.TransferModel, _world));
         }
 
         public void Disable()
         {
             _world.PlayerControls.Gameplay.Attack.performed -= HandleAttackPerformed;
             _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
-            StopTransfer();
         }
 
         private void HandleAttackPerformed(InputAction.CallbackContext obj)
@@ -101,8 +94,6 @@ namespace Runtime.Player
 
             if (_model.CanMove() && _world.GridModel.TryPlace(_model, nextCell))
             {
-                StartTransfer(new TransferPresenter(_world.TransferModel, _world));
-                
                 _world.GridModel.ReleaseCell(_model.Position.Value);
                 _model.MoveTo(nextCell);
             }
@@ -110,26 +101,13 @@ namespace Runtime.Player
             {
                 if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
                 {
-                    if (unit.IsDead)
+                    if (unit.IsDead || unit.Description.Fraction == "trader")
                     {
                         _world.LootModel.RequestLoot(unit);
-                        
-                        StartTransfer(new TransferPresenter(_world.TransferModel, _world));
-                    
-                        StopRoute();
-                    }
-                    else if(unit.Description.Fraction == "trader")
-                    {
-                        _world.LootModel.RequestLoot(unit);
-                        
-                        StartTransfer(new TradePresenter(_world.TransferModel, _world));
-                    
                         StopRoute();
                     }
                     else if (unit.Description.Fraction != _model.Description.Fraction && _model.CanAttack(nextCell))
                     {
-                        StartTransfer(new TransferPresenter(_world.TransferModel, _world));
-                        
                         var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
                         var damage = _model.GetDamage();
                         enemy.TakeDamage(damage);
@@ -146,20 +124,6 @@ namespace Runtime.Player
         {
             _model.IsExecutingRoute = true;
             _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.RoutePoint);
-        }
-
-        private void StartTransfer(TransferPresenter presenter)
-        {
-            StopTransfer();
-            
-            _transferPresenter = presenter;
-            _transferPresenter.Enable();
-        }
-
-        private void StopTransfer()
-        {
-            _transferPresenter?.Disable();
-            _transferPresenter = null;
         }
 
         private void StopRoute()

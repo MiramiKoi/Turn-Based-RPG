@@ -5,12 +5,12 @@ using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.GameSystems;
 using Runtime.Input;
-using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
 using Runtime.UI;
 using Runtime.UI.Loot;
+using Runtime.UI.Transfer;
 using Runtime.Units;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -56,8 +56,8 @@ namespace Runtime.Core
             AgentCollection = new AgentModelCollection();
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);
+            
             LootModel = new LootModel();
-
             TransferModel = new TransferModel();
         }
     }

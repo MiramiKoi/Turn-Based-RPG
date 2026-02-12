@@ -4,7 +4,6 @@ using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.CustomAsync;
-using Runtime.Player;
 using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.StatusEffects.Collection;

@@ -9,6 +9,7 @@ namespace Runtime.UI.Inventory
     {
         public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
+        public event Action<CellModel> OnCellSelected;
 
         public InventoryModel(int size)
         {
@@ -96,6 +97,11 @@ namespace Runtime.UI.Inventory
             var taken = amount - remaining;
 
             return taken;
+        }
+
+        public void CellSelected(CellModel cell)
+        {
+            OnCellSelected?.Invoke(cell);
         }
 
         private bool IsSameItem(ItemDescription itemA, ItemDescription itemB)
