@@ -1,5 +1,5 @@
 using Runtime.Landscape.Grid;
-using Runtime.Units;
+using Runtime.Units.Collection;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {

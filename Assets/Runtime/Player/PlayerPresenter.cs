@@ -1,3 +1,4 @@
+using Runtime.Common.ObjectPool;
 using Runtime.Core;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
@@ -13,9 +14,9 @@ namespace Runtime.Player
         private PlayerPathPresenter _pathPresenter;
         private PlayerInteractionPresenter _interactionPresenter;
 
-        public PlayerPresenter(PlayerModel model, UnitView view, World world,
+        public PlayerPresenter(PlayerModel model, IObjectPool<UnitView> pool, World world,
             WorldViewDescriptions worldViewDescriptions)
-            : base(model, view, world, worldViewDescriptions)
+            : base(model, pool, world, worldViewDescriptions)
         {
             _model = model;
             _world = world;
@@ -24,6 +25,8 @@ namespace Runtime.Player
         public override void Enable()
         {
             base.Enable();
+
+            _world.CameraControlModel.Target.Value = View.Transform;
 
             _visionPresenter = new PlayerVisionPresenter(_world.GridModel, _world.UnitCollection, _model);
             _visionPresenter.Enable();

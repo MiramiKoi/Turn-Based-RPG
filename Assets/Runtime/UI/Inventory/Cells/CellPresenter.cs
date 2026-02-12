@@ -38,9 +38,9 @@ namespace Runtime.UI.Inventory.Cells
         private async void Update()
         {
             Clear();
-            
+
             var hasItem = _model.Amount > 0;
-            
+
             if (hasItem)
             {
                 _view.Amount.style.display = DisplayStyle.Flex;
@@ -70,7 +70,7 @@ namespace Runtime.UI.Inventory.Cells
         private void Clear()
         {
             _view.Root.RemoveFromClassList("cell-selected");
-            
+
             _view.Icon.style.backgroundImage = null;
             _view.Amount.style.display = DisplayStyle.None;
             _view.Price.style.display = DisplayStyle.None;

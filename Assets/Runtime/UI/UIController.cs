@@ -25,12 +25,13 @@ namespace Runtime.UI
             _world = world;
             _playerControls = playerControls;
 
-            _inventoryModel = world.UnitCollection.Get("character").InventoryModel;
+            _inventoryModel = world.UnitCollection.Get("character_0").InventoryModel;
 
             var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
             inventoryView.Root.AddToClassList("player-inventory");
 
-            _playerInventory = new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, uiContent, world);
+            _playerInventory =
+                new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, uiContent, world);
         }
 
         public void Enable()

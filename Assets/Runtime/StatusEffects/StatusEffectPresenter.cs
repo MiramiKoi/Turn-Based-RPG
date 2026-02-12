@@ -18,10 +18,11 @@ namespace Runtime.StatusEffects
         private readonly Table _module;
         private readonly Table _context;
         private readonly Table _effectTable;
-        
+
         private StatusEffectView _view;
 
-        public StatusEffectPresenter(StatusEffectModel model, IObjectPool<StatusEffectView> pool, UnitModel unit, World world)
+        public StatusEffectPresenter(StatusEffectModel model, IObjectPool<StatusEffectView> pool, UnitModel unit,
+            World world)
         {
             _model = model;
             _pool = pool;
@@ -39,7 +40,7 @@ namespace Runtime.StatusEffects
         public void Enable()
         {
             _view = _pool.Get();
-            
+
             if (CallBool("CanApply"))
             {
                 Call("OnApply");

@@ -1,5 +1,6 @@
 {
-  "warrior": {
+  "character": {
+    "view_id": "warrior",
     "stats": {
       "health": 100,
       "attack_damage": 10,
@@ -7,7 +8,20 @@
       "visibility_radius": 10
     },
     "fraction": "player",
-    "view_id": "Warrior",
+    "inventory_size": 12,
+    "loot": {
+      "bear_meat": 19
+    }
+  },
+  "warrior": {
+    "view_id": "warrior",
+    "stats": {
+      "health": 100,
+      "attack_damage": 10,
+      "attack_range": 1,
+      "visibility_radius": 10
+    },
+    "fraction": "player",
     "inventory_size": 12,
     "loot": {
       "money": 100,
@@ -15,6 +29,8 @@
     }
   },
   "bear": {
+    "view_id": "bear",
+    "agent_decision_id": "bear",
     "stats": {
       "health": 20,
       "attack_damage": 20,
@@ -22,7 +38,6 @@
       "visibility_radius": 4
     },
     "fraction": "animal",
-    "view_id": "Bear",
     "inventory_size": 6,
     "loot": {
       "bear_meat": 5,
@@ -31,6 +46,8 @@
     }
   },
   "panda": {
+    "view_id": "panda",
+    "agent_decision_id": "panda",
     "stats": {
       "health": 20,
       "attack_damage": 20,
@@ -38,13 +55,14 @@
       "visibility_radius": 4
     },
     "fraction": "boss",
-    "view_id": "Panda",
     "inventory_size": 6,
     "loot": {
       "money": 100
     }
   },
   "trader": {
+    "view_id": "trader",
+    "agent_decision_id": "trader",
     "stats": {
       "health": 20,
       "attack_damage": 0,
@@ -52,7 +70,6 @@
       "visibility_radius": 2
     },
     "fraction": "trader",
-    "view_id": "Trader",
     "inventory_size": 12,
     "loot": {
       "bear_meat": 2,
