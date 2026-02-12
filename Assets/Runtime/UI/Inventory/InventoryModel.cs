@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Descriptions.Items;
+using Runtime.ModelCollections;
 using Runtime.UI.Inventory.Cells;
 
 namespace Runtime.UI.Inventory
 {
-    public class InventoryModel
+    public class InventoryModel : ISerializable
     {
         public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
@@ -112,6 +113,11 @@ namespace Runtime.UI.Inventory
             }
 
             return itemA.Id == itemB.Id;
+        }
+
+        public Dictionary<string, object> Serialize()
+        {
+            return new Dictionary<string, object>();
         }
     }
 }

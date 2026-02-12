@@ -4,6 +4,8 @@ using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
+using Runtime.Extensions;
+using Runtime.ModelCollections;
 using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.UI.Inventory;
@@ -12,7 +14,7 @@ using UnityEngine;
 
 namespace Runtime.Units
 {
-    public class UnitModel : IUnit, IControllable
+    public class UnitModel : IUnit, IControllable, ISerializable
     {
         public event Action OnAttacked;
         public event Action OnDamaging;
@@ -48,7 +50,7 @@ namespace Runtime.Units
                 worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
                 InventoryModel.TryPutItem(item, amount);
             }
-
+            
             MoveTo(position);
         }
 
@@ -140,9 +142,19 @@ namespace Runtime.Units
             return _flags.TryGetValue(key, out var disabled) && disabled;
         }
 
-        public void ResetActionDisables()
+        public Dictionary<string, object> Serialize()
         {
-            SetActionDisabled(UnitActionType.All, false);
+            return new Dictionary<string, object>
+            {
+                { "id", Id },
+                { "description_id", Description.Id },
+                { "position", Position.Value.ToList() },
+                { "direction", Direction.Value },
+                { "stats", Stats.Serialize() },
+                { "inventory", InventoryModel.Serialize() },
+                { "active_effects", ActiveEffects.Serialize() },
+                { "flags", _flags }
+            };
         }
     }
 }

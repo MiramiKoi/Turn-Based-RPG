@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Runtime.Descriptions.Stats;
+using Runtime.ModelCollections;
 
 namespace Runtime.Stats
 {
-    public class StatModelCollection : IEnumerable<StatModel>
+    public class StatModelCollection : IEnumerable<StatModel>, ISerializable
     {
         public Dictionary<string, StatModel> Stats { get; }
 
@@ -34,5 +35,10 @@ namespace Runtime.Stats
         }
 
         public StatModel this[string id] => Stats[id];
+
+        public Dictionary<string, object> Serialize()
+        {
+            return new Dictionary<string, object> { };
+        }
     }
 }
