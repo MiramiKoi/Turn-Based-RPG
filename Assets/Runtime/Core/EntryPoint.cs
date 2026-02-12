@@ -13,7 +13,9 @@ using Runtime.Player;
 using Runtime.Player.StatusEffects;
 using Runtime.TurnBase;
 using Runtime.UI;
+using Runtime.UI.Inventory;
 using Runtime.UI.Loot;
+using Runtime.UI.Swap;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -81,6 +83,9 @@ namespace Runtime.Core
 
             var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
             lootPresenter.Enable();
+            
+            var swapPresenter = new SwapPresenter(_world.SwapModel);
+            swapPresenter.Enable();
         }
 
         private void Update()
