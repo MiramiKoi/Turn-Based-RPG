@@ -6,9 +6,7 @@ using Runtime.Descriptions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
-using Runtime.TurnBase;
 using Runtime.UI;
-using Runtime.UI.Loot;
 using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
 using UnityEngine;
@@ -42,36 +40,26 @@ namespace Runtime.Core
             _playerControls.Enable();
 
             _uiContent = new UIContent(_gameplayDocument);
-
+            
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
                 new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription,
-                    _uiContent.GameplayContent),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription, _uiContent.GameplayContent),
+                new TurnBaseLoadStep(_presenters, _world),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
                 new PlayerLoadStep(_presenters, _world, _worldViewDescriptions, _uiContent),
                 new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldViewDescriptions),
-                new CameraControlLoadStep(_presenters, _cameraControlView, _world)
+                new CameraControlLoadStep(_presenters, _cameraControlView, _world),
+                new UILoadStep(_presenters, _world, _worldViewDescriptions, _uiContent),
             };
 
             foreach (var step in persistentLoadStep)
             {
                 await step.Run();
             }
-
-            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            _uiController.Enable();
-
-            _world.TurnBaseModel.Steps.Clear();
-            var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
-
-            turnBasePresenter.Enable();
-
-            var lootPresenter = new LootPresenter(_world.LootModel, _world, _worldViewDescriptions, _uiContent);
-            lootPresenter.Enable();
         }
 
         private void Update()
