@@ -98,6 +98,28 @@ namespace Runtime.UI.Inventory
 
             return taken;
         }
+        
+        public bool CanExtract(ItemDescription item, int amount)
+        {
+            var remaining = amount;
+
+            foreach (var cell in Cells)
+            {
+                if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
+                {
+                    continue;
+                }
+
+                remaining -= cell.Amount;
+
+                if (remaining <= 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public void CellSelected(CellModel cell)
         {

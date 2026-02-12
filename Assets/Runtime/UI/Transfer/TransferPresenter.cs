@@ -114,6 +114,8 @@ namespace Runtime.UI.Transfer
             }
 
             _model.TargetCell = cell;
+            _model.SourceCell?.CellDeselect();
+            
             Execute(isSource);
 
             _model.SourceCell = null;

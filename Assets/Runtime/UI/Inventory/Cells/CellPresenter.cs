@@ -27,18 +27,20 @@ namespace Runtime.UI.Inventory.Cells
 
             _model.OnChanged += Update;
             _model.OnCellSelected += HandleCellSelected;
+            _model.OnCellDeselected += HandleCellDeselected;
+            _model.OnPriceEnabled += HandlePriceEnabled;
+            _model.OnPriceDisabled += HandlePriceDisabled;
         }
-
+        
         public void Disable()
         {
             _model.OnChanged -= Update;
             _model.OnCellSelected -= HandleCellSelected;
+            _model.OnCellDeselected -= HandleCellDeselected;
         }
 
         private async void Update()
         {
-            Clear();
-            
             var hasItem = _model.Amount > 0;
             
             if (hasItem)
@@ -46,10 +48,9 @@ namespace Runtime.UI.Inventory.Cells
                 _view.Amount.style.display = DisplayStyle.Flex;
 
                 _view.Amount.text = _model.Amount.ToString();
-
-                _view.Price.style.display = DisplayStyle.Flex;
-                _view.Price.text = _model.ItemDescription.Price.ToString();
-
+                
+                HandlePriceEnabled();
+                
                 var itemViewDescription = _viewDescriptions.ItemViewDescriptions.Get(_model.ItemDescription.ViewId);
                 var loadModel = _world.AddressableModel.Load<Sprite>(itemViewDescription.Icon.AssetGUID);
                 await loadModel.LoadAwaiter;
@@ -66,11 +67,32 @@ namespace Runtime.UI.Inventory.Cells
         {
             _view.Root.AddToClassList("cell-selected");
         }
-
-        private void Clear()
+        
+        private void HandleCellDeselected()
         {
             _view.Root.RemoveFromClassList("cell-selected");
+        }
+        
+        private void HandlePriceEnabled()
+        {
+            HandlePriceDisabled();
             
+            if (_model.ItemDescription == null || _model.ItemDescription.IsBuyable == false)
+            {
+                return;
+            }
+            
+            _view.Price.text = _model.ItemDescription.Price.ToString();
+            _view.Price.style.display = DisplayStyle.Flex;
+        }
+        
+        private void HandlePriceDisabled()
+        {
+            _view.Price.style.display = DisplayStyle.None;
+        }
+        
+        private void Clear()
+        {
             _view.Icon.style.backgroundImage = null;
             _view.Amount.style.display = DisplayStyle.None;
             _view.Price.style.display = DisplayStyle.None;
