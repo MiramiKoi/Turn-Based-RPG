@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1212051e954b40916cb70ddc422813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.StatusEffects.StatusEffectView
-  _onApplyParticle: {fileID: 2810124495272702147}
-  _onTickParticle: {fileID: 0}
-  _onRemoveParticle: {fileID: 7862457657754954172}
+  <OnApplyParticle>k__BackingField: {fileID: 2810124495272702147}
+  <OnTickParticle>k__BackingField: {fileID: 7862457657754954172}
+  <OnRemoveParticle>k__BackingField: {fileID: 0}
 --- !u!1001 &6608959217688340104
 PrefabInstance:
   m_ObjectHideFlags: 0
