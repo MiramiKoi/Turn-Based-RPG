@@ -18,5 +18,15 @@ namespace Runtime.Descriptions.Items
             StackSize = data.GetInt("stack_size");
             ViewId = data.GetString("view_id");
         }
+
+        public static ItemDescription Create(string id, Dictionary<string, object> data)
+        {
+            var itemDescription = data.GetString("type") switch
+            {
+                "equipment" => new EquipmentItemDescription(id, data),
+                _ => new ItemDescription(id, data)
+            };
+            return itemDescription;
+        }
     }
 }
