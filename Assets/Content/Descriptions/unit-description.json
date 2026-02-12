@@ -1,4 +1,18 @@
 {
+  "character": {
+    "stats": {
+      "health": 100,
+      "attack_damage": 10,
+      "attack_range": 1,
+      "visibility_radius": 10
+    },
+    "fraction": "player",
+    "view_id": "Warrior",
+    "inventory_size": 12,
+    "loot": {
+      "bear_meat": 19
+    }
+  },
   "warrior": {
     "stats": {
       "health": 100,
