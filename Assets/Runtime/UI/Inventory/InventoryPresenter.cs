@@ -46,7 +46,7 @@ namespace Runtime.UI.Inventory
                 _callbacks.Add((cellView.Root, callback));
                 _cellsPresenters.Add(cellPresenter);
             }
-            
+
             _model.Enabled = true;
         }
 
@@ -69,7 +69,7 @@ namespace Runtime.UI.Inventory
             _callbacks.Clear();
             _model.Enabled = false;
         }
-        
+
         private void CellClicked(CellModel cell)
         {
             _model.CellSelected(cell);

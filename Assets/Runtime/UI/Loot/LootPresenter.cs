@@ -47,7 +47,7 @@ namespace Runtime.UI.Loot
 
             Clear();
 
-            _world.TransferModel.TargetInventory.Value = unitModel.InventoryModel;
+            _world.TransferModel.TargetInventory.Value = unitModel.Inventory;
             _world.TransferModel.Mode.Value =
                 unitModel.Description.Fraction == "trader" ? TransferMode.Trade : TransferMode.Default;
 
@@ -60,7 +60,7 @@ namespace Runtime.UI.Loot
                 _inventoryView.Root.AddToClassList("loot-inventory");
             }
 
-            _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions,
+            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions,
                 _uiContent, _world);
             _currentInventory.Enable();
         }

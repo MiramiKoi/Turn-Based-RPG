@@ -20,11 +20,11 @@ namespace Runtime.Units
 
         public void Enable()
         {
-            _visibleSubscription = _model.Visible.Subscribe(OnVisibleChange);
+            _visibleSubscription = _model.State.Visible.Subscribe(OnVisibleChange);
 
             _model.Stats[VisibilityRadiusKey].ValueChanged += OnChangeVisibilityRadius;
 
-            OnVisibleChange(_model.Visible.Value);
+            OnVisibleChange(_model.State.Visible.Value);
         }
 
         public void Disable()

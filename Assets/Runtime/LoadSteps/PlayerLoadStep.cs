@@ -29,9 +29,9 @@ namespace Runtime.LoadSteps
         public async Task Run()
         {
             var characterModel = _world.UnitCollection.Create("character");
-            characterModel.MoveTo(new Vector2Int(50, 50));
+            characterModel.Movement.MoveTo(new Vector2Int(50, 50));
 
-            _world.GridModel.TryPlace(characterModel, characterModel.Position.Value);
+            _world.GridModel.TryPlace(characterModel, characterModel.State.Position.Value);
 
             var loadModelUiAsset = _world.AddressableModel.Load<VisualTreeAsset>(_worldViewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);

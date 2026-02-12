@@ -29,7 +29,7 @@ namespace Runtime.UI.Inventory.Cells
             _model.OnCellSelected += HandleCellSelected;
             _model.OnCellDeselected += HandleCellDeselected;
         }
-        
+
         public void Disable()
         {
             _model.OnChanged -= Update;
@@ -40,15 +40,15 @@ namespace Runtime.UI.Inventory.Cells
         private async void Update()
         {
             var hasItem = _model.Amount > 0;
-            
+
             if (hasItem)
             {
                 _view.Amount.style.display = DisplayStyle.Flex;
 
                 _view.Amount.text = _model.Amount.ToString();
-                
+
                 TogglePrice();
-                
+
                 var itemViewDescription = _viewDescriptions.ItemViewDescriptions.Get(_model.ItemDescription.ViewId);
                 var loadModel = _world.AddressableModel.Load<Sprite>(itemViewDescription.Icon.AssetGUID);
                 await loadModel.LoadAwaiter;
@@ -65,25 +65,25 @@ namespace Runtime.UI.Inventory.Cells
         {
             _view.Root.AddToClassList("cell-selected");
         }
-        
+
         private void HandleCellDeselected()
         {
             _view.Root.RemoveFromClassList("cell-selected");
         }
-        
+
         private void TogglePrice()
         {
             _view.Price.style.display = DisplayStyle.None;
-            
-            if (_model.ItemDescription == null || _model.ItemDescription.IsBuyable == false)
+
+            if (_model.ItemDescription == null || !_model.ItemDescription.IsBuyable)
             {
                 return;
             }
-            
+
             _view.Price.text = _model.ItemDescription.Price.ToString();
             _view.Price.style.display = DisplayStyle.Flex;
         }
-        
+
         private void Clear()
         {
             _view.Icon.style.backgroundImage = null;

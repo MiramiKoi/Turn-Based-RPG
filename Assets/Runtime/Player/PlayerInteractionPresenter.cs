@@ -92,10 +92,10 @@ namespace Runtime.Player
                 return;
             }
 
-            if (_model.CanMove() && _world.GridModel.TryPlace(_model, nextCell))
+            if (_model.ActionBlocker.CanExecute(UnitActionType.Move) && _world.GridModel.TryPlace(_model, nextCell))
             {
-                _world.GridModel.ReleaseCell(_model.Position.Value);
-                _model.MoveTo(nextCell);
+                _world.GridModel.ReleaseCell(_model.State.Position.Value);
+                _model.Movement.MoveTo(nextCell);
             }
             else
             {
@@ -106,17 +106,18 @@ namespace Runtime.Player
                         _world.LootModel.RequestLoot(unit);
                         StopRoute();
                     }
-                    else if (unit.Description.Fraction != _model.Description.Fraction && _model.CanAttack(nextCell))
+                    else if (unit.Description.Fraction != _model.Description.Fraction &&
+                             _model.Combat.CanAttack(nextCell))
                     {
                         var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
-                        var damage = _model.GetDamage();
-                        enemy.TakeDamage(damage);
+                        var damage = _model.Combat.GetDamage();
+                        enemy.Combat.TakeDamage(damage);
                     }
                 }
                 else
                 {
                     StopRoute();
-                    if (!_model.CanMove())
+                    if (!_model.ActionBlocker.CanExecute(UnitActionType.Move))
                     {
                         _model.IsExecutingRoute = true;
                     }

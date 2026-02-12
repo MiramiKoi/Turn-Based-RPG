@@ -65,12 +65,12 @@ namespace Runtime.UI.Inventory.Cells
         {
             OnCellSelected?.Invoke();
         }
-        
+
         public void CellDeselect()
         {
             OnCellDeselected?.Invoke();
         }
-        
+
         private void Clear()
         {
             ItemDescription = null;

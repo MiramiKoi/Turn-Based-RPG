@@ -27,7 +27,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 return NodeStatus.Failure;
             }
 
-            targetUnit.TakeDamage(controllableUnit.GetDamage());
+            targetUnit.Combat.TakeDamage(controllableUnit.Combat.GetDamage());
 
             return NodeStatus.Success;
         }
