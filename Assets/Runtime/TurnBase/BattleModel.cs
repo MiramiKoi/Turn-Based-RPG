@@ -9,10 +9,10 @@ namespace Runtime.TurnBase
 
         public void EnterToBattle(UnitModel unit)
         {
-            _units.Add(unit.Id, unit);
+            _units.TryAdd(unit.Id, unit);
         }
 
-        public void LeaveToBattle(UnitModel unit)
+        public void LeaveBattle(UnitModel unit)
         {
             _units.Remove(unit.Id);
         }
