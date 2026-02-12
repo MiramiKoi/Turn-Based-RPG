@@ -45,9 +45,9 @@ namespace Runtime.Player
 
         private void HandleTurnFinished()
         {
-            if (_model.IsDead)
+            if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
             {
-                _model.IsExecutingRoute = false;
+                StopRoute();
             }
 
             if (_model.IsExecutingRoute)

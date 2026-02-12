@@ -5,6 +5,7 @@ using Runtime.Agents;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.CustomAsync;
+using Runtime.Player;
 
 namespace Runtime.TurnBase
 {
@@ -46,7 +47,9 @@ namespace Runtime.TurnBase
             await ProcessAllSteps();
 
             await WaitParallelSteps();
-
+            
+            ChangePlayerMode();
+            
             _model.WorldStep();
         }
 
@@ -83,6 +86,11 @@ namespace Runtime.TurnBase
             }
 
             _parallelAwaiters.Clear();
+        }
+
+        private void ChangePlayerMode()
+        {
+            _world.PlayerModel.Mode = _model.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
         }
     }
 }
