@@ -41,6 +41,9 @@ namespace Runtime.UI.Inventory.Cells
 
                 _view.Amount.text = _model.Amount.ToString();
 
+                _view.Price.style.display = DisplayStyle.Flex;
+                _view.Price.text = _model.ItemDescription.Price.ToString();
+
                 var itemViewDescription = _viewDescriptions.ItemViewDescriptions.Get(_model.ItemDescription.ViewId);
                 var loadModel = _world.AddressableModel.Load<Sprite>(itemViewDescription.Icon.AssetGUID);
                 await loadModel.LoadAwaiter;
@@ -50,6 +53,7 @@ namespace Runtime.UI.Inventory.Cells
             else
             {
                 _view.Amount.style.display = DisplayStyle.None;
+                _view.Price.style.display = DisplayStyle.None;
                 _view.Icon.style.backgroundImage = null;
             }
         }
