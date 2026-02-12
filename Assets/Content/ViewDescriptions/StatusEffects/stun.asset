@@ -19,3 +19,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 
     m_EditorAssetChanged: 1
+  View:
+    m_AssetGUID: 1bdf3a33f9e0a0f46b04a94e91b27a0e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
