@@ -26,16 +26,22 @@ namespace Runtime.UI.Inventory.Cells
             Update();
 
             _model.OnChanged += Update;
+            _model.OnCellSelected += HandleCellSelected;
         }
 
         public void Disable()
         {
             _model.OnChanged -= Update;
+            _model.OnCellSelected -= HandleCellSelected;
         }
 
         private async void Update()
         {
-            if (_model.Amount > 0)
+            Clear();
+            
+            var hasItem = _model.Amount > 0;
+            
+            if (hasItem)
             {
                 _view.Amount.style.display = DisplayStyle.Flex;
 
@@ -52,10 +58,22 @@ namespace Runtime.UI.Inventory.Cells
             }
             else
             {
-                _view.Amount.style.display = DisplayStyle.None;
-                _view.Price.style.display = DisplayStyle.None;
-                _view.Icon.style.backgroundImage = null;
+                Clear();
             }
+        }
+
+        private void HandleCellSelected()
+        {
+            _view.Root.AddToClassList("cell-selected");
+        }
+
+        private void Clear()
+        {
+            _view.Root.RemoveFromClassList("cell-selected");
+            
+            _view.Icon.style.backgroundImage = null;
+            _view.Amount.style.display = DisplayStyle.None;
+            _view.Price.style.display = DisplayStyle.None;
         }
     }
 }

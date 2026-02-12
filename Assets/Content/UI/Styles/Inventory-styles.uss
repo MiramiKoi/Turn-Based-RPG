@@ -38,9 +38,5 @@
 }
 
 .cell-selected {
-    -unity-background-image-tint-color: rgb(136, 255, 174);
-}
-
-.cell:focus {
-    -unity-background-image-tint-color: rgb(177, 255, 202);
+    -unity-background-image-tint-color: rgb(140, 230, 255);
 }

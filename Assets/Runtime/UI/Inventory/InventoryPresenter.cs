@@ -76,6 +76,7 @@ namespace Runtime.UI.Inventory
         {
             if (_world.TransferModel.TrySetCell(cell, _model))
             {
+                cell.CellSelect();
                 return;
             }
 
