@@ -47,7 +47,7 @@ namespace Runtime.StatusEffects.Collection
 
             foreach (var model in _modelCollection.Models.Values)
             {
-                await AddPresenter(model);
+                AddPresenter(model);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Runtime.StatusEffects.Collection
             _presenters.Clear();
         }
 
-        private Task AddPresenter(StatusEffectModel model)
+        private void AddPresenter(StatusEffectModel model)
         {
             model.OnExpired += HandleChangeExpired;
 
@@ -73,7 +73,6 @@ namespace Runtime.StatusEffects.Collection
             var presenter = new StatusEffectPresenter(model, _viewPools[model.Description.ViewId], _unitModel, _world);
             _presenters[id] = presenter;
             presenter.Enable();
-            return Task.CompletedTask;
         }
 
         private void RemovePresenter(string id)
@@ -87,9 +86,9 @@ namespace Runtime.StatusEffects.Collection
             _modelCollection.Remove(statusEffectModel.Id);
         }
 
-        private async void HandleAdded(StatusEffectModel model)
+        private void HandleAdded(StatusEffectModel model)
         {
-            await AddPresenter(model);
+            AddPresenter(model);
         }
 
         private void HandleRemoved(StatusEffectModel model)
