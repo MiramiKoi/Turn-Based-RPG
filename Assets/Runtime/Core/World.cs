@@ -5,12 +5,14 @@ using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.GameSystems;
 using Runtime.Input;
-using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
 using Runtime.UI;
+using Runtime.UI.Inventory;
 using Runtime.UI.Loot;
+using Runtime.UI.Swap;
+using Runtime.UI.Transfer;
 using Runtime.Units;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -33,6 +35,7 @@ namespace Runtime.Core
         public UIBlocker UIBlocker { get; private set; }
         public LootModel LootModel { get; private set; }
         public TransferModel TransferModel { get; private set; }
+        public SwapModel SwapModel { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
             WorldDescription worldDescription, VisualElement uiRoot)
@@ -57,7 +60,8 @@ namespace Runtime.Core
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);
             LootModel = new LootModel();
-
+            SwapModel = new SwapModel();
+            
             TransferModel = new TransferModel();
         }
     }

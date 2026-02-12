@@ -1,20 +1,20 @@
+using System;
 using Runtime.Core;
 using Runtime.Descriptions.Items;
-using Runtime.Items.Transfer;
+using Runtime.UI.Transfer;
 
-namespace Runtime.Items.Trade
+namespace Runtime.UI.Trade
 {
     public class TradePresenter : TransferPresenter
     {
         private readonly ItemDescription _moneyItem;
-        
-        public TradePresenter(TransferModel model, World world) : base(model, world)
+
+        public TradePresenter(TransferModel model, World world) : base(model)
         {
-            _world.WorldDescription.ItemCollection.Descriptions.TryGetValue("money", out var moneyItem);
-            _moneyItem = moneyItem;
+            world.WorldDescription.ItemCollection.Descriptions.TryGetValue("money", out _moneyItem);
         }
 
-        protected override void CellTransfer()
+        protected override void Execute()
         {
             if (_model.SourceCell == null || _model.TargetCell == null)
             {
@@ -23,22 +23,23 @@ namespace Runtime.Items.Trade
 
             if (!_model.CurrentItem.IsBuyable)
             {
-                Clear();
                 return;
             }
-    
-            var price = _model.CurrentItem.Price * _model.CurrentAmount;
-            
+
+            var remaining = _model.CurrentItem.StackSize - _model.TargetCell.Amount;
+            var canPut = Math.Min(remaining, _model.CurrentAmount);
+            var price = _model.CurrentItem.Price * canPut;
+
             var takenMoney = _model.TargetInventory.TryTakeItem(_moneyItem, price);
-    
+
             if (takenMoney < price)
             {
                 _model.TargetInventory.TryPutItem(_moneyItem, takenMoney);
                 return;
             }
-            
-            base.CellTransfer();
-            
+
+            base.Execute();
+
             _model.SourceInventory.TryPutItem(_moneyItem, price);
         }
     }

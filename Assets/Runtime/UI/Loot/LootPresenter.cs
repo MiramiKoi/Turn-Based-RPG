@@ -1,6 +1,8 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.UI.Inventory;
+using Runtime.UI.Trade;
+using Runtime.UI.Transfer;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 
@@ -14,6 +16,7 @@ namespace Runtime.UI.Loot
         private readonly UIContent _uiContent;
         private readonly InventoryView _inventoryView;
         private readonly WorldViewDescriptions _viewDescriptions;
+        private TransferPresenter _transferPresenter;
 
         public LootPresenter(World world, UIContent uiContent, WorldViewDescriptions viewDescriptions)
         {
@@ -38,30 +41,40 @@ namespace Runtime.UI.Loot
 
         private void Show(IUnit unit)
         {
-            if (unit is UnitModel unitModel)
+            if (unit is not UnitModel unitModel)
             {
-                Clear();
-                
-                if (unitModel.Description.Fraction == "trader")
-                {
-                    _inventoryView.Root.AddToClassList("trade-inventory");
-                }
-                else
-                {
-                    _inventoryView.Root.AddToClassList("loot-inventory");
-                }
-
-                _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions,
-                    _uiContent, _world);
-                
-                _currentInventory.Enable();
+                return;
             }
+            
+            Clear();
+                
+            if (unitModel.Description.Fraction == "trader")
+            {
+                _inventoryView.Root.AddToClassList("trade-inventory");
+                _transferPresenter = new TradePresenter(_world.TransferModel, _world);
+            }
+            else
+            {
+                _inventoryView.Root.AddToClassList("loot-inventory");
+                _transferPresenter = new TransferPresenter(_world.TransferModel);
+            }
+
+            _transferPresenter.Enable();
+                
+            _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions,
+                _uiContent, _world);
+                
+            _currentInventory.Enable();
         }
 
         private void Clear()
         {
             _inventoryView.Root.RemoveFromClassList("trade-inventory");
             _inventoryView.Root.RemoveFromClassList("loot-inventory");
+            
+            _transferPresenter?.Disable();
+            _transferPresenter = null;
+            
             _currentInventory?.Disable();
             _currentInventory = null;
         }

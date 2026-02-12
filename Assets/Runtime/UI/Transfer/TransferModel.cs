@@ -3,7 +3,7 @@ using Runtime.Descriptions.Items;
 using Runtime.UI.Inventory;
 using Runtime.UI.Inventory.Cells;
 
-namespace Runtime.Items.Transfer
+namespace Runtime.UI.Transfer
 {
     public class TransferModel
     {
@@ -14,6 +14,7 @@ namespace Runtime.Items.Transfer
         public InventoryModel TargetInventory { get; set; }
         public ItemDescription CurrentItem { get; private set; }
         public int CurrentAmount { get; private set; }
+        public bool IsEnabled { get; set; }
 
         public bool TrySetCell(CellModel sourceCell, InventoryModel sourceInventory)
         {
@@ -21,19 +22,19 @@ namespace Runtime.Items.Transfer
             {
                 return false;
             }
-
-            if (SourceCell == null)
+            
+            if (SourceCell != null)
             {
-                SourceCell = sourceCell;
-                SourceInventory = sourceInventory;
-                CurrentItem = SourceCell.ItemDescription;
-                CurrentAmount = SourceCell.Amount;
-                return true;
+                return false;
             }
 
-            return false;
+            SourceCell = sourceCell;
+            SourceInventory = sourceInventory;
+            CurrentItem = sourceCell.ItemDescription;
+            CurrentAmount = sourceCell.Amount;
+            return true;
         }
-        
+
         public void Transfer()
         {
             if (CurrentItem == null || CurrentAmount == 0)
@@ -48,6 +49,8 @@ namespace Runtime.Items.Transfer
         {
             CurrentItem = null;
             CurrentAmount = 0;
+            SourceCell = null;
+            TargetCell = null;
             SourceInventory = null;
             TargetInventory = null;
         }

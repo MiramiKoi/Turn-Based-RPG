@@ -74,20 +74,21 @@ namespace Runtime.UI.Inventory
 
         private void CellClicked(CellModel cell)
         {
-            if (_world.TransferModel.TrySetCell(cell, _model))
+            if (_world.TransferModel.SourceCell != null)
             {
-                cell.CellSelect();
+                _world.TransferModel.TargetCell = cell;
+                _world.TransferModel.TargetInventory = _model;
+                _world.TransferModel.Transfer();
                 return;
             }
 
-            if (_world.TransferModel.SourceCell == null)
+            if (cell.ItemDescription == null)
             {
                 return;
             }
-            
-            _world.TransferModel.TargetCell = cell;
-            _world.TransferModel.TargetInventory = _model;
-            _world.TransferModel.Transfer();
+
+            _world.TransferModel.TrySetCell(cell, _model);
+            cell.CellSelect();
         }
     }
 }
