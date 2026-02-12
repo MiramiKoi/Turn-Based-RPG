@@ -11,6 +11,7 @@ namespace Runtime.Descriptions.Units
         public string ViewId { get; }
         public int InventorySize { get; }
         public Dictionary<string, int> Loot { get; }
+        public List<string> Equipment { get; }
 
         public UnitDescription(string id, Dictionary<string, object> data) : base(id)
         {
@@ -19,6 +20,7 @@ namespace Runtime.Descriptions.Units
             Fraction = data.GetString("fraction");
             InventorySize = data.GetInt("inventory_size");
             Loot = data.GetDictionary<string, int>("loot");
+            Equipment = data.GetList<string>("equipment");
         }
     }
 }

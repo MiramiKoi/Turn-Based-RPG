@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Descriptions.Items;
 using Runtime.Descriptions.Units;
+using Runtime.Equipment;
 using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.UI.Inventory;
@@ -25,6 +27,7 @@ namespace Runtime.Units
         public IReadOnlyReactiveProperty<UnitDirection> Direction => _direction;
         public StatModelCollection Stats { get; }
         public InventoryModel InventoryModel { get; }
+        public EquipmentModel Equipment { get; }
         public IReadOnlyDictionary<string, bool> Flags => _flags;
         public IReadOnlyDictionary<string, Vector2Int> PointOfInterest => _pointOfInterest;
         public StatusEffectApplierModel ActiveEffects { get; }
@@ -49,6 +52,13 @@ namespace Runtime.Units
                 InventoryModel.TryPutItem(item, amount);
             }
 
+            Equipment = new EquipmentModel();
+            foreach (var equipmentId in description.Equipment)
+            {
+                worldDescription.ItemCollection.Descriptions.TryGetValue(equipmentId, out var equipment);
+                Equipment.Add((EquipmentItemDescription)equipment);
+            }
+            
             MoveTo(position);
         }
 
@@ -94,7 +104,13 @@ namespace Runtime.Units
         {
             OnAttacked?.Invoke();
 
-            return Stats["attack_damage"].Value;
+            var damage = Stats["attack_damage"].Value;
+            if (Equipment.TryGetStats("weapon", out var weaponStats))
+            {
+                damage = weaponStats["damage"].MaxValue;
+            }
+            
+            return damage;
         }
 
         public bool CanAttack(Vector2Int position)
@@ -116,6 +132,11 @@ namespace Runtime.Units
         {
             OnDamaging?.Invoke();
 
+            if (Equipment.TryGetStats("armour", out var armourStats))
+            {
+                damage *= 1 - armourStats["protection"].MaxValue / 100f;
+            }
+            
             Stats["health"].ChangeValue(-damage);
         }
 
