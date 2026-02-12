@@ -104,6 +104,8 @@ namespace Runtime.Units
         private async void OnPositionChanged(Vector2Int position)
         {
             _world.GridModel.GetCell(_model.Position.Value).Release();
+            _world.GridModel.GetCell(position).Occupied(_model);
+            
             var step = CreateStep(StepType.Parallel);
 
             await step.AllowedAwaiter;
@@ -111,7 +113,6 @@ namespace Runtime.Units
             View.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
             await PlayAnimation(IsMoving, 0.2f);
 
-            _world.GridModel.GetCell(position).Occupied(_model);
             step.CompletedAwaiter.Complete();
         }
 
