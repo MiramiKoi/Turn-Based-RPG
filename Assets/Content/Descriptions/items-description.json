@@ -1,12 +1,23 @@
 {
+  "money": {
+    "type": "resource",
+    "view_id": "Money",
+    "stack_size": 50,
+    "is_buyable": false,
+    "price": 1
+  },
   "bear_fur": {
     "type": "resource",
     "view_id": "Bear-fur",
-    "stack_size": 10
+    "stack_size": 10,
+    "is_buyable": true,
+    "price": 30
   },
   "bear_meat": {
     "type": "food",
     "view_id": "Bear-meat",
-    "stack_size": 20
+    "stack_size": 20,
+    "is_buyable": true,
+    "price": 10
   }
 }
