@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.Common.ObjectPool;
 using Runtime.Core;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
@@ -13,25 +13,35 @@ namespace Runtime.StatusEffects.Collection
     public class StatusEffectCollectionPresenter : IPresenter
     {
         private readonly StatusEffectModelCollection _modelCollection;
+        private readonly StatusEffectCollectionView _collectionView;
         private readonly StatusEffectViewDescriptionCollection _viewDescriptions;
-        private readonly UnitView _unitView;
         private readonly UnitModel _unitModel;
         private readonly World _world;
+        
+        private readonly Dictionary<string, IObjectPool<StatusEffectView>> _viewPools = new();
+        private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
-        private readonly Dictionary<string, (StatusEffectPresenter, LoadModel<GameObject>)> _presenters = new();
-
-        public StatusEffectCollectionPresenter(UnitModel unitModel, UnitView unitUnitView, World world,
+        public StatusEffectCollectionPresenter(UnitModel unitModel, UnitView unitView, World world,
             WorldViewDescriptions viewDescriptions)
         {
             _modelCollection = unitModel.ActiveEffects.Collection;
+            _collectionView = unitView.StatusEffectCollectionView;
             _unitModel = unitModel;
-            _unitView = unitUnitView;
             _world = world;
             _viewDescriptions = viewDescriptions.StatusEffectViewDescriptions;
         }
 
         public async void Enable()
         {
+            foreach (var viewDescription in _viewDescriptions.Descriptions)
+            {
+                var loadModel = _world.AddressableModel.Load<GameObject>(viewDescription.View.AssetGUID);
+                await loadModel.LoadAwaiter;
+                var prefab = loadModel.Result.GetComponent<StatusEffectView>();
+                _viewPools[viewDescription.Id] = new ObjectPool<StatusEffectView>(prefab, 5, _collectionView.Transform);
+                _world.AddressableModel.Unload(loadModel);
+            }
+            
             _modelCollection.OnAdded += HandleAdded;
             _modelCollection.OnRemoved += HandleRemoved;
 
@@ -46,40 +56,29 @@ namespace Runtime.StatusEffects.Collection
             _modelCollection.OnAdded -= HandleAdded;
             _modelCollection.OnRemoved -= HandleRemoved;
 
-            foreach (var (presenter, loadModel) in _presenters.Values)
+            foreach (var presenter in _presenters.Values)
             {
                 presenter.Disable();
-                _world.AddressableModel.Unload(loadModel);
             }
 
             _presenters.Clear();
         }
 
-        private async Task AddPresenter(StatusEffectModel model)
+        private Task AddPresenter(StatusEffectModel model)
         {
             model.OnExpired += HandleChangeExpired;
 
             var id = model.Id;
-
-            var viewDescription = _viewDescriptions.Get(model.Description.ViewId);
-            var loadModel = _world.AddressableModel.Load<GameObject>(viewDescription.View.AssetGUID);
-
-            await loadModel.LoadAwaiter;
-
-            var viewPrefab = loadModel.Result.GetComponent<StatusEffectView>();
-
-            var view = (await Object.InstantiateAsync(viewPrefab, _unitView.Transform))[0];
-            view.Transform.position = _unitView.Transform.position;
-
-            var presenter = new StatusEffectPresenter(model, view, _unitModel, _world);
-            _presenters[id] = (presenter, loadModel);
+            
+            var presenter = new StatusEffectPresenter(model, _viewPools[model.Description.ViewId], _unitModel, _world);
+            _presenters[id] = presenter;
             presenter.Enable();
+            return Task.CompletedTask;
         }
 
         private void RemovePresenter(string id)
         {
-            _presenters[id].Item1.Disable();
-            _world.AddressableModel.Unload(_presenters[id].Item2);
+            _presenters[id].Disable();
             _presenters.Remove(id);
         }
 
