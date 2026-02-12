@@ -62,10 +62,10 @@ namespace Runtime.Units
             _unitVisiblePresenter = new UnitVisiblePresenter(_model, View);
             _unitVisiblePresenter.Enable();
 
-            _model.State.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
-            _model.Movement.OnMove += HandleMoved;
-            _model.Combat.OnAttacked += OnAttacked;
-            _model.Combat.OnDamaged += OnDamaged;
+            _model.State.Direction.Subscribe(HandleRotationChange).AddTo(_disposables);
+            _model.Movement.OnMove += HandleMove;
+            _model.Combat.OnAttacked += HandleAttack;
+            _model.Combat.OnDamaged += HandleDamage;
 
             View.Transform.position = new Vector3(_model.State.Position.Value.x, _model.State.Position.Value.y, 0);
             _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_model.Effects, _model, _world);
@@ -83,9 +83,9 @@ namespace Runtime.Units
         {
             _pool.Release(View);
             
-            _model.Movement.OnMove -= HandleMoved;
-            _model.Combat.OnAttacked -= OnAttacked;
-            _model.Combat.OnDamaged -= OnDamaged;
+            _model.Movement.OnMove -= HandleMove;
+            _model.Combat.OnAttacked -= HandleAttack;
+            _model.Combat.OnDamaged -= HandleDamage;
             _disposables.Dispose();
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
@@ -99,12 +99,12 @@ namespace Runtime.Units
             _unitVisiblePresenter = null;
         }
 
-        private void OnRotationChanged(UnitDirection direction)
+        private void HandleRotationChange(UnitDirection direction)
         {
             View.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
 
-        private async void HandleMoved(Vector2Int position)
+        private async void HandleMove(Vector2Int position)
         {
             _world.GridModel.ReleaseCell(_model.State.Position.Value);
             _world.GridModel.GetCell(position).Occupied(_model);
@@ -119,7 +119,7 @@ namespace Runtime.Units
             step.CompletedAwaiter.Complete();
         }
 
-        private async void OnAttacked()
+        private async void HandleAttack()
         {
             var step = CreateStep(StepType.Parallel);
 
@@ -130,7 +130,7 @@ namespace Runtime.Units
             step.CompletedAwaiter.Complete();
         }
 
-        private async void OnDamaged()
+        private async void HandleDamage()
         {
             var step = CreateStep(StepType.Consistent);
 
