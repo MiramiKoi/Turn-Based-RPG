@@ -66,15 +66,15 @@ namespace Runtime.Units
             _unit.OnDamaging += OnDamaged;
 
             View.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
+            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_unit.ActiveEffects, _unit, _world);
+            _statusEffectApplierPresenter.Enable();
 
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
+            
             _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, View, _world, _viewDescriptions);
-            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_unit.ActiveEffects, _unit, _world);
-
             _statusEffectsPresenter.Enable();
-            _statusEffectApplierPresenter.Enable();
         }
 
         public virtual void Disable()
