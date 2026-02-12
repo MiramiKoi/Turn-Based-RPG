@@ -1,11 +1,14 @@
 using System;
 using Runtime.Common;
 using UniRx;
+using UnityEngine;
 
 namespace Runtime.Units
 {
     public class UnitVisiblePresenter : IPresenter
     {
+        private const string VisibilityRadiusKey = "visibility_radius";
+        
         private readonly UnitView _view;
         private readonly UnitModel _model;
         private IDisposable _visibleSubscription;
@@ -20,17 +23,30 @@ namespace Runtime.Units
         {
             _visibleSubscription = _model.Visible.Subscribe(OnVisibleChange);
 
+            _model.Stats[VisibilityRadiusKey].ValueChanged += OnChangeVisibilityRadius;
+            
             OnVisibleChange(_model.Visible.Value);
         }
 
         public void Disable()
         {
+            _model.Stats[VisibilityRadiusKey].ValueChanged -= OnChangeVisibilityRadius;
+            
             _visibleSubscription?.Dispose();
         }
 
         private void OnVisibleChange(bool value)
         {
             _view.SpriteRenderer.enabled = value;
+            
+        }
+
+        private void OnChangeVisibilityRadius(float radius)
+        {
+            if (_view.Light != null)
+            {
+                _view.Light.pointLightOuterRadius = radius;
+            }
         }
     }
 }

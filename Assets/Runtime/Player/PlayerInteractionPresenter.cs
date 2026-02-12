@@ -116,6 +116,10 @@ namespace Runtime.Player
                 else
                 {
                     StopRoute();
+                    if (!_model.CanMove())
+                    {
+                        _model.IsExecutingRoute = true;
+                    }
                 }
             }
         }

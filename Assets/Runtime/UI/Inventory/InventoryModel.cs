@@ -29,7 +29,7 @@ namespace Runtime.UI.Inventory
 
             var remaining = amount;
             
-            /*foreach (var cell in Cells)
+            foreach (var cell in Cells)
             {
                 if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
                 {
@@ -43,7 +43,7 @@ namespace Runtime.UI.Inventory
                 {
                     return amount;
                 }
-            }*/
+            }
 
             foreach (var cell in Cells)
             {

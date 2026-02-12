@@ -1,22 +1,24 @@
 {
-  "name": "Pivo.TurnBasedRPG.Runtime",
-  "references": [
-    "GUID:c19d80a018416d84e81aa66550f38117",
-    "GUID:84651a3751eca9349aac36a66bba901b",
-    "GUID:9e24947de15b9834991c9d8411ea37cf",
-    "GUID:75469ad4d38634e559750d17036d5f7c",
-    "GUID:560b04d1a97f54a4e82edc0cbbb69285",
-    "GUID:4307f53044263cf4b835bd812fc161a4",
-    "GUID:26d224137ddfcfe49857fa4924349edb",
-    "GUID:a96e248022a96fd4298c28f216b32bd3"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "Pivo.TurnBasedRPG.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c19d80a018416d84e81aa66550f38117",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:26d224137ddfcfe49857fa4924349edb",
+        "GUID:a96e248022a96fd4298c28f216b32bd3",
+        "GUID:516a5277b8c3b4f4c8cc86b77b1591ff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -1,16 +1,24 @@
+using Runtime.StatusEffects.Collection;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.U2D;
 
 namespace Runtime.Units
 {
     public class UnitView : MonoBehaviour
     {
-        [SerializeField] private Transform _transform;
-        public Transform Transform => _transform;
+        public Transform Transform { get; private set; }
 
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
 
-        [SerializeField] private Animator _animator;
-        public Animator Animator => _animator;
+        [field: SerializeField] public Animator Animator { get; private set; }
+
+        [field: SerializeField] public StatusEffectCollectionView StatusEffectCollectionView { get; private set; }
+        [field: SerializeField] public Light2D Light { get; private set; }
+
+        private void Awake()
+        {
+            Transform = transform;
+        }
     }
 }

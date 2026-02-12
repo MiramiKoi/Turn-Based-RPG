@@ -27,18 +27,18 @@ namespace Runtime.Landscape.Grid.Interaction
                 _view.IndicationTilemap.ClearAllTiles();
                 return;
             }
-            
+
             if (!_model.IsActive.Value)
             {
                 return;
             }
-            
+
             var mousePosition = _world.PlayerControls.Gameplay.PointerPosition.ReadValue<Vector2>();
-            
+
             var worldPosition =
                 _world.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
             var nextCellPosition = _view.IndicationTilemap.WorldToCell(worldPosition);
-            
+
             if (nextCellPosition is { x: < GridConstants.Width, y: < GridConstants.Height } and
                 { x: >= 0, y: >= 0 })
             {

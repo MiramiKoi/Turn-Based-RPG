@@ -1,22 +1,30 @@
 ﻿using MoonSharp.Interpreter;
 using Runtime.Common;
+using Runtime.Common.ObjectPool;
 using Runtime.Core;
+using Runtime.CustomAsync;
 using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
+using UnityEngine;
 
 namespace Runtime.StatusEffects
 {
     public class StatusEffectPresenter : IPresenter
     {
         private readonly StatusEffectModel _model;
+        private readonly IObjectPool<StatusEffectView> _pool;
         private readonly World _world;
+
         private readonly Table _module;
         private readonly Table _context;
         private readonly Table _effectTable;
+        
+        private StatusEffectView _view;
 
-        public StatusEffectPresenter(StatusEffectModel model, UnitModel unit, World world)
+        public StatusEffectPresenter(StatusEffectModel model, IObjectPool<StatusEffectView> pool, UnitModel unit, World world)
         {
             _model = model;
+            _pool = pool;
             _world = world;
 
             _module = LuaRuntime.Instance.GetModuleAsync(model.Description.LuaScript);
@@ -30,9 +38,12 @@ namespace Runtime.StatusEffects
 
         public void Enable()
         {
+            _view = _pool.Get();
+            
             if (CallBool("CanApply"))
             {
                 Call("OnApply");
+                PlayParticle(_view.OnApplyParticle);
             }
 
             switch (_model.Description.Polarity)
@@ -49,9 +60,19 @@ namespace Runtime.StatusEffects
             }
         }
 
-        public void Disable()
+        public async void Disable()
         {
             Call("OnRemove");
+
+            PlayParticle(_view.OnRemoveParticle);
+
+            StopParticle(_view.OnApplyParticle);
+
+            var awaiter = new ScheduleAwaiter(_view.OnRemoveParticle.main.duration);
+            awaiter.Start();
+            await awaiter;
+
+            _pool.Release(_view);
 
             switch (_model.Description.Polarity)
             {
@@ -64,6 +85,22 @@ namespace Runtime.StatusEffects
                 case Polarity.Mixed:
                     _world.TurnBaseModel.OnMixedBuffTick -= HandleTick;
                     break;
+            }
+        }
+
+        private void PlayParticle(ParticleSystem system)
+        {
+            if (system != null)
+            {
+                system.Play();
+            }
+        }
+
+        private void StopParticle(ParticleSystem system)
+        {
+            if (system != null)
+            {
+                system.Stop();
             }
         }
 
@@ -102,6 +139,7 @@ namespace Runtime.StatusEffects
         private void HandleTick()
         {
             Call("OnTick");
+            PlayParticle(_view.OnTickParticle);
 
             if (!CallBool("CanTick"))
             {
