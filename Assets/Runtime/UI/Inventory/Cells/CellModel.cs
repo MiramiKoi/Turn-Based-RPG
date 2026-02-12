@@ -8,8 +8,6 @@ namespace Runtime.UI.Inventory.Cells
         public event Action OnChanged;
         public event Action OnCellSelected;
         public event Action OnCellDeselected;
-        public event Action OnPriceEnabled;
-        public event Action OnPriceDisabled;
         public ItemDescription ItemDescription { get; private set; }
         public int Amount { get; private set; }
 
@@ -71,16 +69,6 @@ namespace Runtime.UI.Inventory.Cells
         public void CellDeselect()
         {
             OnCellDeselected?.Invoke();
-        }
-        
-        public void EnablePrice()
-        {
-            OnPriceEnabled?.Invoke();
-        }
-        
-        public void DisablePrice()
-        {
-            OnPriceDisabled?.Invoke();
         }
         
         private void Clear()

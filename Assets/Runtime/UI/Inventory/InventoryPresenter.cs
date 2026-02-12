@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.UI.Inventory.Cells;
-using Runtime.UI.Transfer;
 using Runtime.ViewDescriptions;
-using UniRx;
 using UnityEngine.UIElements;
 
 namespace Runtime.UI.Inventory
@@ -18,7 +16,6 @@ namespace Runtime.UI.Inventory
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly UIContent _uiContent;
         private readonly List<(VisualElement root, EventCallback<ClickEvent> callback)> _callbacks = new();
-        private readonly CompositeDisposable _disposables = new();
 
         public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions,
             UIContent uiContent, World world)
@@ -49,16 +46,12 @@ namespace Runtime.UI.Inventory
                 _callbacks.Add((cellView.Root, callback));
                 _cellsPresenters.Add(cellPresenter);
             }
-
-            _world.TransferModel.Mode.Subscribe(OnModeChanged).AddTo(_disposables);
             
             _model.Enabled = true;
         }
 
         public void Disable()
         {
-            SetPrices(TransferMode.Default);
-            
             foreach (var cellPresenter in _cellsPresenters)
             {
                 cellPresenter.Disable();
@@ -74,33 +67,12 @@ namespace Runtime.UI.Inventory
             }
 
             _callbacks.Clear();
-            _disposables.Clear();
             _model.Enabled = false;
         }
         
         private void CellClicked(CellModel cell)
         {
             _model.CellSelected(cell);
-        }
-        
-        private void OnModeChanged(TransferMode mode)
-        {
-            SetPrices(mode);
-        }
-        
-        private void SetPrices(TransferMode mode)
-        {
-            foreach (var cell in _model.Cells)
-            {
-                if (mode == TransferMode.Trade)
-                {
-                    cell.EnablePrice();
-                }
-                else
-                {
-                    cell.DisablePrice();
-                }
-            }
         }
     }
 }

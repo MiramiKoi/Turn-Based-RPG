@@ -28,8 +28,6 @@ namespace Runtime.UI.Inventory.Cells
             _model.OnChanged += Update;
             _model.OnCellSelected += HandleCellSelected;
             _model.OnCellDeselected += HandleCellDeselected;
-            _model.OnPriceEnabled += HandlePriceEnabled;
-            _model.OnPriceDisabled += HandlePriceDisabled;
         }
         
         public void Disable()
@@ -49,7 +47,7 @@ namespace Runtime.UI.Inventory.Cells
 
                 _view.Amount.text = _model.Amount.ToString();
                 
-                HandlePriceEnabled();
+                TogglePrice();
                 
                 var itemViewDescription = _viewDescriptions.ItemViewDescriptions.Get(_model.ItemDescription.ViewId);
                 var loadModel = _world.AddressableModel.Load<Sprite>(itemViewDescription.Icon.AssetGUID);
@@ -73,9 +71,9 @@ namespace Runtime.UI.Inventory.Cells
             _view.Root.RemoveFromClassList("cell-selected");
         }
         
-        private void HandlePriceEnabled()
+        private void TogglePrice()
         {
-            HandlePriceDisabled();
+            _view.Price.style.display = DisplayStyle.None;
             
             if (_model.ItemDescription == null || _model.ItemDescription.IsBuyable == false)
             {
@@ -84,11 +82,6 @@ namespace Runtime.UI.Inventory.Cells
             
             _view.Price.text = _model.ItemDescription.Price.ToString();
             _view.Price.style.display = DisplayStyle.Flex;
-        }
-        
-        private void HandlePriceDisabled()
-        {
-            _view.Price.style.display = DisplayStyle.None;
         }
         
         private void Clear()
