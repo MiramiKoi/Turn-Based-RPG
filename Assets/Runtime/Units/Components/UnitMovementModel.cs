@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Runtime.Units
+namespace Runtime.Units.Components
 {
     public class UnitMovementModel
     {

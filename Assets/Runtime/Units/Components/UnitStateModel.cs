@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 
-namespace Runtime.Units
+namespace Runtime.Units.Components
 {
     public class UnitStateModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Runtime.Units
+namespace Runtime.Units.Components
 {
     public class ActionBlockerModel
     {

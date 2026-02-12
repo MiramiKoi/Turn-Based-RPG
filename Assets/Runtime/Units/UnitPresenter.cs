@@ -9,6 +9,7 @@ using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.StatusEffects.Collection;
 using Runtime.TurnBase;
+using Runtime.Units.Components;
 using Runtime.ViewDescriptions;
 using UniRx;
 using UnityEngine;

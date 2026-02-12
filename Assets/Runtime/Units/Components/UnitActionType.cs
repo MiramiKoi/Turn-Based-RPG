@@ -1,4 +1,4 @@
-﻿namespace Runtime.Units
+﻿namespace Runtime.Units.Components
 {
     public enum UnitActionType
     {

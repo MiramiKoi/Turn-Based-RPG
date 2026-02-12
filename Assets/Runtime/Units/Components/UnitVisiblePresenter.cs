@@ -2,7 +2,7 @@ using System;
 using Runtime.Common;
 using UniRx;
 
-namespace Runtime.Units
+namespace Runtime.Units.Components
 {
     public class UnitVisiblePresenter : IPresenter
     {

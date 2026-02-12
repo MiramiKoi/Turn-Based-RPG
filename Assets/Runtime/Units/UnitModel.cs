@@ -7,6 +7,7 @@ using Runtime.ModelCollections;
 using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.UI.Inventory;
+using Runtime.Units.Components;
 using UnityEngine;
 
 namespace Runtime.Units
