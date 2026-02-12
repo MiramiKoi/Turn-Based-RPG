@@ -8,6 +8,7 @@ using Runtime.Input;
 using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
+using Runtime.Player;
 using Runtime.TurnBase;
 using Runtime.UI;
 using Runtime.UI.Loot;
@@ -30,6 +31,7 @@ namespace Runtime.Core
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
         public AgentModelCollection AgentCollection { get; private set; }
+        public PlayerModel PlayerModel => (PlayerModel)UnitCollection.Get("character");
         public UIBlocker UIBlocker { get; private set; }
         public LootModel LootModel { get; private set; }
         public TransferModel TransferModel { get; private set; }
