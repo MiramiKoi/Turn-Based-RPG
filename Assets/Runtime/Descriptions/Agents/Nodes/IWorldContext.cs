@@ -1,4 +1,5 @@
 using Runtime.Landscape.Grid;
+using Runtime.TurnBase;
 using Runtime.Units;
 
 namespace Runtime.Descriptions.Agents.Nodes
@@ -7,5 +8,6 @@ namespace Runtime.Descriptions.Agents.Nodes
     {
         GridModel GridModel { get; }
         UnitModelCollection UnitCollection { get; }
+        TurnBaseModel TurnBaseModel { get; }
     }
 }

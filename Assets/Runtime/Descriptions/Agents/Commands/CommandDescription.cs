@@ -40,6 +40,8 @@ namespace Runtime.Descriptions.Agents.Commands
                 "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
                 "attack_point_of_interest" => new AttackPointOfInterestCommand(),
                 "stat_condition" => new StatCondition(),
+                "enter_to_battle" => new EnterToBattleCommand(),
+                "leave_battle" => new LeaveBattleCommand(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

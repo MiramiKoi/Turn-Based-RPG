@@ -46,7 +46,9 @@ namespace Editor.Agents.Nodes
                     "set_point_of_interest_with_fraction",
                     "can_place_point_of_interest",
                     "attack_point_of_interest",
-                    "stat_condition"
+                    "stat_condition",
+                    "enter_to_battle",
+                    "leave_battle"
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -114,6 +116,12 @@ namespace Editor.Agents.Nodes
                     break;
                 case "stat_condition":
                     SetupFields<StatCondition>();
+                    break;
+                case "enter_to_battle":
+                    SetupFields<EnterToBattleCommand>();
+                    break;
+                case "leave_battle":
+                    SetupFields<LeaveBattleCommand>();
                     break;
             }
         }
