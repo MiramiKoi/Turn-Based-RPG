@@ -1,6 +1,7 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.UI.Inventory;
+using Runtime.UI.Transfer;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
 
@@ -22,7 +23,6 @@ namespace Runtime.UI.Loot
             _viewDescriptions = viewDescriptions;
 
             _inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
-            _inventoryView.Root.AddToClassList("loot-inventory");
         }
 
         public void Enable()
@@ -35,25 +35,42 @@ namespace Runtime.UI.Loot
         {
             _world.LootModel.OnLootRequested -= Show;
             _world.TurnBaseModel.OnPlayerStepFinished -= Clear;
+            Clear();
         }
 
         private void Show(IUnit unit)
         {
-            if (unit is not UnitModel { IsDead: true } unitModel)
+            if (unit is not UnitModel unitModel)
             {
                 return;
             }
 
             Clear();
 
-            _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions,
-                _uiContent, _world);
+            _world.TransferModel.TargetInventory.Value = unitModel.InventoryModel;
+            _world.TransferModel.Mode.Value = unitModel.Description.Fraction == "trader" ? TransferMode.Trade : TransferMode.Default;
 
+            if (unitModel.Description.Fraction == "trader")
+            {
+                _inventoryView.Root.AddToClassList("trade-inventory");
+            }
+            else
+            {
+                _inventoryView.Root.AddToClassList("loot-inventory");
+            }
+
+            _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions, _uiContent, _world);
             _currentInventory.Enable();
         }
 
         private void Clear()
         {
+            _world.TransferModel.TargetInventory.Value = null;
+            _world.TransferModel.Mode.Value = TransferMode.Default;
+
+            _inventoryView.Root.RemoveFromClassList("trade-inventory");
+            _inventoryView.Root.RemoveFromClassList("loot-inventory");
+
             _currentInventory?.Disable();
             _currentInventory = null;
         }

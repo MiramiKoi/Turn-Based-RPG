@@ -7,7 +7,6 @@ using Runtime.Common;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
-using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
 using Runtime.Player;
@@ -82,9 +81,6 @@ namespace Runtime.Core
 
             var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
             lootPresenter.Enable();
-
-            var transferPresenter = new TransferPresenter(_world.TransferModel);
-            transferPresenter.Enable();
         }
 
         private void Update()

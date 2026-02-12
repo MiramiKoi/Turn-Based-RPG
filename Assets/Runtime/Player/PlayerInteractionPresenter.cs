@@ -97,26 +97,29 @@ namespace Runtime.Player
                 _world.GridModel.ReleaseCell(_model.Position.Value);
                 _model.MoveTo(nextCell);
             }
-            else if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
-            {
-                if (unit.IsDead)
-                {
-                    _world.LootModel.RequestLoot(unit);
-                    StopRoute();
-                }
-                else if (unit.Description.Fraction != _model.Description.Fraction && _model.CanAttack(nextCell))
-                {
-                    var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
-                    var damage = _model.GetDamage();
-                    enemy.TakeDamage(damage);
-                }
-            }
             else
             {
-                StopRoute();
-                if (!_model.CanMove())
+                if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
                 {
-                    _model.IsExecutingRoute = true;
+                    if (unit.IsDead || unit.Description.Fraction == "trader")
+                    {
+                        _world.LootModel.RequestLoot(unit);
+                        StopRoute();
+                    }
+                    else if (unit.Description.Fraction != _model.Description.Fraction && _model.CanAttack(nextCell))
+                    {
+                        var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
+                        var damage = _model.GetDamage();
+                        enemy.TakeDamage(damage);
+                    }
+                }
+                else
+                {
+                    StopRoute();
+                    if (!_model.CanMove())
+                    {
+                        _model.IsExecutingRoute = true;
+                    }
                 }
             }
         }

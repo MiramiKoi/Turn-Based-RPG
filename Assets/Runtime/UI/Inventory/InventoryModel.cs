@@ -7,8 +7,9 @@ namespace Runtime.UI.Inventory
 {
     public class InventoryModel
     {
-        public bool Enabled;
+        public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
+        public event Action<CellModel> OnCellSelected;
 
         public InventoryModel(int size)
         {
@@ -27,14 +28,14 @@ namespace Runtime.UI.Inventory
             }
 
             var remaining = amount;
-
+            
             foreach (var cell in Cells)
             {
                 if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
                 {
                     continue;
                 }
-
+                
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
@@ -50,7 +51,7 @@ namespace Runtime.UI.Inventory
                 {
                     continue;
                 }
-
+                
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
@@ -79,7 +80,7 @@ namespace Runtime.UI.Inventory
                 {
                     continue;
                 }
-
+                
                 var take = Math.Min(cell.Amount, remaining);
 
                 if (cell.TryTake(take))
@@ -98,7 +99,12 @@ namespace Runtime.UI.Inventory
             return taken;
         }
 
-        private bool IsSameItem(IItemDescription itemA, IItemDescription itemB)
+        public void CellSelected(CellModel cell)
+        {
+            OnCellSelected?.Invoke(cell);
+        }
+
+        private bool IsSameItem(ItemDescription itemA, ItemDescription itemB)
         {
             if (itemA == null || itemB == null)
             {
