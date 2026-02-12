@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1938451055947546180, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Name
-      value: Warrior Variant
+      value: Warrior
       objectReference: {fileID: 0}
     - target: {fileID: 4692077185086237013, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Controller
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000089840ddac9cf94eadd73d36549837bb1fb369a8c
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
