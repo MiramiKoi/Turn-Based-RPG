@@ -6,7 +6,7 @@ using Runtime.CustomAsync;
 using Runtime.TurnBase;
 using UnityEngine;
 
-namespace Runtime.Units
+namespace Runtime.Units.Movement
 {
     public class UnitMovementPresenter: IPresenter
     {

@@ -2,9 +2,9 @@ using System;
 using Runtime.Common;
 using UniRx;
 
-namespace Runtime.Units.Components
+namespace Runtime.Units.Rotation
 {
-    public class UnitVisiblePresenter : IPresenter
+    public class UnitRotationPresenter : IPresenter
     {
         private const string VisibilityRadiusKey = "visibility_radius";
 
@@ -12,7 +12,7 @@ namespace Runtime.Units.Components
         private readonly UnitModel _model;
         private IDisposable _visibleSubscription;
 
-        public UnitVisiblePresenter(UnitModel model, UnitView view)
+        public UnitRotationPresenter(UnitModel model, UnitView view)
         {
             _model = model;
             _view = view;

@@ -2,7 +2,7 @@
 using Runtime.Common;
 using Runtime.Stats;
 
-namespace Runtime.Units
+namespace Runtime.Units.Stats
 {
     public class UnitStatsPresenter : IPresenter
     {

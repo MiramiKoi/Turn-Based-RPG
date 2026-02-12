@@ -1,5 +1,5 @@
 ﻿using Runtime.Common;
-using Runtime.Units.Components;
+using Runtime.Units.Rotation;
 using UniRx;
 
 namespace Runtime.Units

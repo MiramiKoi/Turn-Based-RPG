@@ -1,6 +1,9 @@
 using Runtime.Common;
 using Runtime.Common.ObjectPool;
 using Runtime.Core;
+using Runtime.Units.Combat;
+using Runtime.Units.Movement;
+using Runtime.Units.Stats;
 using Runtime.ViewDescriptions;
 
 namespace Runtime.Units

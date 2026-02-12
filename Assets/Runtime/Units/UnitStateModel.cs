@@ -1,7 +1,8 @@
-﻿using UniRx;
+﻿using Runtime.Units.Rotation;
+using UniRx;
 using UnityEngine;
 
-namespace Runtime.Units.Components
+namespace Runtime.Units
 {
     public class UnitStateModel
     {

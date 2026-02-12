@@ -1,7 +1,9 @@
 ﻿using System;
+using Runtime.Units.Actions;
+using Runtime.Units.Rotation;
 using UnityEngine;
 
-namespace Runtime.Units.Components
+namespace Runtime.Units.Movement
 {
     public class UnitMovementModel
     {
