@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Descriptions.Items;
+using Runtime.ModelCollections;
 using Runtime.UI.Inventory.Cells;
 
 namespace Runtime.UI.Inventory
 {
-    public class InventoryModel
+    public class InventoryModel : ISerializable
     {
         public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
@@ -28,14 +29,14 @@ namespace Runtime.UI.Inventory
             }
 
             var remaining = amount;
-            
+
             foreach (var cell in Cells)
             {
                 if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
                 {
                     continue;
                 }
-                
+
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
@@ -51,7 +52,7 @@ namespace Runtime.UI.Inventory
                 {
                     continue;
                 }
-                
+
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
@@ -80,7 +81,7 @@ namespace Runtime.UI.Inventory
                 {
                     continue;
                 }
-                
+
                 var take = Math.Min(cell.Amount, remaining);
 
                 if (cell.TryTake(take))
@@ -134,6 +135,11 @@ namespace Runtime.UI.Inventory
             }
 
             return itemA.Id == itemB.Id;
+        }
+
+        public Dictionary<string, object> Serialize()
+        {
+            return new Dictionary<string, object>();
         }
     }
 }

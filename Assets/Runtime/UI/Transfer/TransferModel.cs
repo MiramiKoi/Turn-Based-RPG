@@ -1,11 +1,15 @@
-using UniRx;
 using Runtime.UI.Inventory;
 using Runtime.UI.Inventory.Cells;
+using UniRx;
 
 namespace Runtime.UI.Transfer
 {
-    public enum TransferMode { Default, Trade }
-    
+    public enum TransferMode
+    {
+        Default,
+        Trade
+    }
+
     public class TransferModel
     {
         public ReactiveProperty<InventoryModel> SourceInventory { get; } = new();

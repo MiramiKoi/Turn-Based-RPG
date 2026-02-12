@@ -11,7 +11,7 @@ namespace Runtime.UI.Transfer
         protected readonly TransferModel _model;
         protected InventoryModel _currentSource;
         protected InventoryModel _currentTarget;
-        
+
         private readonly CompositeDisposable _disposables = new();
 
         public TransferPresenter(TransferModel model)
@@ -29,10 +29,10 @@ namespace Runtime.UI.Transfer
         {
             Unsubscribe(_currentSource, true);
             Unsubscribe(_currentTarget, false);
-            
+
             _currentSource = null;
             _currentTarget = null;
-            
+
             _model.SourceCell = null;
             _model.TargetCell = null;
             _disposables.Clear();
@@ -90,12 +90,12 @@ namespace Runtime.UI.Transfer
 
         private void HandleSourceCellSelected(CellModel cell)
         {
-            HandleCellSelected(cell, isSource: true);
+            HandleCellSelected(cell, true);
         }
 
         private void HandleTargetCellSelected(CellModel cell)
         {
-            HandleCellSelected(cell, isSource: false);
+            HandleCellSelected(cell, false);
         }
 
         private void HandleCellSelected(CellModel cell, bool isSource)
@@ -109,7 +109,7 @@ namespace Runtime.UI.Transfer
 
                 _model.SourceCell = cell;
                 cell.CellSelect();
-                
+
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace Runtime.UI.Transfer
             {
                 var put = _model.TargetCell.TryPut(sourceItem, sourceAmount);
                 _model.SourceCell.TryTake(put);
-                
+
                 return;
             }
 
@@ -162,7 +162,8 @@ namespace Runtime.UI.Transfer
 
         private void Move()
         {
-            if (_model.TargetCell.ItemDescription != null && _model.TargetCell.ItemDescription.Id != _model.SourceCell.ItemDescription.Id)
+            if (_model.TargetCell.ItemDescription != null &&
+                _model.TargetCell.ItemDescription.Id != _model.SourceCell.ItemDescription.Id)
             {
                 return;
             }
