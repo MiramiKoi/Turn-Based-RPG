@@ -1,14 +1,17 @@
 using Runtime.Common;
+using Runtime.Core;
 
 namespace Runtime.Items.Transfer
 {
     public class TransferPresenter : IPresenter
     {
-        private readonly TransferModel _model;
+        protected readonly TransferModel _model;
+        protected readonly World _world;
 
-        public TransferPresenter(TransferModel model)
+        public TransferPresenter(TransferModel model, World world)
         {
             _model = model;
+            _world = world;
         }
         
         public void Enable()
@@ -28,7 +31,7 @@ namespace Runtime.Items.Transfer
             Clear();
         }
 
-        private void CellTransfer()
+        protected virtual void CellTransfer()
         {
             if (_model.SourceCell == null ||  _model.TargetCell == null)
             {
@@ -55,7 +58,7 @@ namespace Runtime.Items.Transfer
             }
         }
         
-        private void Clear()
+        protected void Clear()
         {
             _model.SourceCell = null;
             _model.TargetCell = null;
