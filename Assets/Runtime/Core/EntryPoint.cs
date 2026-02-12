@@ -117,7 +117,7 @@ namespace Runtime.Core
             playerPresenter.Enable();
             statusEffectsPresenter.Enable();
 
-            unitModel.ActiveEffects.TryApply("burn");
+            unitModel.ActiveEffects.TryApply("sleep");
         }
 
         private async Task CreateUnit(string id, AgentDecisionDescription description)

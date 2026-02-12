@@ -1,5 +1,7 @@
 using Runtime.StatusEffects.Collection;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.U2D;
 
 namespace Runtime.Units
 {
@@ -12,6 +14,7 @@ namespace Runtime.Units
         [field: SerializeField] public Animator Animator { get; private set; }
 
         [field: SerializeField] public StatusEffectCollectionView StatusEffectCollectionView { get; private set; }
+        [field: SerializeField] public Light2D Light { get; private set; }
 
         private void Awake()
         {

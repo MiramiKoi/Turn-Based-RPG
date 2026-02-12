@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 2560295827408813207, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
+      propertyPath: <Light>k__BackingField
+      value: 
+      objectReference: {fileID: 1920347385137024366}
     - target: {fileID: 4692077185086237013, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Controller
       value: 
