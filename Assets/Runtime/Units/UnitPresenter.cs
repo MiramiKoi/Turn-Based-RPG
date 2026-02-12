@@ -63,7 +63,7 @@ namespace Runtime.Units
             _unitVisiblePresenter.Enable();
 
             _model.State.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
-            _model.State.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
+            _model.Movement.OnMove += HandleMoved;
             _model.Combat.OnAttacked += OnAttacked;
             _model.Combat.OnDamaged += OnDamaged;
 
@@ -82,7 +82,8 @@ namespace Runtime.Units
         public virtual void Disable()
         {
             _pool.Release(View);
-
+            
+            _model.Movement.OnMove -= HandleMoved;
             _model.Combat.OnAttacked -= OnAttacked;
             _model.Combat.OnDamaged -= OnDamaged;
             _disposables.Dispose();
@@ -103,9 +104,9 @@ namespace Runtime.Units
             View.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
 
-        private async void OnPositionChanged(Vector2Int position)
+        private async void HandleMoved(Vector2Int position)
         {
-            _world.GridModel.GetCell(_model.State.Position.Value).Release();
+            _world.GridModel.ReleaseCell(_model.State.Position.Value);
             _world.GridModel.GetCell(position).Occupied(_model);
 
             var step = CreateStep(StepType.Parallel);

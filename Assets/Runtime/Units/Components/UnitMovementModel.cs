@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Runtime.Units.Components
 {
     public class UnitMovementModel
     {
+        public event Action<Vector2Int> OnMove;
+        
         private readonly UnitStateModel _state;
         private readonly ActionBlockerModel _blocker;
 
@@ -22,7 +25,7 @@ namespace Runtime.Units.Components
 
             if (position.x != current.x)
                 Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
-
+            OnMove?.Invoke(position);
             _state.Position.Value = position;
         }
 
