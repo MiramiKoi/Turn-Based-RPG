@@ -23,7 +23,7 @@ namespace Runtime.Descriptions.Agents.Commands
         {
             var radius = UseVisibilityRadius ? controllable.Stats["visibility_radius"].Value : CustomVisibilityRadius;
 
-            var center = controllable.Position.Value;
+            var center = controllable.State.Position.Value;
 
             var controllableUnit = controllable as UnitModel;
 
@@ -34,8 +34,8 @@ namespace Runtime.Descriptions.Agents.Commands
                     continue;
                 }
 
-                var dx = unit.Position.Value.x - center.x;
-                var dy = unit.Position.Value.y - center.y;
+                var dx = unit.State.Position.Value.x - center.x;
+                var dy = unit.State.Position.Value.y - center.y;
 
                 var distanceSquared = dx * dx + dy * dy;
 

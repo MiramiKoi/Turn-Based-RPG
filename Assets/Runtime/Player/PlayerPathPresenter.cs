@@ -34,12 +34,12 @@ namespace Runtime.Player
                 _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.Null);
                 _model.MovementQueueModel.Clear();
 
-                var start = _model.Position.Value;
+                var start = _model.State.Position.Value;
                 if (GridPathfinder.FindPath(_world.GridModel, start, _world.GridInteractionModel.CurrentCell.Position,
                         out var path))
                 {
                     _model.MovementQueueModel.SetPath(path);
-                    _world.GridModel.SetIndication(path.Where(position => _model.Position.Value != position),
+                    _world.GridModel.SetIndication(path.Where(position => _model.State.Position.Value != position),
                         IndicationType.RoutePoint);
                 }
             }

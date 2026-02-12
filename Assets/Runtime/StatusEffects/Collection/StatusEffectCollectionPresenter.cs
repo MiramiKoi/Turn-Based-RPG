@@ -23,7 +23,7 @@ namespace Runtime.StatusEffects.Collection
         public StatusEffectCollectionPresenter(UnitModel unitModel, UnitView unitView, World world,
             WorldViewDescriptions viewDescriptions)
         {
-            _modelCollection = unitModel.ActiveEffects.Collection;
+            _modelCollection = unitModel.Effects.Collection;
             _collectionView = unitView.StatusEffectCollectionView;
             _unitModel = unitModel;
             _world = world;

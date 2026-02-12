@@ -61,13 +61,13 @@ namespace Runtime.Units
             _unitVisiblePresenter = new UnitVisiblePresenter(_model, View);
             _unitVisiblePresenter.Enable();
 
-            _model.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
-            _model.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
-            _model.OnAttacked += OnAttacked;
-            _model.OnDamaging += OnDamaged;
+            _model.State.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
+            _model.State.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
+            _model.Combat.OnAttacked += OnAttacked;
+            _model.Combat.OnDamaged += OnDamaged;
 
-            View.Transform.position = new Vector3(_model.Position.Value.x, _model.Position.Value.y, 0);
-            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_model.ActiveEffects, _model, _world);
+            View.Transform.position = new Vector3(_model.State.Position.Value.x, _model.State.Position.Value.y, 0);
+            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_model.Effects, _model, _world);
             _statusEffectApplierPresenter.Enable();
 
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
@@ -82,8 +82,8 @@ namespace Runtime.Units
         {
             _pool.Release(View);
 
-            _model.OnDamaging -= OnDamaged;
-            _model.OnAttacked -= OnAttacked;
+            _model.Combat.OnAttacked -= OnDamaged;
+            _model.Combat.OnDamaged -= OnAttacked;
             _disposables.Dispose();
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
@@ -104,7 +104,7 @@ namespace Runtime.Units
 
         private async void OnPositionChanged(Vector2Int position)
         {
-            _world.GridModel.GetCell(_model.Position.Value).Release();
+            _world.GridModel.GetCell(_model.State.Position.Value).Release();
             _world.GridModel.GetCell(position).Occupied(_model);
 
             var step = CreateStep(StepType.Parallel);
