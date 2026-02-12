@@ -6,6 +6,8 @@ namespace Runtime.UI.Inventory.Cells
     public class CellModel
     {
         public event Action OnChanged;
+        public event Action OnCellSelected;
+        public event Action OnCellDeselected;
         public ItemDescription ItemDescription { get; private set; }
         public int Amount { get; private set; }
 
@@ -57,6 +59,16 @@ namespace Runtime.UI.Inventory.Cells
             OnChanged?.Invoke();
 
             return true;
+        }
+
+        public void CellSelect()
+        {
+            OnCellSelected?.Invoke();
+        }
+
+        public void CellDeselect()
+        {
+            OnCellDeselected?.Invoke();
         }
 
         private void Clear()

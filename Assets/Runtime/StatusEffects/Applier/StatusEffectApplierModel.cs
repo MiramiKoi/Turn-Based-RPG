@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Runtime.Descriptions;
+using Runtime.ModelCollections;
 using Runtime.StatusEffects.Collection;
 
 namespace Runtime.StatusEffects.Applier
 {
-    public class StatusEffectApplierModel
+    public class StatusEffectApplierModel : ISerializable
     {
         public event Func<string, string> OnApplyRequested;
 
@@ -41,6 +43,11 @@ namespace Runtime.StatusEffects.Applier
         {
             return Collection.Models.Values.Any(statusEffectModel =>
                 statusEffectModel.Description.Id == descriptionKey);
+        }
+
+        public Dictionary<string, object> Serialize()
+        {
+            return new Dictionary<string, object>();
         }
     }
 }

@@ -18,3 +18,35 @@
     margin-right: 20px;
     translate: 0 500px;
 }
+
+.trade-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 430px;
+    max-height: 330px;
+    margin-right: 20px;
+    translate: -425px 500px;
+}
+
+.equipment-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 430px;
+    max-height: 130px;
+    margin-right: 20px;
+    translate: 0 380px;
+}
+
+.cell {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.cell:hover {
+    -unity-background-image-tint-color: rgb(177, 255, 202);
+}
+
+.cell-selected {
+    -unity-background-image-tint-color: rgb(140, 230, 255);
+}

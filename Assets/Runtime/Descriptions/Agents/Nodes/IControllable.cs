@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Runtime.Stats;
-using UniRx;
+using Runtime.Units;
+using Runtime.Units.Components;
 using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {
     public interface IControllable
     {
-        IReadOnlyReactiveProperty<Vector2Int> Position { get; }
+        public UnitStateModel State { get; }
         IReadOnlyDictionary<string, bool> Flags { get; }
 
         IReadOnlyDictionary<string, Vector2Int> PointOfInterest { get; }

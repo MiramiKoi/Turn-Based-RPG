@@ -59,7 +59,6 @@ namespace Runtime.UI.Inventory
 
             _cellsPresenters.Clear();
             _view.CellsContainer.Clear();
-
             _view.Root.RemoveFromHierarchy();
 
             foreach (var (root, callback) in _callbacks)
@@ -68,24 +67,12 @@ namespace Runtime.UI.Inventory
             }
 
             _callbacks.Clear();
-
             _model.Enabled = false;
         }
 
         private void CellClicked(CellModel cell)
         {
-            if (_world.TransferModel.TrySetCell(cell))
-            {
-                return;
-            }
-
-            if (_world.TransferModel.SourceCell == null)
-            {
-                return;
-            }
-
-            _world.TransferModel.TargetCell = cell;
-            _world.TransferModel.Transfer();
+            _model.CellSelected(cell);
         }
     }
 }

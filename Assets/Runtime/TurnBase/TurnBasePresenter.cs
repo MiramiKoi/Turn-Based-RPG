@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Runtime.Agents;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.CustomAsync;
@@ -34,11 +36,12 @@ namespace Runtime.TurnBase
         {
             await ProcessAllSteps();
 
-            foreach (var agent in _world.AgentCollection.Models.Values)
+            foreach (var agent in _world.UnitCollection.Models.Values.OfType<AgentModel>())
             {
                 agent.MakeStep();
                 await ProcessAllSteps();
             }
+
 
             _model.StatusEffectTick();
             await ProcessAllSteps();

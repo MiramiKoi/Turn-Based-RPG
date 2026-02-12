@@ -7,7 +7,7 @@ namespace Runtime.Common.ObjectPool
     {
         private readonly T _prefab;
         private readonly Transform _container;
-        
+
         private readonly Stack<T> _pool = new();
 
         public ObjectPool(T prefab, int initialSize, Transform container)

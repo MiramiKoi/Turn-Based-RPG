@@ -2,6 +2,7 @@ using Runtime.Common;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
 using Runtime.Units;
+using Runtime.Units.Components;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
@@ -92,31 +93,35 @@ namespace Runtime.Player
                 return;
             }
 
-            if (_model.CanMove() && _world.GridModel.TryPlace(_model, nextCell))
+            if (_model.ActionBlocker.CanExecute(UnitActionType.Move) && _world.GridModel.TryPlace(_model, nextCell))
             {
-                _world.GridModel.ReleaseCell(_model.Position.Value);
-                _model.MoveTo(nextCell);
-            }
-            else if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
-            {
-                if (unit.IsDead)
-                {
-                    _world.LootModel.RequestLoot(unit);
-                    StopRoute();
-                }
-                else if (unit.Description.Fraction != _model.Description.Fraction && _model.CanAttack(nextCell))
-                {
-                    var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
-                    var damage = _model.GetDamage();
-                    enemy.TakeDamage(damage);
-                }
+                _world.GridModel.ReleaseCell(_model.State.Position.Value);
+                _model.Movement.MoveTo(nextCell);
             }
             else
             {
-                StopRoute();
-                if (!_model.CanMove())
+                if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
                 {
-                    _model.IsExecutingRoute = true;
+                    if (unit.IsDead || unit.Description.Fraction == "trader")
+                    {
+                        _world.LootModel.RequestLoot(unit);
+                        StopRoute();
+                    }
+                    else if (unit.Description.Fraction != _model.Description.Fraction &&
+                             _model.Combat.CanAttack(nextCell))
+                    {
+                        var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
+                        var damage = _model.Combat.GetDamage();
+                        enemy.Combat.TakeDamage(damage);
+                    }
+                }
+                else
+                {
+                    StopRoute();
+                    if (!_model.ActionBlocker.CanExecute(UnitActionType.Move))
+                    {
+                        _model.IsExecutingRoute = true;
+                    }
                 }
             }
         }

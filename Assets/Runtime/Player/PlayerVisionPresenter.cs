@@ -3,6 +3,7 @@ using Runtime.Common;
 using Runtime.Common.Vision;
 using Runtime.Landscape.Grid;
 using Runtime.Units;
+using Runtime.Units.Collection;
 using UniRx;
 using UnityEngine;
 
@@ -26,9 +27,9 @@ namespace Runtime.Player
 
         public void Enable()
         {
-            _positionSubscription = _model.Position.Subscribe(OnPositionChange);
+            _positionSubscription = _model.State.Position.Subscribe(OnPositionChange);
 
-            OnPositionChange(_model.Position.Value);
+            OnPositionChange(_model.State.Position.Value);
         }
 
         public void Disable()
@@ -47,7 +48,8 @@ namespace Runtime.Player
 
                 var visibilityRadius = Mathf.RoundToInt(_model.Stats["visibility_radius"].Value);
 
-                unit.Visible.Value = VisionPathFinder.Trace(_grid, position, unit.Position.Value, visibilityRadius);
+                unit.State.Visible.Value =
+                    VisionPathFinder.Trace(_grid, position, unit.State.Position.Value, visibilityRadius);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var position = controllable.Position.Value;
+            var position = controllable.State.Position.Value;
 
             var target = controllable.GetPointOfInterest(PointOfInterest);
 
