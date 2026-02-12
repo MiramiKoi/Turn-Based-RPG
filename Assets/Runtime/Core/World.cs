@@ -53,7 +53,7 @@ namespace Runtime.Core
 
             GameSystems = new GameSystemCollection();
 
-            UnitCollection = new UnitModelCollection();
+            UnitCollection = new UnitModelCollection(WorldDescription);
             AgentCollection = new AgentModelCollection();
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);
