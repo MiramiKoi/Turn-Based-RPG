@@ -22,7 +22,6 @@ namespace Runtime.UI.Loot
             _viewDescriptions = viewDescriptions;
 
             _inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
-            _inventoryView.Root.AddToClassList("loot-inventory");
         }
 
         public void Enable()
@@ -39,21 +38,30 @@ namespace Runtime.UI.Loot
 
         private void Show(IUnit unit)
         {
-            if (unit is not UnitModel { IsDead: true } unitModel)
+            if (unit is UnitModel unitModel)
             {
-                return;
+                Clear();
+                
+                if (unitModel.Description.Fraction == "trader")
+                {
+                    _inventoryView.Root.AddToClassList("trade-inventory");
+                }
+                else
+                {
+                    _inventoryView.Root.AddToClassList("loot-inventory");
+                }
+
+                _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions,
+                    _uiContent, _world);
+                
+                _currentInventory.Enable();
             }
-
-            Clear();
-
-            _currentInventory = new InventoryPresenter(unitModel.InventoryModel, _inventoryView, _viewDescriptions,
-                _uiContent, _world);
-
-            _currentInventory.Enable();
         }
 
         private void Clear()
         {
+            _inventoryView.Root.RemoveFromClassList("trade-inventory");
+            _inventoryView.Root.RemoveFromClassList("loot-inventory");
             _currentInventory?.Disable();
             _currentInventory = null;
         }
