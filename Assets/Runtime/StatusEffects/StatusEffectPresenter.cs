@@ -1,22 +1,26 @@
 ﻿using MoonSharp.Interpreter;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.CustomAsync;
 using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Units;
+using UnityEngine;
 
 namespace Runtime.StatusEffects
 {
     public class StatusEffectPresenter : IPresenter
     {
         private readonly StatusEffectModel _model;
+        private readonly StatusEffectView _view;
         private readonly World _world;
         private readonly Table _module;
         private readonly Table _context;
         private readonly Table _effectTable;
 
-        public StatusEffectPresenter(StatusEffectModel model, UnitModel unit, World world)
+        public StatusEffectPresenter(StatusEffectModel model, StatusEffectView view, UnitModel unit, World world)
         {
             _model = model;
+            _view = view;
             _world = world;
 
             _module = LuaRuntime.Instance.GetModuleAsync(model.Description.LuaScript);
@@ -33,6 +37,7 @@ namespace Runtime.StatusEffects
             if (CallBool("CanApply"))
             {
                 Call("OnApply");
+                PlayParticle(_view.OnApplyParticle);
             }
 
             switch (_model.Description.Polarity)
@@ -49,9 +54,19 @@ namespace Runtime.StatusEffects
             }
         }
 
-        public void Disable()
+        public async void Disable()
         {
             Call("OnRemove");
+            
+            PlayParticle(_view.OnRemoveParticle);
+
+            StopParticle(_view.OnApplyParticle);
+
+            var awaiter = new ScheduleAwaiter(_view.OnRemoveParticle.main.duration);
+            awaiter.Start();
+            await awaiter;
+
+            Object.Destroy(_view.GameObject);
 
             switch (_model.Description.Polarity)
             {
@@ -64,6 +79,22 @@ namespace Runtime.StatusEffects
                 case Polarity.Mixed:
                     _world.TurnBaseModel.OnMixedBuffTick -= HandleTick;
                     break;
+            }
+        }
+
+        private void PlayParticle(ParticleSystem system)
+        {
+            if (system != null)
+            {
+                system.Play();
+            }
+        }
+        
+        private void StopParticle(ParticleSystem system)
+        {
+            if (system != null)
+            {
+                system.Stop();
             }
         }
 
@@ -102,6 +133,7 @@ namespace Runtime.StatusEffects
         private void HandleTick()
         {
             Call("OnTick");
+            PlayParticle(_view.OnTickParticle);
 
             if (!CallBool("CanTick"))
             {

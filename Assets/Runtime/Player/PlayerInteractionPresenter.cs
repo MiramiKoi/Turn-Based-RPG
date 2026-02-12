@@ -52,9 +52,8 @@ namespace Runtime.Player
             if (_model.IsExecutingRoute)
             {
                 ExecuteNextStep();
+                StepEnd();
             }
-
-            StepEnd();
         }
 
         private void StepStart()
@@ -67,11 +66,9 @@ namespace Runtime.Player
 
         private void StepEnd()
         {
-            if (_model.IsExecutingRoute)
-            {
-                _world.TurnBaseModel.PlayerStep();
-            }
-            else
+            _world.TurnBaseModel.PlayerStep();
+
+            if (!_model.IsExecutingRoute)
             {
                 _world.GridInteractionModel.IsActive.Value = true;
                 _world.CameraControlModel.IsActive.Value = true;

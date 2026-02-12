@@ -4,7 +4,6 @@ using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.CustomAsync;
-using Runtime.Player;
 using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.StatusEffects.Collection;
@@ -65,13 +64,13 @@ namespace Runtime.Units
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
-            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, _world);
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, _view, _world, _viewDescriptions);
             _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_unit.ActiveEffects, _unit, _world);
 
             _statusEffectsPresenter.Enable();
             _statusEffectApplierPresenter.Enable();
         }
-
+    
         public virtual void Disable()
         {
             _unit.OnDamaging -= OnDamaged;

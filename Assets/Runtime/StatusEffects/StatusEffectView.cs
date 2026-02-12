@@ -1,20 +1,24 @@
-﻿using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 namespace Runtime.StatusEffects
 {
-    public class StatusEffectView
+    public class StatusEffectView : MonoBehaviour
     {
-        public VisualElement Root { get; }
-        public Label TurnsCounter { get; }
-        public Label StackCounter { get; }
-        public Image Icon { get; }
+        public Transform Transform { get; private set; }
+        public GameObject GameObject { get; private set; }
 
-        public StatusEffectView(VisualTreeAsset asset)
+        public ParticleSystem OnApplyParticle => _onApplyParticle;
+        public ParticleSystem OnTickParticle => _onTickParticle;
+        public ParticleSystem OnRemoveParticle => _onRemoveParticle;
+
+        [SerializeField] private ParticleSystem _onApplyParticle;
+        [SerializeField] private ParticleSystem _onTickParticle;
+        [SerializeField] private ParticleSystem _onRemoveParticle;
+
+        private void Awake()
         {
-            Root = asset.CloneTree().Q<VisualElement>("status-effect-root");
-            Icon = Root.Q<Image>("icon");
-            TurnsCounter = Root.Q<Label>("turns_counter");
-            StackCounter = Root.Q<Label>("stack_counter");
+            Transform = transform;
+            GameObject = gameObject;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Runtime.CameraControl
 
         public void Enable()
         {
-            _model.Target.Subscribe(HandleTargetChanged).AddTo(_disposables);
+            _model.Target.SkipLatestValueOnSubscribe().Subscribe(HandleTargetChanged).AddTo(_disposables);
 
             _world.PlayerControls.Gameplay.CameraControl.started += HandleCameraControllingStarted;
             _world.PlayerControls.Gameplay.CameraControl.canceled += HandleCameraControllingCanceled;
@@ -53,6 +53,7 @@ namespace Runtime.CameraControl
 
         private void HandleTargetChanged(Transform target)
         {
+            _view.PositionComposer.ForceCameraPosition(target.position, Quaternion.identity);
             _view.Camera.Follow = target;
         }
 
