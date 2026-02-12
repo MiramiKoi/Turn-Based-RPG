@@ -24,12 +24,12 @@ namespace Runtime.Units
         private static readonly int IsDead = Animator.StringToHash("IsDead");
 
         protected UnitView View;
-        
+
         private readonly UnitModel _model;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly IObjectPool<UnitView> _pool;
-        
+
         private readonly CompositeDisposable _disposables = new();
 
         private StatusEffectCollectionPresenter _statusEffectsPresenter;
@@ -39,7 +39,8 @@ namespace Runtime.Units
 
         private UnitVisiblePresenter _unitVisiblePresenter;
 
-        public UnitPresenter(UnitModel model, IObjectPool<UnitView> pool, World world, WorldViewDescriptions viewDescriptions)
+        public UnitPresenter(UnitModel model, IObjectPool<UnitView> pool, World world,
+            WorldViewDescriptions viewDescriptions)
         {
             _model = model;
             _pool = pool;
@@ -50,7 +51,7 @@ namespace Runtime.Units
         public virtual async void Enable()
         {
             View = _pool.Get();
-            
+
             foreach (var stat in _model.Stats)
             {
                 var statPresenter = new StatPresenter(stat);
@@ -72,7 +73,7 @@ namespace Runtime.Units
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
-            
+
             _statusEffectsPresenter = new StatusEffectCollectionPresenter(_model, View, _world, _viewDescriptions);
             _statusEffectsPresenter.Enable();
         }
@@ -80,7 +81,7 @@ namespace Runtime.Units
         public virtual void Disable()
         {
             _pool.Release(View);
-            
+
             _model.OnDamaging -= OnDamaged;
             _model.OnAttacked -= OnAttacked;
             _disposables.Dispose();
@@ -105,7 +106,7 @@ namespace Runtime.Units
         {
             _world.GridModel.GetCell(_model.Position.Value).Release();
             _world.GridModel.GetCell(position).Occupied(_model);
-            
+
             var step = CreateStep(StepType.Parallel);
 
             await step.AllowedAwaiter;

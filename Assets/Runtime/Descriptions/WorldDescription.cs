@@ -34,7 +34,8 @@ namespace Runtime.Descriptions
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
             ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
             StatusEffectCollection = new StatusEffectDescriptionCollection(data.GetNode("status_effects"));
-            AgentDecisionDescriptionCollection = new AgentDecisionDescriptionCollection(data.GetNode("agent_decisions"));
+            AgentDecisionDescriptionCollection =
+                new AgentDecisionDescriptionCollection(data.GetNode("agent_decisions"));
         }
     }
 }

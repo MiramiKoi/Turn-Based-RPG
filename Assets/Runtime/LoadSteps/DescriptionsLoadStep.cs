@@ -15,13 +15,14 @@ namespace Runtime.LoadSteps
 
         private readonly Dictionary<string, List<string>> _keys = new()
         {
-            { "camera_control", new() { "camera-control-description" } },
-            { "surface_generation", new() { "surface-generation-description" } },
-            { "surfaces", new() { "surface-description" } },
-            { "units", new() { "unit-description" } },
-            { "items", new() { "items-description" } },
+            { "camera_control", new List<string> { "camera-control-description" } },
+            { "surface_generation", new List<string> { "surface-generation-description" } },
+            { "surfaces", new List<string> { "surface-description" } },
+            { "units", new List<string> { "unit-description" } },
+            { "items", new List<string> { "items-description" } },
 
-            { "agent_decisions", new()
+            {
+                "agent_decisions", new List<string>
                 {
                     "bear-description",
                     "panda-description",
@@ -29,9 +30,9 @@ namespace Runtime.LoadSteps
                 }
             },
 
-            { "environment_generation", new() { "environment-generation-description" } },
-            { "environment", new() { "environment-description" } },
-            { "status_effects", new() { "status-effect-descriptions" } }
+            { "environment_generation", new List<string> { "environment-generation-description" } },
+            { "environment", new List<string> { "environment-description" } },
+            { "status_effects", new List<string> { "status-effect-descriptions" } }
         };
 
         public DescriptionsLoadStep(

@@ -38,7 +38,7 @@ namespace Runtime.Stats
 
         public Dictionary<string, object> Serialize()
         {
-            return new Dictionary<string, object> { };
+            return new Dictionary<string, object>();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Runtime.Player
         public override void Enable()
         {
             base.Enable();
-            
+
             _world.CameraControlModel.Target.Value = View.Transform;
 
             _visionPresenter = new PlayerVisionPresenter(_world.GridModel, _world.UnitCollection, _model);

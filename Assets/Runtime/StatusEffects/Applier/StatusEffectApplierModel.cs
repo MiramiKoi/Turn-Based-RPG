@@ -45,7 +45,7 @@ namespace Runtime.StatusEffects.Applier
                 statusEffectModel.Description.Id == descriptionKey);
         }
 
-        public Dictionary<string,object> Serialize()
+        public Dictionary<string, object> Serialize()
         {
             return new Dictionary<string, object>();
         }

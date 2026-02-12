@@ -9,9 +9,8 @@ using Runtime.Landscape.Grid.Interaction;
 using Runtime.TurnBase;
 using Runtime.UI;
 using Runtime.UI.Loot;
-using Runtime.Units.Collection;
 using Runtime.UI.Transfer;
-using Runtime.Units;
+using Runtime.Units.Collection;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -54,7 +53,7 @@ namespace Runtime.Core
             UnitCollection = new UnitModelCollection(this, WorldDescription);
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);
-            
+
             LootModel = new LootModel();
             TransferModel = new TransferModel();
         }

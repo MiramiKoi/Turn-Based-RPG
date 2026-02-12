@@ -16,7 +16,8 @@ namespace Runtime.LoadSteps
 
         private readonly List<IPresenter> _presenters;
 
-        public UnitsLoadStep(List<IPresenter> presenters, World world, UnitModelCollectionView collectionView, WorldViewDescriptions worldViewDescriptions)
+        public UnitsLoadStep(List<IPresenter> presenters, World world, UnitModelCollectionView collectionView,
+            WorldViewDescriptions worldViewDescriptions)
         {
             _presenters = presenters;
             _collectionView = collectionView;
@@ -26,21 +27,22 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var presenter = new UnitModelCollectionPresenter(_world.UnitCollection, _collectionView, _world, _worldViewDescriptions);
+            var presenter = new UnitModelCollectionPresenter(_world.UnitCollection, _collectionView, _world,
+                _worldViewDescriptions);
             presenter.Enable();
             _presenters.Add(presenter);
 
             var bearModel = _world.UnitCollection.Create("bear");
             bearModel.MoveTo(new Vector2Int(60, 50));
-            
+
             var bearModel1 = _world.UnitCollection.Create("bear");
             bearModel1.MoveTo(new Vector2Int(20, 80));
-            
+
             var pandaModel = _world.UnitCollection.Create("panda");
             pandaModel.MoveTo(new Vector2Int(60, 80));
-            
+
             var traderModel = _world.UnitCollection.Create("trader");
-            traderModel.MoveTo( new Vector2Int(80, 50));
+            traderModel.MoveTo(new Vector2Int(80, 50));
 
             await Task.CompletedTask;
         }

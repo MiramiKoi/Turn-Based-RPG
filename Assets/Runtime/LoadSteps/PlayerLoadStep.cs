@@ -17,7 +17,8 @@ namespace Runtime.LoadSteps
         private readonly WorldViewDescriptions _worldViewDescriptions;
         private readonly UIContent _uiContent;
 
-        public PlayerLoadStep(List<IPresenter> presenters, World world, WorldViewDescriptions worldViewDescriptions, UIContent uiContent)
+        public PlayerLoadStep(List<IPresenter> presenters, World world, WorldViewDescriptions worldViewDescriptions,
+            UIContent uiContent)
         {
             _presenters = presenters;
             _world = world;
@@ -29,9 +30,9 @@ namespace Runtime.LoadSteps
         {
             var characterModel = _world.UnitCollection.Create("character");
             characterModel.MoveTo(new Vector2Int(50, 50));
-            
+
             _world.GridModel.TryPlace(characterModel, characterModel.Position.Value);
-            
+
             var loadModelUiAsset = _world.AddressableModel.Load<VisualTreeAsset>(_worldViewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await loadModelUiAsset.LoadAwaiter;

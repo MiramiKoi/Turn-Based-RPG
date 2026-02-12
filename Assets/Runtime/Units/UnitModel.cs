@@ -50,7 +50,7 @@ namespace Runtime.Units
                 worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
                 InventoryModel.TryPutItem(item, amount);
             }
-            
+
             MoveTo(position);
         }
 

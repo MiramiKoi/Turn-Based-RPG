@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Common.ObjectPool;
 using Runtime.Core;
@@ -17,7 +16,7 @@ namespace Runtime.StatusEffects.Collection
         private readonly StatusEffectViewDescriptionCollection _viewDescriptions;
         private readonly UnitModel _unitModel;
         private readonly World _world;
-        
+
         private readonly Dictionary<string, IObjectPool<StatusEffectView>> _viewPools = new();
         private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
@@ -41,7 +40,7 @@ namespace Runtime.StatusEffects.Collection
                 _viewPools[viewDescription.Id] = new ObjectPool<StatusEffectView>(prefab, 5, _collectionView.Transform);
                 _world.AddressableModel.Unload(loadModel);
             }
-            
+
             _modelCollection.OnAdded += HandleAdded;
             _modelCollection.OnRemoved += HandleRemoved;
 
@@ -69,7 +68,7 @@ namespace Runtime.StatusEffects.Collection
             model.OnExpired += HandleChangeExpired;
 
             var id = model.Id;
-            
+
             var presenter = new StatusEffectPresenter(model, _viewPools[model.Description.ViewId], _unitModel, _world);
             _presenters[id] = presenter;
             presenter.Enable();

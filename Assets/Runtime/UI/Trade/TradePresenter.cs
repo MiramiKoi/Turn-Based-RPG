@@ -30,9 +30,9 @@ namespace Runtime.UI.Trade
             var remaining = _model.SourceCell.ItemDescription.StackSize - _model.TargetCell.Amount;
             var canPut = Math.Min(remaining, _model.SourceCell.Amount);
             var price = _model.SourceCell.ItemDescription.Price * canPut;
-            
+
             var playerBuying = _currentTarget?.Cells.Contains(_model.SourceCell) == true;
-    
+
             var buyer = playerBuying ? _model.SourceInventory.Value : _model.TargetInventory.Value;
             var seller = playerBuying ? _model.TargetInventory.Value : _model.SourceInventory.Value;
 

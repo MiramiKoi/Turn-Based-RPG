@@ -14,7 +14,7 @@ namespace Runtime.Units.Collection
         private readonly UnitModelCollectionView _collectionView;
         private readonly WorldViewDescriptions _worldViewDescriptions;
         private readonly World _world;
-        
+
         private readonly Dictionary<string, IObjectPool<UnitView>> _viewPools = new();
         private readonly Dictionary<string, UnitPresenter> _presenters = new();
 
@@ -37,7 +37,7 @@ namespace Runtime.Units.Collection
                 _viewPools[viewDescription.Id] = new ObjectPool<UnitView>(prefab, 5, _collectionView.Transform);
                 _world.AddressableModel.Unload(loadModel);
             }
-            
+
             _modelCollection.OnAdded += HandleAdded;
             _modelCollection.OnRemoved += HandleRemoved;
 
@@ -65,16 +65,18 @@ namespace Runtime.Units.Collection
             var id = model.Id;
 
             UnitPresenter presenter;
-            
+
             if (model is PlayerModel playerModel)
             {
-                presenter = new PlayerPresenter(playerModel, _viewPools[playerModel.Description.ViewId], _world, _worldViewDescriptions);
+                presenter = new PlayerPresenter(playerModel, _viewPools[playerModel.Description.ViewId], _world,
+                    _worldViewDescriptions);
             }
             else
             {
-                presenter = new UnitPresenter(model, _viewPools[model.Description.ViewId], _world, _worldViewDescriptions);
+                presenter = new UnitPresenter(model, _viewPools[model.Description.ViewId], _world,
+                    _worldViewDescriptions);
             }
-            
+
             _presenters[id] = presenter;
             presenter.Enable();
         }
