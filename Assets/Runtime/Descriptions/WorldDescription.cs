@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.CameraControl;
 using Runtime.Descriptions.Environment;
 using Runtime.Descriptions.Items;
@@ -19,11 +18,7 @@ namespace Runtime.Descriptions
         public EnvironmentDescriptionCollection EnvironmentCollection { get; private set; }
         public UnitDescriptionCollection UnitCollection { get; private set; }
         public ItemDescriptionCollection ItemCollection { get; private set; }
-        public AgentDecisionDescription BearAgentDecisionDescription { get; private set; }
-
-        public AgentDecisionDescription PandaAgentDecisionDescription { get; private set; }
-
-        public AgentDecisionDescription TraderAgentDecisionDescription { get; private set; }
+        public AgentDecisionDescriptionCollection AgentDecisionDescriptionCollection { get; private set; }
 
         public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
@@ -39,9 +34,7 @@ namespace Runtime.Descriptions
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
             ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
             StatusEffectCollection = new StatusEffectDescriptionCollection(data.GetNode("status_effects"));
-            BearAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("bear"));
-            PandaAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("panda"));
-            TraderAgentDecisionDescription = new AgentDecisionDescription(data.GetNode("trader"));
+            AgentDecisionDescriptionCollection = new AgentDecisionDescriptionCollection(data.GetNode("agent_decisions"));
         }
     }
 }
