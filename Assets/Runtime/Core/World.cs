@@ -1,4 +1,3 @@
-using Runtime.Agents;
 using Runtime.Agents.Collection;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
@@ -54,7 +53,7 @@ namespace Runtime.Core
 
             GameSystems = new GameSystemCollection();
 
-            UnitCollection = new UnitModelCollection(WorldDescription);
+            UnitCollection = new UnitModelCollection(this, WorldDescription);
             AgentCollection = new AgentModelCollection();
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);

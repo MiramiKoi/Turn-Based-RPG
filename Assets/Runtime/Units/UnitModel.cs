@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Runtime.Units
 {
-    public class UnitModel : IUnit, IControllable, ISerializable
+    public abstract class UnitModel : IUnit, IControllable, ISerializable
     {
         public event Action OnAttacked;
         public event Action OnDamaging;
