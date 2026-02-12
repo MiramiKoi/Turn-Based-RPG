@@ -1,6 +1,6 @@
 using Runtime.Landscape.Grid;
-using Runtime.Units.Collection;
 using Runtime.TurnBase;
+using Runtime.Units.Collection;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {

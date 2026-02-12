@@ -17,8 +17,10 @@ namespace Runtime.Player.Commands
         }
 
         public bool CanExecute()
-            => !_target.IsDead &&
-               _player.Combat.CanAttack(_target.State.Position.Value);
+        {
+            return !_target.IsDead &&
+                   _player.Combat.CanAttack(_target.State.Position.Value);
+        }
 
         public void Execute()
         {

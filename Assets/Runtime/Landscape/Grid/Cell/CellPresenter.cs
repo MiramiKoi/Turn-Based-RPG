@@ -58,7 +58,7 @@ namespace Runtime.Landscape.Grid.Cell
             {
                 _world.AddressableModel.Unload(_environmentTileLoadModel);
             }
-            
+
             _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);
 
             _view.EnvironmentTilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);

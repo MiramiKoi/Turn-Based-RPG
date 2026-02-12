@@ -7,7 +7,7 @@ namespace Runtime.UI.Loot
     {
         public event Action<IUnit> OnLootRequested;
         public event Action OnLootCanceled;
-        
+
         public void RequestLoot(IUnit unit)
         {
             OnLootRequested?.Invoke(unit);

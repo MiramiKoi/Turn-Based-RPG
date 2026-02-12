@@ -8,7 +8,7 @@ namespace Runtime.Units.Movement
     public class UnitMovementModel
     {
         public event Action<Vector2Int> OnMove;
-        
+
         private readonly UnitStateModel _state;
         private readonly ActionBlockerModel _blocker;
 

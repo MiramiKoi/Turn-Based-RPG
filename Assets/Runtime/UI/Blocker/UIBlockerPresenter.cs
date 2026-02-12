@@ -19,7 +19,7 @@ namespace Runtime.UI.Blocker
             _root = uiContent.GameplayContent;
             _playerControls = world.PlayerControls;
         }
-        
+
         public void Enable()
         {
             _playerControls.Gameplay.PointerPosition.performed += HandlePointerPositionChanged;
@@ -29,7 +29,7 @@ namespace Runtime.UI.Blocker
         {
             _playerControls.Gameplay.PointerPosition.performed -= HandlePointerPositionChanged;
         }
-        
+
         private void HandlePointerPositionChanged(InputAction.CallbackContext context)
         {
             var currentPosition = context.ReadValue<Vector2>();

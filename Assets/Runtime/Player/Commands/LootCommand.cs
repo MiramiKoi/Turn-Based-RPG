@@ -15,9 +15,13 @@ namespace Runtime.Player.Commands
         }
 
         public bool CanExecute()
-            => _target.IsDead || _target.Description.Fraction == "trader";
+        {
+            return _target.IsDead || _target.Description.Fraction == "trader";
+        }
 
         public void Execute()
-            => _world.LootModel.RequestLoot(_target);
+        {
+            _world.LootModel.RequestLoot(_target);
+        }
     }
 }

@@ -20,7 +20,6 @@ namespace Runtime.Player
 
             if (cell.Unit == null)
             {
-                
                 return new MoveCommand(player, _world, targetCell);
             }
 

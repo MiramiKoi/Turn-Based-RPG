@@ -6,7 +6,6 @@ using Runtime.Descriptions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
-using Runtime.UI;
 using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
 using UnityEditor;
@@ -35,7 +34,7 @@ namespace Runtime.Core
         {
             _playerControls = new PlayerControls();
             _playerControls.Enable();
-            
+
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
@@ -48,14 +47,14 @@ namespace Runtime.Core
                 new PlayerLoadStep(_presenters, _world, _worldViewDescriptions),
                 new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldViewDescriptions),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world),
-                new UILoadStep(_presenters, _world, _worldViewDescriptions),
+                new UILoadStep(_presenters, _world, _worldViewDescriptions)
             };
 
             foreach (var step in persistentLoadStep)
             {
                 await step.Run();
             }
-            
+
             Application.quitting += OnQuit;
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
@@ -66,7 +65,7 @@ namespace Runtime.Core
         {
             _world.GameSystems?.Update(Time.deltaTime);
         }
-        
+
 #if UNITY_EDITOR
         private void OnPlayModeStateChanged(PlayModeStateChange state)
         {

@@ -75,5 +75,4 @@ namespace Runtime.Units.Combat
             _view.Animator.SetBool(animationId, false);
         }
     }
-
 }

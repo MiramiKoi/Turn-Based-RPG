@@ -17,6 +17,9 @@ namespace Runtime.TurnBase
             _units.Remove(unit.Id);
         }
 
-        public bool IsInBattle() => _units.Count > 0;
+        public bool IsInBattle()
+        {
+            return _units.Count > 0;
+        }
     }
 }

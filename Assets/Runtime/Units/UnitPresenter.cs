@@ -16,7 +16,7 @@ namespace Runtime.Units
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly IObjectPool<UnitView> _pool;
-        
+
         private UnitMovementPresenter _movementPresenter;
         private UnitCombatPresenter _combatPresenter;
         private UnitVisibilityPresenter _visibilityPresenter;

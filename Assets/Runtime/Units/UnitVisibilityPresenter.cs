@@ -31,5 +31,4 @@ namespace Runtime.Units
             _view.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
     }
-
 }

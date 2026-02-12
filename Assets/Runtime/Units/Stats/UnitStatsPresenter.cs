@@ -34,5 +34,4 @@ namespace Runtime.Units.Stats
             _statPresenters.Clear();
         }
     }
-
 }

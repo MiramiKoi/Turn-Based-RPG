@@ -56,7 +56,7 @@ namespace Runtime.Player
 
             FinishStep();
         }
-        
+
         private bool ShouldBlockInput()
         {
             return _model.IsDead ||

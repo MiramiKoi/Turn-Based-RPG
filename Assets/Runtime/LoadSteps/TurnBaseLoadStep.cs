@@ -20,7 +20,7 @@ namespace Runtime.LoadSteps
         public async Task Run()
         {
             _world.TurnBaseModel.Steps.Clear();
-            
+
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
             turnBasePresenter.Enable();
             _presenters.Add(turnBasePresenter);

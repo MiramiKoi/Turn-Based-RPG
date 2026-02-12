@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.UI;
 using Runtime.UI.Player.StatusEffects;
 using Runtime.ViewDescriptions;
 using UnityEngine;

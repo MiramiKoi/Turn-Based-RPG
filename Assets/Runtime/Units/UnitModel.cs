@@ -47,13 +47,13 @@ namespace Runtime.Units
             Combat = new UnitCombatModel(Stats, State);
 
             Inventory = new InventoryModel(description.InventorySize);
-            
+
             foreach (var (itemId, amount) in description.Loot)
             {
                 worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
                 Inventory.TryPutItem(item, amount);
             }
-            
+
             Effects = new StatusEffectApplierModel(worldDescription);
         }
 

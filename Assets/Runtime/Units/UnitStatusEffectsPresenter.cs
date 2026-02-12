@@ -19,7 +19,8 @@ namespace Runtime.Units
         private StatusEffectApplierPresenter _statusEffectApplierPresenter;
         private LoadModel<VisualTreeAsset> _statusEffectsLoadModel;
 
-        public UnitStatusEffectsPresenter(UnitModel model, UnitView view, World world, WorldViewDescriptions viewDescriptions)
+        public UnitStatusEffectsPresenter(UnitModel model, UnitView view, World world,
+            WorldViewDescriptions viewDescriptions)
         {
             _model = model;
             _view = view;
@@ -47,5 +48,4 @@ namespace Runtime.Units
             _statusEffectApplierPresenter.Disable();
         }
     }
-
 }

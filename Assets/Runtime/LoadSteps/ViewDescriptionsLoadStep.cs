@@ -21,10 +21,11 @@ namespace Runtime.LoadSteps
         private readonly AddressableModel _addressableModel;
         private readonly Dictionary<string, Action<object>> _loadMap;
 
-        public ViewDescriptionsLoadStep(WorldViewDescriptions worldViewDescriptions, AddressableModel addressableModel, UIDocument uiDocument)
+        public ViewDescriptionsLoadStep(WorldViewDescriptions worldViewDescriptions, AddressableModel addressableModel,
+            UIDocument uiDocument)
         {
             _addressableModel = addressableModel;
-            
+
             worldViewDescriptions.UIContent = new UIContent(uiDocument);
 
             _loadMap = new Dictionary<string, Action<object>>

@@ -27,12 +27,13 @@ namespace Runtime.LoadSteps
             var uiController = new UIController(_world, _world.PlayerControls, _worldViewDescriptions);
             uiController.Enable();
             _presenters.Add(uiController);
-            
+
             var lootPresenter = new LootPresenter(_world.LootModel, _world, _worldViewDescriptions);
             lootPresenter.Enable();
             _presenters.Add(lootPresenter);
 
-            var uiBlockerPresenter = new UIBlockerPresenter(_world.UIBlockerModel, _world, _worldViewDescriptions.UIContent);
+            var uiBlockerPresenter =
+                new UIBlockerPresenter(_world.UIBlockerModel, _world, _worldViewDescriptions.UIContent);
             uiBlockerPresenter.Enable();
             _presenters.Add(uiBlockerPresenter);
 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Runtime.Units.Movement
 {
-    public class UnitMovementPresenter: IPresenter
+    public class UnitMovementPresenter : IPresenter
     {
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
 
