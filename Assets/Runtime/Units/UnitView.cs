@@ -1,7 +1,6 @@
 using Runtime.StatusEffects.Collection;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.U2D;
 
 namespace Runtime.Units
 {
