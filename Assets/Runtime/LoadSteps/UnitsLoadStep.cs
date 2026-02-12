@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Descriptions;
-using Runtime.Player;
-using Runtime.Units;
 using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
-using UnityEngine;
 
 namespace Runtime.LoadSteps
 {
@@ -40,21 +36,13 @@ namespace Runtime.LoadSteps
             presenter.Enable();
             _presenters.Add(presenter);
             
-            var characterModel = new PlayerModel
-            (
-                "character",
-                new Vector2Int(50, 49), _world.WorldDescription.UnitCollection.First(), _world.WorldDescription);
-            
-            _world.GridModel.TryPlace(characterModel, characterModel.Position.Value);
-            _world.UnitCollection.Add(characterModel.Id, characterModel);
-
-            var bearModel = new UnitModel
-            (
-                "bear_0",
-                new Vector2Int(60, 50), _world.WorldDescription.UnitCollection["bear"], _world.WorldDescription);
-            
-            _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);
-            _world.UnitCollection.Add(bearModel.Id, bearModel);
+            // var bearModel = new UnitModel
+            // (
+            //     "bear_0",
+            //     new Vector2Int(60, 50), _world.WorldDescription.UnitCollection["bear"], _world.WorldDescription);
+            //
+            // _world.GridModel.TryPlace(bearModel, bearModel.Position.Value);
+            // _world.UnitCollection.Add(bearModel.Id, bearModel);
             //
             // var bearModel1 = new UnitModel
             // (

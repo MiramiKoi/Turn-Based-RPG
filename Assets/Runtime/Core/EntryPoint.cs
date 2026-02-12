@@ -53,6 +53,7 @@ namespace Runtime.Core
                     _uiContent.GameplayContent),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
                 new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldDescription, _worldViewDescriptions),
+                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions, _uiContent),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world)
             };
 
@@ -61,8 +62,8 @@ namespace Runtime.Core
                 await step.Run();
             }
 
-            // _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            // _uiController.Enable();
+            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
+            _uiController.Enable();
 
             _world.TurnBaseModel.Steps.Clear();
             var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
