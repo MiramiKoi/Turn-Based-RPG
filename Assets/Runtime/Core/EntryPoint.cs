@@ -9,6 +9,7 @@ using Runtime.LoadSteps;
 using Runtime.UI;
 using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -60,11 +61,44 @@ namespace Runtime.Core
             {
                 await step.Run();
             }
+            
+            Application.quitting += OnQuit;
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
         }
 
         private void Update()
         {
             _world.GameSystems?.Update(Time.deltaTime);
+        }
+        
+#if UNITY_EDITOR
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingPlayMode)
+            {
+                Dispose();
+            }
+        }
+#endif
+
+        private void OnQuit()
+        {
+            Dispose();
+        }
+
+        private void Dispose()
+        {
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+#endif
+            Application.quitting -= OnQuit;
+
+            for (var i = _presenters.Count - 1; i >= 0; i--)
+            {
+                _presenters[i].Disable();
+            }
         }
     }
 }
