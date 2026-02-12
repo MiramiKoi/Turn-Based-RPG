@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using Runtime.AsyncLoad;
 using Runtime.Common;
+using Runtime.Common.ObjectPool;
 using Runtime.Core;
 using Runtime.CustomAsync;
 using Runtime.Stats;
@@ -21,13 +22,15 @@ namespace Runtime.Units
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int IsDamaging = Animator.StringToHash("IsDamaging");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
-
-        private readonly CompositeDisposable _disposables = new();
-
+        
         private readonly UnitModel _unit;
-        private readonly UnitView _view;
+        private UnitView _view;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
+        private readonly IObjectPool<UnitView> _pool;
+        
+        private readonly CompositeDisposable _disposables = new();
+
         private StatusEffectCollectionPresenter _statusEffectsPresenter;
         private StatusEffectApplierPresenter _statusEffectApplierPresenter;
 
@@ -35,16 +38,18 @@ namespace Runtime.Units
 
         private UnitVisiblePresenter _unitVisiblePresenter;
 
-        public UnitPresenter(UnitModel unit, UnitView view, World world, WorldViewDescriptions viewDescriptions)
+        public UnitPresenter(UnitModel unit, IObjectPool<UnitView> pool, World world, WorldViewDescriptions viewDescriptions)
         {
             _unit = unit;
-            _view = view;
+            _pool = pool;
             _world = world;
             _viewDescriptions = viewDescriptions;
         }
 
         public virtual async void Enable()
         {
+            _view = _pool.Get();
+            
             foreach (var stat in _unit.Stats)
             {
                 var statPresenter = new StatPresenter(stat);
@@ -73,6 +78,8 @@ namespace Runtime.Units
 
         public virtual void Disable()
         {
+            _pool.Release(_view);
+            
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
             _disposables.Dispose();
