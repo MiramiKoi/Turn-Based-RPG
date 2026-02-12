@@ -57,7 +57,7 @@ namespace Runtime.StatusEffects
         public async void Disable()
         {
             Call("OnRemove");
-            
+
             PlayParticle(_view.OnRemoveParticle);
 
             StopParticle(_view.OnApplyParticle);
@@ -89,7 +89,7 @@ namespace Runtime.StatusEffects
                 system.Play();
             }
         }
-        
+
         private void StopParticle(ParticleSystem system)
         {
             if (system != null)

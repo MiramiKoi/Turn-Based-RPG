@@ -83,7 +83,7 @@ namespace Runtime.UI.Inventory
             {
                 return;
             }
-            
+
             _world.TransferModel.TargetCell = cell;
             _world.TransferModel.Transfer();
         }

@@ -70,7 +70,7 @@ namespace Runtime.Units
             _statusEffectsPresenter.Enable();
             _statusEffectApplierPresenter.Enable();
         }
-    
+
         public virtual void Disable()
         {
             _unit.OnDamaging -= OnDamaged;

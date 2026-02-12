@@ -100,7 +100,8 @@ namespace Runtime.Core
             var loadModelPrefab = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModelPrefab.LoadAwaiter;
             var unitPrefab = loadModelPrefab.Result.GetComponent<UnitView>();
-            var unitView = (await InstantiateAsync(unitPrefab, (Vector2)unitModel.Position.Value, Quaternion.identity))[0];
+            var unitView =
+                (await InstantiateAsync(unitPrefab, (Vector2)unitModel.Position.Value, Quaternion.identity))[0];
             _world.CameraControlModel.Target.Value = unitView.Transform;
             _addressableModel.Unload(loadModelPrefab);
 
@@ -127,7 +128,8 @@ namespace Runtime.Core
             var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
             await loadModel.LoadAwaiter;
             var unitPrefab = loadModel.Result.GetComponent<UnitView>();
-            var unitView = (await InstantiateAsync(unitPrefab, (Vector2)unitModel.Position.Value, Quaternion.identity))[0];
+            var unitView =
+                (await InstantiateAsync(unitPrefab, (Vector2)unitModel.Position.Value, Quaternion.identity))[0];
             _addressableModel.Unload(loadModel);
 
             //var agentPresenter = new AgentPresenter(unitModel, _worldDescription.BearAgentDecisionDescription, _world);

@@ -27,14 +27,14 @@ namespace Runtime.UI.Inventory
             }
 
             var remaining = amount;
-            
+
             foreach (var cell in Cells)
             {
                 if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
                 {
                     continue;
                 }
-                
+
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
@@ -50,7 +50,7 @@ namespace Runtime.UI.Inventory
                 {
                     continue;
                 }
-                
+
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
@@ -79,7 +79,7 @@ namespace Runtime.UI.Inventory
                 {
                     continue;
                 }
-                
+
                 var take = Math.Min(cell.Amount, remaining);
 
                 if (cell.TryTake(take))

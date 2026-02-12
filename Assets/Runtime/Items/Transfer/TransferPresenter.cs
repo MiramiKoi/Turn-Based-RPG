@@ -10,7 +10,7 @@ namespace Runtime.Items.Transfer
         {
             _model = model;
         }
-        
+
         public void Enable()
         {
             _model.OnItemTransfer += HandleTransfer;
@@ -24,25 +24,25 @@ namespace Runtime.Items.Transfer
         private void HandleTransfer()
         {
             CellTransfer();
-            
+
             Clear();
         }
 
         private void CellTransfer()
         {
-            if (_model.SourceCell == null ||  _model.TargetCell == null)
+            if (_model.SourceCell == null || _model.TargetCell == null)
             {
                 return;
             }
-            
+
             if (_model.TargetCell.ItemDescription != null && _model.CurrentItem != _model.TargetCell.ItemDescription)
             {
                 Clear();
                 return;
             }
-            
+
             var remaining = _model.CurrentItem.StackSize - _model.TargetCell.Amount;
-            
+
             if (remaining < _model.CurrentAmount)
             {
                 _model.TargetCell.TryPut(_model.CurrentItem, remaining);
@@ -54,7 +54,7 @@ namespace Runtime.Items.Transfer
                 _model.SourceCell.TryTake(_model.CurrentAmount);
             }
         }
-        
+
         private void Clear()
         {
             _model.SourceCell = null;

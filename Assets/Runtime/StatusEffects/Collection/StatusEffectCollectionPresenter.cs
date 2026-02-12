@@ -20,7 +20,8 @@ namespace Runtime.StatusEffects.Collection
 
         private readonly Dictionary<string, (StatusEffectPresenter, LoadModel<GameObject>)> _presenters = new();
 
-        public StatusEffectCollectionPresenter(UnitModel unitModel, UnitView unitUnitView, World world, WorldViewDescriptions viewDescriptions)
+        public StatusEffectCollectionPresenter(UnitModel unitModel, UnitView unitUnitView, World world,
+            WorldViewDescriptions viewDescriptions)
         {
             _modelCollection = unitModel.ActiveEffects.Collection;
             _unitModel = unitModel;
@@ -59,12 +60,12 @@ namespace Runtime.StatusEffects.Collection
             model.OnExpired += HandleChangeExpired;
 
             var id = model.Id;
-            
+
             var viewDescription = _viewDescriptions.Get(model.Description.ViewId);
             var loadModel = _world.AddressableModel.Load<GameObject>(viewDescription.View.AssetGUID);
-            
+
             await loadModel.LoadAwaiter;
-            
+
             var viewPrefab = loadModel.Result.GetComponent<StatusEffectView>();
 
             var view = (await Object.InstantiateAsync(viewPrefab, _unitView.Transform))[0];
@@ -88,7 +89,7 @@ namespace Runtime.StatusEffects.Collection
         }
 
         private async void HandleAdded(StatusEffectModel model)
-        { 
+        {
             await AddPresenter(model);
         }
 

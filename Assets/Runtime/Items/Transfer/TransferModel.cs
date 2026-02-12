@@ -29,7 +29,7 @@ namespace Runtime.Items.Transfer
 
             return false;
         }
-        
+
         public void Transfer()
         {
             if (CurrentItem == null || CurrentAmount == 0)
