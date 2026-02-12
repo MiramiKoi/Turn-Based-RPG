@@ -29,30 +29,26 @@ namespace Runtime.Core
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
-        private UIContent _uiContent;
-
         private PlayerControls _playerControls;
 
         private async void Start()
         {
             _playerControls = new PlayerControls();
             _playerControls.Enable();
-
-            _uiContent = new UIContent(_gameplayDocument);
             
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription, _uiContent.GameplayContent),
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel, _gameplayDocument),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
                 new TurnBaseLoadStep(_presenters, _world),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
-                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions, _uiContent),
+                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions),
                 new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldViewDescriptions),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world),
-                new UILoadStep(_presenters, _world, _worldViewDescriptions, _uiContent),
+                new UILoadStep(_presenters, _world, _worldViewDescriptions),
             };
 
             foreach (var step in persistentLoadStep)

@@ -15,15 +15,12 @@ namespace Runtime.LoadSteps
         private readonly List<IPresenter> _presenters;
         private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
-        private readonly UIContent _uiContent;
 
-        public PlayerLoadStep(List<IPresenter> presenters, World world, WorldViewDescriptions worldViewDescriptions,
-            UIContent uiContent)
+        public PlayerLoadStep(List<IPresenter> presenters, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _presenters = presenters;
             _world = world;
             _worldViewDescriptions = worldViewDescriptions;
-            _uiContent = uiContent;
         }
 
         public async Task Run()
@@ -38,7 +35,7 @@ namespace Runtime.LoadSteps
             await loadModelUiAsset.LoadAwaiter;
             var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
             var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(characterModel, statusEffectsView, _world,
-                _worldViewDescriptions, _uiContent);
+                _worldViewDescriptions);
             statusEffectsPresenter.Enable();
             _presenters.Add(statusEffectsPresenter);
 

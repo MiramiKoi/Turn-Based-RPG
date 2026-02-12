@@ -14,15 +14,13 @@ namespace Runtime.UI.Loot
         private readonly LootModel _model;
         private readonly InventoryView _inventoryView;
         private readonly World _world;
-        private readonly UIContent _uiContent;
         private readonly WorldViewDescriptions _viewDescriptions;
 
-        public LootPresenter(LootModel model, World world, WorldViewDescriptions viewDescriptions, UIContent uiContent)
+        public LootPresenter(LootModel model, World world, WorldViewDescriptions viewDescriptions)
         {
             _model = model;
             _world = world;
             _viewDescriptions = viewDescriptions;
-            _uiContent = uiContent;
 
             _inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
         }
@@ -62,8 +60,7 @@ namespace Runtime.UI.Loot
                 _inventoryView.Root.AddToClassList("loot-inventory");
             }
 
-            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions,
-                _uiContent, _world);
+            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions, _world);
             _currentInventory.Enable();
         }
 

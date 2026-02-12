@@ -35,7 +35,7 @@ namespace Runtime.Core
         public TransferModel TransferModel { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
-            WorldDescription worldDescription, VisualElement uiRoot)
+            WorldDescription worldDescription)
         {
             WorldDescription = worldDescription;
 

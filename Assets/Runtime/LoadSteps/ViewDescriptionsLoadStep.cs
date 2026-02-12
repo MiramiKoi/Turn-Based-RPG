@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Runtime.AsyncLoad;
+using Runtime.UI;
 using Runtime.ViewDescriptions;
 using Runtime.ViewDescriptions.Inventory;
 using Runtime.ViewDescriptions.Items;
@@ -11,6 +12,7 @@ using Runtime.ViewDescriptions.Landscape.Grid;
 using Runtime.ViewDescriptions.Landscape.Surface;
 using Runtime.ViewDescriptions.StatusEffects;
 using Runtime.ViewDescriptions.Units;
+using UnityEngine.UIElements;
 
 namespace Runtime.LoadSteps
 {
@@ -19,9 +21,11 @@ namespace Runtime.LoadSteps
         private readonly AddressableModel _addressableModel;
         private readonly Dictionary<string, Action<object>> _loadMap;
 
-        public ViewDescriptionsLoadStep(WorldViewDescriptions worldViewDescriptions, AddressableModel addressableModel)
+        public ViewDescriptionsLoadStep(WorldViewDescriptions worldViewDescriptions, AddressableModel addressableModel, UIDocument uiDocument)
         {
             _addressableModel = addressableModel;
+            
+            worldViewDescriptions.UIContent = new UIContent(uiDocument);
 
             _loadMap = new Dictionary<string, Action<object>>
             {

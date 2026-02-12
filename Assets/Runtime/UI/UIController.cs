@@ -19,8 +19,7 @@ namespace Runtime.UI
         private readonly CompositeDisposable _disposables = new();
         private TransferPresenter _transferPresenter;
 
-        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions,
-            UIContent uiContent)
+        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions)
         {
             _world = world;
             _playerControls = playerControls;
@@ -31,7 +30,7 @@ namespace Runtime.UI
             inventoryView.Root.AddToClassList("player-inventory");
 
             _playerInventory =
-                new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, uiContent, world);
+                new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, world);
         }
 
         public void Enable()

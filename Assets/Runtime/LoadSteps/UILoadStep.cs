@@ -13,28 +13,26 @@ namespace Runtime.LoadSteps
     {
         private readonly World _world;
         private readonly WorldViewDescriptions _worldViewDescriptions;
-        private readonly UIContent _uiContent;
         private readonly List<IPresenter> _presenters;
 
-        public UILoadStep(List<IPresenter> presenters, World world, WorldViewDescriptions worldViewDescriptions, UIContent uiContent)
+        public UILoadStep(List<IPresenter> presenters, World world, WorldViewDescriptions worldViewDescriptions)
         {
             _presenters = presenters;
             _world = world;
             _worldViewDescriptions = worldViewDescriptions;
-            _uiContent = uiContent;
         }
 
         public async Task Run()
         {
-            var uiController = new UIController(_world, _world.PlayerControls, _worldViewDescriptions, _uiContent);
+            var uiController = new UIController(_world, _world.PlayerControls, _worldViewDescriptions);
             uiController.Enable();
             _presenters.Add(uiController);
             
-            var lootPresenter = new LootPresenter(_world.LootModel, _world, _worldViewDescriptions, _uiContent);
+            var lootPresenter = new LootPresenter(_world.LootModel, _world, _worldViewDescriptions);
             lootPresenter.Enable();
             _presenters.Add(lootPresenter);
 
-            var uiBlockerPresenter = new UIBlockerPresenter(_world.UIBlockerModel, _world, _uiContent);
+            var uiBlockerPresenter = new UIBlockerPresenter(_world.UIBlockerModel, _world, _worldViewDescriptions.UIContent);
             uiBlockerPresenter.Enable();
             _presenters.Add(uiBlockerPresenter);
 
