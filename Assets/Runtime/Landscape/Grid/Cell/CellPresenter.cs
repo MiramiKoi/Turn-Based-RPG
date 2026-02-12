@@ -49,10 +49,18 @@ namespace Runtime.Landscape.Grid.Cell
 
         public void Disable()
         {
-            _world.AddressableModel.Unload(_surfaceTileLoadModel);
+            if (_surfaceTileLoadModel != null)
+            {
+                _world.AddressableModel.Unload(_surfaceTileLoadModel);
+            }
+
+            if (_environmentTileLoadModel != null)
+            {
+                _world.AddressableModel.Unload(_environmentTileLoadModel);
+            }
+            
             _view.SurfacesTilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);
 
-            _world.AddressableModel.Unload(_environmentTileLoadModel);
             _view.EnvironmentTilemap.SetTile(GridHelper.ToCellPos(_model.Position), null);
         }
     }
