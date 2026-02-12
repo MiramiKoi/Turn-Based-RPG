@@ -7,7 +7,9 @@ using Runtime.ModelCollections;
 using Runtime.Stats;
 using Runtime.StatusEffects.Applier;
 using Runtime.UI.Inventory;
-using Runtime.Units.Components;
+using Runtime.Units.Actions;
+using Runtime.Units.Combat;
+using Runtime.Units.Movement;
 using UnityEngine;
 
 namespace Runtime.Units
@@ -45,13 +47,13 @@ namespace Runtime.Units
             Combat = new UnitCombatModel(Stats, State);
 
             Inventory = new InventoryModel(description.InventorySize);
-            
+
             foreach (var (itemId, amount) in description.Loot)
             {
                 worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
                 Inventory.TryPutItem(item, amount);
             }
-            
+
             Effects = new StatusEffectApplierModel(worldDescription);
         }
 

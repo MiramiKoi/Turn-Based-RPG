@@ -11,15 +11,15 @@ namespace Runtime.UI.Loot
     {
         private InventoryPresenter _currentInventory;
 
-        private readonly World _world;
-        private readonly UIContent _uiContent;
+        private readonly LootModel _model;
         private readonly InventoryView _inventoryView;
+        private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
 
-        public LootPresenter(World world, UIContent uiContent, WorldViewDescriptions viewDescriptions)
+        public LootPresenter(LootModel model, World world, WorldViewDescriptions viewDescriptions)
         {
+            _model = model;
             _world = world;
-            _uiContent = uiContent;
             _viewDescriptions = viewDescriptions;
 
             _inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
@@ -27,14 +27,14 @@ namespace Runtime.UI.Loot
 
         public void Enable()
         {
-            _world.LootModel.OnLootRequested += Show;
-            _world.TurnBaseModel.OnPlayerStepFinished += Clear;
+            _model.OnLootRequested += Show;
+            _model.OnLootCanceled += Clear;
         }
 
         public void Disable()
         {
-            _world.LootModel.OnLootRequested -= Show;
-            _world.TurnBaseModel.OnPlayerStepFinished -= Clear;
+            _model.OnLootRequested -= Show;
+            _model.OnLootCanceled -= Clear;
             Clear();
         }
 
@@ -60,8 +60,7 @@ namespace Runtime.UI.Loot
                 _inventoryView.Root.AddToClassList("loot-inventory");
             }
 
-            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions,
-                _uiContent, _world);
+            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions, _world);
             _currentInventory.Enable();
         }
 

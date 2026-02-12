@@ -7,7 +7,7 @@ namespace Runtime.Descriptions.Agents.Commands
     public class EnterToBattleCommand : CommandDescription
     {
         public override string Type => "enter_to_battle";
-        
+
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             context.TurnBaseModel.BattleModel.EnterToBattle((UnitModel)controllable);
@@ -17,7 +17,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override void Deserialize(Dictionary<string, object> data)
         {
-            
         }
     }
 }

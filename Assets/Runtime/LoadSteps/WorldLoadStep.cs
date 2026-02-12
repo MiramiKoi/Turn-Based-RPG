@@ -3,7 +3,6 @@ using Runtime.AsyncLoad;
 using Runtime.Core;
 using Runtime.Descriptions;
 using Runtime.Input;
-using UnityEngine.UIElements;
 
 namespace Runtime.LoadSteps
 {
@@ -13,21 +12,19 @@ namespace Runtime.LoadSteps
         private readonly PlayerControls _playerControls;
         private readonly World _world;
         private readonly WorldDescription _worldDescription;
-        private readonly VisualElement _uiRoot;
 
         public WorldLoadStep(World world, AddressableModel addressableModel, PlayerControls playerControls,
-            WorldDescription worldDescription, VisualElement uiRoot)
+            WorldDescription worldDescription)
         {
             _addressableModel = addressableModel;
             _playerControls = playerControls;
             _worldDescription = worldDescription;
-            _uiRoot = uiRoot;
             _world = world;
         }
 
         public Task Run()
         {
-            _world.SetData(_addressableModel, _playerControls, _worldDescription, _uiRoot);
+            _world.SetData(_addressableModel, _playerControls, _worldDescription);
             return Task.CompletedTask;
         }
     }

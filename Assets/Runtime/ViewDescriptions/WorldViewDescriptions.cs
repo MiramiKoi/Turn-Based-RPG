@@ -1,3 +1,4 @@
+using Runtime.UI;
 using Runtime.ViewDescriptions.Inventory;
 using Runtime.ViewDescriptions.Items;
 using Runtime.ViewDescriptions.Landscape.Environment;
@@ -10,6 +11,7 @@ namespace Runtime.ViewDescriptions
 {
     public class WorldViewDescriptions
     {
+        public UIContent UIContent { get; set; }
         public SurfaceViewDescriptionCollection SurfaceViewDescriptions { get; set; }
         public EnvironmentViewDescriptionCollection EnvironmentViewDescriptions { get; set; }
         public GridIndicationViewDescription GridIndicationViewDescription { get; set; }

@@ -6,11 +6,9 @@ using Runtime.Descriptions;
 using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
-using Runtime.TurnBase;
-using Runtime.UI;
-using Runtime.UI.Loot;
 using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -30,10 +28,6 @@ namespace Runtime.Core
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
-        private UIController _uiController;
-        private UIContent _uiContent;
-        private UIBlocker _uiBlocker;
-
         private PlayerControls _playerControls;
 
         private async void Start()
@@ -41,20 +35,19 @@ namespace Runtime.Core
             _playerControls = new PlayerControls();
             _playerControls.Enable();
 
-            _uiContent = new UIContent(_gameplayDocument);
-
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription,
-                    _uiContent.GameplayContent),
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel, _gameplayDocument),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
+                new TurnBaseLoadStep(_presenters, _world),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
-                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions, _uiContent),
+                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions),
                 new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldViewDescriptions),
-                new CameraControlLoadStep(_presenters, _cameraControlView, _world)
+                new CameraControlLoadStep(_presenters, _cameraControlView, _world),
+                new UILoadStep(_presenters, _world, _worldViewDescriptions)
             };
 
             foreach (var step in persistentLoadStep)
@@ -62,21 +55,43 @@ namespace Runtime.Core
                 await step.Run();
             }
 
-            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            _uiController.Enable();
-
-            _world.TurnBaseModel.Steps.Clear();
-            var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
-
-            turnBasePresenter.Enable();
-
-            var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
-            lootPresenter.Enable();
+            Application.quitting += OnQuit;
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
         }
 
         private void Update()
         {
             _world.GameSystems?.Update(Time.deltaTime);
+        }
+
+#if UNITY_EDITOR
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingPlayMode)
+            {
+                Dispose();
+            }
+        }
+#endif
+
+        private void OnQuit()
+        {
+            Dispose();
+        }
+
+        private void Dispose()
+        {
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+#endif
+            Application.quitting -= OnQuit;
+
+            for (var i = _presenters.Count - 1; i >= 0; i--)
+            {
+                _presenters[i].Disable();
+            }
         }
     }
 }

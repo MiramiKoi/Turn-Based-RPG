@@ -2,7 +2,7 @@
 using Runtime.Stats;
 using UnityEngine;
 
-namespace Runtime.Units.Components
+namespace Runtime.Units.Combat
 {
     public class UnitCombatModel
     {

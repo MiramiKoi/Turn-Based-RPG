@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Stats;
 using Runtime.Units;
-using Runtime.Units.Components;
 using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes

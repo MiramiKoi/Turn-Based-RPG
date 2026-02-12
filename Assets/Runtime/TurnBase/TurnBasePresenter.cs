@@ -47,9 +47,9 @@ namespace Runtime.TurnBase
             await ProcessAllSteps();
 
             await WaitParallelSteps();
-            
+
             ChangePlayerMode();
-            
+
             _model.WorldStep();
         }
 

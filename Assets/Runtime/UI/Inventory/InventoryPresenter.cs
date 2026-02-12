@@ -18,12 +18,12 @@ namespace Runtime.UI.Inventory
         private readonly List<(VisualElement root, EventCallback<ClickEvent> callback)> _callbacks = new();
 
         public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions,
-            UIContent uiContent, World world)
+            World world)
         {
             _model = model;
             _view = view;
             _viewDescriptions = viewDescriptions;
-            _uiContent = uiContent;
+            _uiContent = viewDescriptions.UIContent;
             _world = world;
         }
 
