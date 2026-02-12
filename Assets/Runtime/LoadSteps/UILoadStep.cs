@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.UI;
+using Runtime.UI.Blocker;
 using Runtime.UI.Loot;
 using Runtime.ViewDescriptions;
 
@@ -32,6 +33,10 @@ namespace Runtime.LoadSteps
             var lootPresenter = new LootPresenter(_world.LootModel, _world, _worldViewDescriptions, _uiContent);
             lootPresenter.Enable();
             _presenters.Add(lootPresenter);
+
+            var uiBlockerPresenter = new UIBlockerPresenter(_world.UIBlockerModel, _world, _uiContent);
+            uiBlockerPresenter.Enable();
+            _presenters.Add(uiBlockerPresenter);
 
             await Task.CompletedTask;
         }

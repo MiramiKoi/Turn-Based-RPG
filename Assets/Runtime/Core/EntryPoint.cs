@@ -29,9 +29,7 @@ namespace Runtime.Core
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
-        private UIController _uiController;
         private UIContent _uiContent;
-        private UIBlocker _uiBlocker;
 
         private PlayerControls _playerControls;
 

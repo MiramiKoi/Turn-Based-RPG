@@ -22,7 +22,7 @@ namespace Runtime.Landscape.Grid.Interaction
 
         public void Update(float deltaTime)
         {
-            if (_world.UIBlocker.IsPointerOverUI)
+            if (_world.UIBlockerModel.IsPointerOverUI.Value)
             {
                 _view.IndicationTilemap.ClearAllTiles();
                 return;

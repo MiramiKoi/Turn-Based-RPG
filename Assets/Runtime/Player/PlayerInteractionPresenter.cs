@@ -61,7 +61,7 @@ namespace Runtime.Player
         {
             return _model.IsDead ||
                    _model.IsExecutingRoute ||
-                   _world.UIBlocker.IsPointerOverUI ||
+                   _world.UIBlockerModel.IsPointerOverUI.Value ||
                    _world.GridInteractionModel.CurrentCell == null;
         }
 
