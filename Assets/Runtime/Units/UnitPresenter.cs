@@ -25,7 +25,7 @@ namespace Runtime.Units
 
         protected UnitView View;
         
-        private readonly UnitModel _unit;
+        private readonly UnitModel _model;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly IObjectPool<UnitView> _pool;
@@ -39,9 +39,9 @@ namespace Runtime.Units
 
         private UnitVisiblePresenter _unitVisiblePresenter;
 
-        public UnitPresenter(UnitModel unit, IObjectPool<UnitView> pool, World world, WorldViewDescriptions viewDescriptions)
+        public UnitPresenter(UnitModel model, IObjectPool<UnitView> pool, World world, WorldViewDescriptions viewDescriptions)
         {
-            _unit = unit;
+            _model = model;
             _pool = pool;
             _world = world;
             _viewDescriptions = viewDescriptions;
@@ -51,29 +51,29 @@ namespace Runtime.Units
         {
             View = _pool.Get();
             
-            foreach (var stat in _unit.Stats)
+            foreach (var stat in _model.Stats)
             {
                 var statPresenter = new StatPresenter(stat);
                 statPresenter.Enable();
             }
 
-            _unitVisiblePresenter = new UnitVisiblePresenter(_unit, View);
+            _unitVisiblePresenter = new UnitVisiblePresenter(_model, View);
             _unitVisiblePresenter.Enable();
 
-            _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
-            _unit.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
-            _unit.OnAttacked += OnAttacked;
-            _unit.OnDamaging += OnDamaged;
+            _model.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
+            _model.Position.Subscribe(OnPositionChanged).AddTo(_disposables);
+            _model.OnAttacked += OnAttacked;
+            _model.OnDamaging += OnDamaged;
 
-            View.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
-            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_unit.ActiveEffects, _unit, _world);
+            View.Transform.position = new Vector3(_model.Position.Value.x, _model.Position.Value.y, 0);
+            _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_model.ActiveEffects, _model, _world);
             _statusEffectApplierPresenter.Enable();
 
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
             
-            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, View, _world, _viewDescriptions);
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_model, View, _world, _viewDescriptions);
             _statusEffectsPresenter.Enable();
         }
 
@@ -81,8 +81,8 @@ namespace Runtime.Units
         {
             _pool.Release(View);
             
-            _unit.OnDamaging -= OnDamaged;
-            _unit.OnAttacked -= OnAttacked;
+            _model.OnDamaging -= OnDamaged;
+            _model.OnAttacked -= OnAttacked;
             _disposables.Dispose();
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
@@ -103,6 +103,7 @@ namespace Runtime.Units
 
         private async void OnPositionChanged(Vector2Int position)
         {
+            _world.GridModel.GetCell(_model.Position.Value).Release();
             var step = CreateStep(StepType.Parallel);
 
             await step.AllowedAwaiter;
@@ -110,6 +111,7 @@ namespace Runtime.Units
             View.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
             await PlayAnimation(IsMoving, 0.2f);
 
+            _world.GridModel.GetCell(position).Occupied(_model);
             step.CompletedAwaiter.Complete();
         }
 
@@ -132,7 +134,7 @@ namespace Runtime.Units
 
             await PlayAnimation(IsDamaging);
 
-            if (_unit.Health <= 0)
+            if (_model.Health <= 0)
             {
                 await PlayAnimation(IsDead);
             }
