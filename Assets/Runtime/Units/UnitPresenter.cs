@@ -83,8 +83,8 @@ namespace Runtime.Units
         {
             _pool.Release(View);
 
-            _model.Combat.OnAttacked -= OnDamaged;
-            _model.Combat.OnDamaged -= OnAttacked;
+            _model.Combat.OnAttacked -= OnAttacked;
+            _model.Combat.OnDamaged -= OnDamaged;
             _disposables.Dispose();
 
             _world.AddressableModel.Unload(_statusEffectsLoadModel);
