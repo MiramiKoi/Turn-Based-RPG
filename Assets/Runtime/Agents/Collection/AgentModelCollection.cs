@@ -1,6 +1,6 @@
 using Runtime.ModelCollections;
 
-namespace Runtime.Agents
+namespace Runtime.Agents.Collection
 {
     public class AgentModelCollection : ModelCollectionBase<string, AgentModel>
     {
