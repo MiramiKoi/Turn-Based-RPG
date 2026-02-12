@@ -99,7 +99,7 @@ namespace Runtime.UI.Inventory
 
             return taken;
         }
-        
+
         public bool CanExtract(ItemDescription item, int amount)
         {
             var remaining = amount;

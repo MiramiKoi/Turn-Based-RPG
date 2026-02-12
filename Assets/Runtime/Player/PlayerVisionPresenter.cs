@@ -48,7 +48,8 @@ namespace Runtime.Player
 
                 var visibilityRadius = Mathf.RoundToInt(_model.Stats["visibility_radius"].Value);
 
-                unit.State.Visible.Value = VisionPathFinder.Trace(_grid, position, unit.State.Position.Value, visibilityRadius);
+                unit.State.Visible.Value =
+                    VisionPathFinder.Trace(_grid, position, unit.State.Position.Value, visibilityRadius);
             }
         }
     }

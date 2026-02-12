@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Common;
 using Runtime.Descriptions;
-using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Descriptions.Units;
 using Runtime.Extensions;
 using Runtime.ModelCollections;

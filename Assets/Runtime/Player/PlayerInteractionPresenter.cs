@@ -106,7 +106,8 @@ namespace Runtime.Player
                         _world.LootModel.RequestLoot(unit);
                         StopRoute();
                     }
-                    else if (unit.Description.Fraction != _model.Description.Fraction && _model.Combat.CanAttack(nextCell))
+                    else if (unit.Description.Fraction != _model.Description.Fraction &&
+                             _model.Combat.CanAttack(nextCell))
                     {
                         var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
                         var damage = _model.Combat.GetDamage();
