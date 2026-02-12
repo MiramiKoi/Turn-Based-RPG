@@ -22,9 +22,10 @@ namespace Runtime.Units
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int IsDamaging = Animator.StringToHash("IsDamaging");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
+
+        protected UnitView View;
         
         private readonly UnitModel _unit;
-        private UnitView _view;
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly IObjectPool<UnitView> _pool;
@@ -48,7 +49,7 @@ namespace Runtime.Units
 
         public virtual async void Enable()
         {
-            _view = _pool.Get();
+            View = _pool.Get();
             
             foreach (var stat in _unit.Stats)
             {
@@ -56,7 +57,7 @@ namespace Runtime.Units
                 statPresenter.Enable();
             }
 
-            _unitVisiblePresenter = new UnitVisiblePresenter(_unit, _view);
+            _unitVisiblePresenter = new UnitVisiblePresenter(_unit, View);
             _unitVisiblePresenter.Enable();
 
             _unit.Direction.Subscribe(OnRotationChanged).AddTo(_disposables);
@@ -64,12 +65,12 @@ namespace Runtime.Units
             _unit.OnAttacked += OnAttacked;
             _unit.OnDamaging += OnDamaged;
 
-            _view.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
+            View.Transform.position = new Vector3(_unit.Position.Value.x, _unit.Position.Value.y, 0);
 
             _statusEffectsLoadModel = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _statusEffectsLoadModel.LoadAwaiter;
-            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, _view, _world, _viewDescriptions);
+            _statusEffectsPresenter = new StatusEffectCollectionPresenter(_unit, View, _world, _viewDescriptions);
             _statusEffectApplierPresenter = new StatusEffectApplierPresenter(_unit.ActiveEffects, _unit, _world);
 
             _statusEffectsPresenter.Enable();
@@ -78,7 +79,7 @@ namespace Runtime.Units
 
         public virtual void Disable()
         {
-            _pool.Release(_view);
+            _pool.Release(View);
             
             _unit.OnDamaging -= OnDamaged;
             _unit.OnAttacked -= OnAttacked;
@@ -97,7 +98,7 @@ namespace Runtime.Units
 
         private void OnRotationChanged(UnitDirection direction)
         {
-            _view.SpriteRenderer.flipX = direction == UnitDirection.Left;
+            View.SpriteRenderer.flipX = direction == UnitDirection.Left;
         }
 
         private async void OnPositionChanged(Vector2Int position)
@@ -106,7 +107,7 @@ namespace Runtime.Units
 
             await step.AllowedAwaiter;
 
-            _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
+            View.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
             await PlayAnimation(IsMoving, 0.2f);
 
             step.CompletedAwaiter.Complete();
@@ -149,20 +150,20 @@ namespace Runtime.Units
 
         private async Task PlayAnimation(int animationId)
         {
-            _view.Animator.SetBool(animationId, true);
-            var scheduleAwaiter = new ScheduleAwaiter(_view.Animator.GetCurrentAnimatorStateInfo(0).length);
+            View.Animator.SetBool(animationId, true);
+            var scheduleAwaiter = new ScheduleAwaiter(View.Animator.GetCurrentAnimatorStateInfo(0).length);
             scheduleAwaiter.Start();
             await scheduleAwaiter;
-            _view.Animator.SetBool(animationId, false);
+            View.Animator.SetBool(animationId, false);
         }
 
         private async Task PlayAnimation(int animationId, float duration)
         {
-            _view.Animator.SetBool(animationId, true);
+            View.Animator.SetBool(animationId, true);
             var scheduleAwaiter = new ScheduleAwaiter(duration);
             scheduleAwaiter.Start();
             await scheduleAwaiter;
-            _view.Animator.SetBool(animationId, false);
+            View.Animator.SetBool(animationId, false);
         }
     }
 }
