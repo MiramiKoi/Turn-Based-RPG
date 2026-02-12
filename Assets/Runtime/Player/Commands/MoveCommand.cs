@@ -25,6 +25,7 @@ namespace Runtime.Player.Commands
 
         public void Execute()
         {
+            _world.LootModel.CancelLoot();
             _world.GridModel.ReleaseCell(_player.State.Position.Value);
             _player.Movement.MoveTo(_target);
         }

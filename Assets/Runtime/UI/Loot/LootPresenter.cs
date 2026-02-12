@@ -28,13 +28,13 @@ namespace Runtime.UI.Loot
         public void Enable()
         {
             _world.LootModel.OnLootRequested += Show;
-            _world.TurnBaseModel.OnPlayerStepFinished += Clear;
+            _world.LootModel.OnLootCanceled += Clear;
         }
 
         public void Disable()
         {
             _world.LootModel.OnLootRequested -= Show;
-            _world.TurnBaseModel.OnPlayerStepFinished -= Clear;
+            _world.LootModel.OnLootCanceled -= Clear;
             Clear();
         }
 

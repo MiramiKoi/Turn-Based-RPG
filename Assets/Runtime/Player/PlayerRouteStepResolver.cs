@@ -19,7 +19,10 @@ namespace Runtime.Player
             var cell = _world.GridModel.GetCell(targetCell);
 
             if (cell.Unit == null)
+            {
+                
                 return new MoveCommand(player, _world, targetCell);
+            }
 
             var unit = (UnitModel)cell.Unit;
 
@@ -30,7 +33,7 @@ namespace Runtime.Player
                 return new LootCommand(_world, unit);
 
             if (unit.Description.Fraction != player.Description.Fraction)
-                return new AttackCommand(player, unit);
+                return new AttackCommand(player, unit, _world);
 
             return null;
         }
