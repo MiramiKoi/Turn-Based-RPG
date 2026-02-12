@@ -1,4 +1,3 @@
-using Runtime.Agents.Collection;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Descriptions;
@@ -30,7 +29,6 @@ namespace Runtime.Core
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
-        public AgentModelCollection AgentCollection { get; private set; }
         public UIBlocker UIBlocker { get; private set; }
         public LootModel LootModel { get; private set; }
         public TransferModel TransferModel { get; private set; }
@@ -54,7 +52,6 @@ namespace Runtime.Core
             GameSystems = new GameSystemCollection();
 
             UnitCollection = new UnitModelCollection(this, WorldDescription);
-            AgentCollection = new AgentModelCollection();
 
             UIBlocker = new UIBlocker(uiRoot, playerControls);
             
