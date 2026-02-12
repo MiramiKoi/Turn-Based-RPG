@@ -7,7 +7,7 @@ namespace Runtime.UI.Inventory
 {
     public class InventoryModel
     {
-        public bool Enabled;
+        public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
 
         public InventoryModel(int size)
@@ -28,7 +28,7 @@ namespace Runtime.UI.Inventory
 
             var remaining = amount;
             
-            foreach (var cell in Cells)
+            /*foreach (var cell in Cells)
             {
                 if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
                 {
@@ -42,7 +42,7 @@ namespace Runtime.UI.Inventory
                 {
                     return amount;
                 }
-            }
+            }*/
 
             foreach (var cell in Cells)
             {
@@ -98,7 +98,7 @@ namespace Runtime.UI.Inventory
             return taken;
         }
 
-        private bool IsSameItem(IItemDescription itemA, IItemDescription itemB)
+        private bool IsSameItem(ItemDescription itemA, ItemDescription itemB)
         {
             if (itemA == null || itemB == null)
             {

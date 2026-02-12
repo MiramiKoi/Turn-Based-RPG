@@ -74,7 +74,7 @@ namespace Runtime.UI.Inventory
 
         private void CellClicked(CellModel cell)
         {
-            if (_world.TransferModel.TrySetCell(cell))
+            if (_world.TransferModel.TrySetCell(cell, _model))
             {
                 return;
             }
@@ -85,6 +85,7 @@ namespace Runtime.UI.Inventory
             }
             
             _world.TransferModel.TargetCell = cell;
+            _world.TransferModel.TargetInventory = _model;
             _world.TransferModel.Transfer();
         }
     }
