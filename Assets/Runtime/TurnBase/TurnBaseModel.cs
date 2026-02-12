@@ -15,6 +15,8 @@ namespace Runtime.TurnBase
 
         public Queue<StepModel> Steps { get; } = new();
 
+        public BattleModel BattleModel { get; } = new();
+
         public void PlayerStep()
         {
             CurrentTurn++;
