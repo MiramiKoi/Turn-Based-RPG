@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Panda
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Unit.UnitViewDescription
   Prefab:
-    m_AssetGUID: 18691cb576ca1bc498d3f4b4d64853eb
+    m_AssetGUID: 2a0ceed3430b82246b58704b82215707
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

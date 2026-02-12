@@ -55,11 +55,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: afe6430a1db5ccf4cbb08e67a845db90
-    m_Address: Trader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0694958cfa33474f8be470fc1abc820
     m_Address: environment-generation-description
     m_ReadOnly: 0
