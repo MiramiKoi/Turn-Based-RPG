@@ -1,0 +1,26 @@
+{
+  "0": {
+    "view_id": "water",
+    "is_walkable": false
+  },
+  "1": {
+    "view_id": "ground",
+    "is_walkable": true
+  },
+  "2": {
+    "view_id": "orange_ground",
+    "is_walkable": true
+  },
+  "3": {
+    "view_id": "yellow_ground",
+    "is_walkable": true
+  },
+  "4": {
+    "view_id": "purple_ground",
+    "is_walkable": true
+  },
+  "5": {
+    "view_id": "floor",
+    "is_walkable": true
+  }
+}

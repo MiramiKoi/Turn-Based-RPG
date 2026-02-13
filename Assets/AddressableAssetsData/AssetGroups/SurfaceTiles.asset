@@ -15,8 +15,28 @@ MonoBehaviour:
   m_GroupName: SurfaceTiles
   m_GUID: 89f81b3b9cce1804bb6c5dcee04c3299
   m_SerializeEntries:
+  - m_GUID: 1c5523ea57d8a3b41b370799ec7aa457
+    m_Address: Floor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 412ea6b397a7e8849ba5d4641508f524
+    m_Address: PurpleGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 699f72ea180b89243851638a0cf6d1cd
     m_Address: Ground
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99052f61f2cfb1f4985e8f03210543bb
+    m_Address: YellowGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6a8850c2f6f9304185388d657902f40
+    m_Address: OrangeGround
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

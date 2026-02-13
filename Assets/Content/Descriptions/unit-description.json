@@ -3,16 +3,19 @@
     "view_id": "warrior",
     "stats": {
       "health": 100,
-      "attack_damage": 10,
+      "attack_damage": 1,
       "attack_range": 1,
       "visibility_radius": 10
     },
     "fraction": "player",
     "inventory_size": 12,
     "loot": {
-      "bear_meat": 19,
-      "money": 100
-    }
+      "money": 100,
+      "simple_breastplate" : 1
+    },
+    "equipment": [
+      "simple_sword"
+    ]
   },
   "bear": {
     "view_id": "bear",
@@ -29,14 +32,15 @@
       "bear_meat": 5,
       "bear_fur": 2,
       "money": 10
-    }
+    },
+    "equipment": []
   },
   "panda": {
     "view_id": "panda",
     "agent_decision_id": "panda",
     "stats": {
-      "health": 20,
-      "attack_damage": 20,
+      "health": 300,
+      "attack_damage": 100,
       "attack_range": 1,
       "visibility_radius": 4
     },
@@ -44,7 +48,8 @@
     "inventory_size": 6,
     "loot": {
       "money": 100
-    }
+    },
+    "equipment": []
   },
   "trader": {
     "view_id": "trader",
@@ -59,8 +64,11 @@
     "inventory_size": 12,
     "loot": {
       "bear_meat": 2,
+      "mega_sword": 1,
+      "mega_breastplate": 1,
       "money": 150
-    }
+    },
+    "equipment": []
   },
   "loot": {
     "view_id": "loot",
@@ -74,7 +82,8 @@
     "fraction": "loot",
     "inventory_size": 6,
     "loot": {
-    }
+    },
+    "equipment": []
   },
   "chest": {
     "view_id": "loot",
@@ -89,6 +98,7 @@
     "inventory_size": 6,
     "loot": {
       "money": 200
-    }
+    },
+    "equipment": []
   }
 }

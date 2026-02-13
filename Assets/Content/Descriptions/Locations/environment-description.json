@@ -1,0 +1,37 @@
+{
+  "0": {
+    "view_id": "empty",
+    "is_walkable": true,
+    "block_vision": false,
+    "spawn_probability": 0.25
+  },
+  "1": {
+    "view_id": "tree",
+    "is_walkable": false,
+    "block_vision": true,
+    "spawn_probability": 0.25
+  },
+  "2": {
+    "view_id": "stone",
+    "is_walkable": false,
+    "block_vision": true,
+    "spawn_probability": 0.25
+  },  
+  "3": {
+    "view_id": "grass",
+    "is_walkable": false,
+    "block_vision": true,
+    "spawn_probability": 0.25
+  },
+  "4": {
+    "view_id": "stump",
+    "is_walkable": false,
+    "block_vision": true,
+    "spawn_probability": 0.25
+  },"5": {
+    "view_id": "wall",
+    "is_walkable": false,
+    "block_vision": true,
+    "spawn_probability": 0.25
+  }  
+}
