@@ -133,7 +133,7 @@ namespace Runtime.Landscape.Grid
         {
             foreach (var position in cells)
             {
-                if (IsInsideGrid(position) && Cells[position.x, position.y] != null)
+                if (IsInsideGrid(position) && Cells[position.x, position.y] != null && !Cells[position.x, position.y].IsOccupied)
                 {
                     Cells[position.x, position.y].SetIndication(indicationType);
                 }
