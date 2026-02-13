@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Runtime.Common;
 using Runtime.Descriptions;
+using Runtime.Descriptions.Items;
 using Runtime.Descriptions.Units;
+using Runtime.Equipment;
 using Runtime.Extensions;
 using Runtime.ModelCollections;
 using Runtime.Stats;
@@ -28,13 +30,14 @@ namespace Runtime.Units
 
         public StatModelCollection Stats { get; }
         public InventoryModel Inventory { get; }
+        public EquipmentModel Equipment { get; }
         public StatusEffectApplierModel Effects { get; }
 
         public IReadOnlyDictionary<string, bool> Flags => _flags;
 
         private readonly Dictionary<string, bool> _flags = new();
 
-        public UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
+        protected UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
         {
             Id = id;
             Description = description;
@@ -42,18 +45,24 @@ namespace Runtime.Units
             Stats = new StatModelCollection(description.Stats);
             State = new UnitStateModel(position);
 
-            ActionBlocker = new ActionBlockerModel();
-            Movement = new UnitMovementModel(State, ActionBlocker);
-            Combat = new UnitCombatModel(Stats, State);
-
             Inventory = new InventoryModel(description.InventorySize);
-
             foreach (var (itemId, amount) in description.Loot)
             {
                 worldDescription.ItemCollection.Descriptions.TryGetValue(itemId, out var item);
                 Inventory.TryPutItem(item, amount);
             }
 
+            Equipment = new EquipmentModel();
+            foreach (var equipmentId in description.Equipment)
+            {
+                worldDescription.ItemCollection.Descriptions.TryGetValue(equipmentId, out var equipment);
+                Equipment.Add((EquipmentItemDescription)equipment);
+            }
+            
+            ActionBlocker = new ActionBlockerModel();
+            Movement = new UnitMovementModel(State, ActionBlocker);
+            Combat = new UnitCombatModel(Stats, Equipment, State);
+            
             Effects = new StatusEffectApplierModel(worldDescription);
         }
 
