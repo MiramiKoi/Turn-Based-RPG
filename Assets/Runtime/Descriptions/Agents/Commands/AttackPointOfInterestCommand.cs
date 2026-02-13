@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
+using Runtime.Units.Rotation;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -27,6 +28,9 @@ namespace Runtime.Descriptions.Agents.Commands
                 return NodeStatus.Failure;
             }
 
+            if (controllableUnit.State.Position.Value.x != targetCell.Position.x)
+                controllableUnit.Movement.Rotate(targetCell.Position.x < controllableUnit.State.Position.Value.x ? UnitDirection.Left : UnitDirection.Right);
+            
             targetUnit.Combat.TakeDamage(controllableUnit.Combat.GetDamage());
 
             return NodeStatus.Success;
