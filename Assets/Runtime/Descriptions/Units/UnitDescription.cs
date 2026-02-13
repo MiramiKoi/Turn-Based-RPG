@@ -9,6 +9,7 @@ namespace Runtime.Descriptions.Units
         public StatDescriptionCollection Stats { get; }
         public string Fraction { get; }
         public string ViewId { get; }
+        public string AgentDecisionDescriptionId { get; }
         public int InventorySize { get; }
         public Dictionary<string, int> Loot { get; }
         public List<string> Equipment { get; }
@@ -21,6 +22,11 @@ namespace Runtime.Descriptions.Units
             InventorySize = data.GetInt("inventory_size");
             Loot = data.GetDictionary<string, int>("loot");
             Equipment = data.GetList<string>("equipment");
+
+            if (data.ContainsKey("agent_decision_id"))
+            {
+                AgentDecisionDescriptionId = data.GetString("agent_decision_id");
+            }
         }
     }
 }

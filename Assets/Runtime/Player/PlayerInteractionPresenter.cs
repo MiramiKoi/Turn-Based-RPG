@@ -1,7 +1,6 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
-using Runtime.Units;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
@@ -10,62 +9,100 @@ namespace Runtime.Player
     {
         private readonly PlayerModel _model;
         private readonly World _world;
+        private readonly PlayerRouteExecutor _executor;
 
         public PlayerInteractionPresenter(PlayerModel model, World world)
         {
             _model = model;
             _world = world;
+
+            var resolver = new PlayerRouteStepResolver(world);
+            _executor = new PlayerRouteExecutor(model, resolver);
         }
 
         public void Enable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed += HandleAttackPerformed;
-            _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
+            _world.PlayerControls.Gameplay.Attack.performed += OnAttack;
+            _world.TurnBaseModel.OnWorldStepFinished += OnTurnFinished;
         }
 
         public void Disable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed -= HandleAttackPerformed;
-            _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
+            _world.PlayerControls.Gameplay.Attack.performed -= OnAttack;
+            _world.TurnBaseModel.OnWorldStepFinished -= OnTurnFinished;
         }
 
-        private void HandleAttackPerformed(InputAction.CallbackContext obj)
+        private void OnAttack(InputAction.CallbackContext _)
         {
-            if (_model.IsDead || _model.IsExecutingRoute || _world.UIBlocker.IsPointerOverUI ||
-                _world.GridInteractionModel.CurrentCell == null)
-            {
+            if (ShouldBlockInput())
                 return;
-            }
 
             StepStart();
-            ExecuteNextStep();
-            StepEnd();
+            ExecuteRouteStep();
+            FinishStep();
         }
 
-        private void HandleTurnFinished()
+        private void OnTurnFinished()
         {
-            if (_model.IsDead)
+            if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
             {
-                _model.IsExecutingRoute = false;
+                StopRoute();
             }
 
             if (_model.IsExecutingRoute)
             {
-                ExecuteNextStep();
+                ExecuteRouteStep();
             }
 
-            StepEnd();
+            FinishStep();
+        }
+
+        private bool ShouldBlockInput()
+        {
+            return _model.IsDead ||
+                   _model.IsExecutingRoute ||
+                   _world.UIBlockerModel.IsPointerOverUI.Value ||
+                   _world.GridInteractionModel.CurrentCell == null;
         }
 
         private void StepStart()
         {
             _world.GridInteractionModel.IsActive.Value = false;
-
             _world.CameraControlModel.IsActive.Value = false;
             _world.CameraControlModel.ResetCameraPosition();
         }
 
-        private void StepEnd()
+        private void ExecuteRouteStep()
+        {
+            if (!_model.IsExecutingRoute)
+                StartRoute();
+
+            var executed = _executor.ExecuteNext();
+
+            if (!executed)
+                StopRoute();
+        }
+
+        private void StartRoute()
+        {
+            _model.IsExecutingRoute = true;
+            _world.GridModel.SetIndication(
+                _model.MovementQueueModel.Steps,
+                IndicationType.RoutePoint);
+        }
+
+        private void StopRoute()
+        {
+            _model.IsExecutingRoute = false;
+
+            _world.GridModel.SetIndication(
+                _model.MovementQueueModel.Steps,
+                IndicationType.Null);
+
+            _model.MovementQueueModel.Clear();
+        }
+
+        private void FinishStep()
         {
             if (_model.IsExecutingRoute)
             {
@@ -76,62 +113,6 @@ namespace Runtime.Player
                 _world.GridInteractionModel.IsActive.Value = true;
                 _world.CameraControlModel.IsActive.Value = true;
             }
-        }
-
-        private void ExecuteNextStep()
-        {
-            if (!_model.IsExecutingRoute)
-            {
-                StartRoute();
-            }
-
-            var hasNextCell = _model.MovementQueueModel.TryDequeue(out var nextCell);
-            if (!hasNextCell)
-            {
-                StopRoute();
-                return;
-            }
-
-            if (_model.CanMove() && _world.GridModel.TryPlace(_model, nextCell))
-            {
-                _world.GridModel.ReleaseCell(_model.Position.Value);
-                _model.MoveTo(nextCell);
-            }
-            else if (_world.GridModel.GetCell(nextCell).Unit is UnitModel unit && unit != _model)
-            {
-                if (unit.IsDead)
-                {
-                    _world.LootModel.RequestLoot(unit);
-                    StopRoute();
-                }
-                else if (unit.Description.Fraction != _model.Description.Fraction && _model.CanAttack(nextCell))
-                {
-                    var enemy = (UnitModel)_world.GridModel.GetCell(nextCell).Unit;
-                    var damage = _model.GetDamage();
-                    enemy.TakeDamage(damage);
-                }
-            }
-            else
-            {
-                StopRoute();
-                if (!_model.CanMove())
-                {
-                    _model.IsExecutingRoute = true;
-                }
-            }
-        }
-
-        private void StartRoute()
-        {
-            _model.IsExecutingRoute = true;
-            _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.RoutePoint);
-        }
-
-        private void StopRoute()
-        {
-            _model.IsExecutingRoute = false;
-            _world.GridModel.SetIndication(_model.MovementQueueModel.Steps, IndicationType.Null);
-            _model.MovementQueueModel.Clear();
         }
     }
 }

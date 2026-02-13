@@ -1,19 +1,18 @@
-using Runtime.Agents;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Descriptions;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.GameSystems;
 using Runtime.Input;
-using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
+using Runtime.Player;
 using Runtime.TurnBase;
-using Runtime.UI;
+using Runtime.UI.Blocker;
 using Runtime.UI.Loot;
-using Runtime.Units;
+using Runtime.UI.Transfer;
+using Runtime.Units.Collection;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Runtime.Core
 {
@@ -29,13 +28,13 @@ namespace Runtime.Core
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
-        public AgentModelCollection AgentCollection { get; private set; }
-        public UIBlocker UIBlocker { get; private set; }
+        public PlayerModel PlayerModel => (PlayerModel)UnitCollection.Get("character_0");
+        public UIBlockerModel UIBlockerModel { get; private set; }
         public LootModel LootModel { get; private set; }
         public TransferModel TransferModel { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
-            WorldDescription worldDescription, VisualElement uiRoot)
+            WorldDescription worldDescription)
         {
             WorldDescription = worldDescription;
 
@@ -52,12 +51,11 @@ namespace Runtime.Core
 
             GameSystems = new GameSystemCollection();
 
-            UnitCollection = new UnitModelCollection();
-            AgentCollection = new AgentModelCollection();
+            UnitCollection = new UnitModelCollection(this, WorldDescription);
 
-            UIBlocker = new UIBlocker(uiRoot, playerControls);
+            UIBlockerModel = new UIBlockerModel();
+
             LootModel = new LootModel();
-
             TransferModel = new TransferModel();
         }
     }

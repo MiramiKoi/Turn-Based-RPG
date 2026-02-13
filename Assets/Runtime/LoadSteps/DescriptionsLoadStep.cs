@@ -13,22 +13,31 @@ namespace Runtime.LoadSteps
         private readonly WorldDescription _worldDescription;
         private readonly AddressableModel _addressableModel;
 
-        private readonly Dictionary<string, string> _keys = new()
+        private readonly Dictionary<string, List<string>> _keys = new()
         {
-            { "camera_control", "camera-control-description" },
-            { "surface_generation", "surface-generation-description" },
-            { "surfaces", "surface-description" },
-            { "units", "unit-description" },
-            { "items", "items-description" },
-            { "bear", "bear-description" },
-            { "panda", "panda-description" },
-            { "trader", "trader-description" },
-            { "environment_generation", "environment-generation-description" },
-            { "environment", "environment-description" },
-            { "status_effects", "status-effect-descriptions" }
+            { "camera_control", new List<string> { "camera-control-description" } },
+            { "surface_generation", new List<string> { "surface-generation-description" } },
+            { "surfaces", new List<string> { "surface-description" } },
+            { "units", new List<string> { "unit-description" } },
+            { "items", new List<string> { "items-description" } },
+
+            {
+                "agent_decisions", new List<string>
+                {
+                    "bear-description",
+                    "panda-description",
+                    "trader-description"
+                }
+            },
+
+            { "environment_generation", new List<string> { "environment-generation-description" } },
+            { "environment", new List<string> { "environment-description" } },
+            { "status_effects", new List<string> { "status-effect-descriptions" } }
         };
 
-        public DescriptionsLoadStep(WorldDescription worldDescription, AddressableModel addressableModel)
+        public DescriptionsLoadStep(
+            WorldDescription worldDescription,
+            AddressableModel addressableModel)
         {
             _worldDescription = worldDescription;
             _addressableModel = addressableModel;
@@ -36,19 +45,48 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var data = new Dictionary<string, object>();
-
-            var tasks = _keys.Select(async kvp =>
+            var nodeTasks = _keys.Select(async kvp =>
             {
-                var loadModel = _addressableModel.Load<TextAsset>(kvp.Value);
-                await loadModel.LoadAwaiter;
-                var parsed = JSON.ToObject<Dictionary<string, object>>(loadModel.Result.text);
-                data[kvp.Key] = parsed;
-            }).ToArray();
+                var nodeData = await LoadNode(kvp.Value);
+                return (key: kvp.Key, value: nodeData);
+            });
 
-            await Task.WhenAll(tasks);
+            var results = await Task.WhenAll(nodeTasks);
 
-            _worldDescription.SetData(data);
+            var finalData = results.ToDictionary(x => x.key, x => x.value);
+
+            _worldDescription.SetData(finalData);
+        }
+
+        private async Task<object> LoadNode(List<string> addressKeys)
+        {
+            if (addressKeys.Count == 1)
+            {
+                return await LoadJson(addressKeys[0]);
+            }
+
+            var loadTasks = addressKeys.Select(async key =>
+            {
+                var json = await LoadJson(key);
+                return (id: ExtractId(key), json);
+            });
+
+            var results = await Task.WhenAll(loadTasks);
+
+            return results.ToDictionary(x => x.id, x => (object)x.json);
+        }
+
+        private async Task<Dictionary<string, object>> LoadJson(string addressKey)
+        {
+            var loadModel = _addressableModel.Load<TextAsset>(addressKey);
+            await loadModel.LoadAwaiter;
+
+            return JSON.ToObject<Dictionary<string, object>>(loadModel.Result.text);
+        }
+
+        private static string ExtractId(string addressKey)
+        {
+            return addressKey.Replace("-description", "");
         }
     }
 }

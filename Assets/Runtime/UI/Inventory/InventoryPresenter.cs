@@ -18,12 +18,12 @@ namespace Runtime.UI.Inventory
         private readonly List<(VisualElement root, EventCallback<ClickEvent> callback)> _callbacks = new();
 
         public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions,
-            UIContent uiContent, World world)
+            World world)
         {
             _model = model;
             _view = view;
             _viewDescriptions = viewDescriptions;
-            _uiContent = uiContent;
+            _uiContent = viewDescriptions.UIContent;
             _world = world;
         }
 
@@ -59,7 +59,6 @@ namespace Runtime.UI.Inventory
 
             _cellsPresenters.Clear();
             _view.CellsContainer.Clear();
-
             _view.Root.RemoveFromHierarchy();
 
             foreach (var (root, callback) in _callbacks)
@@ -68,24 +67,12 @@ namespace Runtime.UI.Inventory
             }
 
             _callbacks.Clear();
-
             _model.Enabled = false;
         }
 
         private void CellClicked(CellModel cell)
         {
-            if (_world.TransferModel.TrySetCell(cell))
-            {
-                return;
-            }
-
-            if (_world.TransferModel.SourceCell == null)
-            {
-                return;
-            }
-
-            _world.TransferModel.TargetCell = cell;
-            _world.TransferModel.Transfer();
+            _model.CellSelected(cell);
         }
     }
 }

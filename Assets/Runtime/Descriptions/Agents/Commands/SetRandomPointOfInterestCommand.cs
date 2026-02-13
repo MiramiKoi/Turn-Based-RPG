@@ -29,7 +29,7 @@ namespace Runtime.Descriptions.Agents.Commands
         {
             var center = NearWithPointOfInterest
                 ? controllable.GetPointOfInterest(TargetNearPointOfInterest)
-                : controllable.Position.Value;
+                : controllable.State.Position.Value;
 
             Vector2Int pointOfInterest;
             Vector2 offset;

@@ -24,13 +24,13 @@ namespace Runtime.UI.Player.StatusEffects
         private readonly Dictionary<string, LoadModel<VisualTreeAsset>> _loadModels = new();
 
         public PlayerStatusEffectsHudPresenter(UnitModel unit, PlayerStatusEffectHudView view, World world,
-            WorldViewDescriptions viewDescriptions, UIContent uiContent)
+            WorldViewDescriptions viewDescriptions)
         {
-            _modelCollection = unit.ActiveEffects.Collection;
+            _modelCollection = unit.Effects.Collection;
             _view = view;
             _world = world;
             _viewDescriptions = viewDescriptions;
-            _uiContent = uiContent;
+            _uiContent = _viewDescriptions.UIContent;
         }
 
         public void Enable()

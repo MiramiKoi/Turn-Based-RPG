@@ -1,22 +1,14 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Runtime.Agents;
 using Runtime.AsyncLoad;
 using Runtime.CameraControl;
 using Runtime.Common;
 using Runtime.Descriptions;
-using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Input;
-using Runtime.Items.Transfer;
 using Runtime.Landscape.Grid;
 using Runtime.LoadSteps;
-using Runtime.Player;
-using Runtime.TurnBase;
-using Runtime.UI;
-using Runtime.UI.Loot;
-using Runtime.UI.Player.StatusEffects;
-using Runtime.Units;
+using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -24,6 +16,7 @@ namespace Runtime.Core
 {
     public class EntryPoint : MonoBehaviour
     {
+        [SerializeField] private UnitModelCollectionView _unitModelCollectionView;
         [SerializeField] private CameraControlView _cameraControlView;
         [SerializeField] private GridView _gridView;
         [SerializeField] private UIDocument _gameplayDocument;
@@ -35,10 +28,6 @@ namespace Runtime.Core
         private readonly AddressableModel _addressableModel = new();
         private readonly List<IPresenter> _presenters = new();
 
-        private UIController _uiController;
-        private UIContent _uiContent;
-        private UIBlocker _uiBlocker;
-
         private PlayerControls _playerControls;
 
         private async void Start()
@@ -46,19 +35,19 @@ namespace Runtime.Core
             _playerControls = new PlayerControls();
             _playerControls.Enable();
 
-            _uiContent = new UIContent(_gameplayDocument);
-
             IStep[] persistentLoadStep =
             {
                 new AddressableLoadStep(_addressableModel, _presenters),
                 new DescriptionsLoadStep(_worldDescription, _addressableModel),
                 new LuaRuntimeLoadStep(_addressableModel, _worldDescription),
-                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel),
-                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription,
-                    _uiContent.GameplayContent),
+                new ViewDescriptionsLoadStep(_worldViewDescriptions, _addressableModel, _gameplayDocument),
+                new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
+                new TurnBaseLoadStep(_presenters, _world),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
-                new UnitsLoadStep(_world),
-                new CameraControlLoadStep(_presenters, _cameraControlView, _world)
+                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions),
+                new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldViewDescriptions),
+                new CameraControlLoadStep(_presenters, _cameraControlView, _world),
+                new UILoadStep(_presenters, _world, _worldViewDescriptions)
             };
 
             foreach (var step in persistentLoadStep)
@@ -66,25 +55,10 @@ namespace Runtime.Core
                 await step.Run();
             }
 
-            await CreateControllableUnit();
-
-            await CreateUnit("bear_0", _worldDescription.BearAgentDecisionDescription);
-            await CreateUnit("panda_0", _worldDescription.PandaAgentDecisionDescription);
-            await CreateUnit("trader_0", _worldDescription.TraderAgentDecisionDescription);
-
-            _uiController = new UIController(_world, _playerControls, _worldViewDescriptions, _uiContent);
-            _uiController.Enable();
-
-            _world.TurnBaseModel.Steps.Clear();
-            var turnBasePresenter = new TurnBasePresenter(_world.TurnBaseModel, _world);
-
-            turnBasePresenter.Enable();
-
-            var lootPresenter = new LootPresenter(_world, _uiContent, _worldViewDescriptions);
-            lootPresenter.Enable();
-
-            var transferPresenter = new TransferPresenter(_world.TransferModel);
-            transferPresenter.Enable();
+            Application.quitting += OnQuit;
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
         }
 
         private void Update()
@@ -92,55 +66,32 @@ namespace Runtime.Core
             _world.GameSystems?.Update(Time.deltaTime);
         }
 
-        private async Task CreateControllableUnit()
+#if UNITY_EDITOR
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
         {
-            var unitModel = (PlayerModel)_world.UnitCollection.Get("character");
+            if (state == PlayModeStateChange.ExitingPlayMode)
+            {
+                Dispose();
+            }
+        }
+#endif
 
-            var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
-            var loadModelPrefab = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
-            await loadModelPrefab.LoadAwaiter;
-            var unitPrefab = loadModelPrefab.Result.GetComponent<UnitView>();
-            var unitView =
-                (await InstantiateAsync(unitPrefab, (Vector2)unitModel.Position.Value, Quaternion.identity))[0];
-            _world.CameraControlModel.Target.Value = unitView.Transform;
-            _addressableModel.Unload(loadModelPrefab);
-
-            var loadModelUiAsset = _addressableModel.Load<VisualTreeAsset>(_worldViewDescriptions
-                .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
-            await loadModelUiAsset.LoadAwaiter;
-            var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
-            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(unitModel, statusEffectsView, _world,
-                _worldViewDescriptions, _uiContent);
-
-            var playerPresenter = new PlayerPresenter(unitModel, unitView, _world, _worldViewDescriptions);
-
-            playerPresenter.Enable();
-            statusEffectsPresenter.Enable();
-
-            unitModel.ActiveEffects.TryApply("sleep");
+        private void OnQuit()
+        {
+            Dispose();
         }
 
-        private async Task CreateUnit(string id, AgentDecisionDescription description)
+        private void Dispose()
         {
-            var unitModel = _world.UnitCollection.Get(id);
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+#endif
+            Application.quitting -= OnQuit;
 
-            var unitViewDescription = _worldViewDescriptions.UnitViewDescriptions.Get(unitModel.Description.ViewId);
-            var loadModel = _addressableModel.Load<GameObject>(unitViewDescription.Prefab.AssetGUID);
-            await loadModel.LoadAwaiter;
-            var unitPrefab = loadModel.Result.GetComponent<UnitView>();
-            var unitView =
-                (await InstantiateAsync(unitPrefab, (Vector2)unitModel.Position.Value, Quaternion.identity))[0];
-            _addressableModel.Unload(loadModel);
-
-            //var agentPresenter = new AgentPresenter(unitModel, _worldDescription.BearAgentDecisionDescription, _world);
-
-            var agentModel = new AgentModel(unitModel, description, _world);
-            _world.AgentCollection.Add(unitModel.Id, agentModel);
-
-            var unitPresenter = new UnitPresenter(unitModel, unitView, _world, _worldViewDescriptions);
-
-            unitPresenter.Enable();
-            //agentPresenter.Enable();
+            for (var i = _presenters.Count - 1; i >= 0; i--)
+            {
+                _presenters[i].Disable();
+            }
         }
     }
 }

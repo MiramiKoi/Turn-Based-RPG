@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Descriptions.Items;
+using Runtime.ModelCollections;
 using Runtime.UI.Inventory.Cells;
 
 namespace Runtime.UI.Inventory
 {
-    public class InventoryModel
+    public class InventoryModel : ISerializable
     {
-        public bool Enabled;
+        public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
+        public event Action<CellModel> OnCellSelected;
 
         public InventoryModel(int size)
         {
@@ -98,7 +100,34 @@ namespace Runtime.UI.Inventory
             return taken;
         }
 
-        private bool IsSameItem(IItemDescription itemA, IItemDescription itemB)
+        public bool CanExtract(ItemDescription item, int amount)
+        {
+            var remaining = amount;
+
+            foreach (var cell in Cells)
+            {
+                if (cell.ItemDescription == null || !IsSameItem(cell.ItemDescription, item))
+                {
+                    continue;
+                }
+
+                remaining -= cell.Amount;
+
+                if (remaining <= 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void CellSelected(CellModel cell)
+        {
+            OnCellSelected?.Invoke(cell);
+        }
+
+        private bool IsSameItem(ItemDescription itemA, ItemDescription itemB)
         {
             if (itemA == null || itemB == null)
             {
@@ -106,6 +135,11 @@ namespace Runtime.UI.Inventory
             }
 
             return itemA.Id == itemB.Id;
+        }
+
+        public Dictionary<string, object> Serialize()
+        {
+            return new Dictionary<string, object>();
         }
     }
 }

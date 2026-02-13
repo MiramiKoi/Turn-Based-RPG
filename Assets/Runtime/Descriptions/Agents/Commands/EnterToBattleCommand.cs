@@ -1,0 +1,22 @@
+using System.Collections.Generic;
+using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Units;
+
+namespace Runtime.Descriptions.Agents.Commands
+{
+    public class EnterToBattleCommand : CommandDescription
+    {
+        public override string Type => "enter_to_battle";
+
+        public override NodeStatus Execute(IWorldContext context, IControllable controllable)
+        {
+            context.TurnBaseModel.BattleModel.EnterToBattle((UnitModel)controllable);
+
+            return NodeStatus.Success;
+        }
+
+        public override void Deserialize(Dictionary<string, object> data)
+        {
+        }
+    }
+}

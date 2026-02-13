@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Common.ObjectPool;
 using Runtime.Core;
@@ -17,14 +16,14 @@ namespace Runtime.StatusEffects.Collection
         private readonly StatusEffectViewDescriptionCollection _viewDescriptions;
         private readonly UnitModel _unitModel;
         private readonly World _world;
-        
+
         private readonly Dictionary<string, IObjectPool<StatusEffectView>> _viewPools = new();
         private readonly Dictionary<string, StatusEffectPresenter> _presenters = new();
 
         public StatusEffectCollectionPresenter(UnitModel unitModel, UnitView unitView, World world,
             WorldViewDescriptions viewDescriptions)
         {
-            _modelCollection = unitModel.ActiveEffects.Collection;
+            _modelCollection = unitModel.Effects.Collection;
             _collectionView = unitView.StatusEffectCollectionView;
             _unitModel = unitModel;
             _world = world;
@@ -41,13 +40,13 @@ namespace Runtime.StatusEffects.Collection
                 _viewPools[viewDescription.Id] = new ObjectPool<StatusEffectView>(prefab, 5, _collectionView.Transform);
                 _world.AddressableModel.Unload(loadModel);
             }
-            
+
             _modelCollection.OnAdded += HandleAdded;
             _modelCollection.OnRemoved += HandleRemoved;
 
             foreach (var model in _modelCollection.Models.Values)
             {
-                await AddPresenter(model);
+                AddPresenter(model);
             }
         }
 
@@ -64,16 +63,15 @@ namespace Runtime.StatusEffects.Collection
             _presenters.Clear();
         }
 
-        private Task AddPresenter(StatusEffectModel model)
+        private void AddPresenter(StatusEffectModel model)
         {
             model.OnExpired += HandleChangeExpired;
 
             var id = model.Id;
-            
+
             var presenter = new StatusEffectPresenter(model, _viewPools[model.Description.ViewId], _unitModel, _world);
             _presenters[id] = presenter;
             presenter.Enable();
-            return Task.CompletedTask;
         }
 
         private void RemovePresenter(string id)
@@ -87,9 +85,9 @@ namespace Runtime.StatusEffects.Collection
             _modelCollection.Remove(statusEffectModel.Id);
         }
 
-        private async void HandleAdded(StatusEffectModel model)
+        private void HandleAdded(StatusEffectModel model)
         {
-            await AddPresenter(model);
+            AddPresenter(model);
         }
 
         private void HandleRemoved(StatusEffectModel model)

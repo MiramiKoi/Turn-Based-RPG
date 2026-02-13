@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.Agents;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
@@ -15,7 +16,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var unit = (UnitModel)controllable;
+            var unit = (AgentModel)(UnitModel)controllable;
 
             var pointOfInterest = unit.GetPointOfInterest(PointOfInterest);
 
@@ -23,8 +24,8 @@ namespace Runtime.Descriptions.Agents.Commands
 
             if (context.GridModel.TryPlace(unit, targetPosition))
             {
-                context.GridModel.ReleaseCell(unit.Position.Value);
-                unit.MoveTo(targetPosition);
+                context.GridModel.ReleaseCell(unit.State.Position.Value);
+                unit.Movement.MoveTo(targetPosition);
                 return NodeStatus.Success;
             }
 
@@ -45,7 +46,7 @@ namespace Runtime.Descriptions.Agents.Commands
 
         private Vector2Int GetPosition(IWorldContext context, UnitModel unit, Vector2Int endPosition)
         {
-            var currentPosition = unit.Position.Value;
+            var currentPosition = unit.State.Position.Value;
             var bestPosition = currentPosition;
             var currentDistance = Vector2Int.Distance(currentPosition, endPosition);
 
