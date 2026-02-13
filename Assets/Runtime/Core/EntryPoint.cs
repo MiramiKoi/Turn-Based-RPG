@@ -45,8 +45,8 @@ namespace Runtime.Core
                 new WorldLoadStep(_world, _addressableModel, _playerControls, _worldDescription),
                 new TurnBaseLoadStep(_presenters, _world),
                 new GridLoadStep(_presenters, _world, _gridView, _worldViewDescriptions),
-                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions),
                 new UnitsLoadStep(_presenters, _world, _unitModelCollectionView, _worldViewDescriptions),
+                new PlayerLoadStep(_presenters, _world, _worldViewDescriptions),
                 new CameraControlLoadStep(_presenters, _cameraControlView, _world),
                 new UILoadStep(_presenters, _world, _worldViewDescriptions)
             };

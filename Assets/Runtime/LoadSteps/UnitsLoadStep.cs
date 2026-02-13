@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.SpawnDirector;
 using Runtime.Units.Collection;
 using Runtime.ViewDescriptions;
-using UnityEngine;
 
 namespace Runtime.LoadSteps
 {
@@ -27,26 +27,14 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var presenter = new UnitModelCollectionPresenter(_world.UnitCollection, _collectionView, _world,
+            var unitCollectionPresenter = new UnitModelCollectionPresenter(_world.UnitCollection, _collectionView, _world,
                 _worldViewDescriptions);
-            presenter.Enable();
-            _presenters.Add(presenter);
+            unitCollectionPresenter.Enable();
+            _presenters.Add(unitCollectionPresenter);
 
-            var bearModel = _world.UnitCollection.Create("bear");
-            bearModel.Movement.SetPosition(new Vector2Int(60, 50));
-
-            var bearModel1 = _world.UnitCollection.Create("bear");
-            bearModel1.Movement.SetPosition(new Vector2Int(20, 80));
-
-            var pandaModel = _world.UnitCollection.Create("panda");
-            pandaModel.Movement.SetPosition(new Vector2Int(60, 80));
-
-            var traderModel = _world.UnitCollection.Create("trader");
-            traderModel.Movement.SetPosition(new Vector2Int(55, 50));
-            
-            var chestModel = _world.UnitCollection.Create("chest");
-            chestModel.Movement.SetPosition(new Vector2Int(60, 52));
-            _world.GridModel.TryPlace(chestModel, new Vector2Int(60, 52));
+            var spawnDirectorPresenter = new SpawnDirectorPresenter(_world.SpawnDirectorModel, _world);
+            spawnDirectorPresenter.Enable();
+            _presenters.Add(spawnDirectorPresenter);
 
             await Task.CompletedTask;
         }
