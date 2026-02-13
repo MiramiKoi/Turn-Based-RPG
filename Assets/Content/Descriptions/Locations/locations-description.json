@@ -1,0 +1,20 @@
+{
+  "island": {
+    "surface": [0, 1, 2, 3, 4],
+    "environment": [0, 1, 2, 3, 4],
+    "surface_generation_rules": "island",
+    "environment_generation_rules": "island"
+  },
+  "shop": {
+    "surface": [0, 1],
+    "environment": [0, 1, 2],
+    "surface_generation_rules": "shop",
+    "environment_generation_rules": "shop"
+  },
+  "shop2": {
+    "surface": [0, 1],
+    "environment": [0, 1, 2],
+    "surface_generation_rules": "shop",
+    "environment_generation_rules": "shop"
+  }
+}

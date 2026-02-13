@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Runtime.Extensions;
 
-namespace Runtime.Descriptions.Surface
+namespace Runtime.Descriptions.Locations.Surface
 {
     public class SurfaceDescription : Description
     {
