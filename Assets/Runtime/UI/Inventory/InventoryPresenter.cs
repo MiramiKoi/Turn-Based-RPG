@@ -34,22 +34,12 @@ namespace Runtime.UI.Inventory
 
             foreach (var cellModel in _model.Cells)
             {
-                var cellView = new CellView(cellAsset);
-                _view.CellsContainer.Add(cellView.Root);
-
-                var cellPresenter = new CellPresenter(cellModel, cellView, _viewDescriptions, _world);
-                cellPresenter.Enable();
-
-                var callback = new EventCallback<ClickEvent>(_ => CellClicked(cellModel));
-                cellView.Root.RegisterCallback(callback);
-
-                _callbacks.Add((cellView.Root, callback));
-                _cellsPresenters.Add(cellPresenter);
+                CreateCell(cellModel, cellAsset);
             }
 
             _model.Enabled = true;
         }
-
+        
         public void Disable()
         {
             foreach (var cellPresenter in _cellsPresenters)
@@ -70,6 +60,21 @@ namespace Runtime.UI.Inventory
             _model.Enabled = false;
         }
 
+        private void CreateCell(CellModel cellModel, VisualTreeAsset cellAsset)
+        {
+            var cellView = new CellView(cellAsset);
+            _view.CellsContainer.Add(cellView.Root);
+
+            var cellPresenter = new CellPresenter(cellModel, cellView, _viewDescriptions, _world);
+            cellPresenter.Enable();
+
+            var callback = new EventCallback<ClickEvent>(_ => CellClicked(cellModel));
+            cellView.Root.RegisterCallback(callback);
+
+            _callbacks.Add((cellView.Root, callback));
+            _cellsPresenters.Add(cellPresenter);
+        }
+        
         private void CellClicked(CellModel cell)
         {
             _model.CellSelected(cell);
