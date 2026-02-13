@@ -25,7 +25,7 @@
     "view_id": "Simple-sword",
     "stack_size": 1,
     "is_buyable": true,
-    "price": 30,
+    "price": 10,
     "equipment_type": "weapon",
     "stats": {
       "damage" : 10
@@ -36,7 +36,7 @@
     "view_id": "Simple-breastplate",
     "stack_size": 1,
     "is_buyable": true,
-    "price": 30,
+    "price": 10,
     "equipment_type": "armour",
     "stats": {
       "protection" : 25
@@ -47,7 +47,7 @@
     "view_id": "Mega-sword",
     "stack_size": 1,
     "is_buyable": true,
-    "price": 30,
+    "price": 100,
     "equipment_type": "weapon",
     "stats": {
       "damage" : 100
@@ -58,7 +58,7 @@
     "view_id": "Mega-breastplate",
     "stack_size": 1,
     "is_buyable": true,
-    "price": 30,
+    "price": 200,
     "equipment_type": "armour",
     "stats": {
       "protection": 90

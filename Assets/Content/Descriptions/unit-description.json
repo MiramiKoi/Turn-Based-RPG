@@ -10,7 +10,7 @@
     "fraction": "player",
     "inventory_size": 12,
     "loot": {
-      "bear_meat": 19,
+      "money": 100,
       "simple_breastplate" : 1
     },
     "equipment": [
@@ -28,8 +28,7 @@
     "fraction": "player",
     "inventory_size": 12,
     "loot": {
-      "money": 100,
-      "bear_meat": 19
+      "money": 100
     },
     "equipment": []
   },
@@ -55,8 +54,8 @@
     "view_id": "panda",
     "agent_decision_id": "panda",
     "stats": {
-      "health": 20,
-      "attack_damage": 20,
+      "health": 300,
+      "attack_damage": 100,
       "attack_range": 1,
       "visibility_radius": 4
     },
