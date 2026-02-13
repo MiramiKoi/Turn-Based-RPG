@@ -36,14 +36,18 @@ namespace Runtime.Equipment
             }
 
             var sourceItem = sourceCell.ItemDescription;
-            var targetEquipmentItem = (EquipmentItemDescription)cell.ItemDescription;
+            var targetEquipmentItem = cell.ItemDescription as EquipmentItemDescription;
             if (sourceItem is EquipmentItemDescription equipmentItem
-                && equipmentItem.EquipmentType == targetEquipmentItem.EquipmentType)
+                && (targetEquipmentItem == null || equipmentItem.EquipmentType == targetEquipmentItem.EquipmentType))
             {
                 sourceCell.TryTake(1);
                 _unitModel.Equipment.Change(equipmentItem, out var oldEquipment);
-                sourceCell.TryPut(oldEquipment, 1);
-                
+
+                if (oldEquipment != null)
+                {
+                    sourceCell.TryPut(oldEquipment, 1);
+                }
+
                 sourceCell.CellDeselect();
                 _world.TransferModel.SourceCell = null;
             }

@@ -10,11 +10,11 @@
     "fraction": "player",
     "inventory_size": 12,
     "loot": {
-      "bear_meat": 19
+      "bear_meat": 19,
+      "simple_breastplate" : 1
     },
     "equipment": [
-      "simple_sword",
-      "simple_breastplate"
+      "simple_sword"
     ]
   },
   "warrior": {
