@@ -126,6 +126,24 @@ namespace Runtime.Landscape.Grid
                    pos.y < Cells.GetLength(1);
         }
 
+        public Vector2Int? GetRandomAvailablePosition()
+        {
+            const int maxAttempts = 100;
+            for (var i = 0; i < maxAttempts; i++)
+            {
+                var x = Random.Range(0, GridConstants.Width);
+                var y = Random.Range(0, GridConstants.Height);
+                var pos = new Vector2Int(x, y);
+
+                if (CanPlace(pos))
+                {
+                    return pos;
+                }
+            }
+
+            return null;
+        }
+
         public void SetIndication(IEnumerable<Vector2Int> cells, IndicationType indicationType)
         {
             foreach (var position in cells)
