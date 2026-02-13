@@ -21,5 +21,15 @@ namespace Runtime.Descriptions.Items
             Price = data.GetInt("price");
             ViewId = data.GetString("view_id");
         }
+
+        public static ItemDescription Create(string id, Dictionary<string, object> data)
+        {
+            var itemDescription = data.GetString("type") switch
+            {
+                "equipment" => new EquipmentItemDescription(id, data),
+                _ => new ItemDescription(id, data)
+            };
+            return itemDescription;
+        }
     }
 }

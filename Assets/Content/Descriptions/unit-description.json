@@ -3,15 +3,19 @@
     "view_id": "warrior",
     "stats": {
       "health": 100,
-      "attack_damage": 10,
+      "attack_damage": 1,
       "attack_range": 1,
       "visibility_radius": 10
     },
     "fraction": "player",
     "inventory_size": 12,
     "loot": {
-      "bear_meat": 19
-    }
+      "bear_meat": 19,
+      "simple_breastplate" : 1
+    },
+    "equipment": [
+      "simple_sword"
+    ]
   },
   "warrior": {
     "view_id": "warrior",
@@ -26,7 +30,8 @@
     "loot": {
       "money": 100,
       "bear_meat": 19
-    }
+    },
+    "equipment": []
   },
   "bear": {
     "view_id": "bear",
@@ -43,7 +48,8 @@
       "bear_meat": 5,
       "bear_fur": 2,
       "money": 10
-    }
+    },
+    "equipment": []
   },
   "panda": {
     "view_id": "panda",
@@ -58,7 +64,8 @@
     "inventory_size": 6,
     "loot": {
       "money": 100
-    }
+    },
+    "equipment": []
   },
   "trader": {
     "view_id": "trader",
@@ -73,7 +80,10 @@
     "inventory_size": 12,
     "loot": {
       "bear_meat": 2,
+      "mega_sword": 1,
+      "mega_breastplate": 1,
       "money": 150
-    }
+    },
+    "equipment": []
   }
 }
