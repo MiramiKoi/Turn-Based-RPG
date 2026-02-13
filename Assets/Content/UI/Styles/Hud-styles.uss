@@ -1,0 +1,17 @@
+
+
+Label {
+    -unity-font-definition: url("project://database/Assets/Content/UI/Fonts/CGXYZPCAlt-Regular.otf?fileID=12800000&guid=403356f556d303442af9ecf5cebf78ab&type=3#CGXYZPCAlt-Regular");
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}

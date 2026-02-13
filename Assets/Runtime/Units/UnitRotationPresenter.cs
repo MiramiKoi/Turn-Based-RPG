@@ -4,13 +4,13 @@ using UniRx;
 
 namespace Runtime.Units
 {
-    public class UnitVisibilityPresenter : IPresenter
+    public class UnitRotationPresenter : IPresenter
     {
         private readonly UnitModel _model;
         private readonly UnitView _view;
         private readonly CompositeDisposable _disposables = new();
 
-        public UnitVisibilityPresenter(UnitModel model, UnitView view)
+        public UnitRotationPresenter(UnitModel model, UnitView view)
         {
             _model = model;
             _view = view;
