@@ -47,7 +47,8 @@
     "fraction": "boss",
     "inventory_size": 6,
     "loot": {
-      "money": 100
+      "money": 100,
+      "key": 1
     },
     "equipment": []
   },

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Bear-meat
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Items.ItemViewDescription
   Icon:
-    m_AssetGUID: ba120c0e84a9a8c4a8652c1d6b60900a
-    m_SubObjectName: ham
+    m_AssetGUID: 14e62563269c11443b9c936be93b95f4
+    m_SubObjectName: Meat
     m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 

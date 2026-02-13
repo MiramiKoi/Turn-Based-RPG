@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Bear-fur
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Items.ItemViewDescription
   Icon:
-    m_AssetGUID: 5085816cc9613d941a98d627d3d2618a
-    m_SubObjectName: hide
+    m_AssetGUID: c0e7217a07e49364db48c62cc2e2b376
+    m_SubObjectName: Leather
     m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 

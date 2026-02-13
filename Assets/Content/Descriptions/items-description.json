@@ -42,6 +42,13 @@
       "protection" : 25
     }
   },
+  "key": {
+    "type": "key",
+    "view_id": "Key",
+    "stack_size": 1,
+    "is_buyable": false,
+    "price": 0
+  },
   "mega_sword": {
     "type": "equipment",
     "view_id": "Mega-sword",

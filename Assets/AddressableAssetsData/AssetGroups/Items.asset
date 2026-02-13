@@ -55,6 +55,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14e62563269c11443b9c936be93b95f4
+    m_Address: Meat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19b136a2d7f85ac458554a3c9a158e61
     m_Address: yarn
     m_ReadOnly: 0
@@ -97,6 +102,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3867f8bb2a56d53428f18fd81d5b34fc
     m_Address: tools
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 394899dbf2938874ca7d1025f7598406
+    m_Address: Golden Coin
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -300,6 +310,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6c10312421cb5e438d8b9edaad2db28
+    m_Address: Golden Key
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: acd6c63a5f4ec05408e5085034521870
     m_Address: ivory
     m_ReadOnly: 0
@@ -327,6 +342,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd17825491ad5864280cf57937f2b808
     m_Address: coal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0e7217a07e49364db48c62cc2e2b376
+    m_Address: Leather
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
