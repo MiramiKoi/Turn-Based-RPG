@@ -1,10 +1,11 @@
 using System;
 using Runtime.Common;
 using UniRx;
+using UnityEngine.UIElements;
 
 namespace Runtime.Units.Rotation
 {
-    public class UnitRotationPresenter : IPresenter
+    public class UnitVisibilityPresenter : IPresenter
     {
         private const string VisibilityRadiusKey = "visibility_radius";
 
@@ -12,7 +13,7 @@ namespace Runtime.Units.Rotation
         private readonly UnitModel _model;
         private IDisposable _visibleSubscription;
 
-        public UnitRotationPresenter(UnitModel model, UnitView view)
+        public UnitVisibilityPresenter(UnitModel model, UnitView view)
         {
             _model = model;
             _view = view;
@@ -37,6 +38,8 @@ namespace Runtime.Units.Rotation
         private void OnVisibleChange(bool value)
         {
             _view.SpriteRenderer.enabled = value;
+            
+            _view.UIDocument.rootVisualElement.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         private void OnChangeVisibilityRadius(float radius)
