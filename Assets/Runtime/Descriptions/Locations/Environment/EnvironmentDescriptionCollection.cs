@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Runtime.Descriptions.Environment
+namespace Runtime.Descriptions.Locations.Environment
 {
     public class EnvironmentDescriptionCollection
     {

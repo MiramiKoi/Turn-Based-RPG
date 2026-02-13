@@ -1,7 +1,7 @@
 using System;
 using Runtime.Common;
-using Runtime.Descriptions.Environment;
-using Runtime.Descriptions.Surface;
+using Runtime.Descriptions.Locations.Environment;
+using Runtime.Descriptions.Locations.Surface;
 using Runtime.Landscape.Grid.Indication;
 using UnityEngine;
 

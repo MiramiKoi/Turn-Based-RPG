@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: EnvironmentViewDescriptionCollection
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Environment.EnvironmentViewDescriptionCollection
   _descriptions:
+  - {fileID: 11400000, guid: 5ef72877ab8715141a54b8cb28fa166e, type: 2}
   - {fileID: 11400000, guid: 7c37d40b08472714aa11c7b23c7c91fe, type: 2}
   - {fileID: 11400000, guid: ab42e32f8906f5743a3bb1221a5e4a32, type: 2}
-  - {fileID: 11400000, guid: 5ef72877ab8715141a54b8cb28fa166e, type: 2}
+  - {fileID: 11400000, guid: b41c1b94e8cd125449440d66af7db29f, type: 2}
+  - {fileID: 11400000, guid: f9f11ef09f2c7d14392b0d9c403dc48a, type: 2}

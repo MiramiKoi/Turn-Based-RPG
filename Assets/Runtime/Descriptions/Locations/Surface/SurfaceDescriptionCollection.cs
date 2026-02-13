@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Runtime.Descriptions.Surface
+namespace Runtime.Descriptions.Locations.Surface
 {
     public class SurfaceDescriptionCollection
     {

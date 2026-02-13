@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Runtime.Extensions;
 
-namespace Runtime.Descriptions.Environment
+namespace Runtime.Descriptions.Locations.Environment
 {
     public class EnvironmentDescription : Description
     {
