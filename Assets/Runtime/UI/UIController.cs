@@ -1,5 +1,6 @@
 using Runtime.Common;
 using Runtime.Core;
+using Runtime.Equipment;
 using Runtime.Input;
 using Runtime.UI.Inventory;
 using Runtime.UI.Trade;
@@ -19,18 +20,32 @@ namespace Runtime.UI
         private readonly CompositeDisposable _disposables = new();
         private TransferPresenter _transferPresenter;
 
+        private readonly InventoryModel _equipmentModel;
+        private readonly InventoryPresenter _equipmentInventory;
+        
+        private readonly EquipmentPresenter _equipmentPresenter;
+        
         public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions)
         {
             _world = world;
             _playerControls = playerControls;
 
-            _inventoryModel = world.UnitCollection.Get("character_0").Inventory;
+            _inventoryModel = world.PlayerModel.Inventory;
 
             var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
             inventoryView.Root.AddToClassList("player-inventory");
 
             _playerInventory =
                 new InventoryPresenter(_inventoryModel, inventoryView, viewDescriptions, world);
+            
+            _equipmentModel = world.PlayerModel.Equipment.Inventory;
+            
+            var equipmentView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
+            equipmentView.Root.AddToClassList("equipment-inventory");
+            
+            _equipmentInventory = new InventoryPresenter(_equipmentModel, equipmentView, viewDescriptions, world);
+            
+            _equipmentPresenter = new EquipmentPresenter(_world.PlayerModel, _world);
         }
 
         public void Enable()
@@ -71,11 +86,15 @@ namespace Runtime.UI
             {
                 _world.TransferModel.SourceInventory.Value = null;
                 _playerInventory.Disable();
+                _equipmentInventory.Disable();
+                _equipmentPresenter.Disable();
             }
             else
             {
                 _world.TransferModel.SourceInventory.Value = _inventoryModel;
                 _playerInventory.Enable();
+                _equipmentInventory.Enable();
+                _equipmentPresenter.Enable();
             }
         }
 
@@ -88,6 +107,8 @@ namespace Runtime.UI
 
             _world.TransferModel.SourceInventory.Value = _inventoryModel;
             _playerInventory.Enable();
+            _equipmentInventory.Enable();
+            _equipmentPresenter.Enable();
         }
     }
 }
