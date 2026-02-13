@@ -1,0 +1,29 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "leaf",
+         "children" : [
+            
+         ],
+         "name" : "",
+         "command" : {
+            "type" : "log",
+            "message" : ""
+         },
+         "_editor" : {
+            "position" : [
+               143,
+               170
+            ]
+         }
+      }
+   ],
+   "name" : "loot",
+   "_editor" : {
+      "position" : [
+         0,
+         0
+      ]
+   }
+}

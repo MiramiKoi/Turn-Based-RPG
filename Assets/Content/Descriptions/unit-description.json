@@ -10,22 +10,8 @@
     "fraction": "player",
     "inventory_size": 12,
     "loot": {
-      "bear_meat": 19
-    }
-  },
-  "warrior": {
-    "view_id": "warrior",
-    "stats": {
-      "health": 100,
-      "attack_damage": 10,
-      "attack_range": 1,
-      "visibility_radius": 10
-    },
-    "fraction": "player",
-    "inventory_size": 12,
-    "loot": {
-      "money": 100,
-      "bear_meat": 19
+      "bear_meat": 19,
+      "money": 100
     }
   },
   "bear": {
@@ -74,6 +60,35 @@
     "loot": {
       "bear_meat": 2,
       "money": 150
+    }
+  },
+  "loot": {
+    "view_id": "loot",
+    "agent_decision_id": "loot",
+    "stats": {
+      "health": 0,
+      "attack_damage": 0,
+      "attack_range": 0,
+      "visibility_radius": 0
+    },
+    "fraction": "loot",
+    "inventory_size": 6,
+    "loot": {
+    }
+  },
+  "chest": {
+    "view_id": "loot",
+    "agent_decision_id": "loot",
+    "stats": {
+      "health": 0,
+      "attack_damage": 0,
+      "attack_range": 0,
+      "visibility_radius": 0
+    },
+    "fraction": "loot",
+    "inventory_size": 6,
+    "loot": {
+      "money": 200
     }
   }
 }
