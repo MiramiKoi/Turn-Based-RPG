@@ -24,7 +24,7 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var soloSpawnRule = new SoloSpawnRule(_world, "character", 10);
+            var soloSpawnRule = new SoloSpawnRule(_world, "character");
             _world.SpawnDirectorModel.AddRule(soloSpawnRule);
             soloSpawnRule.Run();
 

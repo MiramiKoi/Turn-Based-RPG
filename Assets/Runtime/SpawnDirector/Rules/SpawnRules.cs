@@ -8,13 +8,11 @@ namespace Runtime.SpawnDirector.Rules
     {
         protected readonly World World;
         protected readonly string DescriptionId;
-        protected readonly int RespawnDelaySteps;
 
-        protected SpawnRuleBase(World world, string descriptionId, int respawnDelaySteps)
+        protected SpawnRuleBase(World world, string descriptionId)
         {
             World = world;
             DescriptionId = descriptionId;
-            RespawnDelaySteps = respawnDelaySteps;
         }
 
         public abstract void Run();
