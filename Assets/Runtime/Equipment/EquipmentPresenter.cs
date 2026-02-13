@@ -40,9 +40,9 @@ namespace Runtime.Equipment
             if (sourceItem is EquipmentItemDescription equipmentItem
                 && equipmentItem.EquipmentType == targetEquipmentItem.EquipmentType)
             {
-                _unitModel.Inventory.TryTakeItem(equipmentItem, 1);
+                sourceCell.TryTake(1);
                 _unitModel.Equipment.Change(equipmentItem, out var oldEquipment);
-                _unitModel.Inventory.TryPutItem(oldEquipment, 1);
+                sourceCell.TryPut(oldEquipment, 1);
                 
                 sourceCell.CellDeselect();
                 _world.TransferModel.SourceCell = null;
