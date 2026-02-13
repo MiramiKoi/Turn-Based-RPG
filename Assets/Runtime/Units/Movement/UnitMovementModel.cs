@@ -8,6 +8,7 @@ namespace Runtime.Units.Movement
     public class UnitMovementModel
     {
         public event Action<Vector2Int> OnMove;
+        public event Action<Vector2Int> OnTeleport;
 
         private readonly UnitStateModel _state;
         private readonly ActionBlockerModel _blocker;
@@ -29,6 +30,12 @@ namespace Runtime.Units.Movement
                 Rotate(position.x < current.x ? UnitDirection.Left : UnitDirection.Right);
             OnMove?.Invoke(position);
             _state.Position.Value = position;
+        }
+
+        public void SetPosition(Vector2Int position)
+        {
+            _state.Position.Value = position;
+            OnTeleport?.Invoke(position);
         }
 
         public void Rotate(UnitDirection direction)

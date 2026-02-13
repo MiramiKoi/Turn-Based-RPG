@@ -33,16 +33,20 @@ namespace Runtime.LoadSteps
             _presenters.Add(presenter);
 
             var bearModel = _world.UnitCollection.Create("bear");
-            bearModel.Movement.MoveTo(new Vector2Int(60, 50));
+            bearModel.Movement.SetPosition(new Vector2Int(60, 50));
 
             var bearModel1 = _world.UnitCollection.Create("bear");
-            bearModel1.Movement.MoveTo(new Vector2Int(20, 80));
+            bearModel1.Movement.SetPosition(new Vector2Int(20, 80));
 
             var pandaModel = _world.UnitCollection.Create("panda");
-            pandaModel.Movement.MoveTo(new Vector2Int(60, 80));
+            pandaModel.Movement.SetPosition(new Vector2Int(60, 80));
 
             var traderModel = _world.UnitCollection.Create("trader");
-            traderModel.Movement.MoveTo(new Vector2Int(80, 50));
+            traderModel.Movement.SetPosition(new Vector2Int(55, 50));
+            
+            var chestModel = _world.UnitCollection.Create("chest");
+            chestModel.Movement.SetPosition(new Vector2Int(60, 52));
+            _world.GridModel.TryPlace(chestModel, new Vector2Int(60, 52));
 
             await Task.CompletedTask;
         }

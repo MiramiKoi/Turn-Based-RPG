@@ -26,12 +26,21 @@ namespace Runtime.Units.Movement
         public void Enable()
         {
             _model.Movement.OnMove += HandleMove;
+            _model.Movement.OnTeleport += HandleTeleport;
             _view.Transform.position = new Vector3(_model.State.Position.Value.x, _model.State.Position.Value.y, 0);
         }
-
+        
         public void Disable()
         {
             _model.Movement.OnMove -= HandleMove;
+            _model.Movement.OnTeleport -= HandleTeleport;
+        }
+        
+        private void HandleTeleport(Vector2Int position)
+        {
+            _world.GridModel.ReleaseCell(_model.State.Position.Value);
+            _world.GridModel.GetCell(position).Occupied(_model);
+            _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0).SetEase(Ease.Unset);
         }
 
         private async void HandleMove(Vector2Int position)
