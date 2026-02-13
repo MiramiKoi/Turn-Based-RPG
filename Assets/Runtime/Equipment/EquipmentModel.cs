@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Runtime.Descriptions.Items;
 using Runtime.Descriptions.Stats;
+using Runtime.UI.Inventory;
 
 namespace Runtime.Equipment
 {
@@ -8,14 +9,18 @@ namespace Runtime.Equipment
     {
         private readonly Dictionary<string, EquipmentItemDescription> _equipments = new();
 
+        public InventoryModel Inventory { get; } = new(2);
+
         public void Add(EquipmentItemDescription description)
         {
             _equipments.Add(description.EquipmentType, description);
+            Inventory.TryPutItem(description, 1);
         }
 
         public void Remove(string equipmentType, out EquipmentItemDescription oldEquipment)
         {
             _equipments.Remove(equipmentType, out oldEquipment);
+            Inventory.TryTakeItem(oldEquipment, 1);
         }
 
         public void Change(EquipmentItemDescription description, out EquipmentItemDescription oldEquipment)
