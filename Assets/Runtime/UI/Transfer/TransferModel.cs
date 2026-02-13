@@ -7,7 +7,8 @@ namespace Runtime.UI.Transfer
     public enum TransferMode
     {
         Default,
-        Trade
+        Trade,
+        Trash
     }
 
     public class TransferModel

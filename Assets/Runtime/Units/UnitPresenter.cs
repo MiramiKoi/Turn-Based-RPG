@@ -53,16 +53,20 @@ namespace Runtime.Units
 
             _statusEffectsPresenter = new UnitStatusEffectsPresenter(_model, View, _world, _viewDescriptions);
             _statusEffectsPresenter.Enable();
-
+            
             _visibilityPresenter = new UnitVisibilityPresenter(_model, View);
             _visibilityPresenter.Enable();
             
             _hudPresenter = new UnitHudPresenter(_model, View);
             _hudPresenter.Enable();
-        }
 
+            _world.TurnBaseModel.OnWorldStepFinished += CheckInventory;
+        }
+        
         public virtual void Disable()
         {
+            _world.TurnBaseModel.OnWorldStepFinished -= CheckInventory;
+            
             _movementPresenter.Disable();
             _combatPresenter.Disable();
             _rotationPresenter.Disable();
@@ -72,6 +76,16 @@ namespace Runtime.Units
             _visibilityPresenter.Disable();
 
             _pool.Release(View);
+        }
+
+        private void CheckInventory()
+        {
+            if (_model.Inventory.IsEmpty() && _model != _world.PlayerModel)
+            {
+                _world.GridModel.ReleaseCell(_model.State.Position.Value);
+                
+                Disable();
+            }
         }
     }
 }

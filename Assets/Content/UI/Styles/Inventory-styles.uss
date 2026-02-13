@@ -39,6 +39,16 @@
     translate: 0 380px;
 }
 
+.trash-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 130px;
+    max-height: 130px;
+    margin-right: 20px;
+    translate: 0 825px;
+}
+
 .cell {
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
@@ -49,4 +59,8 @@
 
 .cell-selected {
     -unity-background-image-tint-color: rgb(140, 230, 255);
+}
+
+.cell-trash {
+    -unity-background-image-tint-color: rgb(255, 170, 170);
 }

@@ -65,7 +65,18 @@ namespace Runtime.UI.Inventory
             return amount - remaining;
         }
 
-
+        public bool IsEmpty()
+        {
+            foreach (var cell in Cells)
+            {
+                if (cell.ItemDescription != null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
         public int TryTakeItem(ItemDescription item, int amount)
         {
             if (amount <= 0)
