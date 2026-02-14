@@ -7,6 +7,7 @@ namespace Runtime.CustomAsync
         public static Scheduler Instance { get; } = new();
 
         public event Action<float> OnTick;
+        public event Action OnAborted;
 
         private Scheduler()
         {
@@ -15,6 +16,11 @@ namespace Runtime.CustomAsync
         public void Update(float deltaTime)
         {
             OnTick?.Invoke(deltaTime);
+        }
+
+        public void AbortAll()
+        {
+            OnAborted?.Invoke();
         }
     }
 }
