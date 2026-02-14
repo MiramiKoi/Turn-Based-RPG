@@ -1,0 +1,304 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "selector",
+               "children" : [
+                  {
+                     "type" : "sequence",
+                     "children" : [
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "has_unit_with_fraction",
+                              "fraction" : "animal",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -1376.667,
+                                 923.3333
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "set_point_of_interest_with_fraction",
+                              "fraction" : "animal",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0,
+                              "point_of_interest" : "target"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -1032,
+                                 923.3333
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "enter_to_battle"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -620,
+                                 923.3333
+                              ]
+                           }
+                        }
+                     ],
+                     "name" : "",
+                     "_editor" : {
+                        "position" : [
+                           -518.6667,
+                           697.3333
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "sequence",
+                     "children" : [
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "has_unit_with_fraction",
+                              "fraction" : "player",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -406,
+                                 1268.667
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "set_point_of_interest_with_fraction",
+                              "fraction" : "player",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0,
+                              "point_of_interest" : "target"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -61.33333,
+                                 1268.667
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "enter_to_battle"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 364.6667,
+                                 1268.667
+                              ]
+                           }
+                        }
+                     ],
+                     "name" : "",
+                     "_editor" : {
+                        "position" : [
+                           -220,
+                           697.3333
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "leaf",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "command" : {
+                        "type" : "leave_battle"
+                     },
+                     "_editor" : {
+                        "position" : [
+                           58.66667,
+                           696
+                        ]
+                     }
+                  }
+               ],
+               "name" : "SET TARGET",
+               "_editor" : {
+                  "position" : [
+                     -313.3333,
+                     552.6667
+                  ]
+               }
+            },
+            {
+               "type" : "sequence",
+               "children" : [
+                  {
+                     "type" : "leaf",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "command" : {
+                        "type" : "has_point_of_interest",
+                        "point_of_interest" : "target"
+                     },
+                     "_editor" : {
+                        "position" : [
+                           612,
+                           583.3333
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "selector",
+                     "children" : [
+                        {
+                           "type" : "sequence",
+                           "children" : [
+                              {
+                                 "type" : "leaf",
+                                 "children" : [
+                                    
+                                 ],
+                                 "name" : "",
+                                 "command" : {
+                                    "type" : "distance_point_of_interest",
+                                    "point_of_interest" : "target",
+                                    "operation" : "<",
+                                    "distance" : 2
+                                 },
+                                 "_editor" : {
+                                    "position" : [
+                                       681.3333,
+                                       1009.333
+                                    ]
+                                 }
+                              },
+                              {
+                                 "type" : "leaf",
+                                 "children" : [
+                                    
+                                 ],
+                                 "name" : "",
+                                 "command" : {
+                                    "type" : "attack_point_of_interest",
+                                    "point_of_interest" : "target"
+                                 },
+                                 "_editor" : {
+                                    "position" : [
+                                       1048,
+                                       1011.333
+                                    ]
+                                 }
+                              }
+                           ],
+                           "name" : "",
+                           "_editor" : {
+                              "position" : [
+                                 864.6667,
+                                 827.3333
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "sequence",
+                           "children" : [
+                              {
+                                 "type" : "leaf",
+                                 "children" : [
+                                    
+                                 ],
+                                 "name" : "",
+                                 "command" : {
+                                    "type" : "move_to_point_of_interest",
+                                    "point_of_interest" : "target"
+                                 },
+                                 "_editor" : {
+                                    "position" : [
+                                       1718,
+                                       1037.333
+                                    ]
+                                 }
+                              }
+                           ],
+                           "name" : "",
+                           "_editor" : {
+                              "position" : [
+                                 1324,
+                                 827.3333
+                              ]
+                           }
+                        }
+                     ],
+                     "name" : "",
+                     "_editor" : {
+                        "position" : [
+                           1000.667,
+                           567.3333
+                        ]
+                     }
+                  }
+               ],
+               "name" : "",
+               "_editor" : {
+                  "position" : [
+                     967.3333,
+                     430.6667
+                  ]
+               }
+            }
+         ],
+         "name" : "",
+         "_editor" : {
+            "position" : [
+               30.66667,
+               290.6667
+            ]
+         }
+      }
+   ],
+   "name" : "HUNTER",
+   "_editor" : {
+      "position" : [
+         30.66667,
+         66
+      ]
+   }
+}

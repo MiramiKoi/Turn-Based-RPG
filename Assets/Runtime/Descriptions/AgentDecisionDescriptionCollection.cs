@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
+using UnityEngine;
 
 namespace Runtime.Descriptions
 {
@@ -16,6 +17,8 @@ namespace Runtime.Descriptions
                 var effectData = pair.Value as Dictionary<string, object>;
                 var description = new AgentDecisionDescription(effectData);
 
+                Debug.Log($"{pair.Key}: {description}");
+                
                 Descriptions.Add(pair.Key, description);
             }
         }

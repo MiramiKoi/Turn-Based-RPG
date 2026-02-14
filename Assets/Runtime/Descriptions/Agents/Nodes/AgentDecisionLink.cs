@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Extensions;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {
@@ -13,9 +14,11 @@ namespace Runtime.Descriptions.Agents.Nodes
         
         public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
-            return context.WorldDescription.AgentDecisionDescriptionCollection.
-                Descriptions.TryGetValue(DescriptionId, out var link)
-                ? link.Process(context, controllable) : NodeStatus.Failure;
+            Debug.Log($"ID: {DescriptionId}");
+            
+            return context.WorldDescription.AgentDecisionDescriptionCollection
+                .Get(DescriptionId)
+                .Process(context, controllable);
         }
 
         public override Dictionary<string, object> Serialize()
