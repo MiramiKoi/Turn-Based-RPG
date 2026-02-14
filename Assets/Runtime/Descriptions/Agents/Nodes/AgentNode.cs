@@ -83,6 +83,7 @@ namespace Runtime.Descriptions.Agents.Nodes
                 "leaf" => new AgentLeaf(),
                 "root" => new AgentDecisionDescription(),
                 "inverse" => new AgentInverse(),
+                "link" => new AgentDecisionLinkDescription(),
                 _ => throw new Exception()
             };
 
