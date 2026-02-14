@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using Runtime.Common;
 using Runtime.Descriptions;
-using Runtime.Descriptions.Locations.Environment;
-using Runtime.Descriptions.Locations.Surface;
 using Runtime.Landscape.Grid.Cell;
 using Runtime.Landscape.Grid.Indication;
 using UnityEngine;

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Runtime.Extensions;
-using Runtime.Landscape.Grid;
 
 namespace Runtime.Descriptions.Locations.Environment
 {
