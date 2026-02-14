@@ -3,13 +3,13 @@ using Runtime.Extensions;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {
-    public class AgentDecisionLinkDescription : AgentNode
+    public class AgentDecisionLink : AgentNode
     {
         private const string DescriptionIdKey = "description_id";
             
         public override string Type => "link";
         
-        public string DescriptionId { get; private set; }
+        public string DescriptionId { get; set; } = string.Empty;
         
         public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
