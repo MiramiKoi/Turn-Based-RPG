@@ -4,7 +4,7 @@ local StatusEffect = {}
 ---@param ctx StatusEffectContext
 function StatusEffect.CanApply(ctx)
     local unit = ctx.unit
-    return not unit.ActiveEffects:HasStatusEffect("burn")
+    return not unit.Effects:HasStatusEffect("burn")
 end
 
 ---@param ctx StatusEffectContext
@@ -15,13 +15,13 @@ end
 ---@param ctx StatusEffectContext
 function StatusEffect.OnApply(ctx)
     local unit = ctx.unit
-    unit:SetActionDisabled(1, true)
+    unit.ActionBlocker:Set(1, true)
 end
 
 ---@param ctx StatusEffectContext
 function StatusEffect.OnRemove(ctx)
     local unit = ctx.unit
-    unit:SetActionDisabled(1, false)
+    unit.ActionBlocker:Set(1, false)
 end
 
 ---@param ctx StatusEffectContext
@@ -31,7 +31,7 @@ function StatusEffect.OnTick(ctx)
     local stacks = effect.stacks or 1
 
     local damage = 1 + stacks
-    unit:TakeDamage(damage)
+    unit.Combat:TakeDamage(damage)
 end
 
 return StatusEffect

@@ -4,13 +4,13 @@ local StatusEffect = {}
 ---@param ctx StatusEffectContext
 function StatusEffect.OnApply(ctx)
     local unit = ctx.unit
-    unit:SetActionDisabled(0, true)
+    unit.ActionBlocker:Set(0, true)
 end
 
 ---@param ctx StatusEffectContext
 function StatusEffect.OnRemove(ctx)
     local unit = ctx.unit
-    unit:SetActionDisabled(0, false)
+    unit.ActionBlocker:Set(0, false)
 end
 
 return StatusEffect

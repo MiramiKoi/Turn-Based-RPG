@@ -6,7 +6,7 @@ function StatusEffect.OnTick(ctx)
     local unit = ctx.unit
     local stacks = ctx.effect.stacks or 1
     local damage = 4 * stacks
-    unit:TakeDamage(damage)
+    unit.Combat:TakeDamage(damage)
 end
 
 return StatusEffect

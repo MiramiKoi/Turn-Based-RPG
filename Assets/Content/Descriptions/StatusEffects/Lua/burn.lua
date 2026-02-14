@@ -13,7 +13,7 @@ function StatusEffect.OnTick(ctx)
     local current_health = unit.Health
     local damage = math.floor(current_health * percent + stacks * per_stack)
 
-    unit:TakeDamage(damage)
+    unit.Combat:TakeDamage(damage)
 end
 
 return StatusEffect
