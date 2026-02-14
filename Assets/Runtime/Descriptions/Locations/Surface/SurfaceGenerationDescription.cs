@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Extensions;
-using UnityEngine;
 using Random = System.Random;
 
 namespace Runtime.Descriptions.Locations.Surface
@@ -36,7 +35,7 @@ namespace Runtime.Descriptions.Locations.Surface
                 case "island":
                     return GenerateIsland(surfaceMatrix, width, height, ruleData, locationDescription);
                 case "shop":
-                    return GenerateShop(surfaceMatrix, width, height, ruleData, locationDescription);
+                    return GenerateShop(surfaceMatrix, width, height);
                 default:
                     return GenerateDefault(surfaceMatrix, width, height);
             }
@@ -58,9 +57,9 @@ namespace Runtime.Descriptions.Locations.Surface
 
             var maxDistanceX = centerX * islandMaxSizeRatio;
             var maxDistanceY = centerY * islandMaxSizeRatio;
-            
+
             var availableBiomes = locationDescription.Surface.Where(s => s != 0).ToArray();
-            
+
             for (var y = 0; y < height; y++)
             {
                 for (var x = 0; x < width; x++)
@@ -85,30 +84,25 @@ namespace Runtime.Descriptions.Locations.Surface
                     surfaceMatrix[y, x] = isLand ? 1 : 0;
                 }
             }
-            
+
             var biomeCenters = new List<(int x, int y, int biomeId)>();
             var cellsPerBiome = (width * height) / (availableBiomes.Length * 100);
 
             for (var i = 0; i < cellsPerBiome; i++)
             {
-                for (var b = 0; b < availableBiomes.Length; b++)
-                {
-                    var x = random.Next(0, width);
-                    var y = random.Next(0, height);
-                    
-                    if (surfaceMatrix[y, x] != 0)
-                    {
-                        biomeCenters.Add((x, y, availableBiomes[b]));
-                    }
-                }
+                biomeCenters.AddRange(from biome in availableBiomes
+                    let x = random.Next(0, width)
+                    let y = random.Next(0, height)
+                    where surfaceMatrix[y, x] != 0
+                    select (x, y, biome));
             }
-            
+
             for (var y = 0; y < height; y++)
             {
                 for (var x = 0; x < width; x++)
                 {
                     if (surfaceMatrix[y, x] == 0) continue;
-                    
+
                     var minDistance = double.MaxValue;
                     var closestBiome = availableBiomes[0];
 
@@ -129,10 +123,9 @@ namespace Runtime.Descriptions.Locations.Surface
             return surfaceMatrix;
         }
 
-        private int[,] GenerateShop(int[,] surfaceMatrix, int width, int height,
-            Dictionary<string, object> ruleData, LocationDescription locationDescription)
+        private int[,] GenerateShop(int[,] surfaceMatrix, int width, int height)
         {
-            var defaultSurface = 5;
+            const int defaultSurface = 5;
 
             for (var y = 0; y < height; y++)
             {
@@ -141,7 +134,6 @@ namespace Runtime.Descriptions.Locations.Surface
                     surfaceMatrix[y, x] = defaultSurface;
                 }
             }
-            Debug.Log("Generating shop");
 
             return surfaceMatrix;
         }
