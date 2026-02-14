@@ -19,3 +19,10 @@
 ---@field RemoveById fun(self:ActiveEffects, id:string)
 ---@field RemoveAllByDescriptionId fun(self:ActiveEffects, descriptionKey:string)
 ---@field HasStatusEffect fun(self:ActiveEffects, descriptionKey:string):boolean
+
+---@class StatusEffectApplierModel
+---@field Collection any
+---@field TryApply fun(self:StatusEffectApplierModel, descriptionKey:string):string
+---@field RemoveById fun(self:StatusEffectApplierModel, statusEffectId:string)
+---@field RemoveAllByDescriptionId fun(self:StatusEffectApplierModel, descriptionKey:string)
+---@field HasStatusEffect fun(self:StatusEffectApplierModel, descriptionKey:string):boolean
