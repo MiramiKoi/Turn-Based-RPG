@@ -1,4 +1,5 @@
 ﻿using Runtime.Core;
+using Runtime.Landscape.Grid.Cell;
 using Runtime.Units;
 
 namespace Runtime.Player.Commands
@@ -6,22 +7,24 @@ namespace Runtime.Player.Commands
     public class LootCommand : IPlayerCommand
     {
         private readonly World _world;
-        private readonly UnitModel _target;
 
-        public LootCommand(World world, UnitModel target)
+        public LootCommand(World world)
         {
             _world = world;
-            _target = target;
         }
 
-        public bool CanExecute()
+        public bool CanExecute(CellModel cell)
         {
-            return _target.IsDead || _target.Description.Fraction == "trader";
+            if (cell.Unit is not UnitModel target)
+                return false;
+                
+            return target.IsDead || target.Description.Fraction == "trader";
         }
 
-        public void Execute()
+        public void Execute(CellModel cell)
         {
-            _world.LootModel.RequestLoot(_target);
+            var target = (UnitModel)cell.Unit;
+            _world.LootModel.RequestLoot(target);
         }
     }
 }
