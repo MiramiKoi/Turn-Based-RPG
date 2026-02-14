@@ -27,7 +27,8 @@ namespace Runtime.LoadSteps
                     "bear-description",
                     "panda-description",
                     "trader-description",
-                    "loot-description"
+                    "loot-description",
+                    "hunter-description",
                 }
             },
 
