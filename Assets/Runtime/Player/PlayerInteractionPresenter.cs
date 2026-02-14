@@ -9,15 +9,14 @@ namespace Runtime.Player
     {
         private readonly PlayerModel _model;
         private readonly World _world;
-        private readonly PlayerRouteExecutor _executor;
+        private readonly PlayerCommandExecutor _executor;
 
         public PlayerInteractionPresenter(PlayerModel model, World world)
         {
             _model = model;
             _world = world;
 
-            var resolver = new PlayerRouteStepResolver(world);
-            _executor = new PlayerRouteExecutor(model, resolver);
+            _executor = new PlayerCommandExecutor(model, world);
         }
 
         public void Enable()

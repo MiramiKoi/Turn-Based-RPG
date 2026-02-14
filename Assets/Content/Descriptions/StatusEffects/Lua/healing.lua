@@ -3,7 +3,7 @@ local StatusEffect = {}
 
 ---@param ctx StatusEffectContext
 function StatusEffect.CanApply(ctx)
-    return not ctx.unit.ActiveEffects:HasStatusEffect("curse")
+    return not ctx.unit.Effects:HasStatusEffect("curse")
 end
 
 ---@param ctx StatusEffectContext

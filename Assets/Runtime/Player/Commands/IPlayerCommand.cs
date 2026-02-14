@@ -1,8 +1,10 @@
-﻿namespace Runtime.Player.Commands
+﻿using Runtime.Landscape.Grid.Cell;
+
+namespace Runtime.Player.Commands
 {
     public interface IPlayerCommand
     {
-        bool CanExecute();
-        void Execute();
+        bool CanExecute(CellModel cell);
+        void Execute(CellModel cell);
     }
 }

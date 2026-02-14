@@ -18,11 +18,13 @@ namespace Runtime.CustomAsync
         public void Start()
         {
             Scheduler.Instance.OnTick += OnTick;
+            Scheduler.Instance.OnAborted += Stop;
         }
 
         public void Stop()
         {
             Scheduler.Instance.OnTick -= OnTick;
+            Scheduler.Instance.OnAborted -= Stop;
 
             IsCompleted = true;
             _continuations?.Invoke();

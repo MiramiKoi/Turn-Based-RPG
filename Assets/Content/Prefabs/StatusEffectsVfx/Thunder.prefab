@@ -146,7 +146,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 303139780131611529, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
       propertyPath: m_Name
-      value: Thunder Variant
+      value: Thunder
       objectReference: {fileID: 0}
     - target: {fileID: 2173719329101091324, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,11 +191,15 @@ PrefabInstance:
     - target: {fileID: 2859712911085672042, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
       propertyPath: <OnTickParticle>k__BackingField
       value: 
-      objectReference: {fileID: 9011988158418936983}
+      objectReference: {fileID: 0}
     - target: {fileID: 2859712911085672042, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
       propertyPath: <OnApplyParticle>k__BackingField
       value: 
       objectReference: {fileID: 4823793460662133635}
+    - target: {fileID: 2859712911085672042, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
+      propertyPath: <OnRemoveParticle>k__BackingField
+      value: 
+      objectReference: {fileID: 9011988158418936983}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -1,4 +1,5 @@
 ﻿using Runtime.Core;
+using Runtime.Landscape.Grid.Cell;
 using Runtime.Units;
 using Runtime.Units.Rotation;
 
@@ -8,30 +9,33 @@ namespace Runtime.Player.Commands
     {
         private readonly World _world;
         private readonly PlayerModel _player;
-        private readonly UnitModel _target;
 
-        public AttackCommand(PlayerModel player, UnitModel target, World world)
+        public AttackCommand(PlayerModel player, World world)
         {
             _player = player;
-            _target = target;
             _world = world;
         }
 
-        public bool CanExecute()
+        public bool CanExecute(CellModel cell)
         {
-            return !_target.IsDead &&
-                   _player.Combat.CanAttack(_target.State.Position.Value);
+            if (cell.Unit is not UnitModel target)
+                return false;
+            
+            return target != _player &&
+                   !target.IsDead &&
+                   _player.Combat.CanAttack(target.State.Position.Value);
         }
 
-        public void Execute()
+        public void Execute(CellModel cell)
         {
+            var target = (UnitModel)cell.Unit;
             _world.LootModel.CancelLoot();
             
-            if (_player.State.Position.Value.x != _target.State.Position.Value.x)
-                _player.Movement.Rotate(_target.State.Position.Value.x < _player.State.Position.Value.x ? UnitDirection.Left : UnitDirection.Right);
+            if (_player.State.Position.Value.x != target.State.Position.Value.x)
+                _player.Movement.Rotate(target.State.Position.Value.x < _player.State.Position.Value.x ? UnitDirection.Left : UnitDirection.Right);
             
             var damage = _player.Combat.GetDamage();
-            _target.Combat.TakeDamage(damage);
+            target.Combat.TakeDamage(damage);
         }
     }
 }

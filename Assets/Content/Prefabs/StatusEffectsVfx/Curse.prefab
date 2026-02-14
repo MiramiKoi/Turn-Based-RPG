@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7602031701099034669}
     m_Modifications:
+    - target: {fileID: 1464211568921416440, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2990870103442498292, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
       propertyPath: clearBehavior
       value: 0
@@ -27,6 +31,10 @@ PrefabInstance:
     - target: {fileID: 4382795560878698138, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824670795371433368, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
       propertyPath: m_Name
@@ -126,7 +134,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 303139780131611529, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
       propertyPath: m_Name
-      value: Curse Variant
+      value: Curse
       objectReference: {fileID: 0}
     - target: {fileID: 2173719329101091324, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -172,6 +180,10 @@ PrefabInstance:
       propertyPath: <OnApplyParticle>k__BackingField
       value: 
       objectReference: {fileID: 9143496999704268356}
+    - target: {fileID: 2859712911085672042, guid: 3c8e5de6bd870fc498aa5b0e56eb8b06, type: 3}
+      propertyPath: <OnRemoveParticle>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

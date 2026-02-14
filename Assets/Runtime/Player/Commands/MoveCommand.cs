@@ -1,6 +1,6 @@
 ﻿using Runtime.Core;
+using Runtime.Landscape.Grid.Cell;
 using Runtime.Units.Actions;
-using UnityEngine;
 
 namespace Runtime.Player.Commands
 {
@@ -8,26 +8,25 @@ namespace Runtime.Player.Commands
     {
         private readonly PlayerModel _player;
         private readonly World _world;
-        private readonly Vector2Int _target;
 
-        public MoveCommand(PlayerModel player, World world, Vector2Int target)
+        public MoveCommand(PlayerModel player, World world)
         {
             _player = player;
             _world = world;
-            _target = target;
         }
 
-        public bool CanExecute()
+        public bool CanExecute(CellModel cell)
         {
-            return _player.ActionBlocker.CanExecute(UnitActionType.Move)
-                   && _world.GridModel.TryPlace(_player, _target);
+            return cell.Unit == null 
+                   && _player.ActionBlocker.CanExecute(UnitActionType.Move)
+                   && _world.GridModel.TryPlace(_player, cell.Position);
         }
 
-        public void Execute()
+        public void Execute(CellModel cell)
         {
             _world.LootModel.CancelLoot();
             _world.GridModel.ReleaseCell(_player.State.Position.Value);
-            _player.Movement.MoveTo(_target);
+            _player.Movement.MoveTo(cell.Position);
         }
     }
 }
