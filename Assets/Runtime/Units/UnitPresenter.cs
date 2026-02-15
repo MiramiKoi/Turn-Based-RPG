@@ -61,14 +61,10 @@ namespace Runtime.Units
 
             _uiPresenter = new UnitUIPresenter(_model, View);
             _uiPresenter.Enable();
-
-            _world.TurnBaseModel.OnWorldStepFinished += CheckInventory;
         }
 
         public virtual void Disable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished -= CheckInventory;
-
             _movementPresenter.Disable();
             _combatPresenter.Disable();
             _rotationPresenter.Disable();
@@ -78,16 +74,6 @@ namespace Runtime.Units
             _visibilityPresenter.Disable();
 
             _pool.Release(View);
-        }
-
-        private void CheckInventory()
-        {
-            if (_model.Inventory.IsEmpty() && _model != _world.PlayerModel)
-            {
-                _world.GridModel.ReleaseCell(_model.State.Position.Value);
-
-                Disable();
-            }
         }
     }
 }
