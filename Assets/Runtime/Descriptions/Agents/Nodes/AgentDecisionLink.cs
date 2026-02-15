@@ -14,8 +14,6 @@ namespace Runtime.Descriptions.Agents.Nodes
 
         public override NodeStatus Process(IWorldContext context, IControllable controllable)
         {
-            Debug.Log($"ID: {DescriptionId}");
-
             return context.WorldDescription.AgentDecisionDescriptionCollection
                 .Get(DescriptionId)
                 .Process(context, controllable);
