@@ -52,7 +52,15 @@ namespace Runtime.SpawnDirector.Rules
         private Vector2Int GetSpawnPosition()
         {
             if (_model.Description.Spawn.Mode == "fixed" && _model.Description.Spawn.FixedPosition.HasValue)
-                return _model.Description.Spawn.FixedPosition.Value;
+            {
+                var fixedPosition = _model.Description.Spawn.FixedPosition.Value;
+                if (!_world.GridModel.GetCell(fixedPosition).IsOccupied)
+                    return fixedPosition;
+
+                var neighbors = _world.GridModel.GetNeighborAvailablePositions(fixedPosition);
+                
+                return neighbors[Random.Range(0, neighbors.Count)];
+            }
 
             var position = _world.GridModel.GetRandomAvailablePosition();
             return position ?? Vector2Int.zero;

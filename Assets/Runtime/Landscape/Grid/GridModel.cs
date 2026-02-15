@@ -65,28 +65,6 @@ namespace Runtime.Landscape.Grid
             }
         }
 
-        private void PlaceLocation(LocationModel locationModel, WorldDescription worldDescription)
-        {
-            for (var y = 0; y < locationModel.Height; y++)
-            {
-                for (var x = 0; x < locationModel.Width; x++)
-                {
-                    var surface = locationModel.SurfaceMatrix[y, x].ToString();
-                    var environment = locationModel.EnvironmentMatrix[y, x].ToString();
-
-                    worldDescription.SurfaceCollection.Surfaces.TryGetValue(surface, out var surfaceDescription);
-                    worldDescription.EnvironmentCollection.Environment.TryGetValue(environment,
-                        out var environmentDescription);
-
-                    var globalX = locationModel.X + x;
-                    var globalY = locationModel.Y + y;
-
-                    Cells[globalX, globalY] =
-                        new CellModel(globalX, globalY, surfaceDescription, environmentDescription);
-                }
-            }
-        }
-
         public CellModel GetCell(Vector2Int position)
         {
             return Cells[position.x, position.y];
@@ -147,6 +125,26 @@ namespace Runtime.Landscape.Grid
             return null;
         }
 
+        public List<Vector2Int> GetNeighborAvailablePositions(Vector2Int center)
+        {
+            var list = new List<Vector2Int>();
+            for (var dx = -1; dx <= 1; dx++)
+            {
+                for (var dy = -1; dy <= 1; dy++)
+                {
+                    if (dx == 0 && dy == 0)
+                        continue;
+
+                    if (Cells[center.x + dx, center.y + dy] != null)
+                    {
+                        list.Add(new Vector2Int(center.x + dx, center.y + dy));
+                    }
+                }
+            }
+
+            return list;
+        }
+
         public void SetIndication(IEnumerable<Vector2Int> cells, IndicationType indicationType)
         {
             foreach (var position in cells)
@@ -155,6 +153,28 @@ namespace Runtime.Landscape.Grid
                     !Cells[position.x, position.y].IsOccupied)
                 {
                     Cells[position.x, position.y].SetIndication(indicationType);
+                }
+            }
+        }
+
+        private void PlaceLocation(LocationModel locationModel, WorldDescription worldDescription)
+        {
+            for (var y = 0; y < locationModel.Height; y++)
+            {
+                for (var x = 0; x < locationModel.Width; x++)
+                {
+                    var surface = locationModel.SurfaceMatrix[y, x].ToString();
+                    var environment = locationModel.EnvironmentMatrix[y, x].ToString();
+
+                    worldDescription.SurfaceCollection.Surfaces.TryGetValue(surface, out var surfaceDescription);
+                    worldDescription.EnvironmentCollection.Environment.TryGetValue(environment,
+                        out var environmentDescription);
+
+                    var globalX = locationModel.X + x;
+                    var globalY = locationModel.Y + y;
+
+                    Cells[globalX, globalY] =
+                        new CellModel(globalX, globalY, surfaceDescription, environmentDescription);
                 }
             }
         }
