@@ -47,30 +47,19 @@ namespace Runtime.UI.Loot
 
             Clear();
 
-            _world.TransferModel.TargetInventory.Value = unitModel.Inventory;
-            _world.TransferModel.Mode.Value =
-                unitModel.Description.Fraction == "trader" ? TransferMode.Trade : TransferMode.Default;
+            var isTrader = unitModel.Description.Fraction == UnitsConstants.TraderFraction;
+            var inventoryType = isTrader ? InventoryType.Trader : InventoryType.Loot;
 
-            if (unitModel.Description.Fraction == "trader")
-            {
-                _inventoryView.Root.AddToClassList("trade-inventory");
-            }
-            else
-            {
-                _inventoryView.Root.AddToClassList("loot-inventory");
-            }
+            _inventoryView.Root.AddToClassList(isTrader ? UIConstants.Inventory.TradeInventoryStyle : UIConstants.Inventory.LootInventoryStyle);
 
-            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions, _world);
+            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions, _world, inventoryType);
             _currentInventory.Enable();
         }
 
         private void Clear()
         {
-            _world.TransferModel.TargetInventory.Value = null;
-            _world.TransferModel.Mode.Value = TransferMode.Default;
-
-            _inventoryView.Root.RemoveFromClassList("trade-inventory");
-            _inventoryView.Root.RemoveFromClassList("loot-inventory");
+            _inventoryView.Root.RemoveFromClassList(UIConstants.Inventory.TradeInventoryStyle);
+            _inventoryView.Root.RemoveFromClassList(UIConstants.Inventory.LootInventoryStyle);
 
             _currentInventory?.Disable();
             _currentInventory = null;
