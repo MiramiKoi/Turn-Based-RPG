@@ -1,6 +1,4 @@
 using Runtime.Common;
-using Runtime.Core;
-using Runtime.Descriptions.Items;
 using Runtime.UI.Inventory.Cells;
 using Runtime.Units;
 
@@ -9,47 +7,48 @@ namespace Runtime.Equipment
     public class EquipmentPresenter : IPresenter
     {
         private readonly UnitModel _unitModel;
-        private readonly World _world;
+        private readonly EquipmentView _view;
 
-        public EquipmentPresenter(UnitModel unitModel, World world)
+        public EquipmentPresenter(UnitModel unitModel, EquipmentView view)
         {
             _unitModel = unitModel;
-            _world = world;
+            _view = view;
         }
 
         public void Enable()
         {
-            _unitModel.Equipment.Inventory.OnCellSelected += OnCellSelected;
+            _unitModel.Equipment.Inventory.OnCellChanged += HandleCellChanged;
+            UpdateView();
         }
-        
+
         public void Disable()
         {
-            _unitModel.Equipment.Inventory.OnCellSelected -= OnCellSelected;
+            _unitModel.Equipment.Inventory.OnCellChanged -= HandleCellChanged;
         }
-        
-        private void OnCellSelected(CellModel cell)
+
+        private void HandleCellChanged(CellModel cell)
         {
-            var sourceCell = _world.TransferModel.SourceCell;
-            if (sourceCell == null || !_unitModel.Inventory.Cells.Contains(sourceCell))
+            UpdateView();
+        }
+
+        private void UpdateView()
+        {
+            if (_unitModel.Equipment.TryGetStats("weapon", out var weaponStats))
             {
-                return;
+                _view.Damage.text = weaponStats["damage"].MaxValue.ToString();
             }
-
-            var sourceItem = sourceCell.ItemDescription;
-            var targetEquipmentItem = cell.ItemDescription as EquipmentItemDescription;
-            if (sourceItem is EquipmentItemDescription equipmentItem
-                && (targetEquipmentItem == null || equipmentItem.EquipmentType == targetEquipmentItem.EquipmentType))
+            else
             {
-                sourceCell.TryTake(1);
-                _unitModel.Equipment.Change(equipmentItem, out var oldEquipment);
-
-                if (oldEquipment != null)
-                {
-                    sourceCell.TryPut(oldEquipment, 1);
-                }
-
-                sourceCell.CellDeselect();
-                _world.TransferModel.SourceCell = null;
+                _view.Damage.text = _unitModel.Stats.Get("attack_damage").Value.ToString();
+            }
+    
+            if (_unitModel.Equipment.TryGetStats("armour", out var armorStats))
+            {
+                _view.Protection.text = armorStats["protection"].MaxValue.ToString();
+            }
+            else
+            {
+                _view.Protection.text = "0";
             }
         }
     }
