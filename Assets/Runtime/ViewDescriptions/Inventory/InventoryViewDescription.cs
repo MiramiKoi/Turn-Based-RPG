@@ -8,6 +8,7 @@ namespace Runtime.ViewDescriptions.Inventory
     public class InventoryViewDescription : ScriptableObject
     {
         public VisualTreeAsset InventoryAsset;
+        public VisualTreeAsset EquipmentAsset;
         public VisualTreeAsset CellAsset;
     }
 }

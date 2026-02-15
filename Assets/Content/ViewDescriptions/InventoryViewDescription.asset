@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: InventoryViewDescription
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Inventory.InventoryViewDescription
   InventoryAsset: {fileID: 9197481963319205126, guid: b5259a3993f54f74cac985786ddd7713, type: 3}
+  EquipmentAsset: {fileID: 9197481963319205126, guid: a748e4682d0318b46b0572deea45319c, type: 3}
   CellAsset: {fileID: 9197481963319205126, guid: bc0e823db7436af4bb76b1f1559ce9b9, type: 3}
