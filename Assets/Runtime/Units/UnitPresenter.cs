@@ -61,6 +61,8 @@ namespace Runtime.Units
 
             _uiPresenter = new UnitUIPresenter(_model, View);
             _uiPresenter.Enable();
+
+            _world.GridModel.TryPlace(_model, _model.State.Position.Value);
         }
 
         public virtual void Disable()
