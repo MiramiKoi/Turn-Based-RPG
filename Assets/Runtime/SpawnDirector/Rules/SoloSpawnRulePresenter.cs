@@ -13,15 +13,15 @@ namespace Runtime.SpawnDirector.Rules
 
         protected override void Initialize()
         {
+            base.Initialize();
             if (_model.AliveCount() == 0)
             {
                 SpawnOne();
             }
         }
 
-        protected override void HandleWorldStepFinished()
+        protected override void HandleStep()
         {
-            base.HandleWorldStepFinished();
             var alive = _model.AliveCount();
 
             if (alive > 0)

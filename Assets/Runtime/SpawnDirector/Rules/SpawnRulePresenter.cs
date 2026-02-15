@@ -1,5 +1,6 @@
 ﻿using Runtime.Common;
 using Runtime.Core;
+using Runtime.SpawnDirector.Corpse;
 using UnityEngine;
 
 namespace Runtime.SpawnDirector.Rules
@@ -9,6 +10,8 @@ namespace Runtime.SpawnDirector.Rules
         private readonly SpawnRuleModel _model;
         private readonly World _world;
 
+        private CorpseRulePresenter _corpseRulePresenter;
+
         protected SpawnRulePresenter(SpawnRuleModel model, World world)
         {
             _model = model;
@@ -17,23 +20,32 @@ namespace Runtime.SpawnDirector.Rules
 
         public void Enable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished += HandleWorldStepFinished;
+            _world.TurnBaseModel.OnWorldStepFinished += HandleStep;
             Initialize();
         }
 
         public void Disable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished -= HandleWorldStepFinished;
+            _world.TurnBaseModel.OnWorldStepFinished -= HandleStep;
+            _corpseRulePresenter?.Disable();
+            _corpseRulePresenter = null;
         }
 
-        protected abstract void Initialize();
+        protected virtual void Initialize()
+        {
+            if (!_model.Description.Corpse.IsInfinite)
+            {
+                var corpseModel = new CorpseRuleModel(_model, _model.Description.Corpse);
+                _corpseRulePresenter = new CorpseRulePresenter(corpseModel, _world);
+                _corpseRulePresenter.Enable();
+            }
+        }
 
         protected void SpawnOne()
         {
             var position = GetSpawnPosition();
             var unit = _world.UnitCollection.Create(_model.Description.UnitDescriptionId);
-            unit.Movement.MoveTo(position);
-            _world.GridModel.TryPlace(unit, position);
+            unit.Movement.SetPosition(position);
             _model.Units.Add(unit);
         }
 
@@ -46,9 +58,6 @@ namespace Runtime.SpawnDirector.Rules
             return position ?? Vector2Int.zero;
         }
 
-        protected virtual void HandleWorldStepFinished()
-        {
-            _model.Units.RemoveAll(unit => unit == null || unit.IsDead);
-        }
+        protected abstract void HandleStep();
     }
 }
