@@ -31,6 +31,7 @@ namespace Runtime.Core
         public PlayerModel PlayerModel => (PlayerModel)UnitCollection.Get("character_0");
         public UIBlockerModel UIBlockerModel { get; private set; }
         public LootModel LootModel { get; private set; }
+        public TransferRouter TransferRouter { get; private set; }
         public TransferModel TransferModel { get; private set; }
 
         public void SetData(AddressableModel addressableModel, PlayerControls playerControls,
@@ -54,9 +55,11 @@ namespace Runtime.Core
             UnitCollection = new UnitModelCollection(this, WorldDescription);
 
             UIBlockerModel = new UIBlockerModel();
-
-            LootModel = new LootModel();
+            
             TransferModel = new TransferModel();
+            TransferRouter = new TransferRouter(TransferModel);
+            
+            LootModel = new LootModel();
         }
     }
 }
