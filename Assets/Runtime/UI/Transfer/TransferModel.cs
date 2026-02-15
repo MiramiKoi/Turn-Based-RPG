@@ -1,22 +1,24 @@
 using Runtime.UI.Inventory;
 using Runtime.UI.Inventory.Cells;
-using UniRx;
 
 namespace Runtime.UI.Transfer
 {
-    public enum TransferMode
+    public enum InventoryType
     {
-        Default,
-        Trade,
-        Trash
+        Player,
+        Loot,
+        Trader,
+        Trash,
+        Equipment
     }
-
+    
     public class TransferModel
     {
-        public ReactiveProperty<InventoryModel> SourceInventory { get; } = new();
-        public ReactiveProperty<InventoryModel> TargetInventory { get; } = new();
-        public ReactiveProperty<TransferMode> Mode { get; } = new(TransferMode.Default);
         public CellModel SourceCell { get; set; }
         public CellModel TargetCell { get; set; }
+        public InventoryModel SourceInventory { get; set; }
+        public InventoryModel TargetInventory { get; set; }
+        public InventoryType SourceType  { get; set; }
+        public InventoryType TargetType { get; set; }
     }
 }
