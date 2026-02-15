@@ -5,16 +5,21 @@ namespace Runtime.SpawnDirector
 {
     public class SpawnDirectorModel
     {
-        public ReactiveCollection<ISpawnRule> Rules { get; } = new();
+        public ReactiveDictionary<string, SpawnRuleModel> Rules { get; } = new();
 
-        public void AddRule(ISpawnRule rule)
+        public void AddRule(SpawnRuleModel rule)
         {
-            Rules.Add(rule);
+            Rules.Add(rule.Description.Id, rule);
         }
 
-        public void RemoveRule(ISpawnRule rule)
+        public void RemoveRule(string id)
         {
-            Rules.Remove(rule);
+            Rules.Remove(id);
+        }
+
+        public SpawnRuleModel GetRule(string id)
+        {
+            return Rules[id];
         }
     }
 }
