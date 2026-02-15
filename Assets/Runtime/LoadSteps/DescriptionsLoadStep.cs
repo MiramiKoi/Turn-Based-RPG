@@ -28,13 +28,13 @@ namespace Runtime.LoadSteps
                     "panda-description",
                     "trader-description",
                     "loot-description",
-                    "hunter-description",
+                    "hunter-description"
                 }
             },
 
             { "environment_generation", new List<string> { "environment-generation-description" } },
             { "environment", new List<string> { "environment-description" } },
-            { "locations", new List<string> {"locations-description"}},
+            { "locations", new List<string> { "locations-description" } },
             { "status_effects", new List<string> { "status-effect-descriptions" } }
         };
 

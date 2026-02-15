@@ -117,10 +117,11 @@ namespace Runtime.UI.Inventory
                     return false;
                 }
             }
+
             return true;
         }
-        
-       
+
+
         public bool CanExtract(ItemDescription item, int amount)
         {
             var remaining = amount;
@@ -140,7 +141,7 @@ namespace Runtime.UI.Inventory
                 }
             }
 
-            return false; 
+            return false;
         }
 
         private bool IsSameItem(ItemDescription itemA, ItemDescription itemB)

@@ -9,10 +9,11 @@ namespace Runtime.Descriptions.Locations
         public LocationDescriptionCollection(Dictionary<string, object> data)
         {
             Locations = new Dictionary<string, LocationDescription>();
-            
+
             foreach (var description in data)
             {
-                Locations.Add(description.Key, new LocationDescription(description.Key, (Dictionary<string, object>)description.Value));
+                Locations.Add(description.Key,
+                    new LocationDescription(description.Key, (Dictionary<string, object>)description.Value));
             }
         }
     }

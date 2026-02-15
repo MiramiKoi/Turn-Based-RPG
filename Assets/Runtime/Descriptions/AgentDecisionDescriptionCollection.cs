@@ -18,7 +18,7 @@ namespace Runtime.Descriptions
                 var description = new AgentDecisionDescription(effectData);
 
                 Debug.Log($"{pair.Key}: {description}");
-                
+
                 Descriptions.Add(pair.Key, description);
             }
         }

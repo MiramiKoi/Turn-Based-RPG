@@ -32,7 +32,8 @@ namespace Runtime.LoadSteps
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await loadModelUiAsset.LoadAwaiter;
             var statusEffectsView = new PlayerStatusEffectHudView(loadModelUiAsset.Result);
-            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(_world.PlayerModel, statusEffectsView, _world,
+            var statusEffectsPresenter = new PlayerStatusEffectsHudPresenter(_world.PlayerModel, statusEffectsView,
+                _world,
                 _worldViewDescriptions);
             statusEffectsPresenter.Enable();
             _presenters.Add(statusEffectsPresenter);

@@ -17,7 +17,7 @@ namespace Runtime.Player.Commands
         {
             if (cell.Unit is not UnitModel target)
                 return false;
-                
+
             return target.IsDead || target.Description.Fraction == "trader";
         }
 

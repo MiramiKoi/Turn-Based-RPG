@@ -9,10 +9,10 @@ namespace Runtime.Landscape.Grid
 {
     public class GridModel
     {
-        public CellModel[,] Cells { get; private set; }
-        private Dictionary<string, LocationModel> _locationModelCollection = new();
+        public CellModel[,] Cells { get; }
+        private readonly Dictionary<string, LocationModel> _locationModelCollection = new();
 
-        private int _spacingAfterEveryLocation = 10;
+        private readonly int _spacingAfterEveryLocation = 10;
 
         public GridModel(WorldDescription worldDescription)
         {
@@ -20,14 +20,16 @@ namespace Runtime.Landscape.Grid
             var totalWidth = 0;
             var maxHeight = 0;
             var currentX = 0;
-            
+
             foreach (var locationDescription in locationDescriptionCollection.Locations)
             {
                 var surfaceMatrix = worldDescription.SurfaceGenerationDescription.Generate(locationDescription.Value);
-                var environmentMatrix = worldDescription.EnvironmentGenerationDescription.Generate(locationDescription.Value, surfaceMatrix);
+                var environmentMatrix =
+                    worldDescription.EnvironmentGenerationDescription.Generate(locationDescription.Value,
+                        surfaceMatrix);
                 var width = surfaceMatrix.GetLength(1);
                 var height = surfaceMatrix.GetLength(0);
-                
+
                 var locationModel = new LocationModel
                 {
                     Name = locationDescription.Key,
@@ -36,16 +38,16 @@ namespace Runtime.Landscape.Grid
                     Width = width,
                     Height = height,
                     SurfaceMatrix = surfaceMatrix,
-                    EnvironmentMatrix = environmentMatrix,
+                    EnvironmentMatrix = environmentMatrix
                 };
-                
+
                 _locationModelCollection[locationDescription.Key] = locationModel;
-                
+
                 totalWidth += width + _spacingAfterEveryLocation;
                 maxHeight = Mathf.Max(maxHeight, height);
                 currentX += width + _spacingAfterEveryLocation;
             }
-            
+
             Cells = new CellModel[totalWidth, maxHeight];
             worldDescription.SurfaceCollection.Surfaces.TryGetValue("0", out var defaultSurfaceDescription);
             worldDescription.EnvironmentCollection.Environment.TryGetValue("0", out var defaultEnvironmentDescription);
@@ -56,12 +58,11 @@ namespace Runtime.Landscape.Grid
                     Cells[x, y] = new CellModel(x, y, defaultSurfaceDescription, defaultEnvironmentDescription);
                 }
             }
-            
+
             foreach (var locationModel in _locationModelCollection.Values)
             {
                 PlaceLocation(locationModel, worldDescription);
             }
-            
         }
 
         private void PlaceLocation(LocationModel locationModel, WorldDescription worldDescription)
@@ -72,19 +73,20 @@ namespace Runtime.Landscape.Grid
                 {
                     var surface = locationModel.SurfaceMatrix[y, x].ToString();
                     var environment = locationModel.EnvironmentMatrix[y, x].ToString();
-                    
+
                     worldDescription.SurfaceCollection.Surfaces.TryGetValue(surface, out var surfaceDescription);
                     worldDescription.EnvironmentCollection.Environment.TryGetValue(environment,
                         out var environmentDescription);
-                    
+
                     var globalX = locationModel.X + x;
                     var globalY = locationModel.Y + y;
-                    
-                    Cells[globalX, globalY] = new CellModel(globalX, globalY, surfaceDescription, environmentDescription);
+
+                    Cells[globalX, globalY] =
+                        new CellModel(globalX, globalY, surfaceDescription, environmentDescription);
                 }
             }
         }
-        
+
         public CellModel GetCell(Vector2Int position)
         {
             return Cells[position.x, position.y];
@@ -97,6 +99,7 @@ namespace Runtime.Landscape.Grid
                 var cell = Cells[position.x, position.y];
                 return cell != null && !cell.IsOccupied;
             }
+
             return false;
         }
 
@@ -121,8 +124,8 @@ namespace Runtime.Landscape.Grid
 
         public bool IsInsideGrid(Vector2Int pos)
         {
-            return pos is { x: >= 0, y: >= 0 } && 
-                   pos.x < Cells.GetLength(0) && 
+            return pos is { x: >= 0, y: >= 0 } &&
+                   pos.x < Cells.GetLength(0) &&
                    pos.y < Cells.GetLength(1);
         }
 
@@ -148,14 +151,15 @@ namespace Runtime.Landscape.Grid
         {
             foreach (var position in cells)
             {
-                if (IsInsideGrid(position) && Cells[position.x, position.y] != null && !Cells[position.x, position.y].IsOccupied)
+                if (IsInsideGrid(position) && Cells[position.x, position.y] != null &&
+                    !Cells[position.x, position.y].IsOccupied)
                 {
                     Cells[position.x, position.y].SetIndication(indicationType);
                 }
             }
         }
     }
-    
+
     public class LocationModel
     {
         public string Name;

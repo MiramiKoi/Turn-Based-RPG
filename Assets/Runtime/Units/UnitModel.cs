@@ -37,7 +37,8 @@ namespace Runtime.Units
 
         private readonly Dictionary<string, bool> _flags = new();
 
-        protected UnitModel(string id, Vector2Int position, UnitDescription description, WorldDescription worldDescription)
+        protected UnitModel(string id, Vector2Int position, UnitDescription description,
+            WorldDescription worldDescription)
         {
             Id = id;
             Description = description;
@@ -58,11 +59,11 @@ namespace Runtime.Units
                 worldDescription.ItemCollection.Descriptions.TryGetValue(equipmentId, out var equipment);
                 Equipment.Add((EquipmentItemDescription)equipment);
             }
-            
+
             ActionBlocker = new ActionBlockerModel();
             Movement = new UnitMovementModel(State, ActionBlocker);
             Combat = new UnitCombatModel(Stats, Equipment, State);
-            
+
             Effects = new StatusEffectApplierModel(worldDescription);
         }
 

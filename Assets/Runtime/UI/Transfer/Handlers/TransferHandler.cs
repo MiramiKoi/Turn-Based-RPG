@@ -8,7 +8,7 @@ namespace Runtime.UI.Transfer.Handlers
             {
                 return false;
             }
-            
+
             return context.SourceInventory != context.TargetInventory;
         }
     }

@@ -58,10 +58,10 @@ namespace Runtime.Core
             SpawnDirectorModel = new SpawnDirectorModel();
 
             UIBlockerModel = new UIBlockerModel();
-            
+
             TransferModel = new TransferModel();
             TransferRouter = new TransferRouter(TransferModel);
-            
+
             LootModel = new LootModel();
         }
     }

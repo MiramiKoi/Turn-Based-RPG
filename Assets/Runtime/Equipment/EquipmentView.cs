@@ -7,7 +7,7 @@ namespace Runtime.Equipment
     {
         public Label Damage { get; }
         public Label Protection { get; }
-        
+
         public EquipmentView(VisualTreeAsset asset) : base(asset)
         {
             Damage = Root.Q<VisualElement>("damage").Q<Label>("amount");

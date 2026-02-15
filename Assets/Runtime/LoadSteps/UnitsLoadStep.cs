@@ -27,7 +27,8 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var unitCollectionPresenter = new UnitModelCollectionPresenter(_world.UnitCollection, _collectionView, _world,
+            var unitCollectionPresenter = new UnitModelCollectionPresenter(_world.UnitCollection, _collectionView,
+                _world,
                 _worldViewDescriptions);
             unitCollectionPresenter.Enable();
             _presenters.Add(unitCollectionPresenter);

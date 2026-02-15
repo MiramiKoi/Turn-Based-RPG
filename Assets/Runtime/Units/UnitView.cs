@@ -14,11 +14,11 @@ namespace Runtime.Units
         [field: SerializeField] public Animator Animator { get; private set; }
 
         [field: SerializeField] public StatusEffectCollectionView StatusEffectCollectionView { get; private set; }
- 
+
         [field: SerializeField] public Light2D Light { get; private set; }
 
         [field: SerializeField] public UIDocument UIDocument { get; private set; }
-        
+
         private void Awake()
         {
             Transform = transform;

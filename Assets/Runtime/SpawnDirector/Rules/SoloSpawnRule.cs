@@ -31,7 +31,6 @@ namespace Runtime.SpawnDirector.Rules
                     var randomAvailablePosition = World.GridModel.GetRandomAvailablePosition();
                     if (randomAvailablePosition != null)
                     {
-                    
                         _unitModel = SpawnAt((Vector2Int)randomAvailablePosition);
                     }
                 }

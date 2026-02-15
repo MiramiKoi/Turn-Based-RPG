@@ -6,7 +6,7 @@ namespace Runtime.SpawnDirector
     public class SpawnDirectorModel
     {
         public ReactiveCollection<ISpawnRule> Rules { get; } = new();
-        
+
         public void AddRule(ISpawnRule rule)
         {
             Rules.Add(rule);

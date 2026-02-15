@@ -50,9 +50,12 @@ namespace Runtime.UI.Loot
             var isTrader = unitModel.Description.Fraction == UnitsConstants.TraderFraction;
             var inventoryType = isTrader ? InventoryType.Trader : InventoryType.Loot;
 
-            _inventoryView.Root.AddToClassList(isTrader ? UIConstants.Inventory.TradeInventoryStyle : UIConstants.Inventory.LootInventoryStyle);
+            _inventoryView.Root.AddToClassList(isTrader
+                ? UIConstants.Inventory.TradeInventoryStyle
+                : UIConstants.Inventory.LootInventoryStyle);
 
-            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions, _world, inventoryType);
+            _currentInventory = new InventoryPresenter(unitModel.Inventory, _inventoryView, _viewDescriptions, _world,
+                inventoryType);
             _currentInventory.Enable();
         }
 
