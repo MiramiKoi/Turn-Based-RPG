@@ -10,7 +10,7 @@ namespace Runtime.UI.Inventory
     {
         public bool Enabled { get; set; }
         public readonly List<CellModel> Cells = new();
-        public event Action<CellModel> OnCellSelected;
+        public event Action<CellModel> OnCellChanged;
 
         public InventoryModel(int size)
         {
@@ -40,6 +40,11 @@ namespace Runtime.UI.Inventory
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
+                if (put > 0)
+                {
+                    OnCellChanged?.Invoke(cell);
+                }
+
                 if (remaining == 0)
                 {
                     return amount;
@@ -56,6 +61,11 @@ namespace Runtime.UI.Inventory
                 var put = cell.TryPut(item, remaining);
                 remaining -= put;
 
+                if (put > 0)
+                {
+                    OnCellChanged?.Invoke(cell);
+                }
+
                 if (remaining == 0)
                 {
                     return amount;
@@ -65,18 +75,6 @@ namespace Runtime.UI.Inventory
             return amount - remaining;
         }
 
-        public bool IsEmpty()
-        {
-            foreach (var cell in Cells)
-            {
-                if (cell.ItemDescription != null)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        
         public int TryTakeItem(ItemDescription item, int amount)
         {
             if (amount <= 0)
@@ -98,6 +96,7 @@ namespace Runtime.UI.Inventory
                 if (cell.TryTake(take))
                 {
                     remaining -= take;
+                    OnCellChanged?.Invoke(cell);
                 }
 
                 if (remaining == 0)
@@ -106,11 +105,22 @@ namespace Runtime.UI.Inventory
                 }
             }
 
-            var taken = amount - remaining;
-
-            return taken;
+            return amount - remaining;
         }
 
+        public bool IsEmpty()
+        {
+            foreach (var cell in Cells)
+            {
+                if (cell.ItemDescription != null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+       
         public bool CanExtract(ItemDescription item, int amount)
         {
             var remaining = amount;
@@ -130,12 +140,7 @@ namespace Runtime.UI.Inventory
                 }
             }
 
-            return false;
-        }
-
-        public void CellSelected(CellModel cell)
-        {
-            OnCellSelected?.Invoke(cell);
+            return false; 
         }
 
         private bool IsSameItem(ItemDescription itemA, ItemDescription itemB)
