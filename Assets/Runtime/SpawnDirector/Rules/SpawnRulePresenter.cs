@@ -33,7 +33,7 @@ namespace Runtime.SpawnDirector.Rules
 
         protected virtual void Initialize()
         {
-            if (!_model.Description.Corpse.IsInfinite)
+            if (_model.Description.Corpse is { IsInfinite: false })
             {
                 var corpseModel = new CorpseRuleModel(_model, _model.Description.Corpse);
                 _corpseRulePresenter = new CorpseRulePresenter(corpseModel, _world);

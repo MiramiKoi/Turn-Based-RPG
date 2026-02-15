@@ -23,8 +23,16 @@ namespace Runtime.Descriptions.SpawnDirector.Rules
                 Count = data.GetInt("count");
 
             Spawn = new SpawnSettingsDescription(data.GetNode("spawn"));
-            Corpse = new CorpseSettingsDescription(data.GetNode("corpse"));
-            Respawn = new RespawnSettingsDescription(data.GetNode("respawn"));
+            
+            if (data.ContainsKey("corpse"))
+            {
+                Corpse = new CorpseSettingsDescription(data.GetNode("corpse"));
+            }
+
+            if (data.ContainsKey("respawn"))
+            {
+                Respawn = new RespawnSettingsDescription(data.GetNode("respawn"));
+            }
         }
     }
 }
