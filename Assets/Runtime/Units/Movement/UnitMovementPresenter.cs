@@ -32,6 +32,7 @@ namespace Runtime.Units.Movement
 
         public void Disable()
         {
+            _world.GridModel.ReleaseCell(_model.State.Position.Value);
             _model.Movement.OnMove -= HandleMove;
             _model.Movement.OnTeleport -= HandleTeleport;
         }
