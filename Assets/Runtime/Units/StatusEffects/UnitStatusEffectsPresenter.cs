@@ -6,7 +6,7 @@ using Runtime.StatusEffects.Collection;
 using Runtime.ViewDescriptions;
 using UnityEngine.UIElements;
 
-namespace Runtime.Units
+namespace Runtime.Units.StatusEffects
 {
     public class UnitStatusEffectsPresenter : IPresenter
     {

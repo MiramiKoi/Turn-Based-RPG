@@ -5,6 +5,8 @@ using Runtime.Units.Combat;
 using Runtime.Units.Movement;
 using Runtime.Units.Rotation;
 using Runtime.Units.Stats;
+using Runtime.Units.StatusEffects;
+using Runtime.Units.UI;
 using Runtime.ViewDescriptions;
 
 namespace Runtime.Units
@@ -24,7 +26,7 @@ namespace Runtime.Units
         private UnitVisibilityPresenter _visibilityPresenter;
         private UnitStatusEffectsPresenter _statusEffectsPresenter;
         private UnitStatsPresenter _statsPresenter;
-        private UnitHudPresenter _hudPresenter;
+        private UnitUIPresenter _uiPresenter;
 
         public UnitPresenter(UnitModel model, IObjectPool<UnitView> pool, World world,
             WorldViewDescriptions viewDescriptions)
@@ -57,8 +59,8 @@ namespace Runtime.Units
             _visibilityPresenter = new UnitVisibilityPresenter(_model, View);
             _visibilityPresenter.Enable();
 
-            _hudPresenter = new UnitHudPresenter(_model, View);
-            _hudPresenter.Enable();
+            _uiPresenter = new UnitUIPresenter(_model, View);
+            _uiPresenter.Enable();
 
             _world.TurnBaseModel.OnWorldStepFinished += CheckInventory;
         }
@@ -72,7 +74,7 @@ namespace Runtime.Units
             _rotationPresenter.Disable();
             _statusEffectsPresenter.Disable();
             _statsPresenter.Disable();
-            _hudPresenter.Disable();
+            _uiPresenter.Disable();
             _visibilityPresenter.Disable();
 
             _pool.Release(View);

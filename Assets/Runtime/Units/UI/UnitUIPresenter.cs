@@ -1,12 +1,10 @@
 using Runtime.Common;
 using UnityEngine.UIElements;
 
-namespace Runtime.Units
+namespace Runtime.Units.UI
 {
-    public class UnitHudPresenter : IPresenter
+    public class UnitUIPresenter : IPresenter
     {
-        private readonly UnitView _view;
-
         private readonly UnitModel _model;
 
         private readonly TextElement _name;
@@ -19,17 +17,16 @@ namespace Runtime.Units
 
         private readonly float _startHealth;
 
-        public UnitHudPresenter(UnitModel model, UnitView view)
+        public UnitUIPresenter(UnitModel model, UnitView view)
         {
             _model = model;
-            _view = view;
 
             _startHealth = _model.Health;
 
-            _name = _view.UIDocument.rootVisualElement.Q<Label>("name");
-            _fraction = _view.UIDocument.rootVisualElement.Q<Label>("fraction");
-            _healthBarFill = _view.UIDocument.rootVisualElement.Q<VisualElement>("health-bar-fill");
-            _healthValue = _view.UIDocument.rootVisualElement.Q<Label>("health-bar-value");
+            _name = view.UIDocument.rootVisualElement.Q<Label>("name");
+            _fraction = view.UIDocument.rootVisualElement.Q<Label>("fraction");
+            _healthBarFill = view.UIDocument.rootVisualElement.Q<VisualElement>("health-bar-fill");
+            _healthValue = view.UIDocument.rootVisualElement.Q<Label>("health-bar-value");
         }
 
         public void Enable()
