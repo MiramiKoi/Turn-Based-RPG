@@ -4,6 +4,7 @@ using Runtime.Descriptions.Items;
 using Runtime.Descriptions.Locations;
 using Runtime.Descriptions.Locations.Environment;
 using Runtime.Descriptions.Locations.Surface;
+using Runtime.Descriptions.SpawnDirector;
 using Runtime.Descriptions.StatusEffects;
 using Runtime.Descriptions.Units;
 using Runtime.Extensions;
@@ -21,8 +22,10 @@ namespace Runtime.Descriptions
         public LocationDescriptionCollection LocationCollection { get; private set; }
 
         public UnitDescriptionCollection UnitCollection { get; private set; }
-        public ItemDescriptionCollection ItemCollection { get; private set; }
         public AgentDecisionDescriptionCollection AgentDecisionDescriptionCollection { get; private set; }
+        public SpawnDirectorDescription SpawnDirectorDescription { get; private set; }
+        
+        public ItemDescriptionCollection ItemCollection { get; private set; }
 
         public StatusEffectDescriptionCollection StatusEffectCollection { get; private set; }
 
@@ -39,10 +42,12 @@ namespace Runtime.Descriptions
             LocationCollection = new LocationDescriptionCollection(data.GetNode("locations"));
 
             UnitCollection = new UnitDescriptionCollection(data.GetNode("units"));
+            AgentDecisionDescriptionCollection = new AgentDecisionDescriptionCollection(data.GetNode("agent_decisions"));
+            SpawnDirectorDescription = new SpawnDirectorDescription(data.GetNode("spawn_director"));
+
             ItemCollection = new ItemDescriptionCollection(data.GetNode("items"));
+
             StatusEffectCollection = new StatusEffectDescriptionCollection(data.GetNode("status_effects"));
-            AgentDecisionDescriptionCollection =
-                new AgentDecisionDescriptionCollection(data.GetNode("agent_decisions"));
         }
     }
 }
