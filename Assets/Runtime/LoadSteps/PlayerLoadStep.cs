@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.SpawnDirector.Rules;
 using Runtime.UI.Player.StatusEffects;
 using Runtime.ViewDescriptions;
 using UnityEngine.UIElements;
@@ -24,10 +23,6 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var soloSpawnRule = new SoloSpawnRule(_world, "character");
-            _world.SpawnDirectorModel.AddRule(soloSpawnRule);
-            soloSpawnRule.Run();
-
             var loadModelUiAsset = _world.AddressableModel.Load<VisualTreeAsset>(_worldViewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await loadModelUiAsset.LoadAwaiter;
