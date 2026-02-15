@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Descriptions
   m_GUID: 561ebd7700bca82478674b84911b6d21
   m_SerializeEntries:
+  - m_GUID: 28dada44e72e43428726941f18153246
+    m_Address: spawn-director-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44c63747aeaf43108d0e60ae403a3f1e
     m_Address: surface-description
     m_ReadOnly: 0
