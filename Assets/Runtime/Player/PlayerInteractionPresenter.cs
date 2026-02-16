@@ -21,16 +21,16 @@ namespace Runtime.Player
 
         public void Enable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed += OnAttack;
+            _world.PlayerControls.Gameplay.Attack.performed += HandleAttack;
             _world.PlayerControls.Gameplay.SkipTurn.performed += HandleSkipTurn;
-            _world.TurnBaseModel.OnWorldStepFinished += OnTurnFinished;
+            _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
         }
 
         public void Disable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed -= OnAttack;
+            _world.PlayerControls.Gameplay.Attack.performed -= HandleAttack;
             _world.PlayerControls.Gameplay.SkipTurn.performed -= HandleSkipTurn;
-            _world.TurnBaseModel.OnWorldStepFinished -= OnTurnFinished;
+            _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
         }
 
         private bool ShouldBlockInput()
@@ -97,7 +97,7 @@ namespace Runtime.Player
             _world.TurnBaseModel.PlayerStep();
         }
         
-        private void OnTurnFinished()
+        private void HandleTurnFinished()
         {
             if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
             {
@@ -112,7 +112,7 @@ namespace Runtime.Player
             FinishStep();
         }
         
-        private void OnAttack(InputAction.CallbackContext _)
+        private void HandleAttack(InputAction.CallbackContext _)
         {
             if (ShouldBlockInput())
                 return;
