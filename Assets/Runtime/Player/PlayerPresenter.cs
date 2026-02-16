@@ -1,7 +1,10 @@
+using Runtime.AsyncLoad;
 using Runtime.Common.ObjectPool;
 using Runtime.Core;
+using Runtime.UI.Player.StatusEffects;
 using Runtime.Units;
 using Runtime.ViewDescriptions;
+using UnityEngine.UIElements;
 
 namespace Runtime.Player
 {
@@ -9,10 +12,14 @@ namespace Runtime.Player
     {
         private readonly PlayerModel _model;
         private readonly World _world;
+        private readonly WorldViewDescriptions _worldViewDescriptions;
 
         private PlayerVisionPresenter _visionPresenter;
         private PlayerPathPresenter _pathPresenter;
         private PlayerInteractionPresenter _interactionPresenter;
+        private PlayerStatusEffectsHudPresenter _statusEffectsHudPresenter;
+
+        private LoadModel<VisualTreeAsset> _loadModelUiAsset;
 
         public PlayerPresenter(PlayerModel model, IObjectPool<UnitView> pool, World world,
             WorldViewDescriptions worldViewDescriptions)
@@ -20,9 +27,10 @@ namespace Runtime.Player
         {
             _model = model;
             _world = world;
+            _worldViewDescriptions = worldViewDescriptions;
         }
 
-        public override void Enable()
+        public async override void Enable()
         {
             base.Enable();
 
@@ -36,6 +44,14 @@ namespace Runtime.Player
 
             _interactionPresenter = new PlayerInteractionPresenter(_model, _world);
             _interactionPresenter.Enable();
+
+            _loadModelUiAsset = _world.AddressableModel.Load<VisualTreeAsset>(_worldViewDescriptions
+                .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
+            await _loadModelUiAsset.LoadAwaiter;
+            var statusEffectsView = new PlayerStatusEffectHudView(_loadModelUiAsset.Result);
+
+            _statusEffectsHudPresenter = new PlayerStatusEffectsHudPresenter(_world.PlayerModel.Value, statusEffectsView, _world, _worldViewDescriptions);
+            _statusEffectsHudPresenter.Enable();
         }
 
         public override void Disable()
@@ -50,6 +66,10 @@ namespace Runtime.Player
 
             _visionPresenter.Disable();
             _visionPresenter = null;
+
+            _world.AddressableModel.Unload(_loadModelUiAsset);
+            _statusEffectsHudPresenter.Disable();
+            _statusEffectsHudPresenter = null;
         }
     }
 }
