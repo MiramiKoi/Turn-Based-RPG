@@ -13,7 +13,7 @@ function StatusEffect.OnRemove(ctx)
     local unit = ctx.unit
     unit.ActionBlocker:Set(0, false)
     local visibility = unit.Stats:Get("visibility_radius")
-    visibility:Set(visibility.Description.MaxValue)
+    visibility:Set(visibility.Description.Value)
 end
 
 return StatusEffect
