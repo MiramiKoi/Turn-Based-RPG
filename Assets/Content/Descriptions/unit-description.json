@@ -8,10 +8,12 @@
       "visibility_radius": 100
     },
     "fraction": "player",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 12,
     "loot": {
       "money": 100,
-      "simple_breastplate" : 1
+      "simple_breastplate": 1
     },
     "equipment": [
       "simple_sword"
@@ -27,6 +29,8 @@
       "visibility_radius": 4
     },
     "fraction": "animal",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
     "loot": {
       "bear_meat": 5,
@@ -45,6 +49,8 @@
       "visibility_radius": 4
     },
     "fraction": "boss",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
     "loot": {
       "money": 100,
@@ -62,6 +68,8 @@
       "visibility_radius": 2
     },
     "fraction": "trader",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 12,
     "loot": {
       "bear_meat": 2,
@@ -81,9 +89,10 @@
       "visibility_radius": 0
     },
     "fraction": "loot",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
-    "loot": {
-    },
+    "loot": {},
     "equipment": []
   },
   "chest": {
@@ -96,6 +105,8 @@
       "visibility_radius": 0
     },
     "fraction": "loot",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
     "loot": {
       "money": 200
@@ -112,9 +123,10 @@
       "visibility_radius": 5
     },
     "fraction": "animal",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
-    "loot": {
-    },
+    "loot": {},
     "equipment": []
   }
 }
