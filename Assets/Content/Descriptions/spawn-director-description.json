@@ -7,10 +7,11 @@
         "mode": "random"
       },
       "corpse": {
-        "lifetime_steps": -1
+        "lifetime_steps": 50
       },
       "respawn": {
-        "enabled": false
+        "enabled": true,
+        "delay_steps": 1
       }
     },
     "bear": {
@@ -25,7 +26,7 @@
       },
       "respawn": {
         "enabled": true,
-        "delay_steps": 15
+        "delay_steps": 25
       }
     },
     "panda": {
@@ -43,7 +44,7 @@
       },
       "respawn": {
         "enabled": true,
-        "delay_steps": 30
+        "delay_steps": 50
       }
     },
     "trader": {
@@ -61,7 +62,7 @@
       },
       "respawn": {
         "enabled": true,
-        "delay_steps": 25
+        "delay_steps": 40
       }
     },
     "loot": {

@@ -70,6 +70,7 @@ namespace Runtime.Units.Collection
             {
                 presenter = new PlayerPresenter(playerModel, _viewPools[playerModel.Description.ViewId], _world,
                     _worldViewDescriptions);
+                _world.PlayerModel.Value = playerModel;
             }
             else
             {

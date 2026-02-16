@@ -21,39 +21,16 @@ namespace Runtime.Player
 
         public void Enable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed += OnAttack;
-            _world.TurnBaseModel.OnWorldStepFinished += OnTurnFinished;
+            _world.PlayerControls.Gameplay.Attack.performed += HandleAttack;
+            _world.PlayerControls.Gameplay.SkipTurn.performed += HandleSkipTurn;
+            _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
         }
 
         public void Disable()
         {
-            _world.PlayerControls.Gameplay.Attack.performed -= OnAttack;
-            _world.TurnBaseModel.OnWorldStepFinished -= OnTurnFinished;
-        }
-
-        private void OnAttack(InputAction.CallbackContext _)
-        {
-            if (ShouldBlockInput())
-                return;
-
-            StepStart();
-            ExecuteRouteStep();
-            FinishStep();
-        }
-
-        private void OnTurnFinished()
-        {
-            if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
-            {
-                StopRoute();
-            }
-
-            if (_model.IsExecutingRoute)
-            {
-                ExecuteRouteStep();
-            }
-
-            FinishStep();
+            _world.PlayerControls.Gameplay.Attack.performed -= HandleAttack;
+            _world.PlayerControls.Gameplay.SkipTurn.performed -= HandleSkipTurn;
+            _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
         }
 
         private bool ShouldBlockInput()
@@ -112,6 +89,37 @@ namespace Runtime.Player
                 _world.GridInteractionModel.IsActive.Value = true;
                 _world.CameraControlModel.IsActive.Value = true;
             }
+        }
+
+        private void HandleSkipTurn(InputAction.CallbackContext obj)
+        {
+            StepStart();
+            _world.TurnBaseModel.PlayerStep();
+        }
+        
+        private void HandleTurnFinished()
+        {
+            if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
+            {
+                StopRoute();
+            }
+
+            if (_model.IsExecutingRoute)
+            {
+                ExecuteRouteStep();
+            }
+
+            FinishStep();
+        }
+        
+        private void HandleAttack(InputAction.CallbackContext _)
+        {
+            if (ShouldBlockInput())
+                return;
+
+            StepStart();
+            ExecuteRouteStep();
+            FinishStep();
         }
     }
 }

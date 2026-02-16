@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using Runtime.Common;
 using Runtime.Core;
-using Runtime.UI;
 using Runtime.UI.Blocker;
 using Runtime.UI.Loot;
+using Runtime.UI.Player;
+using Runtime.UI.Transfer.Handlers;
 using Runtime.ViewDescriptions;
 
 namespace Runtime.LoadSteps
@@ -24,7 +25,13 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var uiController = new UIController(_world, _world.PlayerControls, _worldViewDescriptions);
+            var router = _world.TransferRouter;
+            router.Register(new TradeHandler(_world.WorldDescription.ItemCollection.Descriptions["money"]));
+            router.Register(new TrashHandler(_world));
+            router.Register(new TransferHandler());
+            router.Register(new SwapHandler());
+            
+            var uiController = new PlayerHUDPresenter(_world, _worldViewDescriptions);
             uiController.Enable();
             _presenters.Add(uiController);
 

@@ -129,6 +129,15 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""55f939e2-0693-4e5f-99be-458926a6363b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -184,6 +193,17 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5031616b-9f37-4d94-9941-fad7670baac5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SkipTurn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -259,6 +279,7 @@ namespace Runtime.Input
             m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
             m_Gameplay_CameraControl = m_Gameplay.FindAction("CameraControl", throwIfNotFound: true);
             m_Gameplay_ToggleInventory = m_Gameplay.FindAction("ToggleInventory", throwIfNotFound: true);
+            m_Gameplay_SkipTurn = m_Gameplay.FindAction("SkipTurn", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -343,6 +364,7 @@ namespace Runtime.Input
         private readonly InputAction m_Gameplay_Attack;
         private readonly InputAction m_Gameplay_CameraControl;
         private readonly InputAction m_Gameplay_ToggleInventory;
+        private readonly InputAction m_Gameplay_SkipTurn;
         /// <summary>
         /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
@@ -370,6 +392,10 @@ namespace Runtime.Input
             /// Provides access to the underlying input action "Gameplay/ToggleInventory".
             /// </summary>
             public InputAction @ToggleInventory => m_Wrapper.m_Gameplay_ToggleInventory;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/SkipTurn".
+            /// </summary>
+            public InputAction @SkipTurn => m_Wrapper.m_Gameplay_SkipTurn;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -408,6 +434,9 @@ namespace Runtime.Input
                 @ToggleInventory.started += instance.OnToggleInventory;
                 @ToggleInventory.performed += instance.OnToggleInventory;
                 @ToggleInventory.canceled += instance.OnToggleInventory;
+                @SkipTurn.started += instance.OnSkipTurn;
+                @SkipTurn.performed += instance.OnSkipTurn;
+                @SkipTurn.canceled += instance.OnSkipTurn;
             }
 
             /// <summary>
@@ -431,6 +460,9 @@ namespace Runtime.Input
                 @ToggleInventory.started -= instance.OnToggleInventory;
                 @ToggleInventory.performed -= instance.OnToggleInventory;
                 @ToggleInventory.canceled -= instance.OnToggleInventory;
+                @SkipTurn.started -= instance.OnSkipTurn;
+                @SkipTurn.performed -= instance.OnSkipTurn;
+                @SkipTurn.canceled -= instance.OnSkipTurn;
             }
 
             /// <summary>
@@ -564,6 +596,13 @@ namespace Runtime.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnToggleInventory(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SkipTurn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSkipTurn(InputAction.CallbackContext context);
         }
     }
 }

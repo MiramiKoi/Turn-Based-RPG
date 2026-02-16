@@ -13,12 +13,14 @@ using Runtime.UI.Blocker;
 using Runtime.UI.Loot;
 using Runtime.UI.Transfer;
 using Runtime.Units.Collection;
+using UniRx;
 using UnityEngine;
 
 namespace Runtime.Core
 {
     public class World : IWorldContext
     {
+        public ReactiveProperty<PlayerModel> PlayerModel { get; } = new();
         public AddressableModel AddressableModel { get; private set; }
         public Camera MainCamera { get; private set; }
         public CameraControlModel CameraControlModel { get; private set; }
@@ -29,7 +31,6 @@ namespace Runtime.Core
         public WorldDescription WorldDescription { get; private set; }
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
-        public PlayerModel PlayerModel => (PlayerModel)UnitCollection.Get("character_0");
         public SpawnDirectorModel SpawnDirectorModel { get; private set; }
         public UIBlockerModel UIBlockerModel { get; private set; }
         public LootModel LootModel { get; private set; }
