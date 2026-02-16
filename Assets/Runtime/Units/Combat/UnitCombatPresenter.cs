@@ -68,6 +68,11 @@ namespace Runtime.Units.Combat
 
         private async Task PlayAnimation(int animationId)
         {
+            if (!_model.State.Visible.Value)
+            {
+                return;
+            }
+            
             _view.Animator.SetBool(animationId, true);
             var scheduleAwaiter = new ScheduleAwaiter(_view.Animator.GetCurrentAnimatorStateInfo(0).length);
             scheduleAwaiter.Start();

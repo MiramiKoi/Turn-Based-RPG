@@ -36,9 +36,16 @@ namespace Runtime.Descriptions.Agents.Commands
                 "move_from_point_of_interest" => new MoveFromPointOfInterestCommand(),
                 "set_flag" => new SetFlagCommand(),
                 "set_random_point_of_interest" => new SetRandomPointOfInterestCommand(),
+
                 "has_unit_with_fraction" => new HasUnitWithFractionCommand(),
+                "has_unit_with_friendly_fraction" => new HasUnitWithFriendlyFractionCommand(),
+                "has_unit_with_enemy_fraction" => new HasUnitWithEnemyFractionCommand(),
+
                 "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFractionCommand(),
+                "set_point_of_interest_with_friendly_fraction" => new SetPointOfInterestWithFriendlyFractionCommand(),
+                "set_point_of_interest_with_enemy_fraction" => new SetPointOfInterestWithEnemyFractionCommand(),
                 "set_point_of_interest_with_another_fraction" => new SetPointOfInterestWithAnotherFractionCommand(),
+
                 "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
                 "attack_point_of_interest" => new AttackPointOfInterestCommand(),
                 "stat_condition" => new CheckStatCommand(),
@@ -46,7 +53,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 "leave_battle" => new LeaveBattleCommand(),
                 "has_unit_with_another_fraction" => new HasUnitWithAnotherFractionCommand(),
                 "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
-                "check_stat_percent" => new CheckStatPercentCommand(), 
+                "check_stat_percent" => new CheckStatPercentCommand(),
                 "can_see_point_of_interest" => new CanSeePointOfInterest(),
                 "apply_random_effect_point_of_interest" => new ApplyRandomEffectPointOfInterest(),
                 _ => throw new ArgumentOutOfRangeException()
