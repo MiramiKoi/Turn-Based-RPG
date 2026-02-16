@@ -29,7 +29,7 @@ namespace Runtime.Descriptions.Agents.Commands
             
             var agentModel = controllable as AgentModel;
             
-            var statValue = statModel.Value / agentModel.Description.Stats[Stat].MaxValue;
+            var statValue = statModel.Value / agentModel.Description.Stats[Stat].Value;
 
             return Operation switch
             {
