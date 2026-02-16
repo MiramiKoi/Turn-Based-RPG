@@ -19,17 +19,22 @@ namespace Runtime.UI.Player
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
         private readonly CompositeDisposable _disposables = new();
+
+        private InventoryView _inventoryView;
+        private InventoryPresenter _inventoryPresenter;
         
-        private InventoryPresenter _playerInventoryPresenter;
-        private InventoryPresenter _trashInventoryPresenter;
+        private EquipmentView _equipmentView;
         private InventoryPresenter _equipmentInventoryPresenter;
         private EquipmentPresenter _equipmentPresenter;
 
+        private InventoryView _trashInventoryView;
         private ITransferHandler _transferHandler;
-        
+        private InventoryPresenter _trashInventoryPresenter;
+
         private LoadModel<VisualTreeAsset> _loadModelUiAsset;
-        private PlayerStatusEffectHudView _playerStatusEffectHudPresenter;
+        private PlayerStatusEffectHudView _statusEffectHudView;
         private PlayerStatusEffectsHudPresenter _statusEffectsHudPresenter;
+
 
         public PlayerHUDPresenter(World world, WorldViewDescriptions viewDescriptions)
         {
@@ -43,10 +48,19 @@ namespace Runtime.UI.Player
             _world.LootModel.OnLootRequested += HandleOpenInventory;
             _world.PlayerModel.SkipLatestValueOnSubscribe().Subscribe(HandlePlayerChanged).AddTo(_disposables);
             
+            _inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
+            _inventoryView.Root.AddToClassList(UIConstants.Inventory.PlayerInventoryStyle);
+            
+            _equipmentView = new EquipmentView(_viewDescriptions.InventoryViewDescription.EquipmentAsset);
+            _equipmentView.Root.AddToClassList(UIConstants.Inventory.EquipmentInventoryStyle);
+            
+            _trashInventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
+            _trashInventoryView.Root.AddToClassList(UIConstants.Inventory.TrashInventoryStyle);
+            
             _loadModelUiAsset = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
                 .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
             await _loadModelUiAsset.LoadAwaiter;
-            _playerStatusEffectHudPresenter = new PlayerStatusEffectHudView(_loadModelUiAsset.Result);
+            _statusEffectHudView = new PlayerStatusEffectHudView(_loadModelUiAsset.Result);
         }
 
         public void Disable()
@@ -61,7 +75,7 @@ namespace Runtime.UI.Player
         
         private void ShowInventory()
         {
-            _playerInventoryPresenter.Enable();
+            _inventoryPresenter.Enable();
             _equipmentInventoryPresenter.Enable();
             _equipmentPresenter.Enable();
             _trashInventoryPresenter.Enable();
@@ -69,7 +83,7 @@ namespace Runtime.UI.Player
 
         private void HideInventory()
         {
-            _playerInventoryPresenter.Disable();
+            _inventoryPresenter.Disable();
             _equipmentInventoryPresenter.Disable();
             _equipmentPresenter.Disable();
             _trashInventoryPresenter.Disable();
@@ -99,8 +113,8 @@ namespace Runtime.UI.Player
 
         private void ClearPresenter()
         {
-            _playerInventoryPresenter?.Disable();
-            _playerInventoryPresenter = null;
+            _inventoryPresenter?.Disable();
+            _inventoryPresenter = null;
             
             _equipmentInventoryPresenter?.Disable();
             _equipmentInventoryPresenter = null;
@@ -127,25 +141,20 @@ namespace Runtime.UI.Player
             _transferHandler = new EquipmentHandler(player);
             _world.TransferRouter.Register(_transferHandler);
 
-            var inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
-            inventoryView.Root.AddToClassList(UIConstants.Inventory.PlayerInventoryStyle);
-            _playerInventoryPresenter = new InventoryPresenter(player.Inventory, inventoryView, _viewDescriptions,
+            
+            _inventoryPresenter = new InventoryPresenter(player.Inventory, _inventoryView, _viewDescriptions,
                 _world, InventoryType.Player);
             
             var equipmentModel = _world.PlayerModel.Value.Equipment.Inventory;
-            var equipmentView = new EquipmentView(_viewDescriptions.InventoryViewDescription.EquipmentAsset);
-            equipmentView.Root.AddToClassList(UIConstants.Inventory.EquipmentInventoryStyle);
-            _equipmentInventoryPresenter = new InventoryPresenter(equipmentModel, equipmentView, _viewDescriptions, _world,
+            _equipmentInventoryPresenter = new InventoryPresenter(equipmentModel, _equipmentView, _viewDescriptions, _world,
                 InventoryType.Equipment);
-            _equipmentPresenter = new EquipmentPresenter(_world.PlayerModel.Value, equipmentView);
+            _equipmentPresenter = new EquipmentPresenter(_world.PlayerModel.Value, _equipmentView);
             
             var trashInventoryModel = new InventoryModel(UIConstants.Inventory.TrashInventorySize);
-            var trashInventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
-            trashInventoryView.Root.AddToClassList(UIConstants.Inventory.TrashInventoryStyle);
-            _trashInventoryPresenter = new InventoryPresenter(trashInventoryModel, trashInventoryView, _viewDescriptions,
+            _trashInventoryPresenter = new InventoryPresenter(trashInventoryModel, _trashInventoryView, _viewDescriptions,
                 _world, InventoryType.Trash);
             
-            _statusEffectsHudPresenter = new PlayerStatusEffectsHudPresenter(_world.PlayerModel.Value, _playerStatusEffectHudPresenter, _world, _viewDescriptions);
+            _statusEffectsHudPresenter = new PlayerStatusEffectsHudPresenter(_world.PlayerModel.Value, _statusEffectHudView, _world, _viewDescriptions);
             _statusEffectsHudPresenter.Enable();
         }
     }
