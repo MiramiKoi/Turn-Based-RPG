@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 
 namespace Runtime.UI.Player
 {
-    public class PlayerHUDController : IPresenter
+    public class PlayerHUDPresenter : IPresenter
     {
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
@@ -31,7 +31,7 @@ namespace Runtime.UI.Player
         private PlayerStatusEffectHudView _playerStatusEffectHudPresenter;
         private PlayerStatusEffectsHudPresenter _statusEffectsHudPresenter;
 
-        public PlayerHUDController(World world, WorldViewDescriptions viewDescriptions)
+        public PlayerHUDPresenter(World world, WorldViewDescriptions viewDescriptions)
         {
             _world = world;
             _viewDescriptions = viewDescriptions;

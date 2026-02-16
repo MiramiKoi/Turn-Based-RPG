@@ -31,7 +31,7 @@ namespace Runtime.LoadSteps
             router.Register(new TransferHandler());
             router.Register(new SwapHandler());
             
-            var uiController = new PlayerHUDController(_world, _worldViewDescriptions);
+            var uiController = new PlayerHUDPresenter(_world, _worldViewDescriptions);
             uiController.Enable();
             _presenters.Add(uiController);
 
