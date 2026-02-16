@@ -99,6 +99,8 @@ namespace Runtime.Player
         
         private void HandleTurnFinished()
         {
+            ChangePlayerMode();
+            
             if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
             {
                 StopRoute();
@@ -120,6 +122,11 @@ namespace Runtime.Player
             StepStart();
             ExecuteRouteStep();
             FinishStep();
+        }
+        
+        private void ChangePlayerMode()
+        {
+            _model.Mode = _world.TurnBaseModel.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
         }
     }
 }

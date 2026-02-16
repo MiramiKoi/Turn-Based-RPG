@@ -6,6 +6,7 @@ using Runtime.Common;
 using Runtime.Core;
 using Runtime.CustomAsync;
 using Runtime.Player;
+using Runtime.TurnBase.Battle;
 
 namespace Runtime.TurnBase
 {
@@ -15,21 +16,28 @@ namespace Runtime.TurnBase
         private readonly World _world;
 
         private readonly List<CustomAwaiter> _parallelAwaiters = new();
+        
+        private readonly BattlePresenter _battlePresenter;
 
         public TurnBasePresenter(TurnBaseModel model, World world)
         {
             _model = model;
             _world = world;
+            _battlePresenter = new BattlePresenter(_model.BattleModel, world);
         }
 
         public void Enable()
         {
+            _battlePresenter.Enable();
+            
             _model.OnPlayerStepFinished += OnPlayerMadeStep;
         }
 
         public void Disable()
         {
             _model.OnPlayerStepFinished -= OnPlayerMadeStep;
+            
+            _battlePresenter.Disable();
         }
 
         private async void OnPlayerMadeStep()
@@ -41,14 +49,13 @@ namespace Runtime.TurnBase
                 agent.MakeStep();
                 await ProcessAllSteps();
             }
-
-
+            
             _model.StatusEffectTick();
             await ProcessAllSteps();
 
             await WaitParallelSteps();
 
-            ChangePlayerMode();
+            _model.BattleTick();
 
             _model.WorldStep();
         }
@@ -86,11 +93,6 @@ namespace Runtime.TurnBase
             }
 
             _parallelAwaiters.Clear();
-        }
-
-        private void ChangePlayerMode()
-        {
-            _world.PlayerModel.Value.Mode = _model.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Runtime.TurnBase.Battle;
 
 namespace Runtime.TurnBase
 {
@@ -10,6 +11,7 @@ namespace Runtime.TurnBase
         public event Action OnBuffTick;
         public event Action OnDebuffTick;
         public event Action OnMixedBuffTick;
+        public event Action OnBattleTick;
 
         public int CurrentTurn { get; private set; }
 
@@ -33,6 +35,11 @@ namespace Runtime.TurnBase
             OnBuffTick?.Invoke();
             OnDebuffTick?.Invoke();
             OnMixedBuffTick?.Invoke();
+        }
+
+        public void BattleTick()
+        {
+            OnBattleTick?.Invoke();
         }
     }
 }
