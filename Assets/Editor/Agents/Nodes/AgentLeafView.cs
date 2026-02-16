@@ -46,6 +46,7 @@ namespace Editor.Agents.Nodes
                     "has_unit_with_fraction",
                     "has_unit_with_another_fraction",
                     "set_point_of_interest_with_fraction",
+                    "set_point_of_interest_with_another_fraction",
                     "can_place_point_of_interest",
                     "attack_point_of_interest",
                     "stat_condition",
@@ -116,6 +117,9 @@ namespace Editor.Agents.Nodes
                 case "set_point_of_interest_with_fraction":
                     SetupFields<SetPointOfInterestWithFractionCommand>();
                     break;
+                case "set_point_of_interest_with_another_fraction":
+                    SetupFields<SetPointOfInterestWithAnotherFractionCommand>();
+                    break;
                 case "can_place_point_of_interest":
                     SetupFields<CanPlacePointOfInterestCommand>();
                     break;
@@ -132,7 +136,7 @@ namespace Editor.Agents.Nodes
                     SetupFields<LeaveBattleCommand>();
                     break;
                 case "has_unit_with_another_fraction":
-                    SetupFields<HasUnitWithFractionCommand>();
+                    SetupFields<HasUnitWithAnotherFractionCommand>();
                     break;
                 case "check_stat_point_of_interest":
                     SetupFields<CheckStatPointOfInterest>();

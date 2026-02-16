@@ -38,6 +38,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 "set_random_point_of_interest" => new SetRandomPointOfInterestCommand(),
                 "has_unit_with_fraction" => new HasUnitWithFractionCommand(),
                 "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFractionCommand(),
+                "set_point_of_interest_with_another_fraction" => new SetPointOfInterestWithAnotherFractionCommand(),
                 "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
                 "attack_point_of_interest" => new AttackPointOfInterestCommand(),
                 "stat_condition" => new CheckStatCommand(),
