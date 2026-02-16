@@ -58,6 +58,7 @@ namespace Editor.Agents.Nodes
                     "enter_to_battle",
                     "leave_battle",
                     "can_see_point_of_interest",
+                    "apply_random_effect_point_of_interest"
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -161,6 +162,9 @@ namespace Editor.Agents.Nodes
                     break;
                 case "check_stat_percent":
                     SetupFields<CheckStatPercentCommand>();
+                    break;
+                case "apply_random_effect_point_of_interest":
+                    SetupFields<ApplyRandomEffectPointOfInterest>();
                     break;
             }
         }

@@ -55,8 +55,8 @@ namespace Runtime.Descriptions.Agents.Commands
                 "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
                 "check_stat_percent" => new CheckStatPercentCommand(),
                 "can_see_point_of_interest" => new CanSeePointOfInterest(),
-
-                _ => throw new ArgumentOutOfRangeException($"Unknown command type: {type}")
+                "apply_random_effect_point_of_interest" => new ApplyRandomEffectPointOfInterest(),
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             return command;

@@ -63,7 +63,7 @@
     "agent_decision_id": "panda",
     "stats": {
       "health": 300,
-      "attack_damage": 100,
+      "attack_damage": 25,
       "attack_range": 1,
       "visibility_radius": 4
     },
