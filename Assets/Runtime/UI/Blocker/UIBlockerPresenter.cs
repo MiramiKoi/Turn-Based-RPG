@@ -32,10 +32,12 @@ namespace Runtime.UI.Blocker
 
         private void HandlePointerPositionChanged(InputAction.CallbackContext context)
         {
-            var currentPosition = context.ReadValue<Vector2>();
-            var invertPosition = new Vector2(currentPosition.x, Screen.height - currentPosition.y);
-
-            _model.IsPointerOverUI.Value = _root.panel.Pick(invertPosition) != null;
+            var screenPosition  = context.ReadValue<Vector2>();
+            var invertPosition = new Vector2(screenPosition.x, Screen.height - screenPosition.y);
+            
+            var panelPosition = RuntimePanelUtils.ScreenToPanel(_root.panel, invertPosition);
+            
+            _model.IsPointerOverUI.Value = _root.panel.Pick(panelPosition) != null;
         }
     }
 }
