@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: IndicationTiles
   m_GUID: f9d4669f6cb35a7409ebc15988657780
   m_SerializeEntries:
+  - m_GUID: 4056ab00055898346b0f820f74c17bad
+    m_Address: attack-cursor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a5a1a2600d518b4c84a0c12084bccf8
     m_Address: route-point
     m_ReadOnly: 0

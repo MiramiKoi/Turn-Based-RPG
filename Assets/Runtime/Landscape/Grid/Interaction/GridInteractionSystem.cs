@@ -1,6 +1,7 @@
 ﻿using Runtime.Core;
 using Runtime.GameSystems;
 using Runtime.Landscape.Grid.Indication;
+using Runtime.Player;
 using UnityEngine;
 
 namespace Runtime.Landscape.Grid.Interaction
@@ -53,9 +54,12 @@ namespace Runtime.Landscape.Grid.Interaction
                     }
 
                     _model.SetCell(cell);
-                    _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y]
-                        .SetIndication(IndicationType.Cursor);
                 }
+
+                _world.GridModel.Cells[nextCellPosition.x, nextCellPosition.y]
+                    .SetIndication(_world.PlayerModel.Value is { Mode: PlayerMode.Attack }
+                        ? IndicationType.AttackPoint
+                        : IndicationType.Cursor);
             }
         }
     }

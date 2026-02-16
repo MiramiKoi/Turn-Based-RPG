@@ -39,8 +39,12 @@ namespace Runtime.Player
                         out var path))
                 {
                     _model.MovementQueueModel.SetPath(path);
-                    _world.GridModel.SetIndication(path.Where(position => _model.State.Position.Value != position),
-                        IndicationType.RoutePoint);
+
+                    if (_model.Mode != PlayerMode.Attack)
+                    {
+                        _world.GridModel.SetIndication(path.Where(position => _model.State.Position.Value != position),
+                            IndicationType.RoutePoint);
+                    }
                 }
             }
         }

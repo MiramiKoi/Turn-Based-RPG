@@ -10,5 +10,6 @@ namespace Runtime.ViewDescriptions.Landscape.Grid
     {
         public AssetReferenceT<Tile> CellCursorAsset;
         public AssetReferenceT<Tile> RoutePointAsset;
+        public AssetReferenceT<Tile> AttackPointAsset;
     }
 }

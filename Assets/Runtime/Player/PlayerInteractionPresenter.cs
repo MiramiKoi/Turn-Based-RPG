@@ -65,9 +65,12 @@ namespace Runtime.Player
         private void StartRoute()
         {
             _model.IsExecutingRoute = true;
-            _world.GridModel.SetIndication(
-                _model.MovementQueueModel.Steps,
-                IndicationType.RoutePoint);
+            if (_model.Mode != PlayerMode.Attack)
+            {
+                _world.GridModel.SetIndication(
+                    _model.MovementQueueModel.Steps,
+                    IndicationType.RoutePoint);
+            }
         }
 
         private void StopRoute()
@@ -146,13 +149,17 @@ namespace Runtime.Player
             if (_model.Mode != PlayerMode.Attack)
             {
                 _model.Mode = PlayerMode.Attack;
+                _world.GridModel.SetIndication(
+                    _model.MovementQueueModel.Steps,
+                    IndicationType.Null);
             }
             else
             {
                 _model.Mode = _world.TurnBaseModel.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
+                _world.GridModel.SetIndication(
+                    _model.MovementQueueModel.Steps,
+                    IndicationType.RoutePoint);
             }
-            
-            Debug.Log(_model.Mode);
         }
     }
 }

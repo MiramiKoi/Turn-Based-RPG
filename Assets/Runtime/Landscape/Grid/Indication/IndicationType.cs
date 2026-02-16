@@ -4,6 +4,7 @@
     {
         Null,
         RoutePoint,
-        Cursor
+        Cursor,
+        AttackPoint
     }
 }
