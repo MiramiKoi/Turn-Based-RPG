@@ -5,7 +5,7 @@
       "health": 100,
       "attack_damage": 1,
       "attack_range": 1,
-      "visibility_radius": 100
+      "visibility_radius": 10
     },
     "fraction": "player",
     "inventory_size": 12,
@@ -40,7 +40,7 @@
     "agent_decision_id": "panda",
     "stats": {
       "health": 300,
-      "attack_damage": 100,
+      "attack_damage": 25,
       "attack_range": 1,
       "visibility_radius": 4
     },
