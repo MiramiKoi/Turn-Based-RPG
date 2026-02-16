@@ -30,8 +30,11 @@ namespace Runtime.LoadSteps
                     "bear-description",
                     "panda-description",
                     "trader-description",
+                    "sheep-description",
                     "loot-description",
-                    "hunter-description"
+                    "hunter-description",
+                    "run-away-description",
+                    "patrol-description"
                 }
             },
             { "spawn_director", new List<string> { "spawn-director-description" } },
