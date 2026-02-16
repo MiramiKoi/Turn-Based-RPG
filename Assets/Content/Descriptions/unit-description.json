@@ -99,8 +99,8 @@
     },
     "equipment": []
   },
-  "loot": {
-    "view_id": "loot",
+  "trash": {
+    "view_id": "trash",
     "agent_decision_id": "loot",
     "stats": {
       "health": 0,
@@ -116,7 +116,7 @@
     "equipment": []
   },
   "chest": {
-    "view_id": "loot",
+    "view_id": "chest",
     "agent_decision_id": "loot",
     "stats": {
       "health": 0,

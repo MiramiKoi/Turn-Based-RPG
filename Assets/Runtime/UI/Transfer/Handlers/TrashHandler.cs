@@ -35,13 +35,13 @@ namespace Runtime.UI.Transfer.Handlers
 
             var cellUnit = _world.GridModel.GetCell(toPosition).Unit;
 
-            if (cellUnit is UnitModel { Description: { Id: "loot" } } lootUnit)
+            if (cellUnit is UnitModel { Description: { Id: "trash" } } lootUnit)
             {
                 lootUnit.Inventory.TryPutItem(item, amount);
                 return;
             }
 
-            var unit = _world.UnitCollection.Create("loot");
+            var unit = _world.UnitCollection.Create("trash");
             unit.Inventory.TryPutItem(item, amount);
             unit.Movement.SetPosition(toPosition);
         }
