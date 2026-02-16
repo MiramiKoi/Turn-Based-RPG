@@ -4,7 +4,6 @@ using Runtime.Core;
 using Runtime.Units.Combat;
 using Runtime.Units.Movement;
 using Runtime.Units.Rotation;
-using Runtime.Units.Stats;
 using Runtime.Units.StatusEffects;
 using Runtime.Units.UI;
 using Runtime.ViewDescriptions;
@@ -25,7 +24,6 @@ namespace Runtime.Units
         private UnitRotationPresenter _rotationPresenter;
         private UnitVisibilityPresenter _visibilityPresenter;
         private UnitStatusEffectsPresenter _statusEffectsPresenter;
-        private UnitStatsPresenter _statsPresenter;
         private UnitUIPresenter _uiPresenter;
         
         private TransformData _defaultTransformRenderer;
@@ -42,9 +40,6 @@ namespace Runtime.Units
         public virtual void Enable()
         {
             View = _pool.Get();
-
-            _statsPresenter = new UnitStatsPresenter(_model);
-            _statsPresenter.Enable();
 
             _rotationPresenter = new UnitRotationPresenter(_model, View);
             _rotationPresenter.Enable();
@@ -75,7 +70,6 @@ namespace Runtime.Units
             _combatPresenter.Disable();
             _rotationPresenter.Disable();
             _statusEffectsPresenter.Disable();
-            _statsPresenter.Disable();
             _uiPresenter.Disable();
             _visibilityPresenter.Disable();
             
