@@ -24,3 +24,9 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  AttackPointAsset:
+    m_AssetGUID: 4056ab00055898346b0f820f74c17bad
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleAttackMode",
+                    "type": "Button",
+                    "id": "8fc1f292-b5ff-457b-918c-ae2567ca028d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -116,6 +125,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "SkipTurn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7f0c3cf-2c56-454e-9df0-d4e2522ecdd2",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ToggleAttackMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

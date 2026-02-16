@@ -20,9 +20,8 @@ namespace Runtime.Player
                 new CheckAllActionsBlockedCommand(_player),
                 new TeleportCommand(_player, _world),
                 new MoveCommand(_player, _world),
-                new LootCommand(_world),
-                new AttackCommand(_player, _world),
-                new SkipStepCommand()
+                new LootCommand(_player, _world),
+                new AttackCommand(_player, _world)
             };
         }
 

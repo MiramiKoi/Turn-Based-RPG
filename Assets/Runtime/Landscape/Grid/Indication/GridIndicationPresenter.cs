@@ -17,6 +17,7 @@ namespace Runtime.Landscape.Grid.Indication
         private readonly Dictionary<IndicationType, Tile> _indicationTiles = new();
         private LoadModel<Tile> _cellCursorLoadModel;
         private LoadModel<Tile> _routePointLoadModel;
+        private LoadModel<Tile> _attackPointLoadModel;
 
         public GridIndicationPresenter(GridView view, World world, WorldViewDescriptions worldViewDescriptions)
         {
@@ -39,9 +40,16 @@ namespace Runtime.Landscape.Grid.Indication
             await _routePointLoadModel.LoadAwaiter;
             var routePointTile = _routePointLoadModel.Result;
 
+            _attackPointLoadModel = 
+                _world.AddressableModel.Load<Tile>(_worldViewDescriptions.GridIndicationViewDescription.AttackPointAsset
+                    .AssetGUID);
+            await _attackPointLoadModel.LoadAwaiter;
+            var attackPointTile = _attackPointLoadModel.Result;
+            
             _indicationTiles.Add(IndicationType.Null, null);
             _indicationTiles.Add(IndicationType.Cursor, cellCursorTile);
             _indicationTiles.Add(IndicationType.RoutePoint, routePointTile);
+            _indicationTiles.Add(IndicationType.AttackPoint, attackPointTile);
 
             foreach (var cell in _world.GridModel.Cells)
                 cell.OnIndicationTypeChanged += HandleCellIndicationTypeChange;
@@ -51,6 +59,7 @@ namespace Runtime.Landscape.Grid.Indication
         {
             _world.AddressableModel.Unload(_cellCursorLoadModel);
             _world.AddressableModel.Unload(_routePointLoadModel);
+            _world.AddressableModel.Unload(_attackPointLoadModel);
             foreach (var cell in _world.GridModel.Cells)
                 cell.OnIndicationTypeChanged -= HandleCellIndicationTypeChange;
         }

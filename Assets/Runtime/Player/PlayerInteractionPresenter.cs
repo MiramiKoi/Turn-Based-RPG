@@ -1,6 +1,7 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Landscape.Grid.Indication;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Player
@@ -23,6 +24,7 @@ namespace Runtime.Player
         {
             _world.PlayerControls.Gameplay.Attack.performed += HandleAttack;
             _world.PlayerControls.Gameplay.SkipTurn.performed += HandleSkipTurn;
+            _world.PlayerControls.Gameplay.ToggleAttackMode.performed += HandleToggleAttackMode;
             _world.TurnBaseModel.OnWorldStepFinished += HandleTurnFinished;
         }
 
@@ -30,6 +32,7 @@ namespace Runtime.Player
         {
             _world.PlayerControls.Gameplay.Attack.performed -= HandleAttack;
             _world.PlayerControls.Gameplay.SkipTurn.performed -= HandleSkipTurn;
+            _world.PlayerControls.Gameplay.ToggleAttackMode.performed -= HandleToggleAttackMode;
             _world.TurnBaseModel.OnWorldStepFinished -= HandleTurnFinished;
         }
 
@@ -62,9 +65,12 @@ namespace Runtime.Player
         private void StartRoute()
         {
             _model.IsExecutingRoute = true;
-            _world.GridModel.SetIndication(
-                _model.MovementQueueModel.Steps,
-                IndicationType.RoutePoint);
+            if (_model.Mode != PlayerMode.Attack)
+            {
+                _world.GridModel.SetIndication(
+                    _model.MovementQueueModel.Steps,
+                    IndicationType.RoutePoint);
+            }
         }
 
         private void StopRoute()
@@ -91,6 +97,14 @@ namespace Runtime.Player
             }
         }
 
+        private void ChangePlayerMode()
+        {
+            if (_model.Mode == PlayerMode.Attack)
+                return;
+            
+            _model.Mode = _world.TurnBaseModel.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
+        }
+        
         private void HandleSkipTurn(InputAction.CallbackContext obj)
         {
             if (ShouldBlockInput())
@@ -126,10 +140,26 @@ namespace Runtime.Player
             ExecuteRouteStep();
             FinishStep();
         }
-        
-        private void ChangePlayerMode()
+
+        private void HandleToggleAttackMode(InputAction.CallbackContext _)
         {
-            _model.Mode = _world.TurnBaseModel.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
+            if (ShouldBlockInput())
+                return;
+
+            if (_model.Mode != PlayerMode.Attack)
+            {
+                _model.Mode = PlayerMode.Attack;
+                _world.GridModel.SetIndication(
+                    _model.MovementQueueModel.Steps,
+                    IndicationType.Null);
+            }
+            else
+            {
+                _model.Mode = _world.TurnBaseModel.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
+                _world.GridModel.SetIndication(
+                    _model.MovementQueueModel.Steps,
+                    IndicationType.RoutePoint);
+            }
         }
     }
 }
