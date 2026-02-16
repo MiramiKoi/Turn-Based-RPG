@@ -53,7 +53,7 @@ namespace Runtime.Units
                 Inventory.TryPutItem(item, amount);
             }
 
-            Equipment = new EquipmentModel();
+            Equipment = new EquipmentModel(Stats);
             foreach (var equipmentId in description.Equipment)
             {
                 worldDescription.ItemCollection.Descriptions.TryGetValue(equipmentId, out var equipment);
@@ -62,7 +62,7 @@ namespace Runtime.Units
 
             ActionBlocker = new ActionBlockerModel();
             Movement = new UnitMovementModel(State, ActionBlocker);
-            Combat = new UnitCombatModel(Stats, Equipment, State);
+            Combat = new UnitCombatModel(Stats, State);
 
             Effects = new StatusEffectApplierModel(worldDescription);
         }

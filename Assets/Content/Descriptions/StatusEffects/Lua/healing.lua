@@ -13,7 +13,12 @@ function StatusEffect.OnTick(ctx)
     local stacks = effect.stacks or 1
     
     local heal = 5 + stacks * 2
-    unit.Stats:Get("health"):ChangeValue(heal)
+    local max = unit.Stats:Get("health").Description.Value;
+    local current = unit.Stats:Get("health").Value;
+    
+    if heal + current < heal then
+        unit.Stats:Get("health"):ChangeValue(heal)
+    end
 end
 
 return StatusEffect

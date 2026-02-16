@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Runtime.Common;
+using Runtime.Stats;
 using Runtime.UI.Inventory.Cells;
 using Runtime.Units;
 
@@ -9,6 +11,8 @@ namespace Runtime.Equipment
         private readonly UnitModel _unitModel;
         private readonly EquipmentView _view;
 
+        private readonly List<StatPresenter> _stats = new() ;
+        
         public EquipmentPresenter(UnitModel unitModel, EquipmentView view)
         {
             _unitModel = unitModel;
@@ -17,39 +21,21 @@ namespace Runtime.Equipment
 
         public void Enable()
         {
-            _unitModel.Equipment.Inventory.OnCellChanged += HandleCellChanged;
-            UpdateView();
+            foreach (var pair in _view.Stats)
+            {
+                var statPresenter = new StatPresenter(_unitModel.Stats[pair.Key], pair.Value);
+                statPresenter.Enable();
+                _stats.Add(statPresenter);
+            }
         }
 
         public void Disable()
         {
-            _unitModel.Equipment.Inventory.OnCellChanged -= HandleCellChanged;
-        }
-
-        private void HandleCellChanged(CellModel cell)
-        {
-            UpdateView();
-        }
-
-        private void UpdateView()
-        {
-            if (_unitModel.Equipment.TryGetStats("weapon", out var weaponStats))
+            foreach (var statPresenter in _stats)
             {
-                _view.Damage.text = weaponStats["damage"].MaxValue.ToString();
+                statPresenter.Disable();
             }
-            else
-            {
-                _view.Damage.text = _unitModel.Stats.Get("attack_damage").Value.ToString();
-            }
-
-            if (_unitModel.Equipment.TryGetStats("armour", out var armorStats))
-            {
-                _view.Protection.text = armorStats["protection"].MaxValue.ToString();
-            }
-            else
-            {
-                _view.Protection.text = "0";
-            }
+            _stats.Clear();
         }
     }
 }

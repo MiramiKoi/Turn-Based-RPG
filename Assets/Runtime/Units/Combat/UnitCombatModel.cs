@@ -8,30 +8,21 @@ namespace Runtime.Units.Combat
     public class UnitCombatModel
     {
         private readonly StatModelCollection _stats;
-        private readonly EquipmentModel _equipment;
         private readonly UnitStateModel _state;
 
         public event Action OnAttacked;
         public event Action OnDamaged;
 
-        public UnitCombatModel(StatModelCollection stats, EquipmentModel equipment, UnitStateModel state)
+        public UnitCombatModel(StatModelCollection stats, UnitStateModel state)
         {
             _stats = stats;
-            _equipment = equipment;
             _state = state;
         }
 
         public float GetDamage()
         {
             OnAttacked?.Invoke();
-
-            var damage = _stats["attack_damage"].Value;
-            if (_equipment.TryGetStats("weapon", out var weaponStats))
-            {
-                damage = weaponStats["damage"].MaxValue;
-            }
-
-            return damage;
+            return _stats["attack_damage"].Value;
         }
 
         public bool CanAttack(Vector2Int target)
@@ -46,11 +37,10 @@ namespace Runtime.Units.Combat
         {
             OnDamaged?.Invoke();
 
-            if (_equipment.TryGetStats("armour", out var armourStats))
+            if (_stats.TryGetStat("protection", out var protection))
             {
-                damage *= 1 - armourStats["protection"].MaxValue / 100f;
+                damage *= 1 - protection.Value / 100f;
             }
-
             _stats["health"].ChangeValue(-damage);
         }
     }

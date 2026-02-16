@@ -5,6 +5,7 @@
       "health": 100,
       "attack_damage": 1,
       "attack_range": 1,
+      "protection" : 0,
       "visibility_radius": 10
     },
     "fraction": "player",

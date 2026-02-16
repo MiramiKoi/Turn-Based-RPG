@@ -8,17 +8,24 @@ namespace Runtime.Stats
         public event Action<float> ValueChanged;
 
         public StatDescription Description { get; }
-        public float Value { get; private set; }
-
+        
+        private float _value;
+        private float _multiplier = 1.0f;
+        public float Value
+        {
+            get => _multiplier * _value;
+            private set => _value = value;
+        }
+        
         public StatModel(StatDescription description)
         {
             Description = description;
-            Value = description.MaxValue;
+            Value = description.Value;
         }
 
         public void ChangeValue(float delta)
         {
-            Value = Math.Clamp(Value + delta, 0, Description.MaxValue);
+            Value = Math.Max(0, Value + delta);
             ValueChanged?.Invoke(Value);
         }
 
@@ -30,7 +37,7 @@ namespace Runtime.Stats
 
         public void Multiply(float factor)
         {
-            Value *= factor;
+            _multiplier *= factor;
             ValueChanged?.Invoke(Value);
         }
     }

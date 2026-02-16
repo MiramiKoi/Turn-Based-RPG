@@ -18,10 +18,12 @@ namespace Runtime.Stats
                 Stats.Add(description.Id, new StatModel(description));
             }
         }
-
-        public StatModel Get(string id)
+        
+        public StatModel Get(string id) => Stats[id];
+        
+        public bool TryGetStat(string id, out StatModel stat)
         {
-            return Stats[id];
+            return Stats.TryGetValue(id, out stat);
         }
 
         public IEnumerator<StatModel> GetEnumerator()
