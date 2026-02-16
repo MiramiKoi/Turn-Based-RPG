@@ -1,0 +1,84 @@
+﻿{
+  "spawn_rules": {
+    "character": {
+      "unit_description": "character",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "random"
+      },
+      "corpse": {
+        "lifetime_steps": -1
+      },
+      "respawn": {
+        "enabled": false
+      }
+    },
+    "bear": {
+      "unit_description": "bear",
+      "rule_type": "population",
+      "count": 5,
+      "spawn": {
+        "mode": "random"
+      },
+      "corpse": {
+        "lifetime_steps": 10
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 15
+      }
+    },
+    "panda": {
+      "unit_description": "panda",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "fixed",
+        "position": [
+          50,
+          80
+        ]
+      },
+      "corpse": {
+        "lifetime_steps": 20
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 30
+      }
+    },
+    "trader": {
+      "unit_description": "trader",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "fixed",
+        "position": [
+          50,
+          50
+        ]
+      },
+      "corpse": {
+        "lifetime_steps": 15
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 25
+      }
+    },
+    "loot": {
+      "unit_description": "loot",
+      "rule_type": "population",
+      "count": 5,
+      "spawn": {
+        "mode": "random"
+      }
+    },
+    "chest": {
+      "unit_description": "chest",
+      "rule_type": "population",
+      "count": 3,
+      "spawn": {
+        "mode": "random"
+      }
+    }
+  }
+}

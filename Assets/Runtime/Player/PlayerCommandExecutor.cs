@@ -14,7 +14,7 @@ namespace Runtime.Player
         {
             _player = player;
             _world = world;
-            
+
             _commands = new List<IPlayerCommand>
             {
                 new TeleportCommand(_player, _world),

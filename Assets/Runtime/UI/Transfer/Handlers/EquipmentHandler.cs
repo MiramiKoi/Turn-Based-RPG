@@ -14,8 +14,8 @@ namespace Runtime.UI.Transfer.Handlers
 
         public override bool CanHandle(TransferModel context)
         {
-            return context.SourceType == InventoryType.Equipment && context.TargetType == InventoryType.Player
-                   || context.TargetType == InventoryType.Equipment && context.SourceType == InventoryType.Player;
+            return (context.SourceType == InventoryType.Equipment && context.TargetType == InventoryType.Player)
+                   || (context.TargetType == InventoryType.Equipment && context.SourceType == InventoryType.Player);
         }
 
         public override void Handle(TransferModel context)
@@ -25,11 +25,11 @@ namespace Runtime.UI.Transfer.Handlers
                 base.Handle(context);
                 return;
             }
-            
+
             if (context.TargetType == InventoryType.Equipment)
             {
                 var equipmentItem = context.SourceCell.ItemDescription as EquipmentItemDescription;
-        
+
                 if (equipmentItem == null)
                 {
                     return;
@@ -50,19 +50,19 @@ namespace Runtime.UI.Transfer.Handlers
                 {
                     context.SourceCell.TryPut(oldEquipment, 1);
                 }
-        
+
                 return;
             }
-            
+
             if (context.SourceType == InventoryType.Equipment)
             {
                 var equipmentItem = context.SourceCell.ItemDescription as EquipmentItemDescription;
-        
+
                 if (equipmentItem == null)
                 {
                     return;
                 }
-                
+
                 if (context.TargetCell.ItemDescription != null &&
                     context.TargetCell.ItemDescription.Id != equipmentItem.Id)
                 {
@@ -70,7 +70,7 @@ namespace Runtime.UI.Transfer.Handlers
                 }
 
                 _unitModel.Equipment.Remove(equipmentItem.EquipmentType, out var removed);
-        
+
                 if (removed != null)
                 {
                     context.TargetCell.TryPut(removed, 1);

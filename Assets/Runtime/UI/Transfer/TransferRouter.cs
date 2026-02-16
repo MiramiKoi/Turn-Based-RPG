@@ -53,7 +53,7 @@ namespace Runtime.UI.Transfer
 
             Clear();
         }
-        
+
         private void FirstCellSelected(CellModel cell, InventoryModel inventory, InventoryType type)
         {
             if (cell.ItemDescription == null)
@@ -66,16 +66,16 @@ namespace Runtime.UI.Transfer
             _model.SourceType = type;
             cell.CellSelect();
         }
-        
+
         private void SecondCellSelected(CellModel cell, InventoryModel inventory, InventoryType type)
         {
             _model.TargetCell = cell;
             _model.TargetInventory = inventory;
             _model.TargetType = type;
-            
+
             Handle();
         }
-        
+
         private void Clear()
         {
             _model.SourceCell.CellDeselect();

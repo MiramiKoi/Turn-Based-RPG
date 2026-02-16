@@ -7,6 +7,7 @@ using Runtime.Input;
 using Runtime.Landscape.Grid;
 using Runtime.Landscape.Grid.Interaction;
 using Runtime.Player;
+using Runtime.SpawnDirector;
 using Runtime.TurnBase;
 using Runtime.UI.Blocker;
 using Runtime.UI.Loot;
@@ -29,6 +30,7 @@ namespace Runtime.Core
         public GameSystemCollection GameSystems { get; private set; }
         public UnitModelCollection UnitCollection { get; private set; }
         public PlayerModel PlayerModel => (PlayerModel)UnitCollection.Get("character_0");
+        public SpawnDirectorModel SpawnDirectorModel { get; private set; }
         public UIBlockerModel UIBlockerModel { get; private set; }
         public LootModel LootModel { get; private set; }
         public TransferRouter TransferRouter { get; private set; }
@@ -53,12 +55,13 @@ namespace Runtime.Core
             GameSystems = new GameSystemCollection();
 
             UnitCollection = new UnitModelCollection(this, WorldDescription);
+            SpawnDirectorModel = new SpawnDirectorModel();
 
             UIBlockerModel = new UIBlockerModel();
-            
+
             TransferModel = new TransferModel();
             TransferRouter = new TransferRouter(TransferModel);
-            
+
             LootModel = new LootModel();
         }
     }

@@ -86,7 +86,7 @@ namespace Runtime.Descriptions.Locations.Surface
             }
 
             var biomeCenters = new List<(int x, int y, int biomeId)>();
-            var cellsPerBiome = (width * height) / (availableBiomes.Length * 100);
+            var cellsPerBiome = width * height / (availableBiomes.Length * 100);
 
             for (var i = 0; i < cellsPerBiome; i++)
             {

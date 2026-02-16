@@ -20,7 +20,7 @@ namespace Runtime.Player.Commands
         {
             if (cell.Unit is not UnitModel target)
                 return false;
-            
+
             return target != _player &&
                    !target.IsDead &&
                    _player.Combat.CanAttack(target.State.Position.Value);
@@ -30,10 +30,12 @@ namespace Runtime.Player.Commands
         {
             var target = (UnitModel)cell.Unit;
             _world.LootModel.CancelLoot();
-            
+
             if (_player.State.Position.Value.x != target.State.Position.Value.x)
-                _player.Movement.Rotate(target.State.Position.Value.x < _player.State.Position.Value.x ? UnitDirection.Left : UnitDirection.Right);
-            
+                _player.Movement.Rotate(target.State.Position.Value.x < _player.State.Position.Value.x
+                    ? UnitDirection.Left
+                    : UnitDirection.Right);
+
             var damage = _player.Combat.GetDamage();
             target.Combat.TakeDamage(damage);
         }

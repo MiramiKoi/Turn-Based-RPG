@@ -5,6 +5,8 @@ using Runtime.Units.Combat;
 using Runtime.Units.Movement;
 using Runtime.Units.Rotation;
 using Runtime.Units.Stats;
+using Runtime.Units.StatusEffects;
+using Runtime.Units.UI;
 using Runtime.ViewDescriptions;
 
 namespace Runtime.Units
@@ -24,7 +26,9 @@ namespace Runtime.Units
         private UnitVisibilityPresenter _visibilityPresenter;
         private UnitStatusEffectsPresenter _statusEffectsPresenter;
         private UnitStatsPresenter _statsPresenter;
-        private UnitHudPresenter _hudPresenter;
+        private UnitUIPresenter _uiPresenter;
+        
+        private TransformData _defaultTransformRenderer;
 
         public UnitPresenter(UnitModel model, IObjectPool<UnitView> pool, World world,
             WorldViewDescriptions viewDescriptions)
@@ -53,39 +57,30 @@ namespace Runtime.Units
 
             _statusEffectsPresenter = new UnitStatusEffectsPresenter(_model, View, _world, _viewDescriptions);
             _statusEffectsPresenter.Enable();
-            
+
             _visibilityPresenter = new UnitVisibilityPresenter(_model, View);
             _visibilityPresenter.Enable();
-            
-            _hudPresenter = new UnitHudPresenter(_model, View);
-            _hudPresenter.Enable();
 
-            _world.TurnBaseModel.OnWorldStepFinished += CheckInventory;
+            _uiPresenter = new UnitUIPresenter(_model, View);
+            _uiPresenter.Enable();
+
+            _world.GridModel.TryPlace(_model, _model.State.Position.Value);
+
+            _defaultTransformRenderer = new TransformData(View.TransformRenderer);
         }
-        
+
         public virtual void Disable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished -= CheckInventory;
-            
             _movementPresenter.Disable();
             _combatPresenter.Disable();
             _rotationPresenter.Disable();
             _statusEffectsPresenter.Disable();
             _statsPresenter.Disable();
-            _hudPresenter.Disable();
+            _uiPresenter.Disable();
             _visibilityPresenter.Disable();
-
+            
+            _defaultTransformRenderer.Apply(View.TransformRenderer);
             _pool.Release(View);
-        }
-
-        private void CheckInventory()
-        {
-            if (_model.Inventory.IsEmpty() && _model != _world.PlayerModel)
-            {
-                _world.GridModel.ReleaseCell(_model.State.Position.Value);
-                
-                Disable();
-            }
         }
     }
 }

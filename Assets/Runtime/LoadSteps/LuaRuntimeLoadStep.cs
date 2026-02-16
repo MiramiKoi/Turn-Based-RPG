@@ -34,7 +34,7 @@ namespace Runtime.LoadSteps
 
                 var loadModel = _addressableModel.Load<TextAsset>("Lua/" + luaKey + ".lua");
                 await loadModel.LoadAwaiter;
- 
+
                 var env = new Table(LuaRuntime.Instance.LuaScript);
 
                 var meta = new Table(LuaRuntime.Instance.LuaScript)
@@ -63,7 +63,7 @@ namespace Runtime.LoadSteps
                 UserData.RegisterType(type);
             }
         }
-        
+
         private static void RegisterDescriptionTypes()
         {
             var assembly = typeof(World).Assembly;
@@ -87,7 +87,7 @@ namespace Runtime.LoadSteps
             return assembly.GetTypes()
                 .Where(IsRuntimeDescription);
         }
-        
+
         private static bool IsModelType(Type type)
         {
             if (!type.IsClass ||

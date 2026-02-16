@@ -8,7 +8,7 @@ namespace Runtime.Equipment
     public class EquipmentModel
     {
         public InventoryModel Inventory { get; } = new(2);
-        
+
         private readonly Dictionary<string, EquipmentItemDescription> _equipments = new();
 
         public void Add(EquipmentItemDescription description)
@@ -36,7 +36,7 @@ namespace Runtime.Equipment
             {
                 return false;
             }
-            
+
             stats = equipment.Stats;
             return true;
         }

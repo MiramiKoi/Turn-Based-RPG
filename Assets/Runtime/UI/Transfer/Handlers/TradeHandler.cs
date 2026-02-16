@@ -18,7 +18,7 @@ namespace Runtime.UI.Transfer.Handlers
             {
                 return false;
             }
-            
+
             return context.SourceType == InventoryType.Trader || context.TargetType == InventoryType.Trader;
         }
 
@@ -56,9 +56,9 @@ namespace Runtime.UI.Transfer.Handlers
             }
 
             buyer.TryTakeItem(_moneyItem, price);
-            
+
             base.Handle(context);
-        
+
             seller.TryPutItem(_moneyItem, price);
         }
     }

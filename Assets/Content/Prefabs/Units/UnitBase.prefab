@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.Units.UnitView
   <SpriteRenderer>k__BackingField: {fileID: 6785180537019280915}
+  <TransformRenderer>k__BackingField: {fileID: 882167140262099459}
   <Animator>k__BackingField: {fileID: 4692077185086237013}
   <StatusEffectCollectionView>k__BackingField: {fileID: 5570005210974981010}
   <Light>k__BackingField: {fileID: 0}

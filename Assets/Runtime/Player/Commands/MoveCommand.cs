@@ -17,7 +17,7 @@ namespace Runtime.Player.Commands
 
         public bool CanExecute(CellModel cell)
         {
-            return cell.Unit == null 
+            return cell.Unit == null
                    && _player.ActionBlocker.CanExecute(UnitActionType.Move)
                    && _world.GridModel.TryPlace(_player, cell.Position);
         }

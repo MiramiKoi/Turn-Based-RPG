@@ -29,8 +29,10 @@ namespace Runtime.Descriptions.Agents.Commands
             }
 
             if (controllableUnit.State.Position.Value.x != targetCell.Position.x)
-                controllableUnit.Movement.Rotate(targetCell.Position.x < controllableUnit.State.Position.Value.x ? UnitDirection.Left : UnitDirection.Right);
-            
+                controllableUnit.Movement.Rotate(targetCell.Position.x < controllableUnit.State.Position.Value.x
+                    ? UnitDirection.Left
+                    : UnitDirection.Right);
+
             targetUnit.Combat.TakeDamage(controllableUnit.Combat.GetDamage());
 
             return NodeStatus.Success;

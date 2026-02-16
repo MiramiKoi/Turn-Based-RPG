@@ -13,7 +13,7 @@ namespace Runtime.Player.Commands
             _player = player;
             _world = world;
         }
-        
+
         public bool CanExecute(CellModel cell)
         {
             return false; //TODO: если игрок в одной точке с координатой входа, которая берётся из модели локации

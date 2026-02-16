@@ -41,7 +41,7 @@ namespace Runtime.Equipment
             {
                 _view.Damage.text = _unitModel.Stats.Get("attack_damage").Value.ToString();
             }
-    
+
             if (_unitModel.Equipment.TryGetStats("armour", out var armorStats))
             {
                 _view.Protection.text = armorStats["protection"].MaxValue.ToString();

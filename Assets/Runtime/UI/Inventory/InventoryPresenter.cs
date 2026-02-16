@@ -18,6 +18,7 @@ namespace Runtime.UI.Inventory
         private readonly UIContent _uiContent;
         private readonly List<(VisualElement root, EventCallback<ClickEvent> callback)> _callbacks = new();
         private readonly InventoryType _type;
+
         public InventoryPresenter(InventoryModel model, InventoryView view, WorldViewDescriptions viewDescriptions,
             World world, InventoryType type)
         {
@@ -41,11 +42,11 @@ namespace Runtime.UI.Inventory
 
             _model.Enabled = true;
         }
-        
+
         public void Disable()
         {
             Clear();
-            
+
             _model.Enabled = false;
         }
 
@@ -71,7 +72,7 @@ namespace Runtime.UI.Inventory
             {
                 cellPresenter.Disable();
             }
-            
+
             _cellsPresenters.Clear();
             _view.CellsContainer.Clear();
             _view.Root.RemoveFromHierarchy();
@@ -80,7 +81,7 @@ namespace Runtime.UI.Inventory
             {
                 root.UnregisterCallback(callback);
             }
-            
+
             _callbacks.Clear();
         }
 
@@ -90,7 +91,7 @@ namespace Runtime.UI.Inventory
             {
                 case InventoryType.Trash:
                     cell.Root.AddToClassList("cell-trash");
-                    break;  
+                    break;
                 case InventoryType.Equipment:
                     cell.Root.AddToClassList("cell-equipment");
                     break;
@@ -99,7 +100,7 @@ namespace Runtime.UI.Inventory
                     break;
             }
         }
-        
+
         private void CellClicked(CellModel cell)
         {
             _world.TransferRouter.HandleCellSelected(cell, _model, _type);

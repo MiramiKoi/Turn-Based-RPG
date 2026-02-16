@@ -38,7 +38,7 @@ namespace Runtime.Units.Rotation
         private void OnVisibleChange(bool value)
         {
             _view.SpriteRenderer.enabled = value;
-            
+
             _view.UIDocument.rootVisualElement.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
         }
 

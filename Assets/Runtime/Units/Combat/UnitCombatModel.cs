@@ -24,13 +24,13 @@ namespace Runtime.Units.Combat
         public float GetDamage()
         {
             OnAttacked?.Invoke();
-            
+
             var damage = _stats["attack_damage"].Value;
             if (_equipment.TryGetStats("weapon", out var weaponStats))
             {
                 damage = weaponStats["damage"].MaxValue;
             }
-            
+
             return damage;
         }
 
@@ -45,12 +45,12 @@ namespace Runtime.Units.Combat
         public void TakeDamage(float damage)
         {
             OnDamaged?.Invoke();
-            
+
             if (_equipment.TryGetStats("armour", out var armourStats))
             {
                 damage *= 1 - armourStats["protection"].MaxValue / 100f;
             }
-            
+
             _stats["health"].ChangeValue(-damage);
         }
     }
