@@ -24,7 +24,7 @@ namespace Runtime.LoadSteps
 
         public async Task Run()
         {
-            var uiController = new UIController(_world, _world.PlayerControls, _worldViewDescriptions);
+            var uiController = new UIController(_world, _worldViewDescriptions);
             uiController.Enable();
             _presenters.Add(uiController);
 

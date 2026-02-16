@@ -1,11 +1,12 @@
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Equipment;
-using Runtime.Input;
+using Runtime.Player;
 using Runtime.UI.Inventory;
 using Runtime.UI.Transfer;
 using Runtime.UI.Transfer.Handlers;
 using Runtime.ViewDescriptions;
+using UniRx;
 using UnityEngine.InputSystem;
 using TrashHandler = Runtime.UI.Transfer.Handlers.TrashHandler;
 
@@ -13,64 +14,65 @@ namespace Runtime.UI
 {
     public class UIController : IPresenter
     {
-        private readonly InventoryPresenter _playerInventoryPresenter;
-        private readonly InventoryModel _playerInventoryModel;
-
-        private readonly PlayerControls _playerControls;
         private readonly World _world;
-        private readonly InventoryPresenter _trashInventoryPresenter;
-        private readonly InventoryPresenter _equipmentInventory;
-        private readonly EquipmentPresenter _equipmentPresenter;
+        private readonly WorldViewDescriptions _viewDescriptions;
+        private readonly CompositeDisposable _disposables = new();
+        
+        private InventoryPresenter _playerInventoryPresenter;
+        private InventoryPresenter _trashInventoryPresenter;
+        private InventoryPresenter _equipmentInventoryPresenter;
+        private EquipmentPresenter _equipmentPresenter;
 
-        public UIController(World world, PlayerControls playerControls, WorldViewDescriptions viewDescriptions)
+        private ITransferHandler _transferHandler;
+
+        public UIController(World world, WorldViewDescriptions viewDescriptions)
         {
             _world = world;
-            _playerControls = playerControls;
+            _viewDescriptions = viewDescriptions;
 
             var router = _world.TransferRouter;
             router.Register(new TradeHandler(world.WorldDescription.ItemCollection.Descriptions["money"]));
             router.Register(new TrashHandler(world));
-            router.Register(new EquipmentHandler(world.PlayerModel));
             router.Register(new TransferHandler());
             router.Register(new SwapHandler());
-
-            _playerInventoryModel = world.PlayerModel.Inventory;
-            var inventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
-            inventoryView.Root.AddToClassList(UIConstants.Inventory.PlayerInventoryStyle);
-            _playerInventoryPresenter = new InventoryPresenter(_playerInventoryModel, inventoryView, viewDescriptions,
-                world, InventoryType.Player);
-
-            var equipmentModel = world.PlayerModel.Equipment.Inventory;
-            var equipmentView = new EquipmentView(viewDescriptions.InventoryViewDescription.EquipmentAsset);
-            equipmentView.Root.AddToClassList(UIConstants.Inventory.EquipmentInventoryStyle);
-            _equipmentInventory = new InventoryPresenter(equipmentModel, equipmentView, viewDescriptions, world,
-                InventoryType.Equipment);
-            _equipmentPresenter = new EquipmentPresenter(world.PlayerModel, equipmentView);
-
-            var trashInventoryModel = new InventoryModel(UIConstants.Inventory.TrashInventorySize);
-            var trashInventoryView = new InventoryView(viewDescriptions.InventoryViewDescription.InventoryAsset);
-            trashInventoryView.Root.AddToClassList(UIConstants.Inventory.TrashInventoryStyle);
-            _trashInventoryPresenter = new InventoryPresenter(trashInventoryModel, trashInventoryView, viewDescriptions,
-                world, InventoryType.Trash);
         }
 
         public void Enable()
         {
-            _playerControls.Gameplay.ToggleInventory.performed += ToggleInventory;
-            _world.LootModel.OnLootRequested += OpenInventory;
+            _world.PlayerControls.Gameplay.ToggleInventory.performed += HandleToggleInventory;
+            _world.LootModel.OnLootRequested += HandleOpenInventory;
+            _world.PlayerModel.SkipLatestValueOnSubscribe().Subscribe(HandlePlayerChanged).AddTo(_disposables);
         }
 
         public void Disable()
         {
-            _playerControls.Gameplay.ToggleInventory.performed -= ToggleInventory;
-            _world.LootModel.OnLootRequested -= OpenInventory;
+            _world.PlayerControls.Gameplay.ToggleInventory.performed -= HandleToggleInventory;
+            _world.LootModel.OnLootRequested -= HandleOpenInventory;
+            
+            _disposables.Dispose();
 
             HideInventory();
         }
-
-        private void ToggleInventory(InputAction.CallbackContext context)
+        
+        private void ShowInventory()
         {
-            if (_playerInventoryModel.Enabled)
+            _playerInventoryPresenter.Enable();
+            _equipmentInventoryPresenter.Enable();
+            _equipmentPresenter.Enable();
+            _trashInventoryPresenter.Enable();
+        }
+
+        private void HideInventory()
+        {
+            _playerInventoryPresenter.Disable();
+            _equipmentInventoryPresenter.Disable();
+            _equipmentPresenter.Disable();
+            _trashInventoryPresenter.Disable();
+        }
+
+        private void HandleToggleInventory(InputAction.CallbackContext context)
+        {
+            if (_world.PlayerModel.Value.Inventory.Enabled)
             {
                 HideInventory();
             }
@@ -80,9 +82,9 @@ namespace Runtime.UI
             }
         }
 
-        private void OpenInventory(IUnit unit)
+        private void HandleOpenInventory(IUnit unit)
         {
-            if (_playerInventoryModel.Enabled)
+            if (_world.PlayerModel.Value.Inventory.Enabled)
             {
                 return;
             }
@@ -90,20 +92,50 @@ namespace Runtime.UI
             ShowInventory();
         }
 
-        private void ShowInventory()
+        private void ClearPresenter()
         {
-            _playerInventoryPresenter.Enable();
-            _equipmentInventory.Enable();
-            _equipmentPresenter.Enable();
-            _trashInventoryPresenter.Enable();
+            _playerInventoryPresenter?.Disable();
+            _playerInventoryPresenter = null;
+            
+            _equipmentInventoryPresenter?.Disable();
+            _equipmentInventoryPresenter = null;
+            
+            _equipmentPresenter?.Disable();
+            _equipmentPresenter = null;
+            
+            _trashInventoryPresenter?.Disable();
+            _trashInventoryPresenter = null;
         }
 
-        private void HideInventory()
+        private void HandlePlayerChanged(PlayerModel player)
         {
-            _playerInventoryPresenter.Disable();
-            _equipmentInventory.Disable();
-            _equipmentPresenter.Disable();
-            _trashInventoryPresenter.Disable();
+            ClearPresenter();
+
+            if (_transferHandler != null)
+            {
+                _world.TransferRouter.Unregister(_transferHandler);
+            }
+
+            _transferHandler = new EquipmentHandler(player);
+            _world.TransferRouter.Register(_transferHandler);
+
+            var inventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
+            inventoryView.Root.AddToClassList(UIConstants.Inventory.PlayerInventoryStyle);
+            _playerInventoryPresenter = new InventoryPresenter(player.Inventory, inventoryView, _viewDescriptions,
+                _world, InventoryType.Player);
+            
+            var equipmentModel = _world.PlayerModel.Value.Equipment.Inventory;
+            var equipmentView = new EquipmentView(_viewDescriptions.InventoryViewDescription.EquipmentAsset);
+            equipmentView.Root.AddToClassList(UIConstants.Inventory.EquipmentInventoryStyle);
+            _equipmentInventoryPresenter = new InventoryPresenter(equipmentModel, equipmentView, _viewDescriptions, _world,
+                InventoryType.Equipment);
+            _equipmentPresenter = new EquipmentPresenter(_world.PlayerModel.Value, equipmentView);
+            
+            var trashInventoryModel = new InventoryModel(UIConstants.Inventory.TrashInventorySize);
+            var trashInventoryView = new InventoryView(_viewDescriptions.InventoryViewDescription.InventoryAsset);
+            trashInventoryView.Root.AddToClassList(UIConstants.Inventory.TrashInventoryStyle);
+            _trashInventoryPresenter = new InventoryPresenter(trashInventoryModel, trashInventoryView, _viewDescriptions,
+                _world, InventoryType.Trash);
         }
     }
 }

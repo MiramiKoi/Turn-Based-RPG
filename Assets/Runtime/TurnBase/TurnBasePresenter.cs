@@ -90,7 +90,7 @@ namespace Runtime.TurnBase
 
         private void ChangePlayerMode()
         {
-            _world.PlayerModel.Mode = _model.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
+            _world.PlayerModel.Value.Mode = _model.BattleModel.IsInBattle() ? PlayerMode.Battle : PlayerMode.Adventure;
         }
     }
 }

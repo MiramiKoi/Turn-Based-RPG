@@ -30,7 +30,7 @@ namespace Runtime.UI.Transfer.Handlers
 
             context.SourceCell.TryTake(amount);
 
-            var position = _world.PlayerModel.State.Position.Value;
+            var position = _world.PlayerModel.Value.State.Position.Value;
             var toPosition = position + Vector2Int.down;
 
             var cellUnit = _world.GridModel.GetCell(toPosition).Unit;
