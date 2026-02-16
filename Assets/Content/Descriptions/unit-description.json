@@ -30,7 +30,7 @@
     },
     "fraction": "animal",
     "friendly_fractions": [],
-    "enemy_fractions": [],
+    "enemy_fractions": ["player","animal"],
     "inventory_size": 6,
     "loot": {
       "bear_meat": 5,
@@ -124,7 +124,7 @@
     },
     "fraction": "animal",
     "friendly_fractions": [],
-    "enemy_fractions": [],
+    "enemy_fractions": ["player", "animal"],
     "inventory_size": 6,
     "loot": {},
     "equipment": []

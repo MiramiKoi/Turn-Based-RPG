@@ -11,7 +11,7 @@
                ],
                "name" : "",
                "command" : {
-                  "type" : "has_unit_with_another_fraction",
+                  "type" : "has_unit_with_enemy_fraction",
                   "use_visibility_radius" : true,
                   "custom_visibility_radius" : 0
                },
@@ -29,14 +29,14 @@
                ],
                "name" : "",
                "command" : {
-                  "type" : "set_point_of_interest_with_another_fraction",
+                  "type" : "set_point_of_interest_with_enemy_fraction",
                   "use_visibility_radius" : true,
                   "custom_visibility_radius" : 0,
                   "point_of_interest" : "aggressor"
                },
                "_editor" : {
                   "position" : [
-                     -304,
+                     -310.6667,
                      369.3333
                   ]
                }
