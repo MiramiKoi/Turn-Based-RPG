@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Runtime.Units;
 
-namespace Runtime.TurnBase
+namespace Runtime.TurnBase.Battle
 {
     public class BattleModel
     {

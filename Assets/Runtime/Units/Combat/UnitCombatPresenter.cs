@@ -59,7 +59,6 @@ namespace Runtime.Units.Combat
 
             if (_model.Health <= 0)
             {
-                _world.TurnBaseModel.BattleModel.LeaveBattle(_model);
                 await PlayAnimation(IsDead);
             }
 
