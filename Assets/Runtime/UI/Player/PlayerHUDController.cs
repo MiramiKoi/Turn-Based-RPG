@@ -8,11 +8,10 @@ using Runtime.UI.Transfer.Handlers;
 using Runtime.ViewDescriptions;
 using UniRx;
 using UnityEngine.InputSystem;
-using TrashHandler = Runtime.UI.Transfer.Handlers.TrashHandler;
 
-namespace Runtime.UI
+namespace Runtime.UI.Player
 {
-    public class UIController : IPresenter
+    public class PlayerHUDController : IPresenter
     {
         private readonly World _world;
         private readonly WorldViewDescriptions _viewDescriptions;
@@ -25,16 +24,10 @@ namespace Runtime.UI
 
         private ITransferHandler _transferHandler;
 
-        public UIController(World world, WorldViewDescriptions viewDescriptions)
+        public PlayerHUDController(World world, WorldViewDescriptions viewDescriptions)
         {
             _world = world;
             _viewDescriptions = viewDescriptions;
-
-            var router = _world.TransferRouter;
-            router.Register(new TradeHandler(world.WorldDescription.ItemCollection.Descriptions["money"]));
-            router.Register(new TrashHandler(world));
-            router.Register(new TransferHandler());
-            router.Register(new SwapHandler());
         }
 
         public void Enable()
