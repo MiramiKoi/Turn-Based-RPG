@@ -1,13 +1,16 @@
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Core;
 using Runtime.Equipment;
 using Runtime.Player;
 using Runtime.UI.Inventory;
+using Runtime.UI.Player.StatusEffects;
 using Runtime.UI.Transfer;
 using Runtime.UI.Transfer.Handlers;
 using Runtime.ViewDescriptions;
 using UniRx;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace Runtime.UI.Player
 {
@@ -23,6 +26,10 @@ namespace Runtime.UI.Player
         private EquipmentPresenter _equipmentPresenter;
 
         private ITransferHandler _transferHandler;
+        
+        private LoadModel<VisualTreeAsset> _loadModelUiAsset;
+        private PlayerStatusEffectHudView _playerStatusEffectHudPresenter;
+        private PlayerStatusEffectsHudPresenter _statusEffectsHudPresenter;
 
         public PlayerHUDController(World world, WorldViewDescriptions viewDescriptions)
         {
@@ -30,11 +37,16 @@ namespace Runtime.UI.Player
             _viewDescriptions = viewDescriptions;
         }
 
-        public void Enable()
+        public async void Enable()
         {
             _world.PlayerControls.Gameplay.ToggleInventory.performed += HandleToggleInventory;
             _world.LootModel.OnLootRequested += HandleOpenInventory;
             _world.PlayerModel.SkipLatestValueOnSubscribe().Subscribe(HandlePlayerChanged).AddTo(_disposables);
+            
+            _loadModelUiAsset = _world.AddressableModel.Load<VisualTreeAsset>(_viewDescriptions
+                .StatusEffectViewDescriptions.StatusEffectContainerAsset.AssetGUID);
+            await _loadModelUiAsset.LoadAwaiter;
+            _playerStatusEffectHudPresenter = new PlayerStatusEffectHudView(_loadModelUiAsset.Result);
         }
 
         public void Disable()
@@ -98,6 +110,9 @@ namespace Runtime.UI.Player
             
             _trashInventoryPresenter?.Disable();
             _trashInventoryPresenter = null;
+            
+            _statusEffectsHudPresenter?.Disable();
+            _statusEffectsHudPresenter = null;
         }
 
         private void HandlePlayerChanged(PlayerModel player)
@@ -129,6 +144,9 @@ namespace Runtime.UI.Player
             trashInventoryView.Root.AddToClassList(UIConstants.Inventory.TrashInventoryStyle);
             _trashInventoryPresenter = new InventoryPresenter(trashInventoryModel, trashInventoryView, _viewDescriptions,
                 _world, InventoryType.Trash);
+            
+            _statusEffectsHudPresenter = new PlayerStatusEffectsHudPresenter(_world.PlayerModel.Value, _playerStatusEffectHudPresenter, _world, _viewDescriptions);
+            _statusEffectsHudPresenter.Enable();
         }
     }
 }
