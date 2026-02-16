@@ -1,34 +1,35 @@
 using System.Collections.Generic;
+using Runtime.Agents;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class StatCondition : CommandDescription
+    public class CheckStatPercentCommand : CommandDescription
     {
-        public override string Type => "stat_condition";
-
         private const string StatKey = "stat";
-
         private const string OperationKey = "operation";
-
         private const string ValueKey = "value";
+        
+        public override string Type => "check_stat_percent";
 
         public string Stat { get; private set; } = string.Empty;
-
+        
         public string Operation { get; private set; } = string.Empty;
-
+        
         public float Value { get; private set; }
-
+        
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
             if (!controllable.Stats.Stats.TryGetValue(Stat, out var statModel))
             {
                 return NodeStatus.Failure;
             }
-
-            var statValue = statModel.Value;
+            
+            var agentModel = controllable as AgentModel;
+            
+            var statValue = statModel.Value / agentModel.Description.Stats[Stat].MaxValue;
 
             return Operation switch
             {
@@ -43,12 +44,12 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override Dictionary<string, object> Serialize()
         {
-            var dictionary = base.Serialize();
-
+            var dictionary =  base.Serialize();
+            
             dictionary[StatKey] = Stat;
             dictionary[OperationKey] = Operation;
             dictionary[ValueKey] = Value;
-
+            
             return dictionary;
         }
 
@@ -56,7 +57,7 @@ namespace Runtime.Descriptions.Agents.Commands
         {
             Stat = data.GetString(StatKey);
             Operation = data.GetString(OperationKey);
-            Value = data.GetInt(ValueKey);
+            Value = data.GetFloat(ValueKey);
         }
     }
 }

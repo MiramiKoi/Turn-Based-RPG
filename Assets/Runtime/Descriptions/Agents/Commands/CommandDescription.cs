@@ -33,15 +33,21 @@ namespace Runtime.Descriptions.Agents.Commands
                 "has_flag" => new HasFlagCommand(),
                 "has_point_of_interest" => new HasPointOfInterestCommand(),
                 "move_to_point_of_interest" => new MoveToPointOfInterestCommand(),
+                "move_from_point_of_interest" => new MoveFromPointOfInterestCommand(),
                 "set_flag" => new SetFlagCommand(),
                 "set_random_point_of_interest" => new SetRandomPointOfInterestCommand(),
                 "has_unit_with_fraction" => new HasUnitWithFractionCommand(),
                 "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFractionCommand(),
+                "set_point_of_interest_with_another_fraction" => new SetPointOfInterestWithAnotherFractionCommand(),
                 "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
                 "attack_point_of_interest" => new AttackPointOfInterestCommand(),
-                "stat_condition" => new StatCondition(),
+                "stat_condition" => new CheckStatCommand(),
                 "enter_to_battle" => new EnterToBattleCommand(),
                 "leave_battle" => new LeaveBattleCommand(),
+                "has_unit_with_another_fraction" => new HasUnitWithAnotherFractionCommand(),
+                "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
+                "check_stat_percent" => new CheckStatPercentCommand(), 
+                "can_see_point_of_interest" => new CanSeePointOfInterest(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

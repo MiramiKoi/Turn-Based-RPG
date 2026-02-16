@@ -42,13 +42,19 @@ namespace Editor.Agents.Nodes
                     "set_random_point_of_interest",
                     "distance_point_of_interest",
                     "move_to_point_of_interest",
+                    "move_from_point_of_interest",
                     "has_unit_with_fraction",
+                    "has_unit_with_another_fraction",
                     "set_point_of_interest_with_fraction",
+                    "set_point_of_interest_with_another_fraction",
                     "can_place_point_of_interest",
                     "attack_point_of_interest",
                     "stat_condition",
+                    "check_stat_point_of_interest",
+                    "check_stat_percent",
                     "enter_to_battle",
-                    "leave_battle"
+                    "leave_battle",
+                    "can_see_point_of_interest",
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -102,11 +108,17 @@ namespace Editor.Agents.Nodes
                 case "move_to_point_of_interest":
                     SetupFields<MoveToPointOfInterestCommand>();
                     break;
+                case "move_from_point_of_interest":
+                    SetupFields<MoveFromPointOfInterestCommand>();
+                    break;
                 case "has_unit_with_fraction":
                     SetupFields<HasUnitWithFractionCommand>();
                     break;
                 case "set_point_of_interest_with_fraction":
                     SetupFields<SetPointOfInterestWithFractionCommand>();
+                    break;
+                case "set_point_of_interest_with_another_fraction":
+                    SetupFields<SetPointOfInterestWithAnotherFractionCommand>();
                     break;
                 case "can_place_point_of_interest":
                     SetupFields<CanPlacePointOfInterestCommand>();
@@ -115,13 +127,25 @@ namespace Editor.Agents.Nodes
                     SetupFields<AttackPointOfInterestCommand>();
                     break;
                 case "stat_condition":
-                    SetupFields<StatCondition>();
+                    SetupFields<CheckStatCommand>();
                     break;
                 case "enter_to_battle":
                     SetupFields<EnterToBattleCommand>();
                     break;
                 case "leave_battle":
                     SetupFields<LeaveBattleCommand>();
+                    break;
+                case "has_unit_with_another_fraction":
+                    SetupFields<HasUnitWithAnotherFractionCommand>();
+                    break;
+                case "check_stat_point_of_interest":
+                    SetupFields<CheckStatPointOfInterest>();
+                    break;
+                case "can_see_point_of_interest":
+                    SetupFields<CanSeePointOfInterest>();
+                    break;
+                case "check_stat_percent":
+                    SetupFields<CheckStatPercentCommand>();
                     break;
             }
         }

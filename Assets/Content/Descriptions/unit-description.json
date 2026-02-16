@@ -5,7 +5,7 @@
       "health": 100,
       "attack_damage": 1,
       "attack_range": 1,
-      "visibility_radius": 10
+      "visibility_radius": 100
     },
     "fraction": "player",
     "inventory_size": 12,
@@ -99,6 +99,21 @@
     "inventory_size": 6,
     "loot": {
       "money": 200
+    },
+    "equipment": []
+  },
+  "sheep": {
+    "view_id": "sheep",
+    "agent_decision_id": "sheep",
+    "stats": {
+      "health": 15,
+      "attack_damage": 0,
+      "attack_range": 0,
+      "visibility_radius": 5
+    },
+    "fraction": "animal",
+    "inventory_size": 6,
+    "loot": {
     },
     "equipment": []
   }

@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Runtime.Agents;
+using Runtime.Units;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Nodes
 {
@@ -21,12 +24,12 @@ namespace Runtime.Descriptions.Agents.Nodes
             {
                 var status = child.Process(context, controllable);
 
+                
                 if (status == NodeStatus.Success)
                 {
                     return NodeStatus.Success;
                 }
             }
-
             return NodeStatus.Failure;
         }
     }

@@ -29,6 +29,21 @@
         "delay_steps": 25
       }
     },
+    "sheep": {
+      "unit_description": "sheep",
+      "rule_type": "population",
+      "count": 5,
+      "spawn": {
+        "mode": "random"
+      },
+      "corpse": {
+        "lifetime_steps": 10
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 25
+      }
+    },
     "panda": {
       "unit_description": "panda",
       "rule_type": "solo",
