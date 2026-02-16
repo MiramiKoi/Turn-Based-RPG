@@ -1,6 +1,7 @@
 using System;
 using Runtime.Common;
 using UniRx;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Runtime.Units.Rotation
@@ -26,6 +27,8 @@ namespace Runtime.Units.Rotation
             _model.Stats[VisibilityRadiusKey].ValueChanged += OnChangeVisibilityRadius;
 
             OnVisibleChange(_model.State.Visible.Value);
+            
+            OnChangeVisibilityRadius(_model.Stats["visibility_radius"].Value);
         }
 
         public void Disable()
@@ -46,7 +49,7 @@ namespace Runtime.Units.Rotation
         {
             if (_view.Light != null)
             {
-                _view.Light.pointLightOuterRadius = radius;
+                _view.Light.pointLightOuterRadius = radius + 3f;
             }
         }
     }
