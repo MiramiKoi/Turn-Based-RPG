@@ -10,6 +10,8 @@ namespace Runtime.Units
         public Transform Transform { get; private set; }
 
         [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
+        
+        [field: SerializeField] public Transform TransformRenderer { get; private set; }
 
         [field: SerializeField] public Animator Animator { get; private set; }
 

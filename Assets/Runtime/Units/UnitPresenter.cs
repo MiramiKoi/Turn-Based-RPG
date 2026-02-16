@@ -27,6 +27,8 @@ namespace Runtime.Units
         private UnitStatusEffectsPresenter _statusEffectsPresenter;
         private UnitStatsPresenter _statsPresenter;
         private UnitUIPresenter _uiPresenter;
+        
+        private TransformData _defaultTransformRenderer;
 
         public UnitPresenter(UnitModel model, IObjectPool<UnitView> pool, World world,
             WorldViewDescriptions viewDescriptions)
@@ -63,6 +65,8 @@ namespace Runtime.Units
             _uiPresenter.Enable();
 
             _world.GridModel.TryPlace(_model, _model.State.Position.Value);
+
+            _defaultTransformRenderer = new TransformData(View.TransformRenderer);
         }
 
         public virtual void Disable()
@@ -74,7 +78,8 @@ namespace Runtime.Units
             _statsPresenter.Disable();
             _uiPresenter.Disable();
             _visibilityPresenter.Disable();
-
+            
+            _defaultTransformRenderer.Apply(View.TransformRenderer);
             _pool.Release(View);
         }
     }

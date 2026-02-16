@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1938451055947546180, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Name
-      value: Panda Variant
+      value: Panda
       objectReference: {fileID: 0}
     - target: {fileID: 4692077185086237013, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Controller

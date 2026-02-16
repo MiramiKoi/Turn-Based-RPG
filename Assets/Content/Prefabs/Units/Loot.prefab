@@ -52,14 +52,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loot
       objectReference: {fileID: 0}
-    - target: {fileID: 2560295827408813207, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
-      propertyPath: <Light>k__BackingField
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2560295827408813207, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
-      propertyPath: <Animator>k__BackingField
-      value: 
-      objectReference: {fileID: 9152067544022442241}
     - target: {fileID: 4692077185086237013, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Controller
       value: 
@@ -145,8 +137,3 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!95 &9152067544022442241 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4692077185086237013, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
-  m_PrefabInstance: {fileID: 4476357741171001428}
-  m_PrefabAsset: {fileID: 0}
