@@ -37,7 +37,7 @@ namespace Runtime.Descriptions.Agents.Commands
                     return NodeStatus.Failure;
                 }
                 
-                if (unit.Stats.Stats.TryGetValue(StatKey, out var stat))
+                if (unit.Stats.Stats.TryGetValue(Stat, out var stat))
                 {
                     return Operation switch
                     {

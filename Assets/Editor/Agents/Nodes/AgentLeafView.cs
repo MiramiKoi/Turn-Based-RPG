@@ -43,10 +43,12 @@ namespace Editor.Agents.Nodes
                     "distance_point_of_interest",
                     "move_to_point_of_interest",
                     "has_unit_with_fraction",
+                    "has_unit_with_another_fraction",
                     "set_point_of_interest_with_fraction",
                     "can_place_point_of_interest",
                     "attack_point_of_interest",
                     "stat_condition",
+                    "check_stat_point_of_interest",
                     "enter_to_battle",
                     "leave_battle"
                 },
@@ -122,6 +124,12 @@ namespace Editor.Agents.Nodes
                     break;
                 case "leave_battle":
                     SetupFields<LeaveBattleCommand>();
+                    break;
+                case "has_unit_with_another_fraction":
+                    SetupFields<HasUnitWithFractionCommand>();
+                    break;
+                case "check_stat_point_of_interest":
+                    SetupFields<CheckStatPointOfInterest>();
                     break;
             }
         }

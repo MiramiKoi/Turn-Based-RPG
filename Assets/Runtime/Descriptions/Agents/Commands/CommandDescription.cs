@@ -42,6 +42,8 @@ namespace Runtime.Descriptions.Agents.Commands
                 "stat_condition" => new CheckStatCommand(),
                 "enter_to_battle" => new EnterToBattleCommand(),
                 "leave_battle" => new LeaveBattleCommand(),
+                "has_unit_with_another_fraction" => new HasUnitWithFractionCommand(),
+                "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

@@ -24,7 +24,7 @@
                            },
                            "_editor" : {
                               "position" : [
-                                 -1376.667,
+                                 -1856.667,
                                  923.3333
                               ]
                            }
@@ -44,23 +44,7 @@
                            },
                            "_editor" : {
                               "position" : [
-                                 -1032,
-                                 923.3333
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "",
-                           "command" : {
-                              "type" : "enter_to_battle"
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 -620,
+                                 -1512,
                                  923.3333
                               ]
                            }
@@ -181,8 +165,28 @@
                      },
                      "_editor" : {
                         "position" : [
-                           612,
-                           583.3333
+                           263.3333,
+                           598
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "leaf",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "command" : {
+                        "type" : "check_stat_point_of_interest",
+                        "stat" : "health",
+                        "operation" : ">",
+                        "value" : 0,
+                        "point_of_interest" : "target"
+                     },
+                     "_editor" : {
+                        "position" : [
+                           603.3333,
+                           598
                         ]
                      }
                   },
