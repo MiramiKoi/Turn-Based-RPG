@@ -1,0 +1,71 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "leaf",
+         "children" : [
+            
+         ],
+         "name" : "",
+         "command" : {
+            "type" : "stat_condition",
+            "stat" : "health",
+            "operation" : ">",
+            "value" : 0
+         },
+         "_editor" : {
+            "position" : [
+               -89.33334,
+               250.6667
+            ]
+         }
+      },
+      {
+         "type" : "selector",
+         "children" : [
+            {
+               "type" : "link",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "description_id" : "run-away",
+               "_editor" : {
+                  "position" : [
+                     336.6667,
+                     432.6667
+                  ]
+               }
+            },
+            {
+               "type" : "link",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "description_id" : "patrol",
+               "_editor" : {
+                  "position" : [
+                     628.6667,
+                     432.6667
+                  ]
+               }
+            }
+         ],
+         "name" : "",
+         "_editor" : {
+            "position" : [
+               400.6667,
+               309.3333
+            ]
+         }
+      }
+   ],
+   "name" : "",
+   "_editor" : {
+      "position" : [
+         270.6667,
+         161.3333
+      ]
+   }
+}
