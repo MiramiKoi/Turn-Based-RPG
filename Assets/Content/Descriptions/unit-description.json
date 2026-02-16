@@ -6,17 +6,38 @@
       "attack_damage": 1,
       "attack_range": 1,
       "protection" : 0,
-      "visibility_radius": 100
+      "visibility_radius": 10
     },
     "fraction": "player",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 12,
     "loot": {
       "money": 100,
-      "simple_breastplate" : 1
+      "simple_breastplate": 1
     },
     "equipment": [
       "simple_sword"
     ]
+  },
+  "archer": {
+    "view_id": "archer",
+    "agent_decision_id": "archer",
+    "stats": {
+      "health": 100,
+      "attack_damage": 1,
+      "attack_range": 4,
+      "visibility_radius": 4
+    },
+    "fraction": "teammate",
+    "friendly_fractions": ["player"],
+    "enemy_fractions": ["animal", "boss"],
+    "inventory_size": 12,
+    "loot": {
+      "money": 100,
+      "simple_breastplate": 1
+    },
+    "equipment": []
   },
   "bear": {
     "view_id": "bear",
@@ -28,6 +49,8 @@
       "visibility_radius": 4
     },
     "fraction": "animal",
+    "friendly_fractions": [],
+    "enemy_fractions": ["player","animal", "teammate"],
     "inventory_size": 6,
     "loot": {
       "bear_meat": 5,
@@ -46,6 +69,8 @@
       "visibility_radius": 4
     },
     "fraction": "boss",
+    "friendly_fractions": [],
+    "enemy_fractions": ["player", "teammate"],
     "inventory_size": 6,
     "loot": {
       "money": 100,
@@ -63,6 +88,8 @@
       "visibility_radius": 2
     },
     "fraction": "trader",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 12,
     "loot": {
       "bear_meat": 2,
@@ -82,9 +109,10 @@
       "visibility_radius": 0
     },
     "fraction": "loot",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
-    "loot": {
-    },
+    "loot": {},
     "equipment": []
   },
   "chest": {
@@ -97,6 +125,8 @@
       "visibility_radius": 0
     },
     "fraction": "loot",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
     "inventory_size": 6,
     "loot": {
       "money": 200
@@ -113,9 +143,10 @@
       "visibility_radius": 5
     },
     "fraction": "animal",
+    "friendly_fractions": [],
+    "enemy_fractions": ["player", "animal"],
     "inventory_size": 6,
-    "loot": {
-    },
+    "loot": {},
     "equipment": []
   }
 }

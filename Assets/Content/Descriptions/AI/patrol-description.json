@@ -9,6 +9,22 @@
                "children" : [
                   
                ],
+               "name" : "",
+               "command" : {
+                  "type" : "leave_battle"
+               },
+               "_editor" : {
+                  "position" : [
+                     -636.6667,
+                     300.6667
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
                "name" : "3p",
                "command" : {
                   "type" : "set_random_point_of_interest",

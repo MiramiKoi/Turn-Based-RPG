@@ -27,20 +27,6 @@
                "type" : "selector",
                "children" : [
                   {
-                     "type" : "link",
-                     "children" : [
-                        
-                     ],
-                     "name" : "",
-                     "description_id" : "hunter",
-                     "_editor" : {
-                        "position" : [
-                           -969.3333,
-                           -18.66667
-                        ]
-                     }
-                  },
-                  {
                      "type" : "sequence",
                      "children" : [
                         {
@@ -50,206 +36,66 @@
                            ],
                            "name" : "",
                            "command" : {
-                              "type" : "leave_battle"
+                              "type" : "check_stat_percent",
+                              "stat" : "health",
+                              "operation" : "<=",
+                              "value" : 0.5
                            },
                            "_editor" : {
                               "position" : [
-                                 -342.6667,
-                                 521.3333
+                                 -1044,
+                                 118
                               ]
                            }
                         },
                         {
-                           "type" : "leaf",
+                           "type" : "link",
                            "children" : [
                               
                            ],
-                           "name" : "7",
-                           "command" : {
-                              "type" : "has_point_of_interest",
-                              "point_of_interest" : "patrol"
-                           },
+                           "name" : "",
+                           "description_id" : "run-away",
                            "_editor" : {
                               "position" : [
-                                 -26.66667,
-                                 521.3333
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "8",
-                           "command" : {
-                              "type" : "can_place_point_of_interest",
-                              "point_of_interest" : "patrol"
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 315.3333,
-                                 516
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "9",
-                           "command" : {
-                              "type" : "move_to_point_of_interest",
-                              "point_of_interest" : "patrol"
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 681.3333,
-                                 516
+                                 -687.3333,
+                                 118
                               ]
                            }
                         }
                      ],
-                     "name" : "Patrol",
+                     "name" : "",
                      "_editor" : {
                         "position" : [
-                           127.3333,
-                           124
+                           -732.6667,
+                           -78.66667
                         ]
                      }
                   },
                   {
-                     "type" : "selector",
+                     "type" : "link",
                      "children" : [
-                        {
-                           "type" : "sequence",
-                           "children" : [
-                              {
-                                 "type" : "leaf",
-                                 "children" : [
-                                    
-                                 ],
-                                 "name" : "10",
-                                 "command" : {
-                                    "type" : "has_point_of_interest",
-                                    "point_of_interest" : "patrol"
-                                 },
-                                 "_editor" : {
-                                    "position" : [
-                                       667.3333,
-                                       990
-                                    ]
-                                 }
-                              },
-                              {
-                                 "type" : "leaf",
-                                 "children" : [
-                                    
-                                 ],
-                                 "name" : "11",
-                                 "command" : {
-                                    "type" : "distance_point_of_interest",
-                                    "point_of_interest" : "patrol",
-                                    "operation" : "=",
-                                    "distance" : 1
-                                 },
-                                 "_editor" : {
-                                    "position" : [
-                                       1007.333,
-                                       990
-                                    ]
-                                 }
-                              },
-                              {
-                                 "type" : "leaf",
-                                 "children" : [
-                                    
-                                 ],
-                                 "name" : "12",
-                                 "command" : {
-                                    "type" : "set_random_point_of_interest",
-                                    "point_of_interest" : "patrol",
-                                    "radius" : 2,
-                                    "near_with_point_of_interest" : false,
-                                    "target_near_point_of_interest" : ""
-                                 },
-                                 "_editor" : {
-                                    "position" : [
-                                       1374,
-                                       990
-                                    ]
-                                 }
-                              },
-                              {
-                                 "type" : "leaf",
-                                 "children" : [
-                                    
-                                 ],
-                                 "name" : "13",
-                                 "command" : {
-                                    "type" : "move_to_point_of_interest",
-                                    "point_of_interest" : "patrol"
-                                 },
-                                 "_editor" : {
-                                    "position" : [
-                                       1758,
-                                       990
-                                    ]
-                                 }
-                              }
-                           ],
-                           "name" : "New Patrol Target",
-                           "_editor" : {
-                              "position" : [
-                                 1313.333,
-                                 612
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "14",
-                           "command" : {
-                              "type" : "set_random_point_of_interest",
-                              "point_of_interest" : "patrol",
-                              "radius" : 2,
-                              "near_with_point_of_interest" : false,
-                              "target_near_point_of_interest" : ""
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 2072,
-                                 748
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "15",
-                           "command" : {
-                              "type" : "move_to_point_of_interest",
-                              "point_of_interest" : "patrol"
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 2526,
-                                 757.3333
-                              ]
-                           }
-                        }
+                        
                      ],
-                     "name" : "Look Around",
+                     "name" : "",
+                     "description_id" : "hunter",
                      "_editor" : {
                         "position" : [
-                           1334,
-                           320
+                           -346.6667,
+                           39.33334
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "link",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "description_id" : "patrol",
+                     "_editor" : {
+                        "position" : [
+                           0,
+                           0
                         ]
                      }
                   }

@@ -2,36 +2,41 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
-using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class HasUnitWithAnotherFractionCommand : CommandDescription
+    public class HasUnitWithEnemyFractionCommand : CommandDescription
     {
         private const string UseVisibilityRadiusKey = "use_visibility_radius";
-        
         private const string CustomVisibilityRadiusKey = "custom_visibility_radius";
-        
-        public override string Type => "has_unit_with_another_fraction";
+
+        public override string Type => "has_unit_with_enemy_fraction";
 
         public bool UseVisibilityRadius { get; private set; }
-        
+
         public int CustomVisibilityRadius { get; private set; }
         
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var radius = UseVisibilityRadius ? controllable.Stats["visibility_radius"].Value : CustomVisibilityRadius;
+            var radius = UseVisibilityRadius
+                ? controllable.Stats["visibility_radius"].Value
+                : CustomVisibilityRadius;
 
             var center = controllable.State.Position.Value;
-
             var controllableUnit = controllable as UnitModel;
+
+            if (controllableUnit == null)
+                return NodeStatus.Failure;
+
+            var enemyFractions = controllableUnit.Description.EnemyFractions;
 
             foreach (var unit in context.UnitCollection.Models.Values)
             {
-                if (unit.Description.Fraction == controllableUnit?.Description.Fraction || unit.Id == controllableUnit?.Id)
-                {
+                if (unit.Id == controllableUnit.Id)
                     continue;
-                }
+
+                if (!enemyFractions.Contains(unit.Description.Fraction))
+                    continue;
 
                 var dx = unit.State.Position.Value.x - center.x;
                 var dy = unit.State.Position.Value.y - center.y;
@@ -47,10 +52,11 @@ namespace Runtime.Descriptions.Agents.Commands
             return NodeStatus.Failure;
         }
 
+
         public override Dictionary<string, object> Serialize()
         {
             var dictionary = base.Serialize();
-            
+
             dictionary[UseVisibilityRadiusKey] = UseVisibilityRadius;
             dictionary[CustomVisibilityRadiusKey] = CustomVisibilityRadius;
 
