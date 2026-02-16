@@ -9,8 +9,9 @@ namespace Runtime.StatusEffects.Applier
 {
     public class StatusEffectApplierModel : ISerializable
     {
-        public event Func<string, string> OnApplyRequested;
-
+        public event Action OnApplyRequested;
+        
+        public Queue<string> ApplyQueue { get; } = new();
         public StatusEffectModelCollection Collection { get; }
 
         public StatusEffectApplierModel(WorldDescription description)
@@ -18,9 +19,10 @@ namespace Runtime.StatusEffects.Applier
             Collection = new StatusEffectModelCollection(description.StatusEffectCollection);
         }
 
-        public string TryApply(string descriptionKey)
+        public void TryApply(string descriptionKey)
         {
-            return OnApplyRequested?.Invoke(descriptionKey);
+            ApplyQueue.Enqueue(descriptionKey);
+            OnApplyRequested?.Invoke();
         }
 
         public void RemoveById(string statusEffectId)

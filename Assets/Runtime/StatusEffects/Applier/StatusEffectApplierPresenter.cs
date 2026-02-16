@@ -22,6 +22,18 @@ namespace Runtime.StatusEffects.Applier
         public void Enable()
         {
             _model.OnApplyRequested += HandleApplyRequested;
+
+            foreach (var effectId in _model.ApplyQueue)
+            {
+                var description = _world.WorldDescription.StatusEffectCollection.Get(effectId);
+
+                if (CanApply(description))
+                {
+                    _model.Collection.Create(effectId);
+                }
+            }
+            
+            _model.ApplyQueue.Clear();
         }
 
         public void Disable()
@@ -55,17 +67,15 @@ namespace Runtime.StatusEffects.Applier
             return true;
         }
 
-        private string HandleApplyRequested(string effectId)
+        private void HandleApplyRequested()
         {
+            var effectId = _model.ApplyQueue.Dequeue();
             var description = _world.WorldDescription.StatusEffectCollection.Get(effectId);
 
             if (CanApply(description))
             {
-                var model = _model.Collection.Create(effectId);
-                return model?.Id;
+                _model.Collection.Create(effectId);
             }
-
-            return null;
         }
     }
 }
