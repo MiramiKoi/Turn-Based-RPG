@@ -35,20 +35,23 @@ namespace Runtime.SpawnDirector.Rules
                 return;
             }
 
-            if (_model.Description.Respawn.Enabled)
+            if (_model.Description.Respawn != null)
             {
-                _model.RespawnCounter++;
-                if (_model.RespawnCounter >= _model.Description.Respawn.DelaySteps)
+                if (_model.Description.Respawn.Enabled)
+                {
+                    _model.RespawnCounter++;
+                    if (_model.RespawnCounter >= _model.Description.Respawn.DelaySteps)
+                    {
+                        for (var i = 0; i < toSpawn; i++)
+                            SpawnOne();
+                        _model.RespawnCounter = 0;
+                    }
+                }
+                else
                 {
                     for (var i = 0; i < toSpawn; i++)
                         SpawnOne();
-                    _model.RespawnCounter = 0;
                 }
-            }
-            else
-            {
-                for (var i = 0; i < toSpawn; i++)
-                    SpawnOne();
             }
         }
     }

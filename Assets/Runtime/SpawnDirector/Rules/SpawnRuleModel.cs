@@ -20,7 +20,7 @@ namespace Runtime.SpawnDirector.Rules
 
         public int AliveCount()
         {
-            return Units.Count(unit => unit != null);
+            return Units.Count(unit => unit is { IsDead: false });
         }
     }
 }
