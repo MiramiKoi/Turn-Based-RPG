@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c7697391024aee4693d1e9fffd260b7
+    m_Address: patrol-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 680de9c9c86741f5aff1086b5a020604
     m_Address: environment-generation-description
     m_ReadOnly: 0
@@ -67,6 +72,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c37e1db957144d13b0c0e9b8f8e3f4ac
     m_Address: locations-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c824668476e87ec4ab1a1c8674382149
+    m_Address: run-away-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8d5426cc47c82c42970a4368d6b3512
+    m_Address: sheep-description
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

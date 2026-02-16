@@ -9,7 +9,7 @@
                "children" : [
                   
                ],
-               "name" : "",
+               "name" : "3p",
                "command" : {
                   "type" : "set_random_point_of_interest",
                   "point_of_interest" : "patrol",
@@ -29,7 +29,7 @@
                "children" : [
                   
                ],
-               "name" : "",
+               "name" : "4p",
                "command" : {
                   "type" : "has_point_of_interest",
                   "point_of_interest" : "patrol"
@@ -46,7 +46,7 @@
                "children" : [
                   
                ],
-               "name" : "",
+               "name" : "5p",
                "command" : {
                   "type" : "move_to_point_of_interest",
                   "point_of_interest" : "patrol"
@@ -59,7 +59,7 @@
                }
             }
          ],
-         "name" : "",
+         "name" : "2p",
          "_editor" : {
             "position" : [
                22.66667,
@@ -68,7 +68,7 @@
          }
       }
    ],
-   "name" : "",
+   "name" : "1p",
    "_editor" : {
       "position" : [
          0,

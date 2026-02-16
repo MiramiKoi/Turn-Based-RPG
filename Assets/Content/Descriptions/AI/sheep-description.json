@@ -2,52 +2,64 @@
    "type" : "root",
    "children" : [
       {
-         "type" : "leaf",
-         "children" : [
-            
-         ],
-         "name" : "",
-         "command" : {
-            "type" : "stat_condition",
-            "stat" : "health",
-            "operation" : ">",
-            "value" : 0
-         },
-         "_editor" : {
-            "position" : [
-               -89.33334,
-               250.6667
-            ]
-         }
-      },
-      {
-         "type" : "selector",
+         "type" : "sequence",
          "children" : [
             {
-               "type" : "link",
+               "type" : "leaf",
                "children" : [
                   
                ],
-               "name" : "",
-               "description_id" : "run-away",
+               "name" : "2s",
+               "command" : {
+                  "type" : "stat_condition",
+                  "stat" : "health",
+                  "operation" : ">",
+                  "value" : 0
+               },
                "_editor" : {
                   "position" : [
-                     336.6667,
-                     432.6667
+                     -89.33334,
+                     250.6667
                   ]
                }
             },
             {
-               "type" : "link",
+               "type" : "selector",
                "children" : [
-                  
+                  {
+                     "type" : "link",
+                     "children" : [
+                        
+                     ],
+                     "name" : "4s",
+                     "description_id" : "run-away",
+                     "_editor" : {
+                        "position" : [
+                           336.6667,
+                           432.6667
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "link",
+                     "children" : [
+                        
+                     ],
+                     "name" : "5s",
+                     "description_id" : "patrol",
+                     "_editor" : {
+                        "position" : [
+                           628.6667,
+                           432.6667
+                        ]
+                     }
+                  }
                ],
-               "name" : "",
-               "description_id" : "patrol",
+               "name" : "3s",
                "_editor" : {
                   "position" : [
-                     628.6667,
-                     432.6667
+                     400.6667,
+                     309.3333
                   ]
                }
             }
@@ -55,17 +67,17 @@
          "name" : "",
          "_editor" : {
             "position" : [
-               400.6667,
-               309.3333
+               221.3333,
+               172
             ]
          }
       }
    ],
-   "name" : "",
+   "name" : "1s",
    "_editor" : {
       "position" : [
-         270.6667,
-         161.3333
+         324,
+         39.33334
       ]
    }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Runtime.Descriptions.Agents.Nodes;
 using Runtime.Extensions;
 using Runtime.Units;
+using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
@@ -25,6 +26,8 @@ namespace Runtime.Descriptions.Agents.Commands
 
             var controllableUnit = controllable as UnitModel;
 
+            Debug.Log($"{controllableUnit.Description.ViewId}: HAS UNIT?");
+            
             foreach (var unit in context.UnitCollection.Models.Values)
             {
                 if (unit.Description.Fraction == controllableUnit?.Description.Fraction || unit.Id == controllableUnit?.Id)
