@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 882167140262099459, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 882167140262099459, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 882167140262099459, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.34
+      objectReference: {fileID: 0}
     - target: {fileID: 1478617258704663819, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1938451055947546180, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Name
-      value: Loot
+      value: Chest
       objectReference: {fileID: 0}
     - target: {fileID: 4692077185086237013, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Controller
@@ -67,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 6785180537019280915, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7b511e2eae6a6fd4d945e79394bc76c2, type: 3}
+      objectReference: {fileID: 4796264166980554153, guid: c3802b7c242c43142adb4b28aadeaa6b, type: 3}
     - target: {fileID: 6785180537019280915, guid: 83e18ff21829ef740bad9068d76d02b2, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

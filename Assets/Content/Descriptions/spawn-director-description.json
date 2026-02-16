@@ -98,14 +98,6 @@
         "delay_steps": 40
       }
     },
-    "loot": {
-      "unit_description": "loot",
-      "rule_type": "population",
-      "count": 5,
-      "spawn": {
-        "mode": "random"
-      }
-    },
     "chest": {
       "unit_description": "chest",
       "rule_type": "population",
