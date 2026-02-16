@@ -138,6 +138,15 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleAttackMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""8fc1f292-b5ff-457b-918c-ae2567ca028d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -204,6 +213,17 @@ namespace Runtime.Input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""SkipTurn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7f0c3cf-2c56-454e-9df0-d4e2522ecdd2"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ToggleAttackMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -280,6 +300,7 @@ namespace Runtime.Input
             m_Gameplay_CameraControl = m_Gameplay.FindAction("CameraControl", throwIfNotFound: true);
             m_Gameplay_ToggleInventory = m_Gameplay.FindAction("ToggleInventory", throwIfNotFound: true);
             m_Gameplay_SkipTurn = m_Gameplay.FindAction("SkipTurn", throwIfNotFound: true);
+            m_Gameplay_ToggleAttackMode = m_Gameplay.FindAction("ToggleAttackMode", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -365,6 +386,7 @@ namespace Runtime.Input
         private readonly InputAction m_Gameplay_CameraControl;
         private readonly InputAction m_Gameplay_ToggleInventory;
         private readonly InputAction m_Gameplay_SkipTurn;
+        private readonly InputAction m_Gameplay_ToggleAttackMode;
         /// <summary>
         /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
@@ -396,6 +418,10 @@ namespace Runtime.Input
             /// Provides access to the underlying input action "Gameplay/SkipTurn".
             /// </summary>
             public InputAction @SkipTurn => m_Wrapper.m_Gameplay_SkipTurn;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/ToggleAttackMode".
+            /// </summary>
+            public InputAction @ToggleAttackMode => m_Wrapper.m_Gameplay_ToggleAttackMode;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -437,6 +463,9 @@ namespace Runtime.Input
                 @SkipTurn.started += instance.OnSkipTurn;
                 @SkipTurn.performed += instance.OnSkipTurn;
                 @SkipTurn.canceled += instance.OnSkipTurn;
+                @ToggleAttackMode.started += instance.OnToggleAttackMode;
+                @ToggleAttackMode.performed += instance.OnToggleAttackMode;
+                @ToggleAttackMode.canceled += instance.OnToggleAttackMode;
             }
 
             /// <summary>
@@ -463,6 +492,9 @@ namespace Runtime.Input
                 @SkipTurn.started -= instance.OnSkipTurn;
                 @SkipTurn.performed -= instance.OnSkipTurn;
                 @SkipTurn.canceled -= instance.OnSkipTurn;
+                @ToggleAttackMode.started -= instance.OnToggleAttackMode;
+                @ToggleAttackMode.performed -= instance.OnToggleAttackMode;
+                @ToggleAttackMode.canceled -= instance.OnToggleAttackMode;
             }
 
             /// <summary>
@@ -603,6 +635,13 @@ namespace Runtime.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSkipTurn(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ToggleAttackMode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnToggleAttackMode(InputAction.CallbackContext context);
         }
     }
 }
