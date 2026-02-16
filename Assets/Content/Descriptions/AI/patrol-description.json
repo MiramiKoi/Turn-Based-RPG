@@ -9,22 +9,6 @@
                "children" : [
                   
                ],
-               "name" : "",
-               "command" : {
-                  "type" : "leave_battle"
-               },
-               "_editor" : {
-                  "position" : [
-                     -636.6667,
-                     300.6667
-                  ]
-               }
-            },
-            {
-               "type" : "leaf",
-               "children" : [
-                  
-               ],
                "name" : "3p",
                "command" : {
                   "type" : "set_random_point_of_interest",
@@ -35,8 +19,8 @@
                },
                "_editor" : {
                   "position" : [
-                     -314.6667,
-                     300.6667
+                     -315,
+                     301
                   ]
                }
             },
@@ -52,7 +36,7 @@
                },
                "_editor" : {
                   "position" : [
-                     96.66666,
+                     97,
                      350
                   ]
                }
@@ -78,8 +62,8 @@
          "name" : "2p",
          "_editor" : {
             "position" : [
-               22.66667,
-               175.3333
+               23,
+               175
             ]
          }
       }
