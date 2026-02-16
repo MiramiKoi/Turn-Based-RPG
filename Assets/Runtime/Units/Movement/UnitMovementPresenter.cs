@@ -55,7 +55,11 @@ namespace Runtime.Units.Movement
             await step.AllowedAwaiter;
 
             _view.Transform.DOMove(new Vector3(position.x, position.y, 0), 0.2f).SetEase(Ease.Linear);
-            await PlayAnimation(IsMoving, 0.2f);
+
+            if (_model.State.Visible.Value)
+            {
+                await PlayAnimation(IsMoving, 0.2f);
+            }
 
             step.CompletedAwaiter.Complete();
         }
