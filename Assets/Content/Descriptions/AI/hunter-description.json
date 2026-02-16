@@ -17,8 +17,7 @@
                            ],
                            "name" : "",
                            "command" : {
-                              "type" : "has_unit_with_fraction",
-                              "fraction" : "animal",
+                              "type" : "has_unit_with_enemy_fraction",
                               "use_visibility_radius" : true,
                               "custom_visibility_radius" : 0
                            },
@@ -36,15 +35,90 @@
                            ],
                            "name" : "",
                            "command" : {
-                              "type" : "set_point_of_interest_with_fraction",
-                              "fraction" : "animal",
+                              "type" : "set_point_of_interest_with_enemy_fraction",
                               "use_visibility_radius" : true,
                               "custom_visibility_radius" : 0,
                               "point_of_interest" : "target"
                            },
                            "_editor" : {
                               "position" : [
-                                 -1512,
+                                 -1472,
+                                 923.3333
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "selector",
+                           "children" : [
+                              {
+                                 "type" : "sequence",
+                                 "children" : [
+                                    {
+                                       "type" : "leaf",
+                                       "children" : [
+                                          
+                                       ],
+                                       "name" : "",
+                                       "command" : {
+                                          "type" : "has_unit_with_fraction",
+                                          "fraction" : "player",
+                                          "use_visibility_radius" : true,
+                                          "custom_visibility_radius" : 0
+                                       },
+                                       "_editor" : {
+                                          "position" : [
+                                             -1207.333,
+                                             1280.667
+                                          ]
+                                       }
+                                    },
+                                    {
+                                       "type" : "leaf",
+                                       "children" : [
+                                          
+                                       ],
+                                       "name" : "",
+                                       "command" : {
+                                          "type" : "enter_to_battle"
+                                       },
+                                       "_editor" : {
+                                          "position" : [
+                                             -794.6667,
+                                             1304
+                                          ]
+                                       }
+                                    }
+                                 ],
+                                 "name" : "",
+                                 "_editor" : {
+                                    "position" : [
+                                       -1000,
+                                       1178
+                                    ]
+                                 }
+                              },
+                              {
+                                 "type" : "leaf",
+                                 "children" : [
+                                    
+                                 ],
+                                 "name" : "",
+                                 "command" : {
+                                    "type" : "log",
+                                    "message" : ""
+                                 },
+                                 "_editor" : {
+                                    "position" : [
+                                       -443.3333,
+                                       1058.667
+                                    ]
+                                 }
+                              }
+                           ],
+                           "name" : "",
+                           "_editor" : {
+                              "position" : [
+                                 -960.6667,
                                  923.3333
                               ]
                            }
@@ -54,73 +128,6 @@
                      "_editor" : {
                         "position" : [
                            -518.6667,
-                           697.3333
-                        ]
-                     }
-                  },
-                  {
-                     "type" : "sequence",
-                     "children" : [
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "",
-                           "command" : {
-                              "type" : "has_unit_with_fraction",
-                              "fraction" : "player",
-                              "use_visibility_radius" : true,
-                              "custom_visibility_radius" : 0
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 -406,
-                                 1268.667
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "",
-                           "command" : {
-                              "type" : "set_point_of_interest_with_fraction",
-                              "fraction" : "player",
-                              "use_visibility_radius" : true,
-                              "custom_visibility_radius" : 0,
-                              "point_of_interest" : "target"
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 -61.33333,
-                                 1268.667
-                              ]
-                           }
-                        },
-                        {
-                           "type" : "leaf",
-                           "children" : [
-                              
-                           ],
-                           "name" : "",
-                           "command" : {
-                              "type" : "enter_to_battle"
-                           },
-                           "_editor" : {
-                              "position" : [
-                                 364.6667,
-                                 1268.667
-                              ]
-                           }
-                        }
-                     ],
-                     "name" : "",
-                     "_editor" : {
-                        "position" : [
-                           -220,
                            697.3333
                         ]
                      }
@@ -136,8 +143,8 @@
                      },
                      "_editor" : {
                         "position" : [
-                           58.66667,
-                           696
+                           -262.6667,
+                           697.3333
                         ]
                      }
                   }

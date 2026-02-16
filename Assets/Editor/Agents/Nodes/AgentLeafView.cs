@@ -44,8 +44,11 @@ namespace Editor.Agents.Nodes
                     "move_to_point_of_interest",
                     "move_from_point_of_interest",
                     "has_unit_with_fraction",
-                    "has_unit_with_another_fraction",
+                    "has_unit_with_friendly_fraction",
+                    "has_unit_with_enemy_fraction",
                     "set_point_of_interest_with_fraction",
+                    "set_point_of_interest_with_friendly_fraction",
+                    "set_point_of_interest_with_enemy_fraction",
                     "set_point_of_interest_with_another_fraction",
                     "can_place_point_of_interest",
                     "attack_point_of_interest",
@@ -114,8 +117,20 @@ namespace Editor.Agents.Nodes
                 case "has_unit_with_fraction":
                     SetupFields<HasUnitWithFractionCommand>();
                     break;
+                case "has_unit_with_friendly_fraction":
+                    SetupFields<HasUnitWithFriendlyFractionCommand>();
+                    break;
+                case "has_unit_with_enemy_fraction":
+                    SetupFields<HasUnitWithEnemyFractionCommand>();
+                    break;
                 case "set_point_of_interest_with_fraction":
                     SetupFields<SetPointOfInterestWithFractionCommand>();
+                    break;
+                case "set_point_of_interest_with_friendly_fraction":
+                    SetupFields<SetPointOfInterestWithFriendlyFractionCommand>();
+                    break;
+                case "set_point_of_interest_with_enemy_fraction":
+                    SetupFields<SetPointOfInterestWithEnemyFractionCommand>();
                     break;
                 case "set_point_of_interest_with_another_fraction":
                     SetupFields<SetPointOfInterestWithAnotherFractionCommand>();
@@ -149,6 +164,7 @@ namespace Editor.Agents.Nodes
                     break;
             }
         }
+
 
         private void SetupFields<T>() where T : CommandDescription, new()
         {

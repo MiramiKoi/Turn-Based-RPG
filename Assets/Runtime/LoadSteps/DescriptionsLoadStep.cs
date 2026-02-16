@@ -30,6 +30,7 @@ namespace Runtime.LoadSteps
                     "bear-description",
                     "panda-description",
                     "trader-description",
+                    "archer-description",
                     "sheep-description",
                     "loot-description",
                     "hunter-description",
