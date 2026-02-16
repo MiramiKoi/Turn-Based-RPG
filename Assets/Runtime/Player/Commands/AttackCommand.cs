@@ -1,6 +1,7 @@
 ﻿using Runtime.Core;
 using Runtime.Landscape.Grid.Cell;
 using Runtime.Units;
+using Runtime.Units.Actions;
 using Runtime.Units.Rotation;
 
 namespace Runtime.Player.Commands
@@ -19,6 +20,9 @@ namespace Runtime.Player.Commands
         public bool CanExecute(CellModel cell)
         {
             if (cell.Unit is not UnitModel target)
+                return false;
+            
+            if (!_player.ActionBlocker.CanExecute(UnitActionType.Attack))
                 return false;
 
             return target != _player &&

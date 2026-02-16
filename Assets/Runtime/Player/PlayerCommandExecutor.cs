@@ -17,6 +17,7 @@ namespace Runtime.Player
 
             _commands = new List<IPlayerCommand>
             {
+                new CheckAllActionsBlockedCommand(_player),
                 new TeleportCommand(_player, _world),
                 new MoveCommand(_player, _world),
                 new LootCommand(_world),
