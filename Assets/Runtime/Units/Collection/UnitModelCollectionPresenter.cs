@@ -34,7 +34,7 @@ namespace Runtime.Units.Collection
                 var loadModel = _world.AddressableModel.Load<GameObject>(viewDescription.Prefab.AssetGUID);
                 await loadModel.LoadAwaiter;
                 var prefab = loadModel.Result.GetComponent<UnitView>();
-                _viewPools[viewDescription.Id] = new ObjectPool<UnitView>(prefab, 5, _collectionView.Transform);
+                _viewPools[viewDescription.Id] = new ObjectPool<UnitView>(prefab, 10, _collectionView.Transform);
                 _world.AddressableModel.Unload(loadModel);
             }
 
