@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Agents;
 using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Descriptions.StatusEffects.Enums;
 using Runtime.Extensions;
 using Runtime.Units;
 
@@ -18,7 +19,7 @@ namespace Runtime.Descriptions.Agents.Commands
         
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            var controllableAgent = controllable as AgentModel;
+            var controllableAgent = (AgentModel)controllable;
 
             if (controllableAgent.PointOfInterest.TryGetValue(PointOfInterest, out var point))
             {
@@ -26,11 +27,11 @@ namespace Runtime.Descriptions.Agents.Commands
 
                 if (cell.Unit is UnitModel unit)
                 {
-                    var effectsDictionary = context.WorldDescription.StatusEffectCollection.Effects;
+                    var effectsDictionary = context.WorldDescription.StatusEffectCollection.Effects.Where(effect => effect.Value.Polarity == Polarity.Debuff).ToList();
 
                     var randomEffect = GetRandomValue(effectsDictionary);
                     
-                    unit.Effects.TryApply(randomEffect.LuaScript);
+                    unit.Effects.TryApply(randomEffect.Key);
                     
                     return NodeStatus.Success;
                 }
@@ -53,14 +54,14 @@ namespace Runtime.Descriptions.Agents.Commands
             PointOfInterest = data.GetString(PointOfInterestKey);
         }
         
-        public TValue GetRandomValue<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
+        public TValue GetRandomValue<TValue>(List<TValue> list)
         {
             var random = new Random();
             
-            if (dictionary == null || dictionary.Count == 0)
+            if (list == null || list.Count == 0)
                 throw new InvalidOperationException("Dictionary is null or empty.");
 
-            return dictionary.Values.ElementAt(random.Next(dictionary.Count));
+            return list.ElementAt(random.Next(list.Count));
         }
     }
 }
