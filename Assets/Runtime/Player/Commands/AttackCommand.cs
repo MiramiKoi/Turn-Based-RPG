@@ -19,29 +19,36 @@ namespace Runtime.Player.Commands
 
         public bool CanExecute(CellModel cell)
         {
+            if (_player.Mode == PlayerMode.Attack)
+                return true;
+            
             if (cell.Unit is not UnitModel target)
                 return false;
             
             if (!_player.ActionBlocker.CanExecute(UnitActionType.Attack))
                 return false;
 
-            return target != _player &&
-                   !target.IsDead &&
-                   _player.Combat.CanAttack(target.State.Position.Value);
+            return target != _player 
+                   && !target.IsDead 
+                   && target.Description.EnemyFractions.Contains(_player.Description.Fraction)
+                   && _player.Combat.CanAttack(target.State.Position.Value);
         }
 
         public void Execute(CellModel cell)
         {
-            var target = (UnitModel)cell.Unit;
+            var target = cell.Unit as UnitModel;
             _world.LootModel.CancelLoot();
 
-            if (_player.State.Position.Value.x != target.State.Position.Value.x)
-                _player.Movement.Rotate(target.State.Position.Value.x < _player.State.Position.Value.x
+            if (_player.State.Position.Value.x != cell.Position.x)
+                _player.Movement.Rotate(cell.Position.x < _player.State.Position.Value.x
                     ? UnitDirection.Left
                     : UnitDirection.Right);
 
             var damage = _player.Combat.GetDamage();
-            target.Combat.TakeDamage(damage);
+            if (target != null && _player.Combat.CanAttack(target.State.Position.Value))
+            {
+                target.Combat.TakeDamage(damage);
+            }
         }
     }
 }

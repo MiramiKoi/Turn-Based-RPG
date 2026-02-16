@@ -6,10 +6,12 @@ namespace Runtime.Player.Commands
 {
     public class LootCommand : IPlayerCommand
     {
+        private readonly PlayerModel _player;
         private readonly World _world;
 
-        public LootCommand(World world)
+        public LootCommand(PlayerModel player, World world)
         {
+            _player = player;
             _world = world;
         }
 
@@ -18,7 +20,7 @@ namespace Runtime.Player.Commands
             if (cell.Unit is not UnitModel target)
                 return false;
 
-            return target.IsDead || target.Description.Fraction == "trader";
+            return _player.Mode != PlayerMode.Attack && (target.IsDead || target.Description.Fraction == "trader");
         }
 
         public void Execute(CellModel cell)
