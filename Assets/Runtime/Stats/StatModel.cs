@@ -8,8 +8,15 @@ namespace Runtime.Stats
         public event Action<float> ValueChanged;
 
         public StatDescription Description { get; }
-        public float Value { get; private set; }
-
+        
+        private float _value;
+        private float _multiplier = 1.0f;
+        public float Value
+        {
+            get => _multiplier * _value;
+            private set => _value = value;
+        }
+        
         public StatModel(StatDescription description)
         {
             Description = description;
@@ -30,7 +37,7 @@ namespace Runtime.Stats
 
         public void Multiply(float factor)
         {
-            Value *= factor;
+            _multiplier *= factor;
             ValueChanged?.Invoke(Value);
         }
     }
