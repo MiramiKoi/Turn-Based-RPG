@@ -1,0 +1,257 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "stat_condition",
+                  "stat" : "health",
+                  "operation" : ">",
+                  "value" : 0
+               },
+               "_editor" : {
+                  "position" : [
+                     -379.3333,
+                     263.3333
+                  ]
+               }
+            },
+            {
+               "type" : "selector",
+               "children" : [
+                  {
+                     "type" : "sequence",
+                     "children" : [
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "has_unit_with_friendly_fraction",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -1303.333,
+                                 676
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "set_point_of_interest_with_friendly_fraction",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0,
+                              "point_of_interest" : "friend"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -914,
+                                 676
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "selector",
+                           "children" : [
+                              {
+                                 "type" : "sequence",
+                                 "children" : [
+                                    {
+                                       "type" : "leaf",
+                                       "children" : [
+                                          
+                                       ],
+                                       "name" : "",
+                                       "command" : {
+                                          "type" : "has_unit_with_enemy_fraction",
+                                          "use_visibility_radius" : true,
+                                          "custom_visibility_radius" : 0
+                                       },
+                                       "_editor" : {
+                                          "position" : [
+                                             -824.6667,
+                                             1149.333
+                                          ]
+                                       }
+                                    },
+                                    {
+                                       "type" : "link",
+                                       "children" : [
+                                          
+                                       ],
+                                       "name" : "",
+                                       "description_id" : "hunter",
+                                       "_editor" : {
+                                          "position" : [
+                                             -440,
+                                             1149.333
+                                          ]
+                                       }
+                                    }
+                                 ],
+                                 "name" : "",
+                                 "_editor" : {
+                                    "position" : [
+                                       -743.3333,
+                                       909.3333
+                                    ]
+                                 }
+                              },
+                              {
+                                 "type" : "leaf",
+                                 "children" : [
+                                    
+                                 ],
+                                 "name" : "",
+                                 "command" : {
+                                    "type" : "move_to_point_of_interest",
+                                    "point_of_interest" : "friend"
+                                 },
+                                 "_editor" : {
+                                    "position" : [
+                                       -206,
+                                       927.3333
+                                    ]
+                                 }
+                              }
+                           ],
+                           "name" : "",
+                           "_editor" : {
+                              "position" : [
+                                 -385.3333,
+                                 676
+                              ]
+                           }
+                        }
+                     ],
+                     "name" : "",
+                     "_editor" : {
+                        "position" : [
+                           -228.6667,
+                           510
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "sequence",
+                     "children" : [
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "has_unit_with_friendly_fraction",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 201.3333,
+                                 716.6667
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "set_point_of_interest_with_friendly_fraction",
+                              "use_visibility_radius" : true,
+                              "custom_visibility_radius" : 0,
+                              "point_of_interest" : "friend"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 590.6667,
+                                 716.6667
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "move_to_point_of_interest",
+                              "point_of_interest" : "friend"
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 1047.333,
+                                 716.6667
+                              ]
+                           }
+                        }
+                     ],
+                     "name" : "",
+                     "_editor" : {
+                        "position" : [
+                           416,
+                           549.3333
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "link",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "description_id" : "patrol",
+                     "_editor" : {
+                        "position" : [
+                           1009.333,
+                           533.3333
+                        ]
+                     }
+                  }
+               ],
+               "name" : "",
+               "_editor" : {
+                  "position" : [
+                     44.66667,
+                     322
+                  ]
+               }
+            }
+         ],
+         "name" : "",
+         "_editor" : {
+            "position" : [
+               -23.33333,
+               163.3333
+            ]
+         }
+      }
+   ],
+   "name" : "",
+   "_editor" : {
+      "position" : [
+         0,
+         0
+      ]
+   }
+}

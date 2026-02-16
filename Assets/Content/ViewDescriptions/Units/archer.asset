@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: archer
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Unit.UnitViewDescription
   Prefab:
-    m_AssetGUID: 7fa6dd141990efb41940189a62afbd58
+    m_AssetGUID: 3a62bf22de6b790439ad5e2e746d3c94
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

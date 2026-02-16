@@ -51,7 +51,7 @@
                            "type" : "selector",
                            "children" : [
                               {
-                                 "type" : "inverse",
+                                 "type" : "sequence",
                                  "children" : [
                                     {
                                        "type" : "leaf",
@@ -67,8 +67,24 @@
                                        },
                                        "_editor" : {
                                           "position" : [
-                                             -1352,
-                                             1223.333
+                                             -1207.333,
+                                             1280.667
+                                          ]
+                                       }
+                                    },
+                                    {
+                                       "type" : "leaf",
+                                       "children" : [
+                                          
+                                       ],
+                                       "name" : "",
+                                       "command" : {
+                                          "type" : "enter_to_battle"
+                                       },
+                                       "_editor" : {
+                                          "position" : [
+                                             -794.6667,
+                                             1304
                                           ]
                                        }
                                     }
@@ -76,8 +92,8 @@
                                  "name" : "",
                                  "_editor" : {
                                     "position" : [
-                                       -1156.667,
-                                       1085.333
+                                       -1000,
+                                       1178
                                     ]
                                  }
                               },
@@ -88,12 +104,13 @@
                                  ],
                                  "name" : "",
                                  "command" : {
-                                    "type" : "enter_to_battle"
+                                    "type" : "log",
+                                    "message" : ""
                                  },
                                  "_editor" : {
                                     "position" : [
-                                       -867.3333,
-                                       1085.333
+                                       -443.3333,
+                                       1058.667
                                     ]
                                  }
                               }
@@ -101,8 +118,8 @@
                            "name" : "",
                            "_editor" : {
                               "position" : [
-                                 -965.3333,
-                                 941.3333
+                                 -960.6667,
+                                 923.3333
                               ]
                            }
                         }
