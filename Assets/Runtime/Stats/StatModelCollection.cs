@@ -19,9 +19,9 @@ namespace Runtime.Stats
             }
         }
 
-        public StatModel Get(string id)
+        public bool TryGetStat(string id, out StatModel stat)
         {
-            return Stats[id];
+            return Stats.TryGetValue(id, out stat);
         }
 
         public IEnumerator<StatModel> GetEnumerator()
