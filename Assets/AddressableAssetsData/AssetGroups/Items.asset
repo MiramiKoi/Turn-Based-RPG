@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 046f821c76a004e4c91b9f27ee906194
+    m_Address: Wool
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 04e6b3a5165989447850c74a83dfe88e
     m_Address: flintlock
     m_ReadOnly: 0

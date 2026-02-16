@@ -13,6 +13,13 @@
     "is_buyable": true,
     "price": 30
   },
+  "sheep_wool": {
+    "type": "resource",
+    "view_id": "Sheep-wool",
+    "stack_size": 15,
+    "is_buyable": true,
+    "price": 50
+  },
   "bear_meat": {
     "type": "food",
     "view_id": "Bear-meat",
