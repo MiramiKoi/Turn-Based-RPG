@@ -28,7 +28,7 @@
     "price": 10,
     "equipment_type": "weapon",
     "stats": {
-      "damage" : 10
+      "attack_damage" : 10
     }
   },
   "simple_breastplate": {
@@ -57,7 +57,7 @@
     "price": 100,
     "equipment_type": "weapon",
     "stats": {
-      "damage" : 100
+      "attack_damage" : 100
     }
   },
   "mega_breastplate": {
