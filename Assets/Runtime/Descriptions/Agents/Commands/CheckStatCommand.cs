@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Descriptions.Agents.Commands
 {
-    public class StatCondition : CommandDescription
+    public class CheckStatCommand : CommandDescription
     {
         public override string Type => "stat_condition";
 

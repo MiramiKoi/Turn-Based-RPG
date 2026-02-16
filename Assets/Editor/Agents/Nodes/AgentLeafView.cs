@@ -115,7 +115,7 @@ namespace Editor.Agents.Nodes
                     SetupFields<AttackPointOfInterestCommand>();
                     break;
                 case "stat_condition":
-                    SetupFields<StatCondition>();
+                    SetupFields<CheckStatCommand>();
                     break;
                 case "enter_to_battle":
                     SetupFields<EnterToBattleCommand>();
