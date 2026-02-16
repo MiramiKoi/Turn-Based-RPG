@@ -1,0 +1,78 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "has_unit_with_another_fraction",
+                  "use_visibility_radius" : true,
+                  "custom_visibility_radius" : 0
+               },
+               "_editor" : {
+                  "position" : [
+                     -695.3333,
+                     369.3333
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "set_point_of_interest_with_another_fraction",
+                  "use_visibility_radius" : true,
+                  "custom_visibility_radius" : 0,
+                  "point_of_interest" : "aggressor"
+               },
+               "_editor" : {
+                  "position" : [
+                     -304,
+                     369.3333
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "move_from_point_of_interest",
+                  "point_of_interest" : "aggressor"
+               },
+               "_editor" : {
+                  "position" : [
+                     235.3333,
+                     388
+                  ]
+               }
+            }
+         ],
+         "name" : "",
+         "_editor" : {
+            "position" : [
+               -50.66667,
+               175.3333
+            ]
+         }
+      }
+   ],
+   "name" : "",
+   "_editor" : {
+      "position" : [
+         0,
+         0
+      ]
+   }
+}
