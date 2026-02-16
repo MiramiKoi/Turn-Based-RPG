@@ -93,6 +93,9 @@ namespace Runtime.Player
 
         private void HandleSkipTurn(InputAction.CallbackContext obj)
         {
+            if (ShouldBlockInput())
+                return;
+            
             StepStart();
             _world.TurnBaseModel.PlayerStep();
         }
