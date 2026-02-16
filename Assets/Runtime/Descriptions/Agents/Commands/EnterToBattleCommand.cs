@@ -12,8 +12,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            context.TurnBaseModel.BattleModel.EnterToBattle((UnitModel)controllable);
-
             return NodeStatus.Success;
         }
 

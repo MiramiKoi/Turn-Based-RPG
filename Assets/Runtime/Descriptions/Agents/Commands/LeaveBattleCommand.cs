@@ -10,8 +10,6 @@ namespace Runtime.Descriptions.Agents.Commands
 
         public override NodeStatus Execute(IWorldContext context, IControllable controllable)
         {
-            context.TurnBaseModel.BattleModel.LeaveBattle((UnitModel)controllable);
-
             return NodeStatus.Success;
         }
 
