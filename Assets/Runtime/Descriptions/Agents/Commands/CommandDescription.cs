@@ -44,6 +44,7 @@ namespace Runtime.Descriptions.Agents.Commands
                 "leave_battle" => new LeaveBattleCommand(),
                 "has_unit_with_another_fraction" => new HasUnitWithFractionCommand(),
                 "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
+                "can_see_point_of_interest" => new CanSeePointOfInterest(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

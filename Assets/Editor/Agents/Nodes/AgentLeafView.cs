@@ -50,7 +50,8 @@ namespace Editor.Agents.Nodes
                     "stat_condition",
                     "check_stat_point_of_interest",
                     "enter_to_battle",
-                    "leave_battle"
+                    "leave_battle",
+                    "can_see_point_of_interest",
                 },
                 value = LeafData.CommandDescription == null ? "log" : LeafData.CommandDescription.Type
             };
@@ -130,6 +131,9 @@ namespace Editor.Agents.Nodes
                     break;
                 case "check_stat_point_of_interest":
                     SetupFields<CheckStatPointOfInterest>();
+                    break;
+                case "can_see_point_of_interest":
+                    SetupFields<CanSeePointOfInterest>();
                     break;
             }
         }
