@@ -49,8 +49,6 @@ namespace Runtime.Descriptions.Agents.Commands
                 "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
                 "attack_point_of_interest" => new AttackPointOfInterestCommand(),
                 "stat_condition" => new CheckStatCommand(),
-                "enter_to_battle" => new EnterToBattleCommand(),
-                "leave_battle" => new LeaveBattleCommand(),
                 "has_unit_with_another_fraction" => new HasUnitWithAnotherFractionCommand(),
                 "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
                 "check_stat_percent" => new CheckStatPercentCommand(),

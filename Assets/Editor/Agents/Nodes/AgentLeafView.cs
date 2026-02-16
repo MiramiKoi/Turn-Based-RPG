@@ -145,12 +145,6 @@ namespace Editor.Agents.Nodes
                 case "stat_condition":
                     SetupFields<CheckStatCommand>();
                     break;
-                case "enter_to_battle":
-                    SetupFields<EnterToBattleCommand>();
-                    break;
-                case "leave_battle":
-                    SetupFields<LeaveBattleCommand>();
-                    break;
                 case "has_unit_with_another_fraction":
                     SetupFields<HasUnitWithAnotherFractionCommand>();
                     break;
