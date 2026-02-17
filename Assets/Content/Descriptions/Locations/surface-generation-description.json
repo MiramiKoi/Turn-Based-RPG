@@ -1,12 +1,16 @@
 {
   "island": {
-    "width": 100,
-    "length": 100,
-    "seed": 25,
-    "center_land_probability": 100,
-    "edge_land_probability": 0,
-    "decline_steepness": 10.0,
-    "island_max_size_ratio": 1.0
+    "width": 90,
+    "length": 110,
+    "seed": 17,
+    "base_shape_factor": 0.95,    
+    "erosion_intensity": 0.09,
+    "erosion_radius": 4,
+    "erosion_depth": 15,
+    "smoothing_iterations": 5,
+    
+    "biomes_count": 10,
+    "biome_smoothing_iterations": 9
   },
   "shop": {
     "width": 25,
