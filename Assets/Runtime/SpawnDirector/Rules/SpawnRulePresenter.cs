@@ -7,36 +7,36 @@ namespace Runtime.SpawnDirector.Rules
 {
     public abstract class SpawnRulePresenter : IPresenter
     {
-        private readonly SpawnRuleModel _model;
-        private readonly World _world;
+        protected readonly SpawnRuleModel Model;
+        protected readonly World World;
 
         private CorpseRulePresenter _corpseRulePresenter;
 
         protected SpawnRulePresenter(SpawnRuleModel model, World world)
         {
-            _model = model;
-            _world = world;
+            Model = model;
+            World = world;
         }
 
         public void Enable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished += HandleStep;
+            World.TurnBaseModel.OnWorldStepFinished += HandleStep;
             Initialize();
         }
 
         public void Disable()
         {
-            _world.TurnBaseModel.OnWorldStepFinished -= HandleStep;
+            World.TurnBaseModel.OnWorldStepFinished -= HandleStep;
             _corpseRulePresenter?.Disable();
             _corpseRulePresenter = null;
         }
 
         protected virtual void Initialize()
         {
-            if (_model.Description.Corpse is { IsInfinite: false })
+            if (Model.Description.Corpse is { IsInfinite: false })
             {
-                var corpseModel = new CorpseRuleModel(_model, _model.Description.Corpse);
-                _corpseRulePresenter = new CorpseRulePresenter(corpseModel, _world);
+                var corpseModel = new CorpseRuleModel(Model, Model.Description.Corpse);
+                _corpseRulePresenter = new CorpseRulePresenter(corpseModel, World);
                 _corpseRulePresenter.Enable();
             }
         }
@@ -44,25 +44,25 @@ namespace Runtime.SpawnDirector.Rules
         protected void SpawnOne()
         {
             var position = GetSpawnPosition();
-            var unit = _world.UnitCollection.Create(_model.Description.UnitDescriptionId);
+            var unit = World.UnitCollection.Create(Model.Description.UnitDescriptionId);
             unit.Movement.SetPosition(position);
-            _model.Units.Add(unit);
+            Model.Units.Add(unit);
         }
 
         private Vector2Int GetSpawnPosition()
         {
-            if (_model.Description.Spawn.Mode == "fixed" && _model.Description.Spawn.FixedPosition.HasValue)
+            if (Model.Description.Spawn.Mode == "fixed" && Model.Description.Spawn.FixedPosition.HasValue)
             {
-                var fixedPosition = _model.Description.Spawn.FixedPosition.Value;
-                if (!_world.GridModel.GetCell(fixedPosition).IsOccupied)
+                var fixedPosition = Model.Description.Spawn.FixedPosition.Value;
+                if (!World.GridModel.GetCell(fixedPosition).IsOccupied)
                     return fixedPosition;
 
-                var neighbors = _world.GridModel.GetNeighborAvailablePositions(fixedPosition);
+                var neighbors = World.GridModel.GetNeighborAvailablePositions(fixedPosition);
                 
                 return neighbors[Random.Range(0, neighbors.Count)];
             }
 
-            var position = _world.GridModel.GetRandomAvailablePosition();
+            var position = World.GridModel.GetRandomAvailablePosition();
             return position ?? Vector2Int.zero;
         }
 

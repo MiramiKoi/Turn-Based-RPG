@@ -22,6 +22,12 @@ namespace Runtime.Units.Collection
 
         protected override UnitModel CreateModel(string descriptionKey)
         {
+            if (descriptionKey == "door")
+            {
+                return new DoorModel(GetCurrentKey(), Vector2Int.one, _descriptions.UnitCollection[descriptionKey],
+                    _descriptions);
+            }
+
             UnitModel model = descriptionKey == "character"
                 ? new PlayerModel(GetCurrentKey(), Vector2Int.one, _descriptions.UnitCollection[descriptionKey],
                     _descriptions)
@@ -33,6 +39,12 @@ namespace Runtime.Units.Collection
 
         protected override UnitModel CreateModelFromData(string id, Dictionary<string, object> data)
         {
+            if (id == "door")
+            {
+                return new DoorModel(id, data.GetVector2Int("position"),
+                    _descriptions.UnitCollection[data.GetString("description_id")], _descriptions);
+            }
+            
             UnitModel model = id == "character"
                 ? new PlayerModel(id, data.GetVector2Int("position"),
                     _descriptions.UnitCollection[data.GetString("description_id")], _descriptions)

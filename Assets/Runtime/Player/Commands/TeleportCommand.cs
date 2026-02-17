@@ -1,5 +1,8 @@
 using Runtime.Core;
 using Runtime.Landscape.Grid.Cell;
+using Runtime.Units;
+using Runtime.Units.Actions;
+using UnityEngine;
 
 namespace Runtime.Player.Commands
 {
@@ -16,14 +19,18 @@ namespace Runtime.Player.Commands
 
         public bool CanExecute(CellModel cell)
         {
-            return false; //TODO: если игрок в одной точке с координатой входа, которая берётся из модели локации
+            if (cell.Unit is not UnitModel target)
+                return false;
+
+            return _player.ActionBlocker.CanExecute(UnitActionType.Move) && target.Description.Fraction == "door";
         }
 
         public void Execute(CellModel cell)
         {
             _world.LootModel.CancelLoot();
             _world.GridModel.ReleaseCell(_player.State.Position.Value);
-            //_player.Movement.TeleportTo(cell.Position); //TODO: реализовать
+            if (cell.Unit is DoorModel door)
+                _player.Movement.SetPosition(door.ToPosition);
         }
     }
 }
