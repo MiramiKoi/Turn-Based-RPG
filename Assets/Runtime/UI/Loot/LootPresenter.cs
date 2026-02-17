@@ -47,7 +47,7 @@ namespace Runtime.UI.Loot
 
             Clear();
 
-            var isTrader = unitModel.Description.Fraction == UnitsConstants.TraderFraction;
+            var isTrader = !unitModel.IsDead && unitModel.Description.Fraction == UnitsConstants.TraderFraction;
             var inventoryType = isTrader ? InventoryType.Trader : InventoryType.Loot;
 
             _inventoryView.Root.AddToClassList(isTrader
