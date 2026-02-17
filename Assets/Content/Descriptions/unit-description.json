@@ -151,5 +151,21 @@
       "bear_meat": 3
     },
     "equipment": []
+  },
+  "door": {
+    "view_id": "door",
+    "agent_decision_id": "loot",
+    "stats": {
+      "health": 0,
+      "attack_damage": 0,
+      "attack_range": 0,
+      "visibility_radius": 5
+    },
+    "fraction": "door",
+    "friendly_fractions": [],
+    "enemy_fractions": [],
+    "inventory_size": 6,
+    "loot": {},
+    "equipment": []
   }
 }
