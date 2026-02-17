@@ -9,12 +9,27 @@
     "surface": [0, 1],
     "environment": [0, 1, 2],
     "surface_generation_rules": "shop",
-    "environment_generation_rules": "shop"
+    "environment_generation_rules": "shop",
+    "entrance": {
+      "type": "random"
+    },
+    "exit":{
+      "type": "fixed",
+      "position": [5, 0]
+    }
   },
   "shop2": {
     "surface": [0, 1],
     "environment": [0, 1, 2],
     "surface_generation_rules": "shop",
-    "environment_generation_rules": "shop"
+    "environment_generation_rules": "shop",
+    "entrance": {
+      "type": "fixed",
+      "position": [-60, 50]
+    },
+    "exit":{
+      "type": "fixed",
+      "position": [5, 0]
+    }
   }
 }

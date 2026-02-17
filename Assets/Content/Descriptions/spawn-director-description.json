@@ -105,6 +105,14 @@
       "spawn": {
         "mode": "random"
       }
+    },
+    "door": {
+      "unit_description": "door",
+      "rule_type": "doors",
+      "count": 3,
+      "spawn": {
+        "mode": "random"
+      }
     }
   }
 }

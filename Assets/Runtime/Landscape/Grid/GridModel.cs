@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Common;
+using Runtime.Core;
 using Runtime.Descriptions;
 using Runtime.Landscape.Grid.Cell;
 using Runtime.Landscape.Grid.Indication;
@@ -10,7 +11,9 @@ namespace Runtime.Landscape.Grid
     public class GridModel
     {
         public CellModel[,] Cells { get; }
-        private readonly Dictionary<string, LocationModel> _locationModelCollection = new();
+        public Dictionary<string, LocationModel> LocationModelCollection{ get; } = new() ;
+        public int Width => Cells.GetLength(0);
+        public int Height => Cells.GetLength(1);
 
         private readonly int _spacingAfterEveryLocation = 10;
 
@@ -30,18 +33,30 @@ namespace Runtime.Landscape.Grid
                 var width = surfaceMatrix.GetLength(1);
                 var height = surfaceMatrix.GetLength(0);
 
-                var locationModel = new LocationModel
+                var locationModel = new LocationModel(currentX, 0, width, height, surfaceMatrix, environmentMatrix,
+                    locationDescription.Value);
+                
+                if (locationDescription.Value.Entrance != null && locationDescription.Value.Exit != null)
                 {
-                    Name = locationDescription.Key,
-                    X = currentX,
-                    Y = 0,
-                    Width = width,
-                    Height = height,
-                    SurfaceMatrix = surfaceMatrix,
-                    EnvironmentMatrix = environmentMatrix
-                };
-
-                _locationModelCollection[locationDescription.Key] = locationModel;
+                    if (locationDescription.Value.Entrance.Position.HasValue)
+                    {
+                        locationModel.SetEntrance(locationDescription.Value.Entrance.Position.Value + new Vector2Int(currentX, 0));
+                    }
+                    else
+                    {
+                        locationModel.SetEntrance(locationDescription.Value.Entrance.Position);
+                    }
+                    if (locationDescription.Value.Exit.Position.HasValue)
+                    {
+                        locationModel.SetExit(locationDescription.Value.Exit.Position.Value + new Vector2Int(currentX, 0));
+                    }
+                    else
+                    {
+                        locationModel.SetExit(locationDescription.Value.Exit.Position);
+                    }
+                }
+                
+                LocationModelCollection[locationDescription.Key] = locationModel;
 
                 totalWidth += width + _spacingAfterEveryLocation;
                 maxHeight = Mathf.Max(maxHeight, height);
@@ -59,7 +74,7 @@ namespace Runtime.Landscape.Grid
                 }
             }
 
-            foreach (var locationModel in _locationModelCollection.Values)
+            foreach (var locationModel in LocationModelCollection.Values)
             {
                 PlaceLocation(locationModel, worldDescription);
             }
@@ -135,7 +150,7 @@ namespace Runtime.Landscape.Grid
                     if (dx == 0 && dy == 0)
                         continue;
 
-                    if (Cells[center.x + dx, center.y + dy] != null)
+                    if (IsInsideGrid(new Vector2Int(center.x + dx, center.y + dy)) && Cells[center.x + dx, center.y + dy] != null)
                     {
                         list.Add(new Vector2Int(center.x + dx, center.y + dy));
                     }
@@ -170,26 +185,13 @@ namespace Runtime.Landscape.Grid
                     worldDescription.EnvironmentCollection.Environment.TryGetValue(environment,
                         out var environmentDescription);
 
-                    var globalX = locationModel.X + x;
-                    var globalY = locationModel.Y + y;
+                    var globalX = locationModel.AnchorX + x;
+                    var globalY = locationModel.AnchorY + y;
 
                     Cells[globalX, globalY] =
                         new CellModel(globalX, globalY, surfaceDescription, environmentDescription);
                 }
             }
         }
-    }
-
-    public class LocationModel
-    {
-        public string Name;
-        public int X;
-        public int Y;
-        public int Width;
-        public int Height;
-        public Vector2Int Entrance; // Координаты, на которые перемещается игрок при входе в локацию
-        public Vector2Int Exit; // Куда ведет (координаты здания на другой локации)
-        public int[,] SurfaceMatrix;
-        public int[,] EnvironmentMatrix;
     }
 }

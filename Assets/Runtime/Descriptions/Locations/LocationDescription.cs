@@ -10,6 +10,8 @@ namespace Runtime.Descriptions.Locations
         public int[] Environment { get; }
         public string SurfaceGenerationRules { get; private set; }
         public string EnvironmentGenerationRules { get; private set; }
+        public EntranceDescription Entrance { get; private set; }
+        public ExitDescription Exit { get; private set; }
 
         public LocationDescription(string id, Dictionary<string, object> data) : base(id)
         {
@@ -29,6 +31,16 @@ namespace Runtime.Descriptions.Locations
 
             SurfaceGenerationRules = data.GetString("surface_generation_rules");
             EnvironmentGenerationRules = data.GetString("environment_generation_rules");
+
+            if (data.ContainsKey("entrance"))
+            {
+                Entrance = new EntranceDescription(data.GetNode("entrance"));
+            }
+
+            if (data.ContainsKey("exit"))
+            {
+                Exit = new ExitDescription(data.GetNode("exit"));
+            }
         }
     }
 }

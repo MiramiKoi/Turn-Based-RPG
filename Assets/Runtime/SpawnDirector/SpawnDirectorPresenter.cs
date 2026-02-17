@@ -43,6 +43,7 @@ namespace Runtime.SpawnDirector
             {
                 "solo" => new SoloSpawnRulePresenter(ruleModel, _world),
                 "population" => new PopulationSpawnRule(ruleModel, _world),
+                "doors" => new DoorsSpawnRule(ruleModel, _world),
                 _ => null
             };
 
