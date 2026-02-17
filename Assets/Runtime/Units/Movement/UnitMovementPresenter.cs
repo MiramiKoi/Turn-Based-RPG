@@ -37,19 +37,13 @@ namespace Runtime.Units.Movement
             _model.Movement.OnTeleport -= HandleTeleport;
         }
 
-        private async void HandleTeleport(Vector2Int position)
+        private void HandleTeleport(Vector2Int position)
         {
-            var step = new StepModel(StepType.Parallel);
-            _world.TurnBaseModel.Steps.Enqueue(step);
-
             _world.GridModel.ReleaseCell(_model.State.Position.Value);
             _world.GridModel.GetCell(position).Occupied(_model);
             
-            await step.AllowedAwaiter;
             _view.Transform.DOComplete();
             _view.Transform.position = new Vector3(position.x, position.y, 0);
-            
-            step.CompletedAwaiter.Complete();
         }
 
         private async void HandleMove(Vector2Int position)
