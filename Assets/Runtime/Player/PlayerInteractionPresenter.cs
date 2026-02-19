@@ -116,13 +116,13 @@ namespace Runtime.Player
         
         private void HandleTurnFinished()
         {
-            ChangePlayerMode();
-            
             if (_model.IsDead || _model.Mode != PlayerMode.Adventure)
             {
                 StopRoute();
             }
 
+            ChangePlayerMode();
+            
             if (_model.IsExecutingRoute)
             {
                 ExecuteRouteStep();

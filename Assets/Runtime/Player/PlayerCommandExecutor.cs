@@ -21,7 +21,8 @@ namespace Runtime.Player
                 new TeleportCommand(_player, _world),
                 new MoveCommand(_player, _world),
                 new LootCommand(_player, _world),
-                new AttackCommand(_player, _world)
+                new AttackCommand(_player, _world),
+                new SkipStepCommand(_player)
             };
         }
 
