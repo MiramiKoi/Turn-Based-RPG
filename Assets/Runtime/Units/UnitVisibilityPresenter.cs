@@ -1,10 +1,9 @@
 using System;
 using Runtime.Common;
 using UniRx;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Runtime.Units.Rotation
+namespace Runtime.Units
 {
     public class UnitVisibilityPresenter : IPresenter
     {
