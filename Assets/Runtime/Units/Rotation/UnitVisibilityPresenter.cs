@@ -49,6 +49,7 @@ namespace Runtime.Units.Rotation
         {
             if (_view.Light != null)
             {
+                _view.Light.intensity = Math.Clamp(radius, 0f, 0.5f);
                 _view.Light.pointLightOuterRadius = radius + 3f;
             }
         }
