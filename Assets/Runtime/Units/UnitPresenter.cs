@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Runtime.Common;
 using Runtime.Common.ObjectPool;
 using Runtime.Core;
@@ -74,6 +75,8 @@ namespace Runtime.Units
             _visibilityPresenter.Disable();
             
             _defaultTransformRenderer.Apply(View.TransformRenderer);
+            
+            View.Transform.DOKill();
             _pool.Release(View);
         }
     }
