@@ -8,6 +8,7 @@ namespace Runtime.Units
     public class UnitVisibilityPresenter : IPresenter
     {
         private const string VisibilityRadiusKey = "visibility_radius";
+        private const string HealthKey = "health";
 
         private readonly UnitView _view;
         private readonly UnitModel _model;
@@ -21,30 +22,44 @@ namespace Runtime.Units
 
         public void Enable()
         {
-            _visibleSubscription = _model.State.Visible.Subscribe(OnVisibleChange);
+            _visibleSubscription = _model.State.Visible.Subscribe(HandleVisibleChange);
 
-            _model.Stats[VisibilityRadiusKey].ValueChanged += OnChangeVisibilityRadius;
+            _model.Stats[VisibilityRadiusKey].ValueChanged += HandleChangeVisibilityRadius;
+            _model.Stats[HealthKey].ValueChanged += HandleHealthChanged;
 
-            OnVisibleChange(_model.State.Visible.Value);
+            HandleVisibleChange(_model.State.Visible.Value);
             
-            OnChangeVisibilityRadius(_model.Stats["visibility_radius"].Value);
+            HandleChangeVisibilityRadius(_model.Stats[VisibilityRadiusKey].Value);
         }
 
         public void Disable()
         {
-            _model.Stats[VisibilityRadiusKey].ValueChanged -= OnChangeVisibilityRadius;
+            _model.Stats[VisibilityRadiusKey].ValueChanged -= HandleChangeVisibilityRadius;
+            _model.Stats[HealthKey].ValueChanged -= HandleHealthChanged;
 
             _visibleSubscription?.Dispose();
         }
 
-        private void OnVisibleChange(bool value)
+        private void HandleVisibleChange(bool value)
         {
             _view.SpriteRenderer.enabled = value;
 
             _view.UIDocument.rootVisualElement.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
-        private void OnChangeVisibilityRadius(float radius)
+        private void HandleHealthChanged(float value)
+        {
+            if (value <= 0f)
+            {
+                if (_view.Light != null)
+                {
+                    _view.Light.intensity = 0;
+                    _view.Light.pointLightOuterRadius = 0;
+                }
+            }
+        }
+
+        private void HandleChangeVisibilityRadius(float radius)
         {
             if (_view.Light != null)
             {
