@@ -16,7 +16,7 @@ namespace Runtime.Common
             LuaScript = new Script(CoreModules.Preset_Complete);
         }
 
-        public Table GetModuleAsync(string luaKey)
+        public Table GetModule(string luaKey)
         {
             return _tables[luaKey];
         }

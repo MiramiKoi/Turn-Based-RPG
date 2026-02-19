@@ -43,7 +43,7 @@ namespace Runtime.StatusEffects.Applier
 
         private bool CanApply(StatusEffectDescription description)
         {
-            var module = LuaRuntime.Instance.GetModuleAsync(description.LuaScript);
+            var module = LuaRuntime.Instance.GetModule(description.LuaScript);
 
             var function = module.Get("CanApply");
 
