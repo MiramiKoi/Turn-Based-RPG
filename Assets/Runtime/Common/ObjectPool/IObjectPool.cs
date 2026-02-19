@@ -7,5 +7,7 @@ namespace Runtime.Common.ObjectPool
         T Get();
 
         void Release(T obj);
+        
+        void Dispose();
     }
 }

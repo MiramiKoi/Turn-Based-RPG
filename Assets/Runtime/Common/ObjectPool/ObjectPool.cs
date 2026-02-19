@@ -39,6 +39,16 @@ namespace Runtime.Common.ObjectPool
             _pool.Push(obj);
         }
 
+        public void Dispose()
+        {
+            foreach (var obj in _pool)
+            {
+                Object.Destroy(obj.gameObject);
+            }
+
+            _pool.Clear();
+        }
+
         private T CreateObject(bool isActive = false)
         {
             var obj = Object.Instantiate(_prefab, _container);
