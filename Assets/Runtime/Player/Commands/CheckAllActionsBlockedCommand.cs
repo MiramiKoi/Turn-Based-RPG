@@ -19,6 +19,7 @@ namespace Runtime.Player.Commands
 
         public void Execute(CellModel cell)
         {
+            _player.Mode = PlayerMode.Battle;
         }
     }
 }
