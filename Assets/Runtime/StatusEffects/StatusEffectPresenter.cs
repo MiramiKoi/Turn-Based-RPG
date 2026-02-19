@@ -21,6 +21,7 @@ namespace Runtime.StatusEffects
         private Table _effectTable;
 
         private StatusEffectView _view;
+        private bool _skipFirstTick;
 
         public StatusEffectPresenter(StatusEffectModel model, IObjectPool<StatusEffectView> pool, UnitModel unit,
             World world)
@@ -29,7 +30,6 @@ namespace Runtime.StatusEffects
             _pool = pool;
             _unit = unit;
             _world = world;
-
         }
 
         public void Enable()
@@ -49,6 +49,8 @@ namespace Runtime.StatusEffects
                 Call("OnApply");
                 PlayParticle(_view.OnApplyParticle);
             }
+            
+            _skipFirstTick = true;
 
             switch (_model.Description.Polarity)
             {
@@ -146,15 +148,22 @@ namespace Runtime.StatusEffects
 
         private void HandleTick()
         {
-            Call("OnTick");
-            PlayParticle(_view.OnTickParticle);
-
-            if (!CallBool("CanTick"))
+            if (!_skipFirstTick)
             {
-                _model.IsExpired = true;
-            }
+                Call("OnTick");
+                PlayParticle(_view.OnTickParticle);
 
-            _model.DecrementRemainingTurns();
+                if (!CallBool("CanTick"))
+                {
+                    _model.IsExpired = true;
+                }
+
+                _model.DecrementRemainingTurns();
+            }
+            else
+            {
+                _skipFirstTick = false;
+            }
         }
     }
 }
