@@ -7,6 +7,6 @@ namespace Runtime.ViewDescriptions.Units
     public class UnitViewDescription : ScriptableObject
     {
         public string Id => name;
-        public AssetReferenceT<GameObject> Prefab;
+        public AssetReferenceGameObject Prefab;
     }
 }
