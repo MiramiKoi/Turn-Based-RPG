@@ -13,11 +13,12 @@ namespace Runtime.StatusEffects
     {
         private readonly StatusEffectModel _model;
         private readonly IObjectPool<StatusEffectView> _pool;
+        private readonly UnitModel _unit;
         private readonly World _world;
 
-        private readonly Table _module;
-        private readonly Table _context;
-        private readonly Table _effectTable;
+        private Table _module;
+        private Table _context;
+        private Table _effectTable;
 
         private StatusEffectView _view;
 
@@ -26,19 +27,21 @@ namespace Runtime.StatusEffects
         {
             _model = model;
             _pool = pool;
+            _unit = unit;
             _world = world;
 
-            _module = LuaRuntime.Instance.GetModuleAsync(model.Description.LuaScript);
-            _context = new Table(LuaRuntime.Instance.LuaScript);
-            _effectTable = new Table(LuaRuntime.Instance.LuaScript);
-
-            _context["unit"] = UserData.Create(unit);
-            _context["world"] = UserData.Create(world);
-            _context["effect"] = _effectTable;
         }
 
         public void Enable()
         {
+            _module = LuaRuntime.Instance.GetModule(_model.Description.LuaScript);
+            _context = new Table(LuaRuntime.Instance.LuaScript);
+            _effectTable = new Table(LuaRuntime.Instance.LuaScript);
+
+            _context["unit"] = UserData.Create(_unit);
+            _context["world"] = UserData.Create(_world);
+            _context["effect"] = _effectTable;
+            
             _view = _pool.Get();
 
             if (CallBool("CanApply"))
@@ -87,6 +90,10 @@ namespace Runtime.StatusEffects
                     _world.TurnBaseModel.OnMixedBuffTick -= HandleTick;
                     break;
             }
+            
+            _module = null;
+            _context = null;
+            _effectTable =null;
         }
 
         private void PlayParticle(ParticleSystem system)
