@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Runtime.AsyncLoad;
 using Runtime.Common;
 using Runtime.Common.ObjectPool;
 using Runtime.Core;
@@ -15,7 +16,7 @@ namespace Runtime.Units.Collection
         private readonly WorldViewDescriptions _worldViewDescriptions;
         private readonly World _world;
 
-        private readonly Dictionary<string, IObjectPool<UnitView>> _viewPools = new();
+        private readonly Dictionary<string, (IObjectPool<UnitView>, LoadModel<GameObject>)> _viewPools = new();
         private readonly Dictionary<string, UnitPresenter> _presenters = new();
 
         public UnitModelCollectionPresenter(UnitModelCollection modelCollection, UnitModelCollectionView collectionView,
@@ -34,8 +35,7 @@ namespace Runtime.Units.Collection
                 var loadModel = _world.AddressableModel.Load<GameObject>(viewDescription.Prefab.AssetGUID);
                 await loadModel.LoadAwaiter;
                 var prefab = loadModel.Result.GetComponent<UnitView>();
-                _viewPools[viewDescription.Id] = new ObjectPool<UnitView>(prefab, 10, _collectionView.Transform);
-                _world.AddressableModel.Unload(loadModel);
+                _viewPools[viewDescription.Id] = (new ObjectPool<UnitView>(prefab, 10, _collectionView.Transform), loadModel);
             }
 
             _modelCollection.OnAdded += HandleAdded;
@@ -58,6 +58,14 @@ namespace Runtime.Units.Collection
             }
 
             _presenters.Clear();
+
+            foreach (var (pool, loadModel) in _viewPools.Values)
+            {
+                pool.Dispose();
+                _world.AddressableModel.Unload(loadModel);
+            }
+
+            _viewPools.Clear();
         }
 
         private void AddPresenter(UnitModel model)
@@ -68,13 +76,13 @@ namespace Runtime.Units.Collection
 
             if (model is PlayerModel playerModel)
             {
-                presenter = new PlayerPresenter(playerModel, _viewPools[playerModel.Description.ViewId], _world,
+                presenter = new PlayerPresenter(playerModel, _viewPools[playerModel.Description.ViewId].Item1, _world,
                     _worldViewDescriptions);
                 _world.PlayerModel.Value = playerModel;
             }
             else
             {
-                presenter = new UnitPresenter(model, _viewPools[model.Description.ViewId], _world,
+                presenter = new UnitPresenter(model, _viewPools[model.Description.ViewId].Item1, _world,
                     _worldViewDescriptions);
             }
 
