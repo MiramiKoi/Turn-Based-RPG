@@ -15,23 +15,18 @@ MonoBehaviour:
   m_GroupName: IndicationTiles
   m_GUID: f9d4669f6cb35a7409ebc15988657780
   m_SerializeEntries:
-  - m_GUID: 4056ab00055898346b0f820f74c17bad
-    m_Address: attack-cursor
+  - m_GUID: 00d83d7daf03e8d44b99f4eed2a0f161
+    m_Address: cursor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c5b6aaeeffc8de4ca26c1141e467e74
+    m_Address: red-cursor
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a5a1a2600d518b4c84a0c12084bccf8
     m_Address: route-point
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c65c116c07ccd25409811148560a18d0
-    m_Address: cursor
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e0655a9ae6e7a2c498878577934477fd
-    m_Address: cursor-v2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

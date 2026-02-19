@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GridIndicationViewDescription
   m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Grid.GridIndicationViewDescription
   CellCursorAsset:
-    m_AssetGUID: e0655a9ae6e7a2c498878577934477fd
+    m_AssetGUID: 00d83d7daf03e8d44b99f4eed2a0f161
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
@@ -25,7 +25,7 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   AttackPointAsset:
-    m_AssetGUID: 4056ab00055898346b0f820f74c17bad
+    m_AssetGUID: 5c5b6aaeeffc8de4ca26c1141e467e74
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
