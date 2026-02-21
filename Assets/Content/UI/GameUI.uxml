@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/StatusEffects/status-effect-collection-style.uss?fileID=7433441132597879392&amp;guid=e62c665fc71438b4981488beed9dd1ca&amp;type=3#status-effect-collection-style"/>
+    <Style src="project://database/Assets/Content/UI/Styles/Inventory-styles.uss?fileID=7433441132597879392&amp;guid=c1b2594e4eb72fe44a78f45c284d0e4f&amp;type=3#Inventory-styles"/>
+    <ui:VisualElement name="content" picking-mode="Ignore" style="flex-grow: 1; display: flex;"/>
+</ui:UXML>

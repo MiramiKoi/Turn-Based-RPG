@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f2e350ac9a490cb50df392c9429839, type: 3}
+  m_Name: SurfaceViewDescriptionCollection
+  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Surface.SurfaceViewDescriptionCollection
+  _descriptions:
+  - {fileID: 11400000, guid: 10a8c2d3c5db3e140a576ff522dfb48c, type: 2}
+  - {fileID: 11400000, guid: de1a0181287d68142a7b98f4349ceaf9, type: 2}
+  - {fileID: 11400000, guid: c2bfaf76b30152f4c98f31dc9aaa448e, type: 2}
+  - {fileID: 11400000, guid: b9a79998547289a45aa45715b13700ab, type: 2}
+  - {fileID: 11400000, guid: 997507d90b9a5da4ca6169fac06027f5, type: 2}

@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Descriptions
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Descriptions
+  m_GUID: 561ebd7700bca82478674b84911b6d21
+  m_SerializeEntries:
+  - m_GUID: 28dada44e72e43428726941f18153246
+    m_Address: spawn-director-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44c63747aeaf43108d0e60ae403a3f1e
+    m_Address: surface-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c7697391024aee4693d1e9fffd260b7
+    m_Address: patrol-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 680de9c9c86741f5aff1086b5a020604
+    m_Address: environment-generation-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ad054e1730545cfb08d66d39572a0c8
+    m_Address: status-effect-descriptions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74ed32b1cf4033e4792fc3676089a22b
+    m_Address: panda-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75b0622782643dd4e9236a56ccd0fea8
+    m_Address: hunter-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78d8df65b535d914ab22baa272b5f295
+    m_Address: archer-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8145d80b5f0bf2a459a8d84bb6ba38ff
+    m_Address: environment-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9866e8879fed41beb619c0cb41d27a2a
+    m_Address: camera-control-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a758673cdfe46444680444e75ba83420
+    m_Address: bear-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9f6c1ad1b6c495b8ac3171f63d01825
+    m_Address: items-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c37e1db957144d13b0c0e9b8f8e3f4ac
+    m_Address: locations-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c824668476e87ec4ab1a1c8674382149
+    m_Address: run-away-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8d5426cc47c82c42970a4368d6b3512
+    m_Address: sheep-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e98a07bff6ab48f48a3dbdcba69b0759
+    m_Address: surface-generation-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efa709fb015da2c4e964d0d95068e9b3
+    m_Address: trader-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd617ed6732347818d638c34dcb32b75
+    m_Address: unit-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: feb972889bae9904eb7581a8f23ceacf
+    m_Address: loot-description
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c475ff8f5916add4780dd2acd4f1f97a, type: 2}
+    - {fileID: 11400000, guid: 38559db869752ce4493e2753a5371d86, type: 2}

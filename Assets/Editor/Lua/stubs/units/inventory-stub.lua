@@ -1,0 +1,22 @@
+﻿---@class InventoryModel
+---@field Enabled boolean
+---@field Cells InventoryCellModel[]
+---@field TryPutItem fun(self:InventoryModel, item:any, amount:number):number
+---@field TryTakeItem fun(self:InventoryModel, item:any, amount:number):number
+---@field IsEmpty fun(self:InventoryModel):boolean
+---@field CanExtract fun(self:InventoryModel, item:any, amount:number):boolean
+
+---@class InventoryCellModel
+---@field ItemDescription any
+---@field Amount number
+---@field TryPut fun(self:InventoryCellModel, item:any, amount:number):number
+---@field TryTake fun(self:InventoryCellModel, amount:number):boolean
+---@field CellSelect fun(self:InventoryCellModel)
+---@field CellDeselect fun(self:InventoryCellModel)
+
+---@class EquipmentModel
+---@field Inventory InventoryModel
+---@field Add fun(self:EquipmentModel, description:any)
+---@field Remove fun(self:EquipmentModel, equipmentType:string) @Returns oldEquipment as second return value in Lua if handled by bridge
+---@field Change fun(self:EquipmentModel, description:any) @Returns oldEquipment as second return value in Lua if handled by bridge
+---@field TryGetStats fun(self:EquipmentModel, equipmentType:string):any

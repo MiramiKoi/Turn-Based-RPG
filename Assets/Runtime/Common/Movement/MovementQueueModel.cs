@@ -1,0 +1,38 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Runtime.Common.Movement
+{
+    public class MovementQueueModel
+    {
+        public bool HasSteps => _steps.Count > 0;
+        public IReadOnlyCollection<Vector2Int> Steps => _steps;
+
+        private readonly Queue<Vector2Int> _steps = new();
+
+        public void SetPath(IReadOnlyList<Vector2Int> path)
+        {
+            _steps.Clear();
+            if (path is not { Count: > 1 })
+                return;
+
+            for (var i = 1; i < path.Count; i++)
+                _steps.Enqueue(path[i]);
+        }
+
+        public void Clear()
+        {
+            _steps.Clear();
+        }
+
+        public bool TryDequeue(out Vector2Int result)
+        {
+            result = Vector2Int.zero;
+            if (_steps.Count <= 0)
+                return false;
+
+            result = _steps.Dequeue();
+            return true;
+        }
+    }
+}

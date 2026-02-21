@@ -1,0 +1,78 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "3p",
+               "command" : {
+                  "type" : "set_random_point_of_interest",
+                  "point_of_interest" : "patrol",
+                  "radius" : 4,
+                  "near_with_point_of_interest" : false,
+                  "target_near_point_of_interest" : ""
+               },
+               "_editor" : {
+                  "position" : [
+                     -315,
+                     301
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "4p",
+               "command" : {
+                  "type" : "has_point_of_interest",
+                  "point_of_interest" : "patrol"
+               },
+               "_editor" : {
+                  "position" : [
+                     97,
+                     350
+                  ]
+               }
+            },
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "5p",
+               "command" : {
+                  "type" : "move_to_point_of_interest",
+                  "point_of_interest" : "patrol"
+               },
+               "_editor" : {
+                  "position" : [
+                     504,
+                     350
+                  ]
+               }
+            }
+         ],
+         "name" : "2p",
+         "_editor" : {
+            "position" : [
+               23,
+               175
+            ]
+         }
+      }
+   ],
+   "name" : "1p",
+   "_editor" : {
+      "position" : [
+         0,
+         0
+      ]
+   }
+}

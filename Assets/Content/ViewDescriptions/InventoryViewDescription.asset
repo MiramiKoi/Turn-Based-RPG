@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5cbaa0d345480aa51607f01509251d, type: 3}
+  m_Name: InventoryViewDescription
+  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Inventory.InventoryViewDescription
+  InventoryAsset: {fileID: 9197481963319205126, guid: b5259a3993f54f74cac985786ddd7713, type: 3}
+  EquipmentAsset: {fileID: 9197481963319205126, guid: a748e4682d0318b46b0572deea45319c, type: 3}
+  CellAsset: {fileID: 9197481963319205126, guid: bc0e823db7436af4bb76b1f1559ce9b9, type: 3}

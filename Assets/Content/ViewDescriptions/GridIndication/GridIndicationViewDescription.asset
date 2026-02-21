@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1859cb2ce4c44888b8e248ff1102ec7, type: 3}
+  m_Name: GridIndicationViewDescription
+  m_EditorClassIdentifier: Pivo.TurnBasedRPG.Runtime::Runtime.ViewDescriptions.Landscape.Grid.GridIndicationViewDescription
+  CellCursorAsset:
+    m_AssetGUID: 00d83d7daf03e8d44b99f4eed2a0f161
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  RoutePointAsset:
+    m_AssetGUID: 6a5a1a2600d518b4c84a0c12084bccf8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  AttackPointAsset:
+    m_AssetGUID: 5c5b6aaeeffc8de4ca26c1141e467e74
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

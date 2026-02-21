@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using Runtime.Descriptions.Agents.Nodes;
+using Runtime.Extensions;
+using Runtime.ModelCollections;
+
+namespace Runtime.Descriptions.Agents.Commands
+{
+    public abstract class CommandDescription : IUnitCommand, ISerializable, IDeserializable
+    {
+        public const string TypeKey = "type";
+
+        public abstract string Type { get; }
+
+        public abstract NodeStatus Execute(IWorldContext context, IControllable controllable);
+
+        public virtual Dictionary<string, object> Serialize()
+        {
+            return new Dictionary<string, object>
+            {
+                { TypeKey, Type }
+            };
+        }
+
+        public abstract void Deserialize(Dictionary<string, object> data);
+
+        public static CommandDescription CreateCommand(string type)
+        {
+            CommandDescription command = type switch
+            {
+                "log" => new LogCommand(),
+                "distance_point_of_interest" => new DistancePointOfInterestCommand(),
+                "has_flag" => new HasFlagCommand(),
+                "has_point_of_interest" => new HasPointOfInterestCommand(),
+                "move_to_point_of_interest" => new MoveToPointOfInterestCommand(),
+                "move_from_point_of_interest" => new MoveFromPointOfInterestCommand(),
+                "set_flag" => new SetFlagCommand(),
+                "set_random_point_of_interest" => new SetRandomPointOfInterestCommand(),
+
+                "has_unit_with_fraction" => new HasUnitWithFractionCommand(),
+                "has_unit_with_friendly_fraction" => new HasUnitWithFriendlyFractionCommand(),
+                "has_unit_with_enemy_fraction" => new HasUnitWithEnemyFractionCommand(),
+
+                "set_point_of_interest_with_fraction" => new SetPointOfInterestWithFractionCommand(),
+                "set_point_of_interest_with_friendly_fraction" => new SetPointOfInterestWithFriendlyFractionCommand(),
+                "set_point_of_interest_with_enemy_fraction" => new SetPointOfInterestWithEnemyFractionCommand(),
+                "set_point_of_interest_with_another_fraction" => new SetPointOfInterestWithAnotherFractionCommand(),
+
+                "can_place_point_of_interest" => new CanPlacePointOfInterestCommand(),
+                "attack_point_of_interest" => new AttackPointOfInterestCommand(),
+                "stat_condition" => new CheckStatCommand(),
+                "has_unit_with_another_fraction" => new HasUnitWithAnotherFractionCommand(),
+                "check_stat_point_of_interest" => new CheckStatPointOfInterest(),
+                "check_stat_percent" => new CheckStatPercentCommand(),
+                "can_see_point_of_interest" => new CanSeePointOfInterest(),
+                "apply_random_effect_point_of_interest" => new ApplyRandomEffectPointOfInterest(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return command;
+        }
+
+        public static CommandDescription CreateCommandFromData(Dictionary<string, object> data)
+        {
+            var type = data.GetString(TypeKey);
+
+            var command = CreateCommand(type);
+
+            command.Deserialize(data);
+
+            return command;
+        }
+    }
+}

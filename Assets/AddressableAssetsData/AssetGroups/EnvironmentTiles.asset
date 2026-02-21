@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EnvironmentTiles
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: EnvironmentTiles
+  m_GUID: d51c2b6528648814bbf4fefff1f0c73a
+  m_SerializeEntries:
+  - m_GUID: 77490b1a86dae9c4797e1a2d8ef9584c
+    m_Address: Stone
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a49a202e92b9de4499c157424c35e22
+    m_Address: Stump
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85330aba51436d043b79eab8952a3cbe
+    m_Address: Wall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afa34e65e6cb72741be9bbf44fe88392
+    m_Address: Tree
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb2d29dd27ea26a4f987e3a00a6b5034
+    m_Address: Grass
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da792e444e8368a4e9bf13ead6248084
+    m_Address: Empty
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 77b2904661dfc2e478206f67e1726abc, type: 2}
+    - {fileID: 11400000, guid: 11e9b97a36c5fa149a260889f2dd5e2d, type: 2}

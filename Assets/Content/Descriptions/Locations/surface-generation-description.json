@@ -1,0 +1,20 @@
+{
+  "island": {
+    "width": 90,
+    "length": 110,
+    "seed": 17,
+    "base_shape_factor": 0.95,    
+    "erosion_intensity": 0.09,
+    "erosion_radius": 4,
+    "erosion_depth": 15,
+    "smoothing_iterations": 5,
+    
+    "biomes_count": 10,
+    "biome_smoothing_iterations": 9
+  },
+  "shop": {
+    "width": 25,
+    "length": 10,
+    "seed": 25
+  }
+}

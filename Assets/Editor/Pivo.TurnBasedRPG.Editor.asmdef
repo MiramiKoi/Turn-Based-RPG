@@ -1,0 +1,18 @@
+{
+  "name": "Pivo.TurnBasedRPG.Editor",
+  "references": [
+    "GUID:c19d80a018416d84e81aa66550f38117",
+    "GUID:019c56cbc54a24a4297095f299b0423f"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

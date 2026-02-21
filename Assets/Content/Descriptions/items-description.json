@@ -1,0 +1,81 @@
+{
+  "money": {
+    "type": "resource",
+    "view_id": "Money",
+    "stack_size": 50,
+    "is_buyable": false,
+    "price": 1
+  },
+  "bear_fur": {
+    "type": "resource",
+    "view_id": "Bear-fur",
+    "stack_size": 10,
+    "is_buyable": true,
+    "price": 30
+  },
+  "sheep_wool": {
+    "type": "resource",
+    "view_id": "Sheep-wool",
+    "stack_size": 15,
+    "is_buyable": true,
+    "price": 50
+  },
+  "bear_meat": {
+    "type": "food",
+    "view_id": "Bear-meat",
+    "stack_size": 20,
+    "is_buyable": true,
+    "price": 10
+  },
+  "simple_sword": {
+    "type": "equipment",
+    "view_id": "Simple-sword",
+    "stack_size": 1,
+    "is_buyable": true,
+    "price": 10,
+    "equipment_type": "weapon",
+    "stats": {
+      "attack_damage" : 10
+    }
+  },
+  "simple_breastplate": {
+    "type": "equipment",
+    "view_id": "Simple-breastplate",
+    "stack_size": 1,
+    "is_buyable": true,
+    "price": 10,
+    "equipment_type": "armour",
+    "stats": {
+      "protection" : 25
+    }
+  },
+  "key": {
+    "type": "key",
+    "view_id": "Key",
+    "stack_size": 1,
+    "is_buyable": false,
+    "price": 0
+  },
+  "mega_sword": {
+    "type": "equipment",
+    "view_id": "Mega-sword",
+    "stack_size": 1,
+    "is_buyable": true,
+    "price": 100,
+    "equipment_type": "weapon",
+    "stats": {
+      "attack_damage" : 100
+    }
+  },
+  "mega_breastplate": {
+    "type": "equipment",
+    "view_id": "Mega-breastplate",
+    "stack_size": 1,
+    "is_buyable": true,
+    "price": 200,
+    "equipment_type": "armour",
+    "stats": {
+      "protection": 90
+    }
+  }
+}

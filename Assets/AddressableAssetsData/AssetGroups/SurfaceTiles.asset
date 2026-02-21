@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SurfaceTiles
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: SurfaceTiles
+  m_GUID: 89f81b3b9cce1804bb6c5dcee04c3299
+  m_SerializeEntries:
+  - m_GUID: 1c5523ea57d8a3b41b370799ec7aa457
+    m_Address: Floor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 412ea6b397a7e8849ba5d4641508f524
+    m_Address: PurpleGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 699f72ea180b89243851638a0cf6d1cd
+    m_Address: Ground
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99052f61f2cfb1f4985e8f03210543bb
+    m_Address: YellowGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6a8850c2f6f9304185388d657902f40
+    m_Address: OrangeGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 28cd720df34b73f4f9484aa95544e2a3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 218fa12ecbe9020468afdd82915b6033, type: 2}
+    - {fileID: 11400000, guid: 97c189977fb703a48aa185cf345df25f, type: 2}

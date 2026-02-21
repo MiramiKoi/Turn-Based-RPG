@@ -1,0 +1,118 @@
+﻿{
+  "spawn_rules": {
+    "character": {
+      "unit_description": "character",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "random"
+      },
+      "corpse": {
+        "lifetime_steps": 50
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 1
+      }
+    },
+    "bear": {
+      "unit_description": "bear",
+      "rule_type": "population",
+      "count": 5,
+      "spawn": {
+        "mode": "random"
+      },
+      "corpse": {
+        "lifetime_steps": 10
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 25
+      }
+    },
+    "sheep": {
+      "unit_description": "sheep",
+      "rule_type": "population",
+      "count": 5,
+      "spawn": {
+        "mode": "random"
+      },
+      "corpse": {
+        "lifetime_steps": 10
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 25
+      }
+    },
+    "panda": {
+      "unit_description": "panda",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "fixed",
+        "position": [
+          50,
+          80
+        ]
+      },
+      "corpse": {
+        "lifetime_steps": 20
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 50
+      }
+    },
+    "archer": {
+      "unit_description": "archer",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "fixed",
+        "position": [
+          60,
+          70
+        ]
+      },
+      "corpse": {
+        "lifetime_steps": 20
+      },
+      "respawn": {
+        "enabled": false,
+        "delay_steps": 50
+      }
+    },
+    "trader": {
+      "unit_description": "trader",
+      "rule_type": "solo",
+      "spawn": {
+        "mode": "fixed",
+        "position": [
+          50,
+          50
+        ]
+      },
+      "corpse": {
+        "lifetime_steps": 15
+      },
+      "respawn": {
+        "enabled": true,
+        "delay_steps": 40
+      }
+    },
+    "chest": {
+      "unit_description": "chest",
+      "rule_type": "population",
+      "count": 3,
+      "spawn": {
+        "mode": "random"
+      }
+    },
+    "door": {
+      "unit_description": "door",
+      "rule_type": "doors",
+      "count": 3,
+      "spawn": {
+        "mode": "random"
+      }
+    }
+  }
+}

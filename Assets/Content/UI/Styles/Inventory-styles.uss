@@ -1,0 +1,92 @@
+.loot-inventory {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    translate: -445px 500px;
+    max-height: 328px;
+    max-width: 228px;
+    margin-right: 0;
+    flex-grow: 1;
+    border-left-color: rgb(189, 162, 140);
+    border-right-color: rgb(189, 162, 140);
+    border-top-color: rgb(189, 162, 140);
+    border-bottom-color: rgb(189, 162, 140);
+    background-color: rgb(178, 150, 123);
+}
+
+.player-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 428px;
+    max-height: 328px;
+    margin-right: 20px;
+    translate: 0 500px;
+    border-left-color: rgb(189, 162, 140);
+    border-right-color: rgb(189, 162, 140);
+    border-top-color: rgb(189, 162, 140);
+    border-bottom-color: rgb(189, 162, 140);
+    background-color: rgb(178, 150, 123);
+}
+
+.trade-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 428px;
+    max-height: 328px;
+    margin-right: 20px;
+    translate: -425px 500px;
+    border-left-color: rgb(189, 162, 140);
+    border-right-color: rgb(189, 162, 140);
+    border-top-color: rgb(189, 162, 140);
+    border-bottom-color: rgb(189, 162, 140);
+    background-color: rgb(178, 150, 123);
+}
+
+.equipment-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-height: 124px;
+    margin-right: 20px;
+    translate: 0 383px;
+    min-height: 124px;
+}
+
+.trash-inventory {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    max-width: 128px;
+    max-height: 124px;
+    margin-right: 20px;
+    translate: 0 822px;
+    background-color: rgb(152, 78, 88);
+    border-left-color: rgb(189, 162, 140);
+    border-right-color: rgb(189, 162, 140);
+    border-top-color: rgb(189, 162, 140);
+    border-bottom-color: rgb(189, 162, 140);
+}
+
+.cell {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-image: url("project://database/Assets/Content/Imports/Tiny%20Swords/UI/Buttons/Button_Disable_9Slides.png?fileID=21300000&guid=6976260b573e5d14498c4909232be1e8&type=3#Button_Disable_9Slides");
+}
+
+.cell:hover {
+    -unity-background-image-tint-color: rgb(207, 207, 207);
+    opacity: 1;
+}
+
+.cell-selected {
+    -unity-background-image-tint-color: rgb(140, 230, 255);
+}
+
+.cell-trash {
+    background-image: url("project://database/Assets/Content/Imports/Tiny%20Swords/UI/Buttons/Button_Red_9Slides_Pressed.png?fileID=2800000&guid=7d395a8cb719e9f4589177d281edd873&type=3#Button_Red_9Slides_Pressed");
+}
+
+.cell-equipment {
+    background-image: url("project://database/Assets/Content/Imports/Tiny%20Swords/UI/Buttons/Button_Blue_9Slides_Pressed.png?fileID=21300000&guid=f199ce01b1b7de545adf0d82ce9f45df&type=3#Button_Blue_9Slides_Pressed");
+}

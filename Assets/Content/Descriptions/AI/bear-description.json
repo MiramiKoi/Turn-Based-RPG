@@ -1,0 +1,128 @@
+{
+   "type" : "root",
+   "children" : [
+      {
+         "type" : "sequence",
+         "children" : [
+            {
+               "type" : "leaf",
+               "children" : [
+                  
+               ],
+               "name" : "",
+               "command" : {
+                  "type" : "stat_condition",
+                  "stat" : "health",
+                  "operation" : ">",
+                  "value" : 0
+               },
+               "_editor" : {
+                  "position" : [
+                     -732.6667,
+                     -468.6667
+                  ]
+               }
+            },
+            {
+               "type" : "selector",
+               "children" : [
+                  {
+                     "type" : "sequence",
+                     "children" : [
+                        {
+                           "type" : "leaf",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "command" : {
+                              "type" : "check_stat_percent",
+                              "stat" : "health",
+                              "operation" : "<=",
+                              "value" : 0.5
+                           },
+                           "_editor" : {
+                              "position" : [
+                                 -1044,
+                                 118
+                              ]
+                           }
+                        },
+                        {
+                           "type" : "link",
+                           "children" : [
+                              
+                           ],
+                           "name" : "",
+                           "description_id" : "run-away",
+                           "_editor" : {
+                              "position" : [
+                                 -687.3333,
+                                 118
+                              ]
+                           }
+                        }
+                     ],
+                     "name" : "",
+                     "_editor" : {
+                        "position" : [
+                           -732.6667,
+                           -78.66667
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "link",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "description_id" : "hunter",
+                     "_editor" : {
+                        "position" : [
+                           -346.6667,
+                           39.33334
+                        ]
+                     }
+                  },
+                  {
+                     "type" : "link",
+                     "children" : [
+                        
+                     ],
+                     "name" : "",
+                     "description_id" : "patrol",
+                     "_editor" : {
+                        "position" : [
+                           0,
+                           0
+                        ]
+                     }
+                  }
+               ],
+               "name" : "",
+               "_editor" : {
+                  "position" : [
+                     -378.6667,
+                     -332
+                  ]
+               }
+            }
+         ],
+         "name" : "",
+         "_editor" : {
+            "position" : [
+               -444.6667,
+               -556.6667
+            ]
+         }
+      }
+   ],
+   "name" : "Test",
+   "_editor" : {
+      "position" : [
+         -298.6667,
+         -688
+      ]
+   }
+}
